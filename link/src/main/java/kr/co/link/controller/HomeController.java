@@ -1,4 +1,4 @@
-package kr.co.link;
+package kr.co.link.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
