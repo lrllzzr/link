@@ -48,8 +48,8 @@
         <hr class="main-row-hr-1" />
         <div class="row main-row-2">
             <div class="col-sm-2 text-center main-col">
-                <div class="main-menu"><a href="">블로그</a></div>
-                <a href="WEB-INF/views/blog/blogmain.html"><img style="" src="resources/images/blog.png" alt=""></a>
+                <div class="main-menu"><a href="/link/blog/main.do">블로그</a></div>
+                <a href="/link/blog/main.do"><img style="" src="resources/images/blog.png" alt=""></a>
             </div>
             <div class="col-sm-2 text-center main-col">
                 <div class="main-menu"><a href="">BAND</a></div>
