@@ -24,10 +24,18 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
+	<servlet-mapping>
+		<servlet-name>link</servlet-name>
+		<url-pattern>*.com</url-pattern>	
+	</servlet-mapping>
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<include-prelude>/WEB-INF/views/common/jstl.jsp</include-prelude>
+		</jsp-property-group>
+	</jsp-config>
 </web-app>
