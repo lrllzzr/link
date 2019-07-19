@@ -9,8 +9,12 @@
 <link rel="stylesheet" href="/link/resources/css/bootstrap.css">
 <link rel="stylesheet" href="/link/resources/css/blog.css">
 <link rel="stylesheet" href="/link/resources/css/blog/beautymain.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 .blog_layout_row1 {
 	padding: 20px;
@@ -123,15 +127,55 @@
 
 .blog_beauty_col1 {
 	background-color: #8b9094;
-	height: 500px;
+	height: 800px;
+	margin-bottom: 20px;
 }
 
-.blog_beauty_col1 span {
+.beauty_yellow {
 	color: yellow;
+}
+
+.beautify_form {
+	margin-top: 15px;
 }
 
 #layout1, #layout2, #layout3, #layout4 {
 	cursor: pointer;
+}
+
+.beautify_menu1 {
+	border-radius: 7px;
+	color: gray;
+	font-size: 12px;
+	background-color: #f5f5f5;
+	cursor: pointer;
+	margin: 5px 0px;
+	padding: 10px 15px;
+	text-align: center;
+}
+
+.beautify_menu3 {
+	border-radius: 7px;
+	color: gray;
+	font-size: 12px;
+	background-color: #f5f5f5;
+	margin: 5px 0px;
+	padding: 50px;
+	text-align: center;
+	height: 600px;
+}
+
+.beautify_menu2 {
+	border-radius: 7px;
+	color: gray;
+	background-color: #f5f5f5;
+	cursor: pointer;
+	padding: 7px 15px;
+	margin-bottom: 5px;
+}
+
+.blog_beauty_con {
+	margin-bottom: 60px;
 }
 </style>
 </head>
@@ -200,16 +244,41 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-10">
+						<div class="col-sm-12">
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="blog_beauty_col1">
 										<div class="col-sm-12">
-											<div class="text-center">
-												<span>마우스로 드래그해서 원하는 위치에 놓으세요.</span>
+											<div class="col-sm-12 beautify_form">
+												<div class="text-center">
+													<span class="beauty_yellow" style="font-variant: small-caps; font-weight: bold;">마우스로 드래그해서 원하는 위치에 놓으세요.</span>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-2 col-sm-offset-9 text-center">
+													<div class="beautify_menu1">네이버메뉴</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-10 col-sm-offset-1 text-center">
+													<div class="beautify_menu2">메뉴형태</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-2 col-sm-offset-1">
+													<div class="row">
+														<div class="col-sm-12" id="box">
+															<div class="col-sm-12 beautify_menu1">프로필영역</div>
+															<div class="col-sm-12 beautify_menu1">카테고리</div>
+															<div class="col-sm-12 beautify_menu1">블로그정보</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-sm-8">
+													<div class="beautify_menu3">글 영역(넓게)</div>
+												</div>
 											</div>
 										</div>
-										<div class="col-sm-3">하이하이</div>
 									</div>
 									<div class="col-sm-12 text-center blog_beauty_bottombtndiv">
 										<button type="submit" class="btn blog_beuaty_submit_button">적용</button>
@@ -223,7 +292,12 @@
 			</form>
 		</div>
 	</div>
-
+	<script>
+		$(function() {
+			$("#box").sortable();
+			$("#box").disableSelection();
+		});
+	</script>
 </body>
 </html>
 
