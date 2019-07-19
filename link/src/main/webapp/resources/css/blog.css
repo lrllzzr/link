@@ -6,7 +6,9 @@ a:focus {
 a {
     color: #666666;
 }
-
+.blog-hr-row div span{
+	cursor: pointer;
+}
 .main-nav {
     background-color: #649dfa;
 }
