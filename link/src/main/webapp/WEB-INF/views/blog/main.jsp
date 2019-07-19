@@ -160,7 +160,6 @@
                             <span>방송</span>
                             <span>인테리어</span>
                             <span>문학</span>
-                            
                         </div>
                     </div>
                      <div class="blog-hrdiv">
