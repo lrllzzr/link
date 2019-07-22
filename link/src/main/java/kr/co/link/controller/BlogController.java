@@ -142,11 +142,14 @@ public class BlogController {
 		Blog blog = blogservice.getBlogByUserId(userId);
 		model.addAttribute("blog",blog);
 		
+		
 		List<BlogSubCategory> blogSubCategories = blogSubCategoryService.getSubCategoryByBlogNo(blog.getNo());
 		for(BlogSubCategory blogSubCategory : blogSubCategories) {
-			List<BlogCategory> blogCategories = blogSubCategory.getBlogCategory();
+			List<BlogCategory> blogCategories = blogCategoryService.getCategoryBySubCategory(blogSubCategory.getNo());
+			blogSubCategories.add(blogSubCategory);
+			
 			for(BlogCategory blogCategory : blogCategories) {
-				List<BlogBoard> blogBoards = blogCategory.getBoards();
+				List<BlogBoard> blogBoards = blogBoardService.getBoardByCategory(blogCategory.getNo());
 				
 			}
 		}
