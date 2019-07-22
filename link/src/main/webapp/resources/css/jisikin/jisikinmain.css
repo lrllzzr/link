@@ -1,0 +1,15 @@
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+
+.navbar-nav > li > .dropdown-menu {
+    padding-right: 20px;
+}
+
+.menu-tab {
+    border-right: 1px solid black;
+}
+
+.menu-tab::before {
+    border-right: 0px solid black;
+}

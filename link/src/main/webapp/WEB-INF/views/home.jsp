@@ -18,7 +18,7 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <ul class="nav navbar-nav navbar-right">
-                <li class=""><a class="main-login" style="color:#666666;" href="#">로그인</a></li>
+                <li class=""><a class="main-login" style="color:#666666;" href="loginform.do">로그인</a></li>
             </ul>
         </div>
     </nav>
