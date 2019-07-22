@@ -27,7 +27,7 @@
                                 <a href="">쪽지<span class="glyphicon glyphicon-play blog-detail-profile"></span></a>
                             </div>
                             <div class="col-sm-12 blog_detail_leftcol_contents2">
-                                <a href=""><span class="glyphicon glyphicon-tags blog-detail-function1"></span>&nbsp;글쓰기</a>
+                                <a href="write.do"><span class="glyphicon glyphicon-tags blog-detail-function1"></span>&nbsp;글쓰기</a>
                                 <a href="beauty.do"><span class="glyphicon glyphicon-cog blog-detail-function2"></span>&nbsp;관리,통계</a>
                             </div>
                             <div class="col-sm-8 col-sm-offset-2 blog_detail_neighborplus text-center">

@@ -24,6 +24,13 @@
 		</repository>
 	</repositories>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.servlets/cos -->
+		<dependency>
+		    <groupId>com.servlets</groupId>
+		    <artifactId>cos</artifactId>
+		    <version>05Nov2002</version>
+		</dependency>
+		
 		<!-- 폼객체 유효성 체크 엔진 라이브러리 -->
 		<dependency>
 		    <groupId>org.hibernate.validator</groupId>
