@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Jura|Marck+Script|Russo+One|Sacramento&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../../../resources/css/user/loginform.css">
+    <link rel="stylesheet" href="/link/resources/css/user/loginform.css">
     <style>
       
     </style>
@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2 text-center">
                 <div>
-                    <form class="well">
+                    <form class="well" method="POST" action="loginform.do">
                         <div class="form-group">
                             <input type="text" class="login-input" placeholder="아이디" value=""/>
                         </div>

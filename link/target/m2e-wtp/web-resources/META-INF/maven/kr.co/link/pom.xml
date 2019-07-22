@@ -19,11 +19,54 @@
 	
 	<repositories>
 		<repository>
-			<id>codelds</id>
-			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
+			<id>oracle</id>
+			<name>ORACLE JDBC Repository</name>
+			<url>http://maven.jahia.org/maven2</url>
 		</repository>
 	</repositories>
-	<dependencies>
+	
+		<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<!-- mybatis -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis</artifactId>
+		    <version>3.5.2</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.mybatis</groupId>
+		  <artifactId>mybatis-spring</artifactId>
+		  <version>2.0.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- oracle추가 -->
+		<dependency> 
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>12.1.0.2</version>
+		</dependency>
+		
+		<!-- jdbc추가 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
 		<!-- 폼객체 유효성 체크 엔진 라이브러리 -->
 		<dependency>
 		    <groupId>org.hibernate.validator</groupId>
@@ -36,18 +79,7 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.9.9</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc6</artifactId>
-			<version>11.2.0.3</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.ibatis/ibatis-sqlmap -->
-		<dependency>
-		    <groupId>org.apache.ibatis</groupId>
-		    <artifactId>ibatis-sqlmap</artifactId>
-		    <version>2.3.4.726</version>
-		</dependency>
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
