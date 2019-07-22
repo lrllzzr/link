@@ -25,4 +25,9 @@ public class BlogBoardServiceImpl implements BlogBoardService{
 		BlogBoard blogBoard = blogBoardDao.getBoardByboardNo(boardNo);
 		return blogBoard;
 	}
+
+	@Override
+	public void addBoard(BlogBoard blogBoard) {
+		blogBoardDao.addBoard(blogBoard);
+	}
 }

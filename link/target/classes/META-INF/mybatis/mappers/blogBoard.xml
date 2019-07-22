@@ -10,7 +10,8 @@
 		BOARD_TITLE title,
 		BOARD_CONTENTS contents,
 		BOARD_CREATE_DATE createDate,
-		CATEGORY_NO categoryNo
+		CATEGORY_NO categoryNo,
+		BOARD_MAIN_IMG mainImg
 	from
 		blog_boards
 	where
@@ -22,11 +23,15 @@
 		BOARD_TITLE title,
 		BOARD_CONTENTS contents,
 		BOARD_CREATE_DATE createDate,
-		CATEGORY_NO categoryNo
+		CATEGORY_NO categoryNo,
+		BOARD_MAIN_IMG mainImg
 	from
 		blog_boards
 	where
 		board_no = #{value}
 </select>
-
+<insert id="addBoard" parameterType="blogboard">
+	insert into blog_boards
+	values(blog_seq.nextval, #{title},#{contents},sysdate,#{categoryNo},#{mainImg})
+</insert>
 </mapper>

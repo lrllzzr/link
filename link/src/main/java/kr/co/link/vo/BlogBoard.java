@@ -8,7 +8,15 @@ public class BlogBoard {
 	private String contents;
 	private Date createDate;
 	private Integer categoryNo;
+	private String mainImg;
 	
+	
+	public String getMainImg() {
+		return mainImg;
+	}
+	public void setMainImg(String mainImg) {
+		this.mainImg = mainImg;
+	}
 	public Integer getNo() {
 		return no;
 	}

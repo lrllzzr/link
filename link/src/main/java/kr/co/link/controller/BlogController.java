@@ -1,17 +1,23 @@
 package kr.co.link.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.link.form.BlogBoardForm;
 import kr.co.link.service.BlogBoardService;
 import kr.co.link.service.BlogCategoryService;
 import kr.co.link.service.BlogService;
@@ -142,15 +148,15 @@ public class BlogController {
 		Blog blog = blogservice.getBlogByUserId(userId);
 		model.addAttribute("blog",blog);
 		
-		
 		List<BlogSubCategory> blogSubCategories = blogSubCategoryService.getSubCategoryByBlogNo(blog.getNo());
 		for(BlogSubCategory blogSubCategory : blogSubCategories) {
+			
 			List<BlogCategory> blogCategories = blogCategoryService.getCategoryBySubCategory(blogSubCategory.getNo());
-			blogSubCategories.add(blogSubCategory);
+			blogSubCategory.setBlogCategory(blogCategories);
 			
 			for(BlogCategory blogCategory : blogCategories) {
 				List<BlogBoard> blogBoards = blogBoardService.getBoardByCategory(blogCategory.getNo());
-				
+				blogCategory.setBoards(blogBoards);
 			}
 		}
 		
@@ -160,13 +166,17 @@ public class BlogController {
 		return "blog/detail/write";
 	}
 	@RequestMapping(value="/write.do", method = RequestMethod.POST)
-	public String writeMethod(Model model, HttpSession session, HttpServletRequest request,BlogBoard board){
-	    String ctx = request.getContextPath();    //콘텍스트명 얻어오기.
-	    String title = board.getTitle();
-	    String contents = board.getContents();
-	    
-	    model.addAttribute("ctx",ctx);
-		return "blog/detail/write";
+	public String writeMethod(Model model, HttpSession session, HttpServletRequest request, BlogBoardForm blogBoardForm) throws IOException{
+	    BlogBoard blogBoard = new BlogBoard();
+	    BeanUtils.copyProperties(blogBoardForm, blogBoard);
+	    MultipartFile mf = blogBoardForm.getUpfile();
+	    String profileImageSaveDirectory = "C:/Users/BMAHN/git/link/link/src/main/webapp/resources/images/userblogimgs";
+	    if(!mf.isEmpty()) {
+	    	String filename = mf.getOriginalFilename();
+	    	FileCopyUtils.copy(mf.getBytes(), new File(profileImageSaveDirectory,filename));
+	    }
+	    blogBoardService.addBoard(blogBoard);
+		return "redirect:detail.do";
 	}
 	
 	
