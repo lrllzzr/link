@@ -317,9 +317,9 @@
                     <a href="/link/blog/detail.do">
                         <div class="col-sm-6 text-center">내 블로그</div>
                     </a>
-                    <a href="">
+                    <a href="write.do">
                         <div class="col-sm-6 text-center">
-                            <span class="glyphicon glyphicon-pencil"></span> 글쓰기</div>
+                        <span class="glyphicon glyphicon-pencil"></span> 글쓰기</div>
                     </a>
                 </div>
                 <div class="row blog-col-5 text-center">
