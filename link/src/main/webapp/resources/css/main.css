@@ -19,7 +19,7 @@ a {
 
 .main-row-1 {
     margin-top: 20px;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
 
 .main-null-img {
@@ -140,9 +140,6 @@ a {
     color: white;
 }
 
-.main-row-2{
-    margin-top:70px;
-}
 .main-row-2 .col-sm-4 {
     margin-bottom: 70px;
 }

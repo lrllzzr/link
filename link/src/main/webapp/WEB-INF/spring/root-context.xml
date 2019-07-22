@@ -13,4 +13,3 @@
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/myoracle"></jee:jndi-lookup>
 
 </beans>
-
