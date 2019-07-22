@@ -12,7 +12,17 @@ a {
 .main-nav {
     background-color: #649dfa;
 }
-
+.blogmain_login_li:hover{
+	color:white;
+	background-color:#649dfa;
+}
+.blogmain_login{
+	color:white;
+}
+.blogmain_login:hover{
+	color:white;
+	background-color:#649dfa;
+}
 .blog-main-javer {
     position: relative;
     top: 5px;

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.BlogBoardDao">		<!-- Dao경로설정 -->
+<select id="getBoardByCategory" parameterType="int" resultType="blogboard">
+	select
+		BOARD_NO no,
+		BOARD_TITLE title,
+		BOARD_CONTENTS contents,
+		BOARD_CREATE_DATE createDate,
+		CATEGORY_NO categoryNo
+	from
+		blog_boards
+	where
+		category_no = #{value}
+</select>
+<select id="getBoardByboardNo" parameterType="int" resultType="blogboard">
+	select
+		BOARD_NO no,
+		BOARD_TITLE title,
+		BOARD_CONTENTS contents,
+		BOARD_CREATE_DATE createDate,
+		CATEGORY_NO categoryNo
+	from
+		blog_boards
+	where
+		board_no = #{value}
+</select>
+
+</mapper>

@@ -1,16 +1,42 @@
 package kr.co.link.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.link.service.BlogBoardService;
+import kr.co.link.service.BlogCategoryService;
+import kr.co.link.service.BlogService;
+import kr.co.link.service.BlogSubCategoryService;
+import kr.co.link.vo.Blog;
+import kr.co.link.vo.BlogBoard;
+import kr.co.link.vo.BlogCategory;
+import kr.co.link.vo.BlogSubCategory;
+import kr.co.link.vo.User;
+
 @Controller
 @RequestMapping("/blog")
 public class BlogController {
+	
+	@Autowired
+	private BlogService blogservice;
+	
+	@Autowired
+	private BlogSubCategoryService blogSubCategoryService;
+	
+	@Autowired
+	private BlogCategoryService blogCategoryService;
+	
+	@Autowired
+	private BlogBoardService blogBoardService;
 	
 	@RequestMapping("/main.do")
 	public String main(Model model, HttpSession session){
@@ -18,12 +44,50 @@ public class BlogController {
 	}
 	
 	@RequestMapping("/board.do")
-	public String board(){
+	public String board(Model model, HttpSession session, int boardNo){
+		User user = (User) session.getAttribute("LOGIN_USER");
+		String userId = user.getId();
+		Blog blog = blogservice.getBlogByUserId(userId);
+		model.addAttribute("blog",blog);
+		
+		List<BlogSubCategory> blogSubCategories = blogSubCategoryService.getSubCategoryByBlogNo(blog.getNo());
+		model.addAttribute("subCategories",blogSubCategories);
+		for(BlogSubCategory blogSubCategory : blogSubCategories) {
+			
+			List<BlogCategory> blogCategories = blogCategoryService.getCategoryBySubCategory(blogSubCategory.getNo());
+			model.addAttribute("categories",blogCategories);
+			
+			for(BlogCategory blogCategory : blogCategories) {
+				List<BlogBoard> blogBoards2 = blogBoardService.getBoardByCategory(blogCategory.getNo());
+				model.addAttribute("boards",blogBoards2);
+			}
+		}
+		BlogBoard blogBoard = blogBoardService.getBoardByboardNo(boardNo);
+		model.addAttribute("board",blogBoard);
 		return "blog/detail/board";
 	}
 	
 	@RequestMapping("/detail.do")
-	public String detail(){
+	public String detail(Model model, HttpSession session){
+		User user = (User) session.getAttribute("LOGIN_USER");
+		String userId = user.getId();
+		Blog blog = blogservice.getBlogByUserId(userId);
+		model.addAttribute("blog",blog);
+		
+		List<BlogSubCategory> blogSubCategories = blogSubCategoryService.getSubCategoryByBlogNo(blog.getNo());
+		model.addAttribute("subCategories",blogSubCategories);
+		for(BlogSubCategory blogSubCategory : blogSubCategories) {
+			
+			List<BlogCategory> blogCategories = blogCategoryService.getCategoryBySubCategory(blogSubCategory.getNo());
+			model.addAttribute("categories",blogCategories);
+			
+			for(BlogCategory blogCategory : blogCategories) {
+				List<BlogBoard> blogBoards2 = blogBoardService.getBoardByCategory(blogCategory.getNo());
+				model.addAttribute("boards",blogBoards2);
+			}
+		}
+		
+		
 		return "blog/detail/detail";
 	}
 	
@@ -73,11 +137,30 @@ public class BlogController {
 	}
 	@RequestMapping(value="/write.do", method = RequestMethod.GET)
 	public String writePage(Model model, HttpSession session){
+		User user = (User) session.getAttribute("LOGIN_USER");
+		String userId = user.getId();
+		Blog blog = blogservice.getBlogByUserId(userId);
+		model.addAttribute("blog",blog);
+		
+		List<BlogSubCategory> blogSubCategories = blogSubCategoryService.getSubCategoryByBlogNo(blog.getNo());
+		for(BlogSubCategory blogSubCategory : blogSubCategories) {
+			List<BlogCategory> blogCategories = blogSubCategory.getBlogCategory();
+			for(BlogCategory blogCategory : blogCategories) {
+				List<BlogBoard> blogBoards = blogCategory.getBoards();
+				
+			}
+		}
+		
+		model.addAttribute("subCategories",blogSubCategories);
+		
+		
 		return "blog/detail/write";
 	}
 	@RequestMapping(value="/write.do", method = RequestMethod.POST)
-	public String writeMethod(Model model, HttpSession session, HttpServletRequest request){
+	public String writeMethod(Model model, HttpSession session, HttpServletRequest request,BlogBoard board){
 	    String ctx = request.getContextPath();    //콘텍스트명 얻어오기.
+	    String title = board.getTitle();
+	    String contents = board.getContents();
 	    
 	    model.addAttribute("ctx",ctx);
 		return "blog/detail/write";

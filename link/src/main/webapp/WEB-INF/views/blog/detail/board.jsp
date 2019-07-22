@@ -31,12 +31,14 @@
 				<div class="col-sm-12 blog_detail_right_row1">
 					<!--  우측 게시판 글 하나 시작-->
 					<div class="col-sm-12">
-						<div class="row">
-							<div class="col-sm-12 text-center blog_detail_main_board_contents">
-							<c:forEach begin="1" end="3">
-								<p class="blog_detail_board_title">서면 무한리필 착한돼지 짱짱추천! 짱짱 맛있어요!</p>
-								<img src="/link/resources/images/detail_gogi1.jpg" alt="">
-							</c:forEach>
+						<div class="row"> 
+							<div class="col-sm-12 blog_detail_main_board_contents">
+								<div class="page-header">
+									<h2>${board.title }</h2>
+								</div>
+								<div class="col-sm-12">
+									${board.contents }
+								</div>
 							</div>
 						</div>
 					</div>

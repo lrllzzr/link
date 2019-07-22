@@ -20,14 +20,14 @@
 			</div>
 		</div>
 		<!--   글 제목 시작-->
-		<c:forEach begin="1" end="5">
+		<c:forEach var="board" items="${boards }">
 			<div class="row">
 				<div class="col-sm-12 blog_detail_right_row_1">
 					<div class="col-sm-9">
-						<span><a href="/link/blog/board.do">서면 무한리필 착한돼지 짱짱추천! (2)</a></span>
+						<span><a href="/link/blog/board.do?boardNo=${board.no }">${board.title }</a></span>
 					</div>
 					<div class="col-sm-3 text-right">
-						<span class="blog_detail_board_create">2019.07.13</span>
+						<span class="blog_detail_board_create"><fmt:formatDate value="${board.createDate }"/></span>
 					</div>
 					<div class="col-sm-12 blog_detail-hr-div">
 						<hr class="blog_detail_hr_2" />

@@ -14,17 +14,14 @@ public class UserServiceImpl implements UserService{
 	
 	// 로그인 시도한 아이디의 사용자정보 가져오기
 	@Override 
-	public User login(String userId, String password) {
+	public User login(String userId, String password) throws Exception {
 		User user = userDao.getUserById(userId);
 		if(user==null) {
-			
+			throw new Exception("아이디가 없습니다.");
 		}
-		
-		// 수정해야함
-		user = userDao.getUserById(userId);
-		/*
-		 * if(!password.equals(user.getPassword())){ return user; }
-		 */
+		if(!password.equals( user.getPassword() )) {
+			throw new Exception("비밀번호가 틀립니다.");
+		}
 		return user;
 	}
 }

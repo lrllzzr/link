@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.BlogDao">		<!-- Dao경로설정 -->
+<select id="getBlogByUserId" parameterType="string" resultType="blog">
+	select
+		BLOG_NO no,
+		BLOG_TITLE title,
+		BLOG_MAIN_IMG mainImg,
+		BLOG_THEME theme,
+		BLOG_DESCRIPTION description,
+		BLOG_CREATE_DATE createDate,
+		USER_ID userId
+	from
+		blog
+	where
+		user_id = #{value}
+</select>
+
+		
+</mapper>
