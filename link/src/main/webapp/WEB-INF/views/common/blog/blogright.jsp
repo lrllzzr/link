@@ -4,7 +4,7 @@
 		<strong style="color: #2f3030;">맛보기</strong> 64개의 글
 	</div>
 	<div class="col-sm-8 text-right">
-		<span id="blog_right_open">목록열기</span>
+		<span id="blog_right_open">목록 닫기</span>
 	</div>
 	<div class="row" id="blog_row1">
 	<div class="col-sm-12">
@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<!--   글 제목 시작-->
-		<c:forEach begin="1" end="10">
+		<c:forEach begin="1" end="5">
 			<div class="row">
 				<div class="col-sm-12 blog_detail_right_row_1">
 					<div class="col-sm-9">
@@ -68,6 +68,12 @@
 	$(function() {
 		$('#blog_right_open').click(function() {
 			$('#blog_row1').toggle();
+			var status = $(this).html();
+			if(status == '목록 열기'){
+				$(this).html('목록 닫기');
+			} else{
+				$(this).html('목록 열기');
+			}
 		})
 	})
 </script>

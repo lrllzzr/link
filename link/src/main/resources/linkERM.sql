@@ -666,7 +666,11 @@ CREATE TABLE USERS
 (
 	USER_ID varchar2(50) NOT NULL,
 	USER_NAME varchar2(20) NOT NULL,
+<<<<<<< HEAD
 	USER_PASSWORD varchar2(40) NOT NULL,
+=======
+	USER_PASSWORD char(40) NOT NULL,
+>>>>>>> refs/heads/BM
 	USER_NICKNAME varchar2(100),
 	USER_PHONE varchar2(20) NOT NULL,
 	USER_POINT number(7,0) DEFAULT 0 NOT NULL,
