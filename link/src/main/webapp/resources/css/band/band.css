@@ -478,3 +478,39 @@
   border-width: 5px 5px 0;
   border-top-color: #34cc6c;
 }
+.modal-vote-title{
+    position: relative;
+    left: 32px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    border-bottom-color: #ccc;
+    border-bottom-style: solid;
+    border-bottom-width: thin
+}
+.modal-vote-title > input{
+    padding:0px;
+    border: 0px;
+    padding-bottom: 10px;
+    width: 100%;
+    font-size: 16px;
+}
+.modal-vote-contents{
+   position: relative;
+    left: 38px;
+    margin-bottom: 10px;
+    width: 88%;
+    border-bottom-color: #ddd;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    font-size: #999;
+}
+
+.modal-vote-contents > input{
+    padding:0px;
+    border: 0px;
+    padding-bottom: 10px;
+    width: 98%;
+    font-size: 16px;
+    
+}
