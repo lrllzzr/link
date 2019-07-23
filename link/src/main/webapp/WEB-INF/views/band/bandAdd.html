@@ -1,0 +1,227 @@
+<!--
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>Bootstrap</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../../resources/css/band.css">
+</head>
+<body class="band-back">
+<!--네비 시작-->
+<nav class="navbar navbar-default">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <a href="#">
+                        <span class="band-main-javer">Link</span> <span class="band-main-band">밴드</span>
+                    </a>
+                </div>
+                <div class="col-sm-5 blog-searchbar">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input style="width:300px;" type="text" class="form-control" placeholder="검색">
+                        </div>
+                        <button type="submit" class="btn btn-default" style="width: 31px; height: 31px;"><span style="color: black; font-size: 23px;" class="glyphicon glyphicon-search band-search-position"></span></button>
+                    </form>
+                </div>
+
+                <div class="col-sm-4 col-sm-offset-1 text-right blog-toprow-right">
+                    <div class="blog-navbar-right collapse navbar-collapse navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <img class="band-profile-img" src="../../../../webapp/resources/images/bandLog.png" alt="" >
+                                    <span class="band-navbar-id">홍길동 님</span>
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">내 정보</a></li>
+                                    <li><a href="#">블로그</a></li>
+                                    <li><a href="#">밴드</a></li>
+                                    <li><a href="#">가계부</a></li>
+                                    <li><a href="#">지식인</a></li>
+                                    <li><a href="#">시리즈</a></li>
+                                    <li><a href="#">TV</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">로그아웃</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="bell2 text-center"><a href=""><span class="glyphicon glyphicon-bell" style="color: black"></span></a></div>
+                        <div class="comment text-center"><a href=""><span class="glyphicon glyphicon-comment" style="color: black"></span></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+<!--네비끝-->
+    <div class="add-band-container ">
+        <div class="row">
+            <div class="col-sm-12 band-add-name text-left">
+                <strong>밴드 이름</strong>
+            </div>
+           
+                <div class="col-sm-12 ">
+                    <input type="text" class="band-add-text2 band-add-text" maxlength="50" placeholder="밴드 이름 입력" name="bandName">
+                </div>
+                
+                <div class="row"> 
+                   <div class="col-sm-12">
+                   <form action="POST" action="">
+                       <div class="row add-main-padding">
+                        <div class="col-sm-5">
+                            <img src="../../../resources/images/band_into_img.JPG">
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="row">
+                                <div class="col-sm-4 add-sel-margin">
+                                    커버 선택
+                                </div>
+                                <div class="col-sm-8 text-right add-img-select">
+                                    1/6 
+                                    <button type="button" class="btn btn-default add-img-btn">&lt;</button>
+                                    <button class="btn btn-default add-img-btn">&gt;</button>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <a href="#">
+                                <div class="col-sm-3">
+                                    <img src="../../../resources/images/band_photo_add.PNG" class="add-img-select2">
+                                </div>
+                                </a>
+
+                                <a href="#">
+                                <div class="col-sm-3">
+                                    <img src="../../../resources/images/band_into_img.JPG" class="add-img-select2">
+                                </div>
+                                </a>
+
+                                <a href="#">
+                                <div class="col-sm-3">
+                                    <img src="../../../resources/images/band_into_img.JPG" class="add-img-select2">
+                                </div>
+                                </a>
+
+                                <a href="#">
+                                <div class="col-sm-3">
+                                    <img src="../../../resources/images/band_into_img.JPG" class="add-img-select2">
+                                </div>
+                                </a>
+
+                                <a href="#">
+                                <div class="col-sm-3">
+                                    <img src="../../../resources/images/band_into_img.JPG" class="add-img-select2">
+                                </div>
+                                </a>
+
+                                <a href="#">
+                                <div class="col-sm-3">
+                                    <img src="../../../resources/images/band_into_img.JPG" class="add-img-select2">
+                                </div>
+                                </a>
+
+                                <a href="#">
+                                <div class="col-sm-3">
+                                    <img src="../../../resources/images/band_into_img.JPG" class="add-img-select2">
+                                </div>
+                                </a>
+
+                                <a href="#">
+                                <div class="col-sm-3">
+                                    <img src="../../../resources/images/band_into_img.JPG" class="add-img-select2">
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--사진 선택 끝-->
+
+                    <div class="row text-left add-photo-info">
+                        밴드이름과 사진은 개설 후에도 변경할 수 있어요
+                    </div>
+
+                    <div class="row">
+                        <div class="text-left col-sm-12 add-band-open">
+                            <strong>밴드 공개</strong>
+                        </div>
+                        <div class="col-sm-12 band-add-option">
+                            <div class="row">
+
+                                <div class="col-sm-4">
+                                   <div class="row add-option">
+                                        <div class="col-sm-2 test-right add-check-margin-right">
+                                            <input type="radio"
+                                            value="secret" name="option"
+                                            >
+                                        </div>
+                                        <div class="col-sm-10 text-left add-check-margin-left">
+                                            <div class="col-sm-12">
+                                              <strong>비공개 밴드</strong>
+                                           </div>
+                                           <div class="col-sm-12 add-option-font">
+                                               밴들와 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.
+                                           </div>
+                                        </div>
+                                   </div> 
+                                </div>
+
+                                <div class="col-sm-4">
+                                   <div class="row add-option">
+                                        <div class="col-sm-2 test-right add-check-margin-right">
+                                            <input type="radio"
+                                            value="secret" name="option"
+                                            >
+                                        </div>
+                                        <div class="col-sm-10 text-left add-check-margin-left">
+                                            <div class="col-sm-12">
+                                              <strong>밴드명 공개 밴드</strong>
+                                           </div>
+                                           <div class="col-sm-12 add-option-font">
+                                               누구나 밴드를 검색해 찾을 수 있지만,  게시물은 멤버만 볼 수 있습니다.
+                                           </div>
+                                        </div>
+                                   </div> 
+                                </div>
+
+                                <div class="col-sm-4">
+                                   <div class="row add-option">
+                                        <div class="col-sm-2 test-right add-check-margin-right">
+                                            <input type="radio"
+                                            value="secret" name="option"
+                                            >
+                                        </div>
+                                        <div class="col-sm-10 text-left add-check-margin-left">
+                                            <div class="col-sm-12">
+                                              <strong>공개 밴드</strong>
+                                           </div>
+                                           <div class="col-sm-12 add-option-font">
+                                               누구나 밴드를 검색해 찾을 수 있고, 게시물을 볼 수 있습니다.
+                                           </div>
+                                        </div>
+                                   </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--밴드 옵션 종료-->
+
+                    <div class="row">
+                        <div class="col-sm-12 text-center add-btn-sort">
+                            <button type="reset" class="btn btn-default">취소</button>
+                            <input type="submit" value="완료" class="btn btn-primary"/>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

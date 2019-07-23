@@ -1,0 +1,489 @@
+        .band-back {
+            background-color: #eef0f3;
+        }
+
+        .band-header {
+            background-color: #fff;
+            position: relative;
+            height: 50px;
+            margin: 0 auto;
+        }
+
+        .bendLogo {
+            width: 70px;
+            height: 26px;
+            overflow: hidden;
+            display: inline-block;
+            background-repeat: no-repeat;
+            content: '';
+            background-image: url(https://ssl.pstatic.net/cmstatic/webclient/dres/20190618150650/images/spr_icons.png);
+            background-position: -72px -284px;
+        }
+
+        .band-main-javer {
+            position: relative;
+            top: 5px;
+            font-size: 15px;
+            color: black;
+            font-weight: 800;
+        }
+
+        .band-main-band {
+            position: relative;
+            top: 8px;
+            font-size: 24px;
+            color: black;
+        }
+
+        .band-search-position {
+            position: relative;
+            top: -3px;
+            left: -9px
+        }
+
+        .band-navbar-id {
+            color: black;
+            position: relative;
+            bottom: 3px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .band-profile-img {
+            width: 26px;
+        }
+
+        .dropdown-menu {
+            min-width: 140px;
+        }
+
+        .glyphicon-comment {
+            font-size: 23px;
+            color: black;
+            display: inline-block;
+            position: relative;
+            width: 60px;
+            height: 50px;
+            top: 2px;
+            left: -19px;
+        }
+
+        .bell2 {
+            display: inline-block;
+            position: relative;
+            width: 60px;
+            height: 50px;
+        }
+
+        .comment {
+            display: inline-block;
+            position: relative;
+            width: 60px;
+            height: 50px;
+        }
+
+        .band-buttom {
+            font-size: 10px;
+            color: #888;
+        }
+
+        .band-each>.sample-band-hover>a>.col-sm-3 {
+            padding: 0px;
+            margin:0px 10px 20px;
+            width:272px;
+            background-color: white;
+            border : 1px;
+            
+        }
+
+        .band-into-photo {
+            width: 100%;
+            height: 222px;
+        }
+
+        .band-into-name {
+            height: 65px;
+            padding: 8px;
+            font-size: 15px;
+        }
+
+.band-add-top{
+   height:287px;
+    padding-top:98px;
+}
+.band-option-top{
+    margin-top: 30px;
+}
+.second-back{
+    background-color: #f7f8f9;
+}
+.container>.row>.col-sm-5{
+    font-size: 20px;
+}
+.container>.row>.col-sm-7{
+    font-size: 11px;
+}
+
+.band-isu-contents{
+    background-color: white;
+}
+
+.isu-title{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+}
+.isu-title2{
+    font-weight: 800
+}
+.isu-top{
+    margin-top: 30px;
+}
+.isu-more{
+    margin-top: 30px;
+}
+.isu-photo{
+    padding: 0px;
+}
+.isu-photo2{
+    width: 112px;
+    height: 112px;
+    margin-left: 31px;
+}
+.isu-border{
+      border: 2px solid #E5E5E5;
+    width:572px;
+}
+.isu-border-top{
+    border-top: 2px solid #E5E5E5;
+}
+.isu-contents{
+    padding: 10px 10px 10px 15px;
+}
+.isu-margin{
+    margin-right: 21px;
+}
+.chchen-band-top{
+    margin-top: 30px;
+    margin-bottom: 18px;
+}
+.chuchen-photo{
+    width: 100px;
+    height: 100px;
+    
+}
+.chuchen-band-title{
+    font-weight: 800;
+}
+.chuchen-band-info{
+    font-size: 12px;
+    color: #777;
+}
+.cuchen-band-margin{
+    margin-top: 27px;
+}
+
+.chuchen-margin {
+    margin-bottom: 15px;
+}
+
+.sample-band-hover:hover{
+    position: relative;
+    top: -8px;
+}
+.band-add-name{
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+.band-add-text{
+        line-height: 54px;
+    border-bottom: 1px solid #ccc;
+    font-size: 30px;
+    font-weight: 400;
+    color: black;
+    position: relative;
+    width: 102.3%;
+    height: 100%;
+    border: none;
+    padding: 0;
+    background: 0 0;
+    border-radius: 0;
+   
+}
+.band-add-text2{
+    border-bottom: 1px solid #B3B3B3;
+}
+
+.add-main-padding{
+    padding:25px 15px 0px 0px;
+}
+.add-img-select{
+    font-size: 11px;
+    margin-bottom: 10px;
+    padding-right: 0px;
+}
+.add-img-btn{
+    font-size: 10px;
+    padding-left: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 8px;
+}
+.add-img-select2{
+    width: 115px;
+    height: 87px;
+    margin-bottom: 15px;
+}
+.add-sel-margin{
+    margin-top:7px;
+}
+.add-band-container{
+  width: 800px;
+ text-align:center;
+    margin:auto;
+}
+
+.add-photo-info{
+    font-size: 11px;
+    color: #777;
+    margin-left: 14px;
+}
+
+.add-band-open{
+    margin-top: 50px;
+    margin-left: 14px;
+    margin-bottom: 15px;
+}
+.band-add-option{
+    background-color: white;
+    border: 1px solid #dfdfdf;
+    margin-left: 25px;
+    width: 826px;
+}
+.add-option{
+    padding : 20px 30px;
+}
+.add-check-margin-right{
+    padding-right: 0px;
+}
+.add-check-margin-left{
+    padding-left: 0px;
+}
+.add-option>.col-sm-10>.col-sm-12{
+    padding-left:0px;
+}
+.add-option-font{
+    font-size: 12px;
+    color: #777;
+}
+.add-check-margin-left>.add-option-font{
+    margin-top: 6px;
+}
+.add-btn-sort{
+ margin-top: 30px;    
+}
+.add-btn-sort>.btn{
+    width: 120px;
+    height: 40px;
+}
+.band-main-photo{
+    width:200px;
+    height: 150px;
+}
+.band-main-name{
+    font-size: 20px;
+    font-weight:800;
+    color: black;
+}
+.main-gan{
+    margin-left: 0px;
+    padding-left : 0px;
+    padding-right: 0px;
+    margin-right: 0px;
+    font-size: 13px;
+}
+.black-color{
+    color:black;
+}
+.band-info{
+    color: #888;
+    font-size: 11px;
+    width: 240px;
+    margin-left: 15px;
+}
+.band-info-hr{
+     border: solid 1px #d8d8d8;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 15px;
+    width: 200px;
+}
+.band-info-option{
+    margin-left: 15px;
+}
+.band-info-option > a > .glyphicon{
+    color: #888;
+    font-size: 12px;
+}
+.band-secon-nav{
+    position: relative;
+    top: -21px;
+    background-color:#8C8E90;
+    height: 35px;
+    min-height: 10px;
+}
+.band-secon-nav > span{
+    position: relative;
+    top: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.band-secon-nav > span > a{
+    color: #eee;
+}
+.band-search-contents{
+    width: 450px;
+    height: 35px;
+     border: 0px;   
+}
+.search-box{
+    border: 1px solid #ddd;
+    padding: 0px;
+    background-color: white;
+}
+
+.search-box2{
+    height: 37px;
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+.search-box2 > span {
+    font-size: 20px;
+    color: #999;
+    padding-top: 7px;
+    padding-left: 0px;
+    padding-right: 9px;
+    
+}
+.band-new-contents{
+    margin-top: 10px;
+    height: 120px;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+.new-content-icon > a > img{
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    margin-top: 43px;
+}
+.band-view-contants{
+    background-color: white;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+.view-contents-date{
+    color:#888;
+    font-size: 11px;
+}
+.view-contants-option{
+    height: 17px;
+    margin-top: 0px;
+    
+}
+.band-new-command{
+    width: 100%;
+    height: 30px;
+    
+}
+.band-nbbang{
+    background-color: #FCFCFC;
+    
+}
+.nbbang-form{
+    border: 1px solid #ddd;
+    padding-top: 15px; 
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+}
+.vote-form{
+    border: 1px solid #ddd;
+    padding-top: 15px; 
+    padding-bottom: 15px;
+}
+.bote-hangmok{
+    border: 1px solid #ddd;
+}
+.bote-hangmok > .col-sm-12 > ul > li{
+    margin-top: 15px;
+    color: black;
+    font-size: 12px;
+    list-style-type: circle;
+}
+.photo-form{
+    max-height: 100%;
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+.iljung-table{
+    background-color: white;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+.iljung-title{
+    font-size: 13px;
+    padding: 10px;
+    
+}
+.iljung-kyungkye{
+    margin:0px;
+    border-bottom-width: thin;
+    border-bottom-color: #ddd;
+    
+}
+.choisin-photo{
+    width: 80px;
+    height: 80px;
+}
+.choisin-photo-form{
+    padding-left: 30px;
+    padding-top: 40px;
+}
+.choisin-photo-form2{
+    padding: 0px;
+    margin-right: -9px;
+}
+
+.choisin-photo:hover{
+    filter: brightness(80%);
+}
+.tooltip-inner {
+  max-width: 200px;
+  padding: 3px 8px;
+  color: #fff;
+  text-align: center;
+  background-color: #34cc6c;
+  border-radius: 4px;
+}
+.tooltip.top .tooltip-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #34cc6c;
+}
+.add-new-modal{
+    padding: 7px 35px;
+}
+.add-new-option{
+    color: #999;
+    padding-top: 10px;
+    font-size: 14px;
+    padding-left: 16px;
+}
