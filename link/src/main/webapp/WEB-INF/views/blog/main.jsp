@@ -288,7 +288,7 @@
 									<img style="width: 290.511px;" src="/link/resources/images/bloghome1.jpg" alt="" />
 								</div>
 							</div>
-							<a id="makeBlogButton" href="/link/blog/mydetail.do">
+							<a id="makeBlogButton" href="/link/blog/makeblog.do">
 								<div class="row blog-col-4" style="padding: 20px !important;">
 									<div style="font-size:15px; font-weight: bold; color:white;" class="col-sm-12 text-center">블로그 생성하러 가기</div>
 								</div>

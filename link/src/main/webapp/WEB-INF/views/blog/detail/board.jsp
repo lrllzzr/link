@@ -10,6 +10,11 @@
 <link rel="stylesheet" href="/link/resources/css/blog/blogdetail.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+	.blog_detail_con{
+		background: no-repeat center/100% url("/link/resources/images/blogthemes/${blog.theme}");
+	}
+</style>
 </head>
 
 <body>

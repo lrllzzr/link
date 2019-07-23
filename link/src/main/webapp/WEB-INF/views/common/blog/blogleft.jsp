@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="col-sm-3">
 	<div class="row">
-		<div class="col-sm-10 col-sm-offset-1">
+		<div class="col-sm-10 col-sm-offset-1" style="padding-bottom: 100px; background-color:white; opacity:0.9;">
 			<div class="row">
 				<div class="col-sm-12">
 					<a href=""><img class="blog_detail_left_col_img" src="/link/resources/images/${blog.mainImg }" alt=""></a>

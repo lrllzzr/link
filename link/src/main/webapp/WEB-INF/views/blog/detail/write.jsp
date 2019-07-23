@@ -23,6 +23,11 @@ body {
 	background-color: lightgray;
 	color: #666666;
 }
+
+.blog_detail_con {
+	background: no-repeat center/100%
+		url("/link/resources/images/blogthemes/${blog.theme}");
+}
 </style>
 </head>
 
@@ -132,7 +137,8 @@ body {
 		//‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
 		function submitContents(elClickedObj) {
 			// 에디터의 내용이 textarea에 적용된다.
-			oEditors.getById["textAreaContent"].exec("UPDATE_CONTENTS_FIELD", []);
+			oEditors.getById["textAreaContent"].exec("UPDATE_CONTENTS_FIELD",
+					[]);
 
 			// 에디터의 내용에 대한 값 검증은 이곳에서
 			// document.getElementById("textAreaContent").value를 이용해서 처리한다.
@@ -146,11 +152,13 @@ body {
 
 		// textArea에 이미지 첨부
 		function pasteHTML(filepath) {
-			setTimeout(function() {
-				var sHTML = '<img src="/link/resources/images/userblogimgs/'+filepath+'">';
-				oEditors.getById["textAreaContent"].exec("PASTE_HTML", [ sHTML ]);
+			setTimeout(
+					function() {
+						var sHTML = '<img src="/link/resources/images/userblogimgs/'+filepath+'">';
+						oEditors.getById["textAreaContent"].exec("PASTE_HTML",
+								[ sHTML ]);
 
-			}, 5000);
+					}, 5000);
 		}
 		/* 
 		function submitContents() {

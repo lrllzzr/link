@@ -94,6 +94,11 @@ public class BlogDetailController {
 		model.addAttribute("blogs",blogs);
 		return "blog/main";
 	}
+	@RequestMapping("/makeblog.do")
+	public String makeBlog(Model model, HttpSession session) {
+		
+		return "blog/detail/makeblog";
+	}
 	
 	@RequestMapping("/detail.do")
 	public String detail(Model model, HttpSession session, Integer blogNo, Integer categoryNo){
