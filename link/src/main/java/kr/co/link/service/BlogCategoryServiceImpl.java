@@ -20,4 +20,16 @@ public class BlogCategoryServiceImpl implements BlogCategoryService{
 		return blogCategories;
 	}
 
+	@Override
+	public BlogCategory getOneCategoryByOrder(Integer blogNo) {
+		BlogCategory blogCategory = blogCategoryDao.getOneCategoryByOrder(blogNo);
+		return blogCategory;
+	}
+
+	@Override
+	public BlogCategory getCategoryByCategoryNo(Integer categoryNo) {
+		BlogCategory blogCategory = blogCategoryDao.getCategoryByCategoryNo(categoryNo);
+		return blogCategory;
+	}
+
 }

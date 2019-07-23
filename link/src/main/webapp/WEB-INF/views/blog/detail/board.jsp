@@ -36,8 +36,10 @@
 								<div class="page-header">
 									<h2>${board.title }</h2>
 								</div>
-								<div class="col-sm-12">
-									${board.contents }
+								<div class="row">
+									<div class="col-sm-12">
+										${board.contents }
+									</div>
 								</div>
 							</div>
 						</div>

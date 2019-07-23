@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="col-sm-12 blog_detail_right_row">
 	<div class="col-sm-4">
-		<strong style="color: #2f3030;">맛보기</strong> 64개의 글
+		<strong style="color: #2f3030;">${category.title }</strong>
+		<c:if test="${not empty blogCount }">
+			 ${blogCount }개의 글
+		</c:if>
 	</div>
 	<div class="col-sm-8 text-right">
 		<span id="blog_right_open">목록 닫기</span>
@@ -20,11 +23,11 @@
 			</div>
 		</div>
 		<!--   글 제목 시작-->
-		<c:forEach var="board" items="${boards }">
+		<c:forEach var="board" items="${blogBoards }">
 			<div class="row">
 				<div class="col-sm-12 blog_detail_right_row_1">
 					<div class="col-sm-9">
-						<span><a href="/link/blog/board.do?boardNo=${board.no }">${board.title }</a></span>
+						<span><a href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}">${board.title }</a></span>
 					</div>
 					<div class="col-sm-3 text-right">
 						<span class="blog_detail_board_create"><fmt:formatDate value="${board.createDate }"/></span>

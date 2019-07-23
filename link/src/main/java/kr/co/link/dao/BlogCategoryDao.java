@@ -9,4 +9,6 @@ import kr.co.link.vo.BlogCategory;
 @Repository
 public interface BlogCategoryDao {
 	public List<BlogCategory> getCategoryBySubCategory(int subCategoryNo);
+	public BlogCategory getOneCategoryByOrder(Integer blogNo);
+	public BlogCategory getCategoryByCategoryNo(Integer categoryNo);
 }

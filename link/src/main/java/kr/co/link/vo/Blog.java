@@ -1,15 +1,24 @@
 package kr.co.link.vo;
 
+import java.util.Date;
+import java.util.List;
+
 public class Blog {
 	private Integer no;
 	private String title;
 	private String mainImg;
 	private String theme;
 	private String description;
-	private String createDate;
+	private Date createDate;
 	private String userId;
+	private List<BlogCategory> categories;
 	
-	
+	public List<BlogCategory> getCategories() {
+		return categories;
+	}
+	public void setCategories(List<BlogCategory> categories) {
+		this.categories = categories;
+	}
 	public Integer getNo() {
 		return no;
 	}
@@ -40,10 +49,10 @@ public class Blog {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(String createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 	public String getUserId() {

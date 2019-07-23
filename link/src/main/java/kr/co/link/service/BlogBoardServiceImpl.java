@@ -30,4 +30,10 @@ public class BlogBoardServiceImpl implements BlogBoardService{
 	public void addBoard(BlogBoard blogBoard) {
 		blogBoardDao.addBoard(blogBoard);
 	}
+
+	@Override
+	public Integer countBoardsByCategoryId(Integer categoryNo) {
+		Integer boardCount = blogBoardDao.countBoardsByCategoryId(categoryNo);
+		return boardCount;
+	}
 }

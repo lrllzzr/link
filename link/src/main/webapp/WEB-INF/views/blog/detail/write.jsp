@@ -44,13 +44,14 @@ body {
 				<!-- 우측 게시판 글쓰기 시작-->
 				<div class="col-sm-12 blog_detail_right_row1">
 					<div class="row">
-						<form action="write.do" method="post" enctype="multipart/form-data">
+						<form id="write-form" action="write.do" method="post" enctype="multipart/form-data">
+							<input type="hidden" name="blogNo" value="${blog.no }"></input> <input type="hidden" name="categoryNo" value="${category.no }"></input>
 							<div class="col-sm-12">
 								<div class="form-group">
 									<div class="page-header">
 										<h2>글쓰기</h2>
 									</div>
-									<label for="">제목</label><input name="title" style="width: 723px;" type="text" class="form-control blog_write_title" />
+									<label for="">제목</label><input id="blogboard_title" name="title" style="width: 723px;" type="text" class="form-control blog_write_title" />
 								</div>
 								<div class="form-group">
 									<label for="exampleInputFile">메인 이미지 등록</label><input type="file" id="file" name="upfile">
@@ -62,7 +63,7 @@ body {
 										<div class="col-sm-3">
 											<select name="categoryNo" id="" class="form-control">
 												<c:forEach var="subCat" items="${subCategories}">
-													<option value="${subCat.no }">${subCat.title }</option>
+													<option value="${subCat.no }" disabled>${subCat.title }</option>
 													<c:forEach var="cat" items="${subCat.blogCategory}">
 														<option value="${cat.no }">&nbsp;┗ ${cat.title }</option>
 													</c:forEach>
@@ -77,7 +78,7 @@ body {
 									<textarea name="contents" id="textAreaContent" rows="20" cols="100" placeholder=""></textarea>
 								</div>
 								<div class="text-center">
-									<button type="submit" class="btn btn-default">등록</button>
+									<button type="button" class="btn btn-default" id="blogaddBoardButton">등록</button>
 								</div>
 							</div>
 						</form>
@@ -90,16 +91,29 @@ body {
 	</div>
 	<script type="text/javascript">
 		$(function() {
-			$('#textAreaContent').keyup(
-					function() {
-						var text = $(this).text();
-						if (text == "") {
-							$(this).text('본문에 #을 이용하여 태그를 사용해보세요!').css(
-									'color', 'gray');
-						} else {
-							$(this).text('');
+			$('#blogaddBoardButton').click(function() {
+				if ($('#blogboard_title').val() == "") {
+					alert('제목을 입력해야 합니다.');
+					return false;
+				} else {
+					if ($('#file').val() == "") {
+						alert('메인 이미지를 등록해 주세요');
+					} else {
+						var result = confirm("등록하시겠습니까?");
+						if (result) {
+							submitContents();
 						}
-					})
+						return false;
+					}
+				}
+			});
+
+			/* $('.se2_inputarea').keyup(function() {
+				var text = $(this).innerText;
+				if (text == "") {
+					$(this).val('본문에 #을 이용하여 태그를 사용해보세요!').css('color', 'gray');
+				}
+			}) */
 		})
 		/* 	Smart Editor */
 		var oEditors = [];
@@ -107,20 +121,24 @@ body {
 			oAppRef : oEditors,
 			elPlaceHolder : "textAreaContent",
 			sSkinURI : "/link/resources/js/se2/SmartEditor2Skin.html",
-			fCreator : "createSEditor2"
+			fCreator : "createSEditor2",
+			htParams : {
+				fOnBeforeUnload : function() {
+				}
+			}
+		// 이페이지 나오기 alert 삭제
 		});
 
 		//‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
 		function submitContents(elClickedObj) {
 			// 에디터의 내용이 textarea에 적용된다.
-			oEditors.getById["textAreaContent"].exec("UPDATE_CONTENTS_FIELD",
-					[]);
+			oEditors.getById["textAreaContent"].exec("UPDATE_CONTENTS_FIELD", []);
 
 			// 에디터의 내용에 대한 값 검증은 이곳에서
 			// document.getElementById("textAreaContent").value를 이용해서 처리한다.
-
+			console.log(document.getElementById("textAreaContent").value);
 			try {
-				elClickedObj.form.submit();
+				$("#write-form").submit();
 			} catch (e) {
 
 			}
@@ -128,14 +146,19 @@ body {
 
 		// textArea에 이미지 첨부
 		function pasteHTML(filepath) {
-			setTimeout(
-					function() {
-						var sHTML = '<img src="/link/resources/images/userblogimgs/'+filepath+'">';
-						oEditors.getById["textAreaContent"].exec("PASTE_HTML",
-								[ sHTML ]);
+			setTimeout(function() {
+				var sHTML = '<img src="/link/resources/images/userblogimgs/'+filepath+'">';
+				oEditors.getById["textAreaContent"].exec("PASTE_HTML", [ sHTML ]);
 
-					}, 5000);
+			}, 5000);
 		}
+		/* 
+		function submitContents() {
+			oEditors.exec("UPDATE_CONTENTS_FIELD");	// 에디터의 내용이 textarea에 적용됩니다.
+		
+			// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("ir1").value를 이용해서 처리하면 됩니다.
+			jindo.$("textAreaContent").form.submit();
+		} */
 	</script>
 </body>
 </html>

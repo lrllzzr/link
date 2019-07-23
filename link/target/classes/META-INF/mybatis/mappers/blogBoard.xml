@@ -34,4 +34,9 @@
 	insert into blog_boards
 	values(blog_seq.nextval, #{title},#{contents},sysdate,#{categoryNo},#{mainImg})
 </insert>
+<select id="countBoardsByCategoryId" parameterType="int" resultType="int">
+	select count(*)
+	from blog_boards
+	where category_no = #{value}
+</select>
 </mapper>

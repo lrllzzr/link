@@ -10,6 +10,7 @@
 		BLOG_TITLE title,
 		BLOG_MAIN_IMG mainImg,
 		BLOG_THEME theme,
+		BLOG_VISITS visits,
 		BLOG_DESCRIPTION description,
 		BLOG_CREATE_DATE createDate,
 		USER_ID userId
@@ -18,6 +19,46 @@
 	where
 		user_id = #{value}
 </select>
+<select id="getBlogByBlogNo" parameterType="int" resultType="blog">
+	select
+		BLOG_NO no,
+		BLOG_TITLE title,
+		BLOG_MAIN_IMG mainImg,
+		BLOG_THEME theme,
+		BLOG_VISITS visits,
+		BLOG_DESCRIPTION description,
+		BLOG_CREATE_DATE createDate,
+		USER_ID userId
+	from
+		blog
+	where
+		blog_no = #{value}
+</select>
 
-		
+<select id="get3BlogByVisits" resultType="blog">
+	select
+		BLOG_NO no,
+		BLOG_TITLE title,
+		BLOG_MAIN_IMG mainImg,
+		BLOG_THEME theme,
+		BLOG_VISITS visits,
+		BLOG_DESCRIPTION description,
+		BLOG_CREATE_DATE createDate,
+		USER_ID userId
+	from(
+        select
+            row_number() over(Order by blog_visits desc) row_no,
+            BLOG_NO,
+            BLOG_TITLE,
+            BLOG_MAIN_IMG,
+            BLOG_THEME,
+            BLOG_VISITS,
+            BLOG_DESCRIPTION,
+            BLOG_CREATE_DATE,
+            USER_ID
+        from
+            blog
+    )
+    where row_no &lt;=3
+</select>
 </mapper>

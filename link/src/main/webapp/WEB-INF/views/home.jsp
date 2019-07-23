@@ -29,7 +29,7 @@
 							<li><a href="/link/home.do">Link 홈</a></li>
 							<li class="divider"></li>
 							<li><a href="/link/blog/main.do">블로그</a></li>
-							<li style="margin-left: 10px;"><a href="/link/blog/detail.do">내 블로그</a></li>
+							<li style="margin-left: 10px;"><a href="/link/blog/mydetail.do">내 블로그</a></li>
 							<li class="divider"></li>
 							<li><a href="#">밴드</a></li>
 							<li><a href="#">가계부 </a></li>

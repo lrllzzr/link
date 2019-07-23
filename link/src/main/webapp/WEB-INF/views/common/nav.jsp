@@ -4,8 +4,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-2">
+                    <a href="/link/home.do">
+                        <span class="blog-main-javer">Link</span>
+                    </a>
                     <a href="/link/blog/main.do">
-                        <span class="blog-main-javer">Link</span> <span class="blog-main-blog">블로그</span>
+                        <span class="blog-main-blog">블로그</span>
                     </a>
                 </div>
                 <div class="col-sm-5 blog-searchbar">
@@ -33,7 +36,7 @@
                                     <li><a href="/link/home.do">Link 홈</a></li>
                                 <li class="divider"></li>
                                     <li><a href="/link/blog/main.do">블로그</a></li>
-                                    <li style="margin-left: 10px;"><a href="/link/blog/detail.do">내 블로그</a></li>
+                                    <li style="margin-left: 10px;"><a href="/link/blog/mydetail.do">내 블로그</a></li>
                                     <li class="divider"></li>
                                     <li><a href="#">밴드</a></li>
                                     <li><a href="#">가계부 </a></li>

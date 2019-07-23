@@ -11,4 +11,5 @@ public interface BlogBoardDao {
 	public List<BlogBoard> getBoardByCategory(int categoryNo);
 	public BlogBoard getBoardByboardNo(int boardNo);
 	public void addBoard(BlogBoard blogBoard);
+	public Integer countBoardsByCategoryId(Integer categoryNo);
 }
