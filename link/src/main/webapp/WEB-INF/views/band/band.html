@@ -123,6 +123,7 @@
             </div>
             <!--왼쪽 끝-->
             
+            <!--===============================================-->
             <!--가운데-->
             <div class="col-sm-6" style="margin-left: 0px; padding-left: 0px">
                
@@ -333,6 +334,9 @@
                
             </div>
             <!--가운데 끝-->
+             <!--===============================================-->
+             
+             
             
             <!--오른쪽-->
             <div class="col-sm-3">
@@ -551,7 +555,6 @@
                         <a href="#"><img src="../../../resources/images/new_join.PNG" data-toggle="tooltip" data-placement="top" title="참가 신청서" alt="참가신청서" id="addJoin"></a>
                         <a href="#"><img src="../../../resources/images/new_cal.PNG" data-toggle="tooltip" data-placement="top" title="일정" alt="일정" id="addCal"></a>
                         <a href="#"><img src="../../../resources/images/new_nbbang.PNG" data-toggle="tooltip" data-placement="top" title="N빵" alt="n빵" id="addNbbang"></a>
-                    
                 </div>
             </div>
           </div>
@@ -580,7 +583,7 @@
     </div>
     <!--글 등록 모달 끝-->
     
-         <!-- 투표 모달 -->
+    <!-- 투표 모달 -->
     <div id="vote_modal" class="modal fade" role="dialog" style="z-index: 2000">
       <div class="modal-dialog">
 
@@ -598,22 +601,62 @@
                         <input type="text" placeholder="제목"/>
                     </div>
                 </div>
-                <div class="row">
+                
+                <!--투표 항목-->
+               <div class="row">
                     <div class="col-sm-12 modal-vote-contents">
-                        <span>1</span><input type="text" placeholder="제목"/>
-                    </div>
-                    <div class="col-sm-12">
-                        <span>2</span><input type="text" placeholder="제목"/>
-                    </div>
-                    <div class="col-sm-12">
-                        <span>3</span><input type="text" placeholder="제목"/>
-                    </div>
-                    
-                    <div class="col-sm-12">
-                        <span class="glyphicon glyphicon-plus">항목 추가</span>
+                       <div class="row">
+                           <div class="col-sm-1">
+                                <span class="vote-num">1</span>
+                           </div>
+                           <div class="col-sm-11">
+                                <input type="text" placeholder="제목"/>       
+                           </div>
+                       </div>
                     </div>
                 </div>
+                <!--투표 항목 끝-->
+                
+                <!--투표항목 2-->
                 <div class="row">
+                    <div class="col-sm-12 modal-vote-contents">
+                       <div class="row">
+                           <div class="col-sm-1">
+                                <span class="vote-num">2</span>
+                           </div>
+                           <div class="col-sm-11">
+                                <input type="text" placeholder="제목"/>       
+                           </div>
+                       </div>
+                    </div>
+                </div>
+                <!--투표항목 2 끝-->
+                
+                <!--투표항목3-->
+                <div class="row">
+                    <div class="col-sm-12 modal-vote-contents">
+                       <div class="row">
+                           <div class="col-sm-1">
+                                <span class="vote-num">3</span>
+                           </div>
+                           <div class="col-sm-11">
+                                <input type="text" placeholder="제목"/>       
+                           </div>
+                       </div>
+                    </div>
+                </div>
+                <!--투표 항목3 끝-->
+                
+                <div class="row vote-option-row">
+                    <div class="col-sm-1">
+                        <span class="
+glyphicon glyphicon-plus"></span>
+                    </div>
+                    <div class="col-sm-11">
+                        <span>항목추가</span>
+                    </div>
+                </div>
+                <div class="row vote-option-row">
                     <div class="col-sm-1">
                         <input type="checkbox" class="checkbox">
                     </div>
@@ -621,7 +664,7 @@
                         <span>누구나 항목 추가</span>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row vote-option-row">
                     <div class="col-sm-1">
                         <input type="checkbox" class="checkbox">
                     </div>
@@ -629,7 +672,7 @@
                         <span>복수 선택 허용</span>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row vote-option-row">
                     <div class="col-sm-1">
                         <input type="checkbox" class="checkbox">
                     </div>
@@ -637,17 +680,17 @@
                         <span>무기명 투표</span>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row vote-option-row">
                     <div class="col-sm-1">
                         <input type="checkbox" class="checkbox">
                     </div>
                     <div class="col-sm-3">
                         <span>종료일 설정</span>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 vote-end-date">
                         <input type="date">
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 vote-end-time">
                         <select>
                             <option value="0000">오전 12:00</option>
                             <option value="0030">오전 12:30</option>
@@ -700,11 +743,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="row">
+                <hr/>
+                <div class="row vote-option-row" style="margin-bottom: 10px">
                     <div class="col-sm-6">
                         <span>투표 현황 보기</span>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 vote-end-time">
                         <select>
                             <option>항상 보기</option>
                             <option>투표 참여 후 보기</option>
@@ -712,11 +756,11 @@
                         </select>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
+                <div class="row vote-option-row">
+                    <div class="col-sm-6 ">
                         <span>투표 항목 정렬</span>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 vote-end-time">
                         <select>
                             <option>항목 번호 순</option>
                             <option>득표순</option>
@@ -739,19 +783,451 @@
       </div>
     </div>
     <!--투표 모달 끝-->
-    l7
+    
+    <!--to-do모달-->
+    <div id="todo_modal" class="modal fade" role="dialog" style="z-index: 2000">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center"><strong>To-Do</strong></h4>
+          </div>
+          <div class="modal-body">
+            
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-12 modal-vote-title">
+                        <input type="text" placeholder="제목"/>
+                    </div>
+                </div>
+                
+                <!--항목 입력-->
+                <div class="row modal-todo-contents">
+                    <ul>
+                        <li>
+                            <input type="text" placeholder="항목 입력"/>
+                        </li>
+                        <li>
+                            <input type="text" placeholder="항목 입력"/>
+                        </li>
+                        <li>
+                            <input type="text" placeholder="항목 입력"/>
+                        </li>
+                    </ul>   
+                </div>
+                <!--항목 입력 끝-->
+                
+                <div class="row todo-option-row">
+                    <div class="col-sm-1">
+                        <span class="
+glyphicon glyphicon-plus"></span>
+                    </div>
+                    <div class="col-sm-11">
+                        <span>항목추가</span>
+                    </div>
+                </div>
+                <div class="row vote-option-row">
+                    <div class="col-sm-1">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <div class="col-sm-11">
+                        <span>누구나 항목 추가</span>
+                    </div>
+                </div>
+                <div class="row vote-option-row">
+                    <div class="col-sm-1">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <div class="col-sm-3">
+                        <span>마감일 설정</span>
+                    </div>
+                    <div class="col-sm-4 vote-end-date">
+                        <input type="date">
+                    </div>
+                    <div class="col-sm-4 vote-end-time">
+                        <select>
+                            <option value="0000">오전 12:00</option>
+                            <option value="0030">오전 12:30</option>
+                            <option value="0100">오전 01:00</option>
+                            <option value="0130">오전 01:30</option>
+                            <option value="0200">오전 02:00</option>
+                            <option value="0230">오전 02:30</option>
+                            <option value="0300">오전 03:00</option>
+                            <option value="0330">오전 03:30</option>
+                            <option value="0400">오전 04:00</option>
+                            <option value="0430">오전 04:30</option>
+                            <option value="0500">오전 05:00</option>
+                            <option value="0530">오전 05:30</option>
+                            <option value="0600">오전 06:00</option>
+                            <option value="0630">오전 06:30</option>
+                            <option value="0700">오전 07:00</option>
+                            <option value="0730">오전 07:30</option>
+                            <option value="0800">오전 08:00</option>
+                            <option value="0830">오전 08:30</option>
+                            <option value="0900">오전 09:00</option>
+                            <option value="0930">오전 09:30</option>
+                            <option value="1000">오전 10:00</option>
+                            <option value="1030">오전 10:30</option>
+                            <option value="1100">오전 11:00</option>
+                            <option value="1130">오전 11:30</option>
+                            <option value="1200">오후 12:00</option>
+                            <option value="1230">오후 12:30</option>
+                            <option value="1300">오후 01:00</option>
+                            <option value="1330">오후 01:30</option>
+                            <option value="1400">오후 02:00</option>
+                            <option value="1430">오후 02:30</option>
+                            <option value="1500">오후 03:00</option>
+                            <option value="1530">오후 03:30</option>
+                            <option value="1600">오후 04:00</option>
+                            <option value="1630">오후 04:30</option>
+                            <option value="1700">오후 05:00</option>
+                            <option value="1730">오후 05:30</option>
+                            <option value="1800">오후 06:00</option>
+                            <option value="1830">오후 06:30</option>
+                            <option value="1900">오후 07:00</option>
+                            <option value="1930">오후 07:30</option>
+                            <option value="2000">오후 08:00</option>
+                            <option value="2030">오후 08:30</option>
+                            <option value="2100">오후 09:00</option>
+                            <option value="2130">오후 09:30</option>
+                            <option value="2200">오후 10:00</option>
+                            <option value="2230">오후 10:30</option>
+                            <option value="2300">오후 11:00</option>
+                            <option value="2330">오후 11:30</option>
+                        </select>
+                    </div>
+               
+                <hr/>
+            </div>
+            
+          </div>
+          <div class="modal-footer" style="padding: 10px">
+               <div class="row">
+                   <div class="col-sm-12 text-center">
+                       <button type="button" class="btn btn-default add-new-modal" data-dismiss="modal">취소</button>
+                       <button type="button" class="btn btn-primary add-new-modal" data-dismiss="modal">확인</button>
+                   </div>
+               </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+    <!--to-do모달 끝-->
+    
+    
+    <!--참가신청서 모달-->
+    <div id="join_modal" class="modal fade" role="dialog" style="z-index: 2000;">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center"><strong>참가 신청서</strong></h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-12 modal-vote-title">
+                        <input type="text" placeholder="제목"/>
+                    </div>
+                </div>
+                
+                <div class="row join-date-row">
+                    <div class="col-sm-2">
+                        <span>날짜</span>
+                    </div>
+                    <div class="col-sm-6 join-date">
+                        <input type="date">
+                    </div>
+                </div>
+                
+                <!--항목 입력-->
+                <div class="row modal-todo-contents">
+                    <ul>
+                        <li>
+                            <input type="text" placeholder="항목 입력"/>
+                        </li>
+                        <li>
+                            <input type="text" placeholder="항목 입력"/>
+                        </li>
+                        <li>
+                            <input type="text" placeholder="항목 입력"/>
+                        </li>
+                    </ul>   
+                </div>
+                <!--항목 입력 끝-->
+                
+                <div class="row todo-option-row">
+                    <div class="col-sm-1">
+                        <span class="
+glyphicon glyphicon-plus"></span>
+                    </div>
+                    <div class="col-sm-11">
+                        <span>항목추가</span>
+                    </div>
+                </div>
+                
+                <div class="row vote-option-row">
+                    <div class="col-sm-1">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <div class="col-sm-3">
+                        <span>마감일 설정</span>
+                    </div>
+                    <div class="col-sm-4 vote-end-date">
+                        <input type="date">
+                    </div>
+                    <div class="col-sm-4 vote-end-time">
+                        <select>
+                            <option value="0000">오전 12:00</option>
+                            <option value="0030">오전 12:30</option>
+                            <option value="0100">오전 01:00</option>
+                            <option value="0130">오전 01:30</option>
+                            <option value="0200">오전 02:00</option>
+                            <option value="0230">오전 02:30</option>
+                            <option value="0300">오전 03:00</option>
+                            <option value="0330">오전 03:30</option>
+                            <option value="0400">오전 04:00</option>
+                            <option value="0430">오전 04:30</option>
+                            <option value="0500">오전 05:00</option>
+                            <option value="0530">오전 05:30</option>
+                            <option value="0600">오전 06:00</option>
+                            <option value="0630">오전 06:30</option>
+                            <option value="0700">오전 07:00</option>
+                            <option value="0730">오전 07:30</option>
+                            <option value="0800">오전 08:00</option>
+                            <option value="0830">오전 08:30</option>
+                            <option value="0900">오전 09:00</option>
+                            <option value="0930">오전 09:30</option>
+                            <option value="1000">오전 10:00</option>
+                            <option value="1030">오전 10:30</option>
+                            <option value="1100">오전 11:00</option>
+                            <option value="1130">오전 11:30</option>
+                            <option value="1200">오후 12:00</option>
+                            <option value="1230">오후 12:30</option>
+                            <option value="1300">오후 01:00</option>
+                            <option value="1330">오후 01:30</option>
+                            <option value="1400">오후 02:00</option>
+                            <option value="1430">오후 02:30</option>
+                            <option value="1500">오후 03:00</option>
+                            <option value="1530">오후 03:30</option>
+                            <option value="1600">오후 04:00</option>
+                            <option value="1630">오후 04:30</option>
+                            <option value="1700">오후 05:00</option>
+                            <option value="1730">오후 05:30</option>
+                            <option value="1800">오후 06:00</option>
+                            <option value="1830">오후 06:30</option>
+                            <option value="1900">오후 07:00</option>
+                            <option value="1930">오후 07:30</option>
+                            <option value="2000">오후 08:00</option>
+                            <option value="2030">오후 08:30</option>
+                            <option value="2100">오후 09:00</option>
+                            <option value="2130">오후 09:30</option>
+                            <option value="2200">오후 10:00</option>
+                            <option value="2230">오후 10:30</option>
+                            <option value="2300">오후 11:00</option>
+                            <option value="2330">오후 11:30</option>
+                        </select>
+                    </div>
+               
+                <hr/>
+            </div>
+            
+          </div>
+          <div class="modal-footer" style="padding: 10px">
+               <div class="row">
+                   <div class="col-sm-12 text-center">
+                       <button type="button" class="btn btn-default add-new-modal" data-dismiss="modal">취소</button>
+                       <button type="button" class="btn btn-primary add-new-modal" data-dismiss="modal">확인</button>
+                   </div>
+               </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+    <!--참가신청서 모달 끝-->
+    
+    <!--N빵 모달-->
+    <div id="nbbang_modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center">N빵 계산기</h4>
+          </div>
+          <div class="modal-body">
+           <div class="row">
+            <div class="row nbbang-row">
+                <div class="col-sm-3 nbbang-col-3">
+                    <span class="nbbang-kr">KRW(￦)</span>
+                </div>
+                <div class="col-sm-9 nbbnag-col-9 text-right">
+                    <input type="number" placeholder="총 금액을 입력해주세요">
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-2 nbbang-col-2">
+                    <img src="../../../resources/images/band_nbbang_member.PNG">
+                </div>
+                <div class="col-sm-7">
+                    
+                </div>
+                <div class="col-sm-3 nbbnag-col-7">
+                    <a href="#" id="nbbang_member">멤버 선택 ></a>
+                </div>
+            </div>
+            <hr/>
+            
+            <!--인원이 추가 됐을시 추가할때마다 알아서 계산-->
+            <div class="row">
+                <div class="col-sm-3 nbbang-col-2">
+                    <strong>이재헌 님</strong>
+                </div>
+                <div class="col-sm-9 nbbang-price">
+                    <input type="text" value="10,000" readonly>
+                </div>
+            </div>
+            <!--인원 추가 칸 끝-->
+            
+           </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+                   <div class="col-sm-12 text-center">
+                       <button type="button" class="btn btn-default add-new-modal" data-dismiss="modal">취소</button>
+                       <button type="button" class="btn btn-primary add-new-modal" data-dismiss="modal">확인</button>
+                   </div>
+               </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--N빵 모달 끝-->
+    
+    <!--N빵 인원추가 모달-->
+    <div id="nbbang_member_modal" class="modal fade" role="dialog" style="z-index: 3000;">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center">멤버 선택</h4>
+          </div>
+          <div class="modal-body">
+           <div class="row">
+            <div class="row nbbang-row2">
+                <div class="col-sm-2 nbbang-search-logo">
+                    <span class="glyphicon glyphicon-search"></span>
+                </div>
+                <div class="col-sm-8 nbbang-search-name">
+                    <input type="text" placeholder="이름"/>
+                </div>
+                <div class="col-sm-2 text-right" style="padding-right: 0px;">
+                    <button type="button" class="btn">검색</button>
+                </div>
+            </div>
+            
+            <div class="row nbbang-member-row2">
+                <div class="col-sm-9 nbbang-serch-col2">
+                    <span>모두 선택</span>
+                </div>
+                
+                <div class="col-sm-2 text-right">
+                    <input type="checkbox" />
+                </div>
+            </div>
+            <hr/>
+            
+            
+            <div class="row nbbang-member-row3">
+                <div class="col-sm-9 nbbang-serch-col2">
+                    <p>이재헌 님</p>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <input type="checkbox" />
+                </div>
+            </div>
+            <div class="row nbbang-member-row3">
+                <div class="col-sm-9 nbbang-serch-col2">
+                    <p>김미영 님</p>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <input type="checkbox" />
+                </div>
+            </div><div class="row nbbang-member-row3">
+                <div class="col-sm-9 nbbang-serch-col2">
+                    <p>강지영 님</p>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <input type="checkbox" />
+                </div>
+            </div>
+            
+            
+           </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+                   <div class="col-sm-12 text-center">
+                       <button type="button" class="btn btn-default add-new-modal" data-dismiss="modal">취소</button>
+                       <button type="button" class="btn btn-primary add-new-modal" data-dismiss="modal">확인</button>
+                   </div>
+               </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--N빵 인추가 모달 끝-->
+    
     <script>
 			$(function () {
 				$('[data-toggle="tooltip"]').tooltip()
                 
+                /*글 작성 모달 열기*/
                 $('.band-new-contents').click(function(){
                     $('#new_contents').modal('show');
                 });
 
-                /* 미래의 모달 열기*/
-                $('#new_contents').on('click','#addVote',function(event){
+                
+                /* 투표모달 열기*/ $('#new_contents').on('click','#addVote',function(event){
                     event.preventDefault();
                     $('#vote_modal').modal('show');
+                });
+                
+                
+                /* todo모달 열기*/ $('#new_contents').on('click','#addTodo',function(event){
+                    event.preventDefault();
+                    $('#todo_modal').modal('show');
+                });
+                
+                
+                /* join모달 열기*/ $('#new_contents').on('click','#addJoin',function(event){
+                    event.preventDefault();
+                    $('#join_modal').modal('show');
+                });
+                
+                 /* n빵모달 열기*/ $('#new_contents').on('click','#addNbbang',function(event){
+                    event.preventDefault();
+                    $('#nbbang_modal').modal('show');
+                });
+                
+                
+                /* n빵 멤버 모달 열기*/ $('#nbbang_modal').on('click','#nbbang_member',function(event){
+                    event.preventDefault();
+                    $('#nbbang_member_modal').modal('show');
                 });
                 
                 
@@ -761,6 +1237,7 @@
                       $('body').addClass('modal-open');
 
 		          }
+                    
 	           });
                 
                 /*smartEdit*/
