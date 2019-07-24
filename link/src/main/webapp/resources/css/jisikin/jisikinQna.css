@@ -2,6 +2,10 @@ div {
     display: block;
 }
 
+.spot_area {
+    border : 2px solid gray;
+}
+
 ul, li {
     list-style: none;
 }
@@ -11,14 +15,12 @@ ul, li {
     width: 100%;
     margin-bottom: 6px;
     padding-bottom: 2px;
-    background: url(https://ssl.pstatic.net/static/kin/09renewal/bg_spot_area.gif) left bottom;
 }
 
 .wrap_qna .spot_area_inner {
     position: relative;
     width: 100%;
     padding: 1px 1px 0;
-    background: url(https://ssl.pstatic.net/static/kin/09renewal/bg_spot_area.gif) left top;
 }
 
 .wrap_qna .spot_area .s_header {
