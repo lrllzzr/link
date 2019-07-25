@@ -21,9 +21,16 @@ public class UserController {
 		return "user/loginform";
 	}
 	
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:home.do";
+	}
+	
 	@RequestMapping(value="/loginform.do", method = RequestMethod.POST)
-	public String login(String userId, String password, HttpSession session) {
+	public String login(String userId, String password, HttpSession session) throws Exception {
 		User user = userService.login(userId, password);
+		
 		session.setAttribute("LOGIN_USER", user);
 		
 		return ("redirect:home.do");

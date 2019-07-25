@@ -12,7 +12,7 @@
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
 	<x>0</x>
-	<y>0</y>
+	<y>220</y>
 	<default_color>
 		<r>255</r>
 		<g>255</g>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2019-07-17 19:39:47</creation_date>
-			<updated_date>2019-07-18 14:39:48</updated_date>
+			<updated_date>2019-07-22 18:28:27</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -1602,7 +1602,7 @@
 			<connections>
 				<relation>
 					<id>3</id>
-					<source>4</source>
+					<source>3</source>
 					<target>5</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1624,7 +1624,7 @@
 				</relation>
 				<relation>
 					<id>4</id>
-					<source>3</source>
+					<source>4</source>
 					<target>5</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1655,7 +1655,7 @@
 				<normal_column>
 					<id>22</id>
 					<referenced_column>20</referenced_column>
-					<relation>3</relation>
+					<relation>4</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -1689,7 +1689,7 @@
 				<normal_column>
 					<id>23</id>
 					<referenced_column>14</referenced_column>
-					<relation>4</relation>
+					<relation>3</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -1745,7 +1745,7 @@
 			<connections>
 				<relation>
 					<id>5</id>
-					<source>0</source>
+					<source>3</source>
 					<target>6</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1767,7 +1767,7 @@
 				</relation>
 				<relation>
 					<id>6</id>
-					<source>3</source>
+					<source>0</source>
 					<target>6</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1831,7 +1831,7 @@
 				<normal_column>
 					<id>25</id>
 					<referenced_column>0</referenced_column>
-					<relation>5</relation>
+					<relation>6</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -1865,7 +1865,7 @@
 				<normal_column>
 					<id>26</id>
 					<referenced_column>14</referenced_column>
-					<relation>6</relation>
+					<relation>5</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>

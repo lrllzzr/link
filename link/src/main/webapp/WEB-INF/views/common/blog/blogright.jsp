@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div class="col-sm-12 blog_detail_right_row">
+<div class="col-sm-12 blog_detail_right_row" style="">
 	<div class="col-sm-4">
-		<strong style="color: #2f3030;">맛보기</strong> 64개의 글
+		<strong style="color: #2f3030;">${category.title }</strong>
+		<c:if test="${not empty blogCount }">
+			 ${blogCount }개의 글
+		</c:if>
 	</div>
 	<div class="col-sm-8 text-right">
-		<span id="blog_right_open">목록열기</span>
+		<span id="blog_right_open">목록 닫기</span>
 	</div>
 	<div class="row" id="blog_row1">
 	<div class="col-sm-12">
@@ -20,14 +23,14 @@
 			</div>
 		</div>
 		<!--   글 제목 시작-->
-		<c:forEach begin="1" end="10">
+		<c:forEach var="board" items="${blogBoards }">
 			<div class="row">
 				<div class="col-sm-12 blog_detail_right_row_1">
 					<div class="col-sm-9">
-						<span><a href="/link/blog/board.do">서면 무한리필 착한돼지 짱짱추천! (2)</a></span>
+						<span><a href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}">${board.title }</a></span>
 					</div>
 					<div class="col-sm-3 text-right">
-						<span class="blog_detail_board_create">2019.07.13</span>
+						<span class="blog_detail_board_create"><fmt:formatDate value="${board.createDate }"/></span>
 					</div>
 					<div class="col-sm-12 blog_detail-hr-div">
 						<hr class="blog_detail_hr_2" />
@@ -68,6 +71,12 @@
 	$(function() {
 		$('#blog_right_open').click(function() {
 			$('#blog_row1').toggle();
+			var status = $(this).html();
+			if(status == '목록 열기'){
+				$(this).html('목록 닫기');
+			} else{
+				$(this).html('목록 열기');
+			}
 		})
 	})
 </script>

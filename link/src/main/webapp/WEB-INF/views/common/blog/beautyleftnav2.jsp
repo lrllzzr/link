@@ -8,8 +8,11 @@
 			<div class="col-sm-12 blog-manage-smallbox ${left2 eq 'layout' ? 'blog_beauty_selected' : '' }">
 				<span><a href="beautifyblog.do">레이아웃 & 위젯 설정</a></span>
 			</div>
-			<div  class="col-sm-12 blog-manage-smallbox ${left2 eq 'skin' ? 'blog_beauty_selected' : '' }">
-				<span><a href="">내 스킨 관리</a></span>
+			<div  class="col-sm-12 blog-manage-smallbox ${left2 eq 'theme' ? 'blog_beauty_selected' : '' }">
+				<span><a href="blogtheme.do">내 테마 관리</a></span>
+			</div>
+			<div  class="col-sm-12 blog-manage-smallbox ${left2 eq 'color' ? 'blog_beauty_selected' : '' }">
+				<span><a href="blogcolor.do">내 색상 관리</a></span>
 			</div>
 			<div class="col-sm-12">
 				<hr class="blog-beauty-left-hr"/>
