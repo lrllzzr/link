@@ -1,7 +1,4 @@
-<!--
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
--->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,57 +8,13 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../../../resources/css/band.css">
-    <link rel="stylesheet" href="../../../resources/css/blog.css">
-    <link rel="stylesheet" href="../../../resources/css/main.css">
+    <link rel="stylesheet" href="/link/resources/css/band/band.css">
+    <link rel="stylesheet" href="/link/resources/css/blog.css">
+    <link rel="stylesheet" href="/link/resources/css/main.css">
 </head>
 <body class="band-back">
 <!--네비 시작-->
-<nav class="navbar navbar-default">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-2">
-                    <a href="#">
-                        <span class="band-main-javer">Link</span> <span class="band-main-band">밴드</span>
-                    </a>
-                </div>
-                <div class="col-sm-5 blog-searchbar">
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input style="width:300px;" type="text" class="form-control" placeholder="검색">
-                        </div>
-                        <button type="submit" class="btn btn-default" style="width: 31px; height: 31px;"><span style="color: black; font-size: 23px;" class="glyphicon glyphicon-search band-search-position"></span></button>
-                    </form>
-                </div>
-
-                <div class="col-sm-4 col-sm-offset-1 text-right blog-toprow-right">
-                    <div class="blog-navbar-right collapse navbar-collapse navbar-right">
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <img class="band-profile-img" src="../../../../webapp/resources/images/bandLog.png" alt="" >
-                                    <span class="band-navbar-id">홍길동 님</span>
-                                    <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">내 정보</a></li>
-                                    <li><a href="#">블로그</a></li>
-                                    <li><a href="#">밴드</a></li>
-                                    <li><a href="#">가계부</a></li>
-                                    <li><a href="#">지식인</a></li>
-                                    <li><a href="#">시리즈</a></li>
-                                    <li><a href="#">TV</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">로그아웃</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="bell2 text-center"><a href=""><span class="glyphicon glyphicon-bell" style="color: black"></span></a></div>
-                        <div class="comment text-center"><a href=""><span class="glyphicon glyphicon-comment" style="color: black"></span></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+<%@include file="bandMainNav.jsp" %>
 <!--네비끝-->
     <div class="container">
         <div class="row">
@@ -81,11 +34,11 @@
                 <div class="row band-each">
                   
                   <div class="sample-band-hover">
-                   <a href="#">
+                   <a href="addBand.do">
                     <div class="col-sm-3">
                         <div class="row text-center">
                             <div class="col-sm-12 band-add-top">
-                                <img src="../../../resources/images/band_plus.PNG">
+                                <img src="/link/resources/images/band_plus.PNG">
                                 <div class="col-sm-12">
                                    밴드 추가하기
                                 </div>
@@ -100,7 +53,7 @@
                     <div class="col-sm-3">
                        <div class="row">
                            <div class="col-sm-12">
-                                <img src="../../../resources/images/band_into_img.JPG" class="band-into-photo">       
+                                <img src="/link/resources/images/band_into_img.JPG" class="band-into-photo">       
                            </div>
                        </div>
                        <div class="row text-left band-into-name">
@@ -120,7 +73,7 @@
                     <div class="col-sm-3">
                        <div class="row">
                            <div class="col-sm-12">
-                                <img src="../../../resources/images/band_into_img.JPG" class="band-into-photo">       
+                                <img src="/link/resources/images/band_into_img.JPG" class="band-into-photo">       
                            </div>
                        </div>
                        <div class="row text-left band-into-name">
@@ -140,7 +93,7 @@
                     <div class="col-sm-3">
                        <div class="row">
                            <div class="col-sm-12">
-                                <img src="../../../resources/images/band_into_img.JPG" class="band-into-photo">       
+                                <img src="/link/resources/images/band_into_img.JPG" class="band-into-photo">       
                            </div>
                        </div>
                        <div class="row text-left band-into-name">
@@ -160,7 +113,7 @@
                     <div class="col-sm-3">
                        <div class="row">
                            <div class="col-sm-12">
-                                <img src="../../../resources/images/band_into_img.JPG" class="band-into-photo">       
+                                <img src="/link/resources/images/band_into_img.JPG" class="band-into-photo">       
                            </div>
                        </div>
                        <div class="row text-left band-into-name">
@@ -180,7 +133,7 @@
                     <div class="col-sm-3">
                        <div class="row">
                            <div class="col-sm-12">
-                                <img src="../../../resources/images/band_into_img.JPG" class="band-into-photo">       
+                                <img src="/link/resources/images/band_into_img.JPG" class="band-into-photo">       
                            </div>
                        </div>
                        <div class="row text-left band-into-name">
@@ -200,7 +153,7 @@
                     <div class="col-sm-3">
                        <div class="row">
                            <div class="col-sm-12">
-                                <img src="../../../resources/images/band_into_img.JPG" class="band-into-photo">       
+                                <img src="/link/resources/images/band_into_img.JPG" class="band-into-photo">       
                            </div>
                        </div>
                        <div class="row text-left band-into-name">
@@ -220,7 +173,7 @@
                     <div class="col-sm-3">
                        <div class="row">
                            <div class="col-sm-12">
-                                <img src="../../../resources/images/band_into_img.JPG" class="band-into-photo">       
+                                <img src="/link/resources/images/band_into_img.JPG" class="band-into-photo">       
                            </div>
                        </div>
                        <div class="row text-left band-into-name">
@@ -267,7 +220,7 @@
                           </span>
                       </div>
                       <div class="col-sm-3 isu-photo">
-                          <img src="../../../resources/images/band.png" class="isu-photo2">
+                          <img src="/link/resources/images/band.png" class="isu-photo2">
                       </div>
                   </div>
               </div>
@@ -287,7 +240,7 @@
                           </span>
                       </div>
                       <div class="col-sm-3 isu-photo">
-                          <img src="../../../resources/images/band.png" class="isu-photo2">
+                          <img src="/link/resources/images/band.png" class="isu-photo2">
                       </div>
                   </div>
               </div>
@@ -313,7 +266,7 @@
                 <a href="#">
                   <div class="row">
                       <div class="col-sm-3">
-                         <img src="../../../resources/images/band.png" class="chuchen-photo"> 
+                         <img src="/link/resources/images/band.png" class="chuchen-photo"> 
                       </div>
                       <div class="col-sm-9 cuchen-band-margin">
                           <div class="row">
@@ -335,7 +288,7 @@
                 <a href="#">
                   <div class="row">
                       <div class="col-sm-3">
-                         <img src="../../../resources/images/band.png" class="chuchen-photo"> 
+                         <img src="/link/resources/images/band.png" class="chuchen-photo"> 
                       </div>
                       <div class="col-sm-9 cuchen-band-margin">
                           <div class="row">
@@ -357,7 +310,7 @@
                 <a href="#">
                   <div class="row">
                       <div class="col-sm-3">
-                         <img src="../../../resources/images/band.png" class="chuchen-photo"> 
+                         <img src="/link/resources/images/band.png" class="chuchen-photo"> 
                       </div>
                       <div class="col-sm-9 cuchen-band-margin">
                           <div class="row">
@@ -379,7 +332,7 @@
                 <a href="#">
                   <div class="row">
                       <div class="col-sm-3">
-                         <img src="../../../resources/images/band.png" class="chuchen-photo"> 
+                         <img src="/link/resources/images/band.png" class="chuchen-photo"> 
                       </div>
                       <div class="col-sm-9 cuchen-band-margin">
                           <div class="row">
@@ -401,7 +354,7 @@
                 <a href="#">
                   <div class="row">
                       <div class="col-sm-3">
-                         <img src="../../../resources/images/band.png" class="chuchen-photo"> 
+                         <img src="/link/resources/images/band.png" class="chuchen-photo"> 
                       </div>
                       <div class="col-sm-9 cuchen-band-margin">
                           <div class="row">
@@ -423,7 +376,7 @@
                 <a href="#">
                   <div class="row">
                       <div class="col-sm-3">
-                         <img src="../../../resources/images/band.png" class="chuchen-photo"> 
+                         <img src="/link/resources/images/band.png" class="chuchen-photo"> 
                       </div>
                       <div class="col-sm-9 cuchen-band-margin">
                           <div class="row">
