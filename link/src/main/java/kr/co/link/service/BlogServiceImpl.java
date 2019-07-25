@@ -30,4 +30,9 @@ public class BlogServiceImpl implements BlogService{
 		List<Blog> blogs = blogDao.get3BlogByVisits();
 		return blogs;
 	}
+
+	@Override
+	public void updateBlogByBlogNo(Blog blog) {
+		blogDao.updateBlogByBlogNo(blog);
+	}
 }

@@ -8,4 +8,5 @@ public interface BlogService {
 	public Blog getBlogByUserId(String id);
 	public Blog getBlogByBlogNo(Integer blogNo);
 	public List<Blog> get3BlogByVisits();
+	public void updateBlogByBlogNo(Blog blog);
 }

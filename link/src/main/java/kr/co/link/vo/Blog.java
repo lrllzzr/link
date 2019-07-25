@@ -11,6 +11,98 @@ public class Blog {
 	private String description;
 	private Date createDate;
 	private String userId;
+	private Integer visits;
+	private String backgroundColor;
+	private String fontColor;
+	private Double opacity;
+	private String atagColor;
+	private String hrColor;
+	private String bodyColor;
+	private String firstCol;
+	private String secondCol;
+	private String thirdCol;
+	private Integer layout;
+	private String pageNumColor;
+	private String pageNumBackgroundColor;
+	
+	public String getPageNumColor() {
+		return pageNumColor;
+	}
+	public void setPageNumColor(String pageNumColor) {
+		this.pageNumColor = pageNumColor;
+	}
+	public String getPageNumBackgroundColor() {
+		return pageNumBackgroundColor;
+	}
+	public void setPageNumBackgroundColor(String pageNumBackgroundColor) {
+		this.pageNumBackgroundColor = pageNumBackgroundColor;
+	}
+	public Integer getLayout() {
+		return layout;
+	}
+	public void setLayout(Integer layout) {
+		this.layout = layout;
+	}
+	public String getFirstCol() {
+		return firstCol;
+	}
+	public void setFirstCol(String firstCol) {
+		this.firstCol = firstCol;
+	}
+	public String getSecondCol() {
+		return secondCol;
+	}
+	public void setSecondCol(String secondCol) {
+		this.secondCol = secondCol;
+	}
+	public String getThirdCol() {
+		return thirdCol;
+	}
+	public void setThirdCol(String thirdCol) {
+		this.thirdCol = thirdCol;
+	}
+	public String getBodyColor() {
+		return bodyColor;
+	}
+	public void setBodyColor(String bodyColor) {
+		this.bodyColor = bodyColor;
+	}
+	public String getHrColor() {
+		return hrColor;
+	}
+	public void setHrColor(String hrColor) {
+		this.hrColor = hrColor;
+	}
+	public String getAtagColor() {
+		return atagColor;
+	}
+	public void setAtagColor(String atagColor) {
+		this.atagColor = atagColor;
+	}
+	public Double getOpacity() {
+		return opacity;
+	}
+	public void setOpacity(Double opacity) {
+		this.opacity = opacity;
+	}
+	public String getBackgroundColor() {
+		return backgroundColor;
+	}
+	public void setBackgroundColor(String backgroundColor) {
+		this.backgroundColor = backgroundColor;
+	}
+	public String getFontColor() {
+		return fontColor;
+	}
+	public void setFontColor(String fontColor) {
+		this.fontColor = fontColor;
+	}
+	public Integer getVisits() {
+		return visits;
+	}
+	public void setVisits(Integer visits) {
+		this.visits = visits;
+	}
 	private List<BlogCategory> categories;
 	
 	public List<BlogCategory> getCategories() {

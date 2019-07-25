@@ -41,6 +41,8 @@ a:hover, a:focus {
 .blog_manage_right_row {
 	padding-top: 40px;
 	padding-left: 28px;
+	padding-right: 28px;
+	padding-bottom: 60px;
 	border-left: 1px solid lightgray;
 }
 

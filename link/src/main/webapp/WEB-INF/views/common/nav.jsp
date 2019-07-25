@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <nav class="navbar main-nav">
-        <div class="container">
+        <div class="container blog_remove_color">
             <div class="row">
                 <div class="col-sm-2">
                     <a href="/link/home.do">

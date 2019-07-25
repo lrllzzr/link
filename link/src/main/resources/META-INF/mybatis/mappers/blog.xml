@@ -13,7 +13,19 @@
 		BLOG_VISITS visits,
 		BLOG_DESCRIPTION description,
 		BLOG_CREATE_DATE createDate,
-		USER_ID userId
+		USER_ID userId,
+		BLOG_BACKGROUND_COLOR backgroundColor,
+		BLOG_FONT_COLOR fontColor,
+		blog_opacity opacity,
+		BLOG_ATAG_COLOR atagColor,
+		BLOG_HR_COLOR hrColor,
+		BLOG_BODY_COLOR bodyColor,
+		BLOG_FIRSTCOL firstCol,
+		BLOG_SECONDCOL secondCol,
+		BLOG_THIRDCOL thirdCol,
+		BLOG_LAYOUT layout,
+		BLOG_PAGENUM_COLOR pageNumColor, 
+		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor
 	from
 		blog
 	where
@@ -28,7 +40,19 @@
 		BLOG_VISITS visits,
 		BLOG_DESCRIPTION description,
 		BLOG_CREATE_DATE createDate,
-		USER_ID userId
+		USER_ID userId,
+		BLOG_BACKGROUND_COLOR backgroundColor,
+		BLOG_FONT_COLOR fontColor,
+		blog_opacity opacity,
+		BLOG_ATAG_COLOR atagColor,
+		BLOG_HR_COLOR hrColor,
+		BLOG_BODY_COLOR bodyColor,
+		BLOG_FIRSTCOL firstCol,
+		BLOG_SECONDCOL secondCol,
+		BLOG_THIRDCOL thirdCol,
+		BLOG_LAYOUT layout,
+		BLOG_PAGENUM_COLOR pageNumColor, 
+		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor
 	from
 		blog
 	where
@@ -44,7 +68,20 @@
 		BLOG_VISITS visits,
 		BLOG_DESCRIPTION description,
 		BLOG_CREATE_DATE createDate,
-		USER_ID userId
+		USER_ID userId,
+		BLOG_BACKGROUND_COLOR backgroundColor,
+		BLOG_FONT_COLOR fontColor,
+		blog_opacity opacity,
+		BLOG_ATAG_COLOR atagColor,
+		BLOG_HR_COLOR hrColor,
+		BLOG_BODY_COLOR bodyColor,
+		BLOG_FIRSTCOL firstCol,
+		BLOG_SECONDCOL secondCol,
+		BLOG_THIRDCOL thirdCol,
+		BLOG_LAYOUT layout,
+		BLOG_PAGENUM_COLOR pageNumColor, 
+		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor
+		
 	from(
         select
             row_number() over(Order by blog_visits desc) row_no,
@@ -55,11 +92,46 @@
             BLOG_VISITS,
             BLOG_DESCRIPTION,
             BLOG_CREATE_DATE,
-            USER_ID
+            USER_ID,
+			BLOG_BACKGROUND_COLOR,
+			BLOG_FONT_COLOR,
+			blog_opacity,
+			BLOG_ATAG_COLOR,
+			BLOG_HR_COLOR,
+			BLOG_BODY_COLOR,
+			BLOG_FIRSTCOL ,
+			BLOG_SECONDCOL ,
+			BLOG_THIRDCOL ,
+			BLOG_LAYOUT,
+			BLOG_PAGENUM_COLOR , 
+			BLOG_PAGENUM_BACKGROUNDCOLOR 
         from
             blog
     )
     where row_no &lt;=3
 </select>
-
+<update id="updateBlogByBlogNo" parameterType="blog">
+	update 
+		blog
+	set
+		BLOG_TITLE = #{title},
+		BLOG_MAIN_IMG = #{mainImg}, 
+		BLOG_THEME = #{theme},
+		BLOG_DESCRIPTION = #{description},
+		BLOG_VISITS = #{visits},
+		BLOG_BACKGROUND_COLOR = #{backgroundColor},
+		BLOG_FONT_COLOR = #{fontColor},
+		BLOG_OPACITY =  #{opacity},
+		BLOG_ATAG_COLOR = #{atagColor},
+		BLOG_HR_COLOR = #{hrColor},
+		BLOG_BODY_COLOR = #{bodyColor},
+		BLOG_FIRSTCOL = #{firstCol},
+		BLOG_SECONDCOL = #{secondCol},
+		BLOG_THIRDCOL = #{thirdCol},
+		BLOG_LAYOUT = #{layout},
+		BLOG_PAGENUM_COLOR = #{pageNumColor}, 
+		BLOG_PAGENUM_BACKGROUNDCOLOR = #{pageNumBackgroundColor}
+	where
+		BLOG_NO = #{no}
+</update>
 </mapper>

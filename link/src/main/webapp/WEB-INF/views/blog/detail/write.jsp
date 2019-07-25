@@ -1,36 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<title>Bootstrap</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="/link/resources/css/blog/blog.css">
-<link rel="stylesheet" href="/link/resources/css/blog/blogdetail.css">
-<link rel="stylesheet" href="/link/resources/css/blog/bootstrap.css">
-<script type="text/javascript" src="/link/resources/js/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-<style>
-a:hover, a:focus {
-	text-decoration: none;
-}
-
-body {
-	background-color: lightgray;
-	color: #666666;
-}
-
-.blog_detail_con {
-	background: no-repeat center/100%
-		url("/link/resources/images/blogthemes/${blog.theme}");
-}
-</style>
-</head>
-
+<%@include file="../../common/blog/blogColorHeader.jsp"%>
 <body>
 	<!-- 네비게이션 시작  -->
 	<%@include file="../../common/nav.jsp"%>

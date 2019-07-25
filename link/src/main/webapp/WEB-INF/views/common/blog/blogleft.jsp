@@ -1,57 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="col-sm-3">
 	<div class="row">
-		<div class="col-sm-10 col-sm-offset-1" style="padding-bottom: 100px; background-color:white; opacity:0.9;">
+		<div class="col-sm-10 col-sm-offset-1 blog_main_left_row" style="">
 			<div class="row">
-				<div class="col-sm-12">
-					<a href=""><img class="blog_detail_left_col_img" src="/link/resources/images/${blog.mainImg }" alt=""></a>
-				</div>
-				<div class="col-sm-12 blog-detail-left-col-user">
-					<div class="row">
-						<div class="col-sm-12">
-							<strong style="font-size: 15px; color: gray;">${user.nickName }</strong>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12" style="font-size: 12px;">(${user.id})</div>
-					</div>
-				</div>
-				<div class="col-sm-12 blog_detail_leftcol_contents">
-					<span class="blog-detail-contents">${blog.description }</span>
-				</div>
-				<c:if test="${isMyBlog eq 'others' }">
-				<div class="col-sm-12 blog_detail_leftcol_contents2">
-					<a href="">프로필<span class="glyphicon glyphicon-play blog-detail-profile"></span></a> <a href="">쪽지<span class="glyphicon glyphicon-play blog-detail-profile"></span></a>
-				</div>
-				</c:if>
-				<c:if test="${isMyBlog eq 'mine' }">
-					<!-- 내 블로그면  시작-->
-					<div class="col-sm-12 blog_detail_leftcol_contents2">
-						<a href="write.do?blogNo=${blog.no }&categoryNo=${category.no}"><span class="glyphicon glyphicon-tags blog-detail-function1"></span>&nbsp;글쓰기</a> <a href="beauty.do?blogNo=${blog.no }"><span class="glyphicon glyphicon-cog blog-detail-function2"></span>&nbsp;관리,통계</a>
-					</div>
-					<!-- 내 블로그면 끝  -->
-				</c:if>
-				<c:if test="${isMyBlog eq 'others' }">
-					<div class="col-sm-8 col-sm-offset-2 blog_detail_neighborplus text-center">
-						<a href=""><span class="blog_detail_plus">+</span><span class="blog_detail_plus2">이웃추가</span></a>
-					</div>
-				</c:if>
 
-				<!-- 카테고리 영역 시작  -->
-				<div class="col-sm-12 blog-detail-showlist">
-					<span class="glyphicon glyphicon-list-alt"></span> <span class="blog-detail-showall">전체보기(403)</span>
+				<!-- 첫 영역 시작  -->
+				<c:if test="${blog.firstCol eq 'profile' }">
+					<%@ include file="../blogchangeform/profile.jsp"%>
+				</c:if>
+				<c:if test="${blog.firstCol eq 'category' }">
+					<%@ include file="../blogchangeform/category.jsp"%>
+				</c:if>
+				<c:if test="${blog.firstCol eq 'bloginfo' }">
+					<%@ include file="../blogchangeform/bloginfo.jsp"%>
+				</c:if>
+				<!-- 첫 영역 끝  -->
+				<div class="col-sm-12">
+					<hr style="border-bottom: 1px dashed;" />
 				</div>
-				<c:forEach var="subCat" items="${subCategories }">
-					<div class="col-sm-12 blog-detail-showlist">
-						<span class="glyphicon glyphicon-list-alt"></span> <span class="blog-detail-showall">${subCat.title }</span>
-						<c:forEach var="cat" items="${subCat.blogCategory}">
-							<div class="col-sm-12">
-								<a href="detail.do?blogNo=${blog.no }&categoryNo=${cat.no}"><span class="blog-detail-showall">&nbsp;┗ ${cat.title }</span></a>
-							</div>
-						</c:forEach>
-					</div>
-				</c:forEach>
-				<!-- 카테고리 영역 끝 -->
+				<!-- 두번째 영역 시작  -->
+				<c:if test="${blog.secondCol eq 'profile' }">
+					<%@ include file="../blogchangeform/profile.jsp"%>
+				</c:if>
+				<c:if test="${blog.secondCol eq 'category' }">
+					<%@ include file="../blogchangeform/category.jsp"%>
+				</c:if>
+				<c:if test="${blog.secondCol eq 'bloginfo' }">
+					<%@ include file="../blogchangeform/bloginfo.jsp"%>
+				</c:if>
+				<!-- 두번째 영역 끝 -->
+				<div class="col-sm-12">
+					<hr style="border-bottom: 1px dashed;" />
+				</div>
+				<!-- 세번째 영역 시작  -->
+				<c:if test="${blog.thirdCol eq 'profile' }">
+					<%@ include file="../blogchangeform/profile.jsp"%>
+				</c:if>
+				<c:if test="${blog.thirdCol eq 'category' }">
+					<%@ include file="../blogchangeform/category.jsp"%>
+				</c:if>
+				<c:if test="${blog.thirdCol eq 'bloginfo' }">
+					<%@ include file="../blogchangeform/bloginfo.jsp"%>
+				</c:if>
+				<!-- 세번째 영역 시작  -->
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,6 @@
 package kr.co.link.controller;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -45,6 +46,13 @@ public class BlogMyController {
 	
 	public List<BlogSubCategory> getBlogSubCategories(HttpSession session,Integer blogNo, Model model, Integer categoryNo) {
 		Blog blog = blogService.getBlogByBlogNo(blogNo);
+		String blogColor = blog.getBackgroundColor();
+		Color color = Color.decode(blogColor);
+		String r = Integer.toString(color.getRed());
+		String g = Integer.toString(color.getGreen());
+		String b = Integer.toString(color.getBlue());
+		String rgb = r+","+g+","+b;
+		blog.setBackgroundColor(rgb);
 		// 블로그 주인 아이디
 		String userId = blog.getUserId();
 		// 블로그 주인 유저 찾기
@@ -86,7 +94,54 @@ public class BlogMyController {
 		Integer categoryNo = blogCategory.getNo();
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
 		model.addAttribute("subCategories",blogSubCategories);
-		return "blog/detail/detail";
+		if(blog.getLayout() == 1) {
+			return "blog/detail/detail";
+		}
+		if(blog.getLayout() ==2) {
+			return "blog/detail/detail2";
+		}
+		if(blog.getLayout() ==3) {
+			return "blog/detail/detail3";
+		} else {
+			return "blog/detail/detail4";
+		}
+	}
+	
+	@RequestMapping("/mydetail2.do")
+	public String detail2(Model model, HttpSession session){
+		User user = (User) session.getAttribute("LOGIN_USER");
+		Blog blog = blogService.getBlogByUserId(user.getId());
+		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
+		Integer blogNo = blog.getNo();
+		Integer categoryNo = blogCategory.getNo();
+		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
+		model.addAttribute("subCategories",blogSubCategories);
+		return "blog/detail/detail2";
+	}
+	
+	
+	@RequestMapping("/colordetail1.do")
+	public String colordetail(Model model, HttpSession session){
+		User user = (User) session.getAttribute("LOGIN_USER");
+		Blog blog = blogService.getBlogByUserId(user.getId());
+		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
+		Integer blogNo = blog.getNo();
+		Integer categoryNo = blogCategory.getNo();
+		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
+		model.addAttribute("subCategories",blogSubCategories);
+		return "blog/beautify/colordetail";
+	}
+	
+	@RequestMapping("/colordetail2.do")
+	public String colordetail2(Model model, HttpSession session){
+		User user = (User) session.getAttribute("LOGIN_USER");
+		Blog blog = blogService.getBlogByUserId(user.getId());
+		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
+		Integer blogNo = blog.getNo();
+		Integer categoryNo = blogCategory.getNo();
+		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
+		model.addAttribute("subCategories",blogSubCategories);
+		return "blog/beautify/colordetail2";
 	}
 	
 	@RequestMapping(value="/mywrite.do", method = RequestMethod.GET)

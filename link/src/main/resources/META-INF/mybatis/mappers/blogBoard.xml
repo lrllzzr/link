@@ -16,6 +16,7 @@
 		blog_boards
 	where
 		category_no = #{value}
+	order by BOARD_CREATE_DATE desc
 </select>
 <select id="getBoardByboardNo" parameterType="int" resultType="blogboard">
 	select
@@ -29,6 +30,7 @@
 		blog_boards
 	where
 		board_no = #{value}
+	order by BOARD_CREATE_DATE desc
 </select>
 <insert id="addBoard" parameterType="blogboard">
 	insert into blog_boards

@@ -1,5 +1,6 @@
 package kr.co.link.controller;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -46,6 +47,15 @@ public class BlogDetailController {
 	
 	public List<BlogSubCategory> getBlogSubCategories(HttpSession session,Integer blogNo, Model model, Integer categoryNo) {
 		Blog blog = blogService.getBlogByBlogNo(blogNo);
+		// 배경색상 투명도 바꾸기
+		String blogColor = blog.getBackgroundColor();
+		Color color = Color.decode(blogColor);
+		String r = Integer.toString(color.getRed());
+		String g = Integer.toString(color.getGreen());
+		String b = Integer.toString(color.getBlue());
+		String rgb = r+","+g+","+b;
+		blog.setBackgroundColor(rgb);
+		
 		// 블로그 주인 아이디
 		String userId = blog.getUserId();
 		// 블로그 주인 유저 찾기
@@ -104,9 +114,19 @@ public class BlogDetailController {
 	public String detail(Model model, HttpSession session, Integer blogNo, Integer categoryNo){
 		
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
+		Blog blog = blogService.getBlogByBlogNo(blogNo);
 		model.addAttribute("subCategories",blogSubCategories);
-		
-		return "blog/detail/detail";
+		if(blog.getLayout() == 1) {
+			return "blog/detail/detail";
+		}
+		if(blog.getLayout() ==2) {
+			return "blog/detail/detail2";
+		}
+		if(blog.getLayout() ==3) {
+			return "blog/detail/detail3";
+		} else {
+			return "blog/detail/detail4";
+		}
 	}
 	
 	@RequestMapping("/board.do")

@@ -9,9 +9,6 @@
 			<!--  헤더 시작         -->
 			<%@include file="../../common/blog/blogheader.jsp"%>
 			<!--  헤더 끝     -->
-			<!--좌측 nav 시작-->
-			<%@include file="../../common/blog/blogleft.jsp"%>
-			<!--좌측 nav 끝-->
 
 			<!--                    우측 게시판 시작-->
 			<div class="col-sm-9">
@@ -75,6 +72,9 @@
 				<!--                    우측 게시판 두번째 nav 끝-->
 			</div>
 			<!--                    우측 게시판 끝-->
+			<!--좌측 nav 시작-->
+			<%@include file="../../common/blog/blogleft.jsp"%>
+			<!--좌측 nav 끝-->
 		</div>
 	</div>
 
