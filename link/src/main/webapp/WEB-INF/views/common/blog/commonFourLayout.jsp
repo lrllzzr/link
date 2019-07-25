@@ -35,8 +35,8 @@
 				<a href="beautifyblog3.do">
 					<div class="col-sm-2" id="layout3">
 						<div class="layout_div2">
-							<div class="layout_row7 ${selected eq 'third' ? 'greenLight' : ''}"></div>
-							<div class="layout_row8"></div>
+							<div class="layout_row1 ${selected eq 'third' ? 'greenLight' : ''}"></div>
+							<div class="layout_row2"></div>
 							<div class="layout_row9"></div>
 							<div class="layout_row10"></div>
 						</div>
@@ -45,10 +45,10 @@
 				<a href="beautifyblog4.do">
 					<div class="col-sm-2" id="layout4">
 						<div class="layout_div2">
-							<div class="layout_row7 ${selected eq 'fourth' ? 'greenLight' : ''}"></div>
-							<div class="layout_row8"></div>
+							<div style="margin-top:0px;" class="layout_row9"></div>
 							<div class="layout_row10"></div>
-							<div class="layout_row9"></div>
+							<div style="margin-top:3px;" class="layout_row1 ${selected eq 'fourth' ? 'greenLight' : ''}"></div>
+							<div class="layout_row2"></div>
 						</div>
 					</div>
 				</a>

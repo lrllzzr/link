@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="col-sm-3">
 	<div class="row">
-		<div class="col-sm-10 col-sm-offset-1 blog_main_left_row" style="">
+		<div class="col-sm-10 col-sm-offset-1 blog_main_left_row_bottom" style="">
 			<div class="row">
 				<!-- 첫 영역 시작  -->
 				<c:if test="${blog.firstCol eq 'profile' }">
@@ -14,9 +14,15 @@
 					<%@ include file="../blogchangeform/bloginfo.jsp"%>
 				</c:if>
 				<!-- 첫 영역 끝  -->
-				<div class="col-sm-12">
-					<hr style="border-bottom: 1px dashed;" />
-				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-sm-3">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1 blog_main_left_row_bottom" style="">
+			<div class="row">
 				<!-- 두번째 영역 시작  -->
 				<c:if test="${blog.secondCol eq 'profile' }">
 					<%@ include file="../blogchangeform/profile.jsp"%>
@@ -28,9 +34,15 @@
 					<%@ include file="../blogchangeform/bloginfo.jsp"%>
 				</c:if>
 				<!-- 두번째 영역 끝 -->
-				<div class="col-sm-12">
-					<hr style="border-bottom: 1px dashed;" />
-				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-sm-3">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1 blog_main_left_row_bottom" style="">
+			<div class="row">
 				<!-- 세번째 영역 시작  -->
 				<c:if test="${blog.thirdCol eq 'profile' }">
 					<%@ include file="../blogchangeform/profile.jsp"%>

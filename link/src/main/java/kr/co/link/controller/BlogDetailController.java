@@ -115,6 +115,7 @@ public class BlogDetailController {
 		
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
 		Blog blog = blogService.getBlogByBlogNo(blogNo);
+		
 		model.addAttribute("subCategories",blogSubCategories);
 		if(blog.getLayout() == 1) {
 			return "blog/detail/detail";
@@ -137,10 +138,22 @@ public class BlogDetailController {
 		
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
 		model.addAttribute("subCategories",blogSubCategories);
-		
+		Blog blog = blogService.getBlogByBlogNo(blogNo);
 		BlogBoard board = blogBoardService.getBoardByboardNo(boardNo);
 		model.addAttribute("board",board);
-		return "blog/detail/board";
+		
+		if(blog.getLayout() == 1) {
+			return "blog/detail/board";
+		}
+		if(blog.getLayout() ==2) {
+			return "blog/detail/board2";
+		}
+		if(blog.getLayout() ==3) {
+			return "blog/detail/board3";
+		} else {
+			return "blog/detail/board4";
+		}
+		
 	}
 	
 	@RequestMapping(value="/write.do", method = RequestMethod.GET)
@@ -148,9 +161,19 @@ public class BlogDetailController {
 		
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
 		model.addAttribute("subCategories",blogSubCategories);
-		return "blog/detail/write";
+		Blog blog = blogService.getBlogByBlogNo(blogNo);
+		if(blog.getLayout() == 1) {
+			return "blog/detail/write";
+		}
+		if(blog.getLayout() ==2) {
+			return "blog/detail/write2";
+		}
+		if(blog.getLayout() ==3) {
+			return "blog/detail/write3";
+		} else {
+			return "blog/detail/write4";
+		}
 	}
-	
 	@RequestMapping(value="/write.do", method = RequestMethod.POST)
 	public String writeMethod(Model model, HttpSession session, HttpServletRequest request, BlogBoardForm blogBoardForm, Integer blogNo, Integer categoryNo) throws IOException{
 		
@@ -166,4 +189,5 @@ public class BlogDetailController {
 	    blogBoardService.addBoard(blogBoard);
 		return "redirect:detail.do?blogNo="+blogNo+"&categoryNo="+categoryNo;
 	}
+	
 }
