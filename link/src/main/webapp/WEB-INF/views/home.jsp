@@ -107,7 +107,7 @@
 				<div class="main-menu">
 					<a href="">가계부</a>
 				</div>
-				<a href=""><img src="resources/images/gage.png" alt=""></a>
+				<a href="/link/accountbook/home.do"><img src="resources/images/gage.png" alt=""></a>
 			</div>
 		</div>
 
