@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/link/resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/link/resources/css/blog/bootstrap.css">
     <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
     <link rel="stylesheet" href="/link/resources/css/blog/beautymain.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -40,7 +40,7 @@
                         <strong>블로그명</strong>
                     </div>
                     <div class="col-sm-5">
-                        <input class="col-sm-12 blog_manage_input" type="text" />
+                        <input class="form-control col-sm-12 blog_manage_input" type="text" value="${blog.title }"/>
                     </div>
                     <div class="col-sm-5">
                         <span>한글,영문,숫자 혼용가능(한글 기준 25자 이내)</span>
@@ -55,7 +55,7 @@
                         <strong>별명</strong>
                     </div>
                     <div class="col-sm-5">
-                        <input class="col-sm-12" type="text" />
+                        <input class="form-control col-sm-12" type="text" value="${LOGIN_USER.nickName }"/>
                     </div>
                     <div class="col-sm-5">
                         <span>한글,영문,숫자 혼용가능(한글 기준 10자 이내)</span>
@@ -69,7 +69,7 @@
                         <strong>소개글</strong>
                     </div>
                     <div class="col-sm-5">
-                        <textarea class="col-sm-12" name="" id="" rows="6"></textarea>
+                        <textarea class="form-control col-sm-12" name="" id="" rows="6"></textarea>
                     </div>
                     <div class="col-sm-5">
                         <span>블로그 프로필 영역의<br>
