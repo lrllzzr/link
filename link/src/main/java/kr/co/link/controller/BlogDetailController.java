@@ -195,7 +195,7 @@ public class BlogDetailController {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		BeanUtils.copyProperties(blogForm, blog);
 		MultipartFile mf = blogForm.getMainImg();
-		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images/userblogimgs";
+		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images";
 		String filename = "profile.jpg";
 
 		if (!mf.isEmpty()) {
@@ -216,7 +216,6 @@ public class BlogDetailController {
 		BlogSubCategory blogSubCategory = new BlogSubCategory();
 		blogSubCategory.setBlogNo(blog.getNo());
 		blogSubCategory.setTitle("상위 카테고리");
-		System.out.println(blog.getNo());
 		blogSubCategoryService.addNewSubCategory(blogSubCategory);
 		return "redirect:makeblog3.do";
 	}
@@ -234,6 +233,4 @@ public class BlogDetailController {
 		userService.updateUser(user);
 		return "redirect:mydetail.do";
 	}
-	
-
 }
