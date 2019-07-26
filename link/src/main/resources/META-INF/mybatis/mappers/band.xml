@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.BandDao">		<!-- Dao경로설정 -->
+	<select id="getAllLogoImg" resultType="bandLogoImg" parameterType="map">
+		select
+			imgNo no,
+			imgName name
+		from
+			band_into_img
+		where 
+			imgNo >= #{begin}
+		and 
+			imgNo &lt;= #{end}
+	</select>
+	
+	<insert id="addBand" parameterType="band">
+		insert into band
+			(band_no, band_name, band_photo, band_secret_yn, band_name_open_yn, band_open_yn, user_id)
+		values
+			(band_seq.nextval, #{name}, #{photo}, #{secretYn}, #{nameOpenYn}, ${openYn}, ${user.id})
+	</insert>
+</mapper>

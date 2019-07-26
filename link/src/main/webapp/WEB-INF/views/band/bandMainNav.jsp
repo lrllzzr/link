@@ -19,36 +19,36 @@
 
                 <div class="col-sm-4 col-sm-offset-1 text-right blog-toprow-right">
                     <div class="blog-navbar-right collapse navbar-collapse navbar-right">
-						<%-- 
+						
 						<c:choose>
-							<c:when test="${LOGIN_USER not empty }">
-							
+							<c:when test="${not empty LOGIN_USER }">
+								<ul class="nav navbar-nav">
+		                            <li class="dropdown">
+		                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+		                                    <img class="band-profile-img" src="/link/resources/images/bandLog.png" alt="" >
+		                                    <span class="band-navbar-id">${LOGIN_USER.name } 님</span>
+		                                    <span class="caret"></span></a>
+		                                <ul class="dropdown-menu" role="menu">
+		                                    <li><a href="#">내 정보</a></li>
+		                                    <li><a href="/link/home.do">홈으로</a></li>
+		                                    <li><a href="#">블로그</a></li>
+		                                    <li><a href="/link/blog/main.do">밴드</a></li>
+		                                    <li><a href="#">가계부</a></li>
+		                                    <li><a href="#">지식인</a></li>
+		                                    <li><a href="#">시리즈</a></li>
+		                                    <li><a href="#">TV</a></li>
+		                                    <li class="divider"></li>
+		                                    <li><a href="/link/logout.do">로그아웃</a></li>
+		                                </ul>
+		                            </li>
+		                        </ul>
 							</c:when>
 							<c:otherwise>
-								
+								<span class="band-navbar-id"><a href="/link/loginform.do">로그인</a></span>
 							</c:otherwise>
 						</c:choose>
-						 --%>                        
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <img class="band-profile-img" src="/link/resources/images/bandLog.png" alt="" >
-                                    <span class="band-navbar-id">홍길동 님</span>
-                                    <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">내 정보</a></li>
-                                    <li><a href="/link/home.do">홈으로</a></li>
-                                    <li><a href="#">블로그</a></li>
-                                    <li><a href="#">밴드</a></li>
-                                    <li><a href="#">가계부</a></li>
-                                    <li><a href="#">지식인</a></li>
-                                    <li><a href="#">시리즈</a></li>
-                                    <li><a href="#">TV</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">로그아웃</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+					                        
+                        
                         <div class="bell2 text-center"><a href=""><span class="glyphicon glyphicon-bell" style="color: black"></span></a></div>
                         <div class="comment text-center"><a href=""><span class="glyphicon glyphicon-comment" style="color: black"></span></a></div>
                     </div>

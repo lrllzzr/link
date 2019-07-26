@@ -17,20 +17,21 @@
 <!--네비끝-->
     <div class="add-band-container ">
         <div class="row">
+        	<form action="addBand.do" method="post">
             <div class="col-sm-12 band-add-name text-left">
                 <strong>밴드 이름</strong>
             </div>
            
                 <div class="col-sm-12 ">
-                    <input type="text" class="band-add-text2 band-add-text" maxlength="50" placeholder="밴드 이름 입력" name="bandName">
+                    <input type="text" class="band-add-text2 band-add-text" maxlength="50" placeholder="밴드 이름 입력" name="name">
                 </div>
                 
                 <div class="row"> 
                    <div class="col-sm-12">
-                   <form action="POST" action="">
                        <div class="row add-main-padding">
-                        <div class="col-sm-5">
-                            <img src="/link/resources/images/band_into_img.JPG">
+                        <div class="col-sm-5 band-selLogo-img">
+                            <img src="/link/resources/images/bandLogoImg/band_logo_1.PNG" >
+                            <input type="hidden" value="" class="imgVale" name="photo"/>
                         </div>
                         <div class="col-sm-7">
                             <div class="row">
@@ -38,60 +39,27 @@
                                     커버 선택
                                 </div>
                                 <div class="col-sm-8 text-right add-img-select">
-                                    1/6 
-                                    <button type="button" class="btn btn-default add-img-btn">&lt;</button>
-                                    <button class="btn btn-default add-img-btn">&gt;</button>
+                                    <span id="currImgPage">1</span>/6 
+                                    <button type="button" class="btn btn-default add-img-btn" id="logo_pre" >&lt;</button>
+                                    <button type="button" class="btn btn-default add-img-btn" id="logo_next" >&gt;</button>
                                 </div>
                             </div>
-                            <div class="row">
-
+                            <div id="addBandViewImg" class="row">
+								<!-- 
                                 <a href="#">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3 new-add-band-img">
                                     <img src="/link/resources/images/band_photo_add.PNG" class="add-img-select2">
                                 </div>
                                 </a>
+								 -->
+								<c:forEach items="${logoImgs }" var="img">
+									<a href="#" data-value = ${img.no } class="addBandImg">
+		                                <div class="col-sm-3 many-logo-img" data-img-value="${img.no }">
+		                                    <img src="/link/resources/images/bandLogoImg/${img.name }.PNG" class="add-img-select2">
+		                                </div>
+	                                </a>
+								</c:forEach>
 
-                                <a href="#">
-                                <div class="col-sm-3">
-                                    <img src="/link/resources/images/band_into_img.JPG" class="add-img-select2">
-                                </div>
-                                </a>
-
-                                <a href="#">
-                                <div class="col-sm-3">
-                                    <img src="/link/resources/images/band_into_img.JPG" class="add-img-select2">
-                                </div>
-                                </a>
-
-                                <a href="#">
-                                <div class="col-sm-3">
-                                    <img src="/link/resources/images/band_into_img.JPG" class="add-img-select2">
-                                </div>
-                                </a>
-
-                                <a href="#">
-                                <div class="col-sm-3">
-                                    <img src="/link/resources/images/band_into_img.JPG" class="add-img-select2">
-                                </div>
-                                </a>
-
-                                <a href="#">
-                                <div class="col-sm-3">
-                                    <img src="/link/resources/images/band_into_img.JPG" class="add-img-select2">
-                                </div>
-                                </a>
-
-                                <a href="#">
-                                <div class="col-sm-3">
-                                    <img src="/link/resources/images/band_into_img.JPG" class="add-img-select2">
-                                </div>
-                                </a>
-
-                                <a href="#">
-                                <div class="col-sm-3">
-                                    <img src="/link/resources/images/band_into_img.JPG" class="add-img-select2">
-                                </div>
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -110,10 +78,8 @@
 
                                 <div class="col-sm-4">
                                    <div class="row add-option">
-                                        <div class="col-sm-2 test-right add-check-margin-right">
-                                            <input type="radio"
-                                            value="secret" name="option"
-                                            >
+                                        <div class="col-sm-2 test-right add-check-margin-right" >
+                                            <input type="radio" name="secretYn" value="Y">
                                         </div>
                                         <div class="col-sm-10 text-left add-check-margin-left">
                                             <div class="col-sm-12">
@@ -129,9 +95,7 @@
                                 <div class="col-sm-4">
                                    <div class="row add-option">
                                         <div class="col-sm-2 test-right add-check-margin-right">
-                                            <input type="radio"
-                                            value="secret" name="option"
-                                            >
+                                            <input type="radio" value="secret" name="nameOpenYn" value="Y">
                                         </div>
                                         <div class="col-sm-10 text-left add-check-margin-left">
                                             <div class="col-sm-12">
@@ -147,9 +111,7 @@
                                 <div class="col-sm-4">
                                    <div class="row add-option">
                                         <div class="col-sm-2 test-right add-check-margin-right">
-                                            <input type="radio"
-                                            value="secret" name="option"
-                                            >
+                                            <input type="radio" value="Y" name="openYn">
                                         </div>
                                         <div class="col-sm-10 text-left add-check-margin-left">
                                             <div class="col-sm-12">
@@ -165,17 +127,102 @@
                         </div>
                     </div>
                     <!--밴드 옵션 종료-->
-
+					<input type="hidden" value="${LOGIN_USER }" name="user"/>
                     <div class="row">
                         <div class="col-sm-12 text-center add-btn-sort">
                             <button type="reset" class="btn btn-default">취소</button>
                             <input type="submit" value="완료" class="btn btn-primary"/>
                         </div>
                     </div>
-                </form>
                 </div>
             </div>
+            </form>
         </div>
     </div>
+    <script type="text/javascript">
+    	$(function(){
+    		$('#addBandViewImg').on("click", ".many-logo-img", function(event){
+    			event.preventDefault();
+    			var kuyngro = $(this).find('img').attr("src");
+    			$('.band-selLogo-img').find('img').attr('src',kuyngro);
+    			$('.imgVale').val(kuyngro);
+    			console.log($('.imgVale').val())
+    		})
+    		
+    		$('#logo_next').click(function(){
+    			var pageNum = $('#currImgPage').text();
+    			var currPage = parseInt(pageNum) + 1;
+    			$('#currImgPage').text(currPage); 
+    			
+    			$('#logo_pre').attr("disabled", false);
+    			
+    			if(currPage > 5){
+    				$('#logo_next').attr("disabled", true);
+    			}
+    			
+    			var begin = parseInt(pageNum) * 7 + 1;
+    			var end = parseInt(begin) + 7;
+    			
+    			$('#addBandViewImg').find(".addBandImg").remove();
+    			
+    			$.ajax({
+    				type:"GET",
+    				url:"changeLogo.do?begin="+begin+"&end="+end,
+    				dataType:"json",
+    				success:function(imgs){
+    					
+    						$.each(imgs, function(index,img){
+    							var row = '<a href="#" data-value = "'+img.no+'" class="addBandImg">'
+	                   			 	+'<div class="col-sm-3 many-logo-img" data-img-value='+img.no+'>'
+	                    				+'<img src="/link/resources/images/bandLogoImg/'+img.name+'.PNG" class="add-img-select2">'
+	                				+'</div>'
+	            				+'</a>';
+	            				$('#addBandViewImg').append(row);
+    						})
+    				}
+    			})
+    		});
+    		$('#logo_pre').click(function(){
+    			var pageNum = $('#currImgPage').text();
+    			var currPage = parseInt(pageNum) - 1;
+    			$('#currImgPage').text(currPage); 
+    			
+    			$('#logo_next').attr("disabled", false);
+    			
+    			if(currPage < 2){
+    				$('#logo_pre').attr("disabled", true);
+    			}
+    			
+    			var begin = Math.floor(parseInt(pageNum) / 6 + 1);
+    			var end = parseInt(begin) + 7;
+    			console.log(begin);
+    			console.log(end);
+    			$('#addBandViewImg').find(".addBandImg").remove();
+    			
+    			$.ajax({
+    				type:"GET",
+    				url:"changeLogo.do?begin="+begin+"&end="+end,
+    				dataType:"json",
+    				success:function(imgs){
+    					
+    						$.each(imgs, function(index,img){
+    							var row = '<a href="#" data-value = "'+img.no+'" class="addBandImg">'
+	                   			 	+'<div class="col-sm-3 many-logo-img" data-img-value='+img.no+'>'
+	                    				+'<img src="/link/resources/images/bandLogoImg/'+img.name+'.PNG" class="add-img-select2">'
+	                				+'</div>'
+	            				+'</a>';
+	            				$('#addBandViewImg').append(row);
+    						})
+    				}
+    			})
+    			
+    		})
+    		
+    		$('.new-add-band-img').click(function(event){
+    			event.preventDefault();
+    			
+    		})
+    	})
+    </script>
 </body>
 </html>
