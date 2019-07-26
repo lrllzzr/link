@@ -11,7 +11,7 @@
 			<!--  헤더 끝     -->
 
 			<!--                    우측 게시판 시작-->
-			<div class="col-sm-9">
+			<%@include file="../../common/blog/blogLayout.jsp"%>
 				<!--  우측 공통부분 헤더 시작-->
 				<%@include file="../../common/blog/blogright.jsp"%>
 				<!--  우측 공통부분 헤더 끝-->
@@ -22,7 +22,7 @@
 					<div class="col-sm-3 blog_detail_right_col4">
 						<div class="row">
 							<div class="col-sm-12">
-								<a href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}">
+								<a href="/link/blog/board${blog.layout }.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}">
 									<img style="width:100%; height:173.88px;" src="/link/resources/images/userblogimgs/${board.mainImg }" alt="">
 								</a>
 							</div>

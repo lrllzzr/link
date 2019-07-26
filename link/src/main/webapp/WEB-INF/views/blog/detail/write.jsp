@@ -14,7 +14,7 @@
 			<!--좌측 nav 끝-->
 
 			<!--                    우측 게시판 시작-->
-			<div class="col-sm-9">
+			<%@include file="../../common/blog/blogLayout.jsp"%>
 				<!-- 우측 게시판 글쓰기 시작-->
 				<div class="col-sm-12 blog_detail_right_row1">
 					<div class="row">

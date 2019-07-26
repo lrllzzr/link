@@ -32,4 +32,9 @@ public class BlogCategoryServiceImpl implements BlogCategoryService{
 		return blogCategory;
 	}
 
+	@Override
+	public void addNewCategory(BlogCategory blogCategory) {
+		blogCategoryDao.addNewCategory(blogCategory);
+	}
+
 }

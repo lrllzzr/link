@@ -48,7 +48,12 @@ hr{
 	background-color: rgba(${blog.backgroundColor},${blog.opacity});
 	color:${blog.fontColor};
 }
-
+.blog_main_left_row_bottom{
+	border: 1px solid #ccc;
+	padding-bottom: 30px;
+	background-color: rgba(${blog.backgroundColor},${blog.opacity});
+	color:${blog.fontColor};
+}
 .blog_detail_right_row {
 	background-color: rgba(${blog.backgroundColor},${blog.opacity});
 	color:${blog.fontColor};

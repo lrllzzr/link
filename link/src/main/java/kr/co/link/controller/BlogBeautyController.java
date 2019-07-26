@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.link.form.BlogBoardForm;
+import kr.co.link.form.BlogForm;
+import kr.co.link.form.BlogUpdateForm;
 import kr.co.link.form.ColorForm;
 import kr.co.link.service.BlogBoardService;
 import kr.co.link.service.BlogCategoryService;
@@ -56,11 +58,10 @@ public class BlogBeautyController {
 		return "blog/detail/start";
 	}
 	
-	@RequestMapping("/beauty.do")
-	public String beauty(Model model, Integer blogNo, HttpSession session) {
+	@RequestMapping(value="/beauty.do", method = RequestMethod.GET)
+	public String beauty(Model model, Integer blogNo, HttpSession session) throws IOException {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogservice.getBlogByUserId(user.getId());
-		
 		model.addAttribute("blog",blog);
 		// 기본 설정을 파랗게
 		model.addAttribute("column","updateProfile");
@@ -68,6 +69,25 @@ public class BlogBeautyController {
 		model.addAttribute("left","blogmain");
 		return "blog/beautify/beautymain";
 	}
+	
+	@RequestMapping(value="/beauty.do", method = RequestMethod.POST)
+	public String beautyApply(Model model, Integer blogNo, BlogUpdateForm blogUpdateForm, HttpSession session) throws IOException {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		BeanUtils.copyProperties(blogUpdateForm, blog);
+		user.setNickName(blogUpdateForm.getNickName());
+		MultipartFile mf = blogUpdateForm.getMainImg();
+		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images/userblogimgs";
+		if (!mf.isEmpty()) {
+			String filename = mf.getOriginalFilename();
+			FileCopyUtils.copy(mf.getBytes(), new File(profileImageSaveDirectory, filename));
+			blog.setMainImg(filename);
+		}
+		userService.updateUser(user);
+		blogservice.updateBlogByBlogNo(blog);
+		return "redirect:mydetail.do";
+	}
+	
 	@RequestMapping("/updateProfile.do")
 	public String updateProfile(Model model, HttpSession session) {
 		// 기본 설정을 파랗게
@@ -93,14 +113,13 @@ public class BlogBeautyController {
 		return "blog/beautify/beautifyblog";
 	}
 	
+	// 박스 옮길때 ajax로 적용
 	@RequestMapping(value = "/beautifyblogApply.do", method = RequestMethod.GET)
-	public @ResponseBody void beautifyBlogApply(Model model,HttpSession session, String firstCol, String secondCol, String thirdCol){
-		User user = (User) session.getAttribute("LOGIN_USER");
-		Blog blog = blogservice.getBlogByUserId(user.getId());
-		blog.setFirstCol(firstCol);
-		blog.setSecondCol(secondCol);
-		blog.setThirdCol(thirdCol);
-		blogservice.updateBlogByBlogNo(blog);
+	public @ResponseBody void beautifyBlogApply(Model model,HttpSession session, String firstCol, String secondCol, String thirdCol,Integer layNum){
+		session.setAttribute("layNum", layNum);
+		session.setAttribute("firstCol", firstCol);
+		session.setAttribute("secondCol", secondCol);
+		session.setAttribute("thirdCol", thirdCol);
 	}
 	
 	@RequestMapping(value = "/beautifyblog2.do", method = RequestMethod.GET)
@@ -117,11 +136,43 @@ public class BlogBeautyController {
 		return "blog/beautify/beautifyblog2";
 	}
 	
-	@RequestMapping(value = "/layoutApply.do", method = RequestMethod.GET)
-	public String layoutApply(Model model, HttpSession session, Integer layNum){
+	@RequestMapping(value = "/beautifyblog3.do", method = RequestMethod.GET)
+	public String beautifyBlog3(Model model, HttpSession session){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogservice.getBlogByUserId(user.getId());
+		model.addAttribute("blog",blog);
+		
+		model.addAttribute("selected","third");
+		// 꾸미기 설정을 파랗게
+		model.addAttribute("column","beautifyblog");
+		// 레이아웃 & 위젯 설정 파랗게
+		model.addAttribute("left2","layout");
+		return "blog/beautify/beautifyblog3";
+	}
+	
+	@RequestMapping(value = "/beautifyblog4.do", method = RequestMethod.GET)
+	public String beautifyBlog4(Model model, HttpSession session){
+		User user = (User) session.getAttribute("LOGIN_USER");
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		model.addAttribute("blog",blog);
+		
+		model.addAttribute("selected","fourth");
+		// 꾸미기 설정을 파랗게
+		model.addAttribute("column","beautifyblog");
+		// 레이아웃 & 위젯 설정 파랗게
+		model.addAttribute("left2","layout");
+		return "blog/beautify/beautifyblog4";
+	}
+	
+	@RequestMapping(value = "/beautyLayoutApply.do", method = RequestMethod.GET)
+	public String layoutApply(Model model, HttpSession session, Integer layNum, String firstCol, String secondCol, String thirdCol){
+		User user = (User) session.getAttribute("LOGIN_USER");
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		blog.setFirstCol(firstCol);
+		blog.setSecondCol(secondCol);
+		blog.setThirdCol(thirdCol);
 		blog.setLayout(layNum);
+		
 		blogservice.updateBlogByBlogNo(blog);
 		if(layNum ==1) {
 			return "redirect:beautifyblog.do";

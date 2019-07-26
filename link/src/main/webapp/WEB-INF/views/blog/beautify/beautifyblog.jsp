@@ -76,12 +76,12 @@
 									<div class="col-sm-12">
 										<div class="col-sm-12 beautify_form">
 											<div class="text-center">
-												<span class="beauty_yellow" style="font-variant: small-caps; font-weight: bold;">마우스로 드래그해서 원하는 위치에 놓으세요. <br />순서는 실시간으로 적용 됩니다.</span>
+												<span class="beauty_yellow" style="font-variant: small-caps; font-weight: bold;">마우스로 드래그해서 원하는 위치에 놓으세요.</span>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-sm-2 col-sm-offset-9 text-center">
-												<div class="beautify_menu1">네이버메뉴</div>
+												<div class="beautify_menu1">Link메뉴</div>
 											</div>
 										</div>
 										<div class="row">
@@ -92,9 +92,6 @@
 										<div class="row">
 											<div class="col-sm-2 col-sm-offset-1">
 												<div class="row">
-												<div class="col-sm-12 text-center">
-													<span class="beauty_yellow" style="font-variant: small-caps; font-weight: bold;">&lt;실시간 적용&gt;</span>
-												</div>
 													<div class="col-sm-12" id="box">
 														<!-- 첫번째  -->
 														<c:if test="${blog.firstCol eq 'profile' }">
@@ -166,7 +163,7 @@
 					<h4 class="modal-title" id="myModalLabel">블로그 미리보기</h4>
 				</div>
 				<div class="modal-body">
-					<iframe src="/link/blog/colordetail1.do" width="100%" height="1000px;"></iframe>
+					<iframe src="/link/blog/layoutDetail.do?layOutNo=1" width="100%" height="750px;"></iframe>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
