@@ -23,6 +23,10 @@
 		<property name="mapperLocations" value="classpath:/META-INF/mybatis/mappers/*.xml"></property>
 	</bean>
 	<mybatis-spring:scan base-package="kr.co.link.dao"/>
-
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
 </beans>
 

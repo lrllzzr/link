@@ -157,7 +157,7 @@
 						</div>
 						<div class="col-sm-10 blog_color_col9" style="">
 							<div class="row">
-								<iframe src="/link/blog/colordetail${blog.layout }.do" width="1285.41px;" height="1500px;"></iframe>
+								<iframe src="/link/blog/colordetail.do" width="1285.41px;" height="1500px;"></iframe>
 							</div>
 						</div>
 					</div>

@@ -16,5 +16,10 @@
 	where
 		blog_no = #{value}
 </select>
-		
+<insert id="addNewSubCategory" parameterType="blogsubcategory">
+	insert into blog_subcategory
+	values(
+		blog_seq.nextval,#{title},'Y',sysdate,#{blogNo}
+	)
+</insert>
 </mapper>

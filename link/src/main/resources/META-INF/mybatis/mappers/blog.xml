@@ -25,7 +25,8 @@
 		BLOG_THIRDCOL thirdCol,
 		BLOG_LAYOUT layout,
 		BLOG_PAGENUM_COLOR pageNumColor, 
-		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor
+		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor,
+		BLOG_TOPIC topic
 	from
 		blog
 	where
@@ -52,7 +53,8 @@
 		BLOG_THIRDCOL thirdCol,
 		BLOG_LAYOUT layout,
 		BLOG_PAGENUM_COLOR pageNumColor, 
-		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor
+		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor,
+		BLOG_TOPIC topic
 	from
 		blog
 	where
@@ -80,7 +82,8 @@
 		BLOG_THIRDCOL thirdCol,
 		BLOG_LAYOUT layout,
 		BLOG_PAGENUM_COLOR pageNumColor, 
-		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor
+		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor,
+		BLOG_TOPIC topic
 		
 	from(
         select
@@ -104,7 +107,8 @@
 			BLOG_THIRDCOL ,
 			BLOG_LAYOUT,
 			BLOG_PAGENUM_COLOR , 
-			BLOG_PAGENUM_BACKGROUNDCOLOR 
+			BLOG_PAGENUM_BACKGROUNDCOLOR ,
+			BLOG_TOPIC
         from
             blog
     )
@@ -130,8 +134,17 @@
 		BLOG_THIRDCOL = #{thirdCol},
 		BLOG_LAYOUT = #{layout},
 		BLOG_PAGENUM_COLOR = #{pageNumColor}, 
-		BLOG_PAGENUM_BACKGROUNDCOLOR = #{pageNumBackgroundColor}
+		BLOG_PAGENUM_BACKGROUNDCOLOR = #{pageNumBackgroundColor},
+		BLOG_TOPIC = #{topic}
 	where
 		BLOG_NO = #{no}
 </update>
+<insert id="addNewBlog" parameterType="blog">
+	insert into blog
+	values(
+		blog_seq.nextval,#{title},#{mainImg},#{theme},#{description},sysdate,#{userId},0,#{backgroundColor},#{fontColor},
+		#{opacity},#{atagColor},#{hrColor},#{bodyColor},#{firstCol},#{secondCol},#{thirdCol},#{layout},#{pageNumColor},
+		#{pageNumBackgroundColor},#{topic}
+	)
+</insert>
 </mapper>

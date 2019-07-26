@@ -22,7 +22,7 @@
 		select a.CATEGORY_NO no, a.category_title title, a.CATEGORY_SHOWTYPE showType, a.CATEGORY_ORDERS orders, a.CATEGORY_VISIBILITY visibility,
 				a.SUBCATEGORY_NO subCategoryNo
 		from(
-				select ROW_NUMBER() OVER (ORDER BY CATEGORY_ORDERS asc) row_no,
+				select ROW_NUMBER() OVER (PARTITION BY subcategory_no ORDER BY CATEGORY_ORDERS asc) row_no,
 				CATEGORY_NO,
 				CATEGORY_TITLE ,
 				CATEGORY_SHOWTYPE,
@@ -52,4 +52,18 @@
 		where
 			category_no = #{value}
 	</select>
+	<insert id="addNewCategory" parameterType="blogcategory">
+		insert into blog_category(
+			CATEGORY_NO,
+			CATEGORY_TITLE,
+			CATEGORY_SHOWTYPE,
+			CATEGORY_ORDERS,
+			CATEGORY_VISIBILITY,
+			SUBCATEGORY_NO,
+			CATEGORY_CREATEDATE
+			)
+		values(
+			blog_seq.nextval,#{title},'onerow',1,'A',#{subCategoryNo},sysdate
+		)
+	</insert>
 </mapper>

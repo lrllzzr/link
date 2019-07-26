@@ -90,8 +90,9 @@ public class BlogMyController {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
 		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
-		Integer blogNo = blog.getNo();
+		
 		Integer categoryNo = blogCategory.getNo();
+		Integer blogNo = blog.getNo();
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
 		model.addAttribute("subCategories",blogSubCategories);
 		if(blog.getLayout() == 1) {
@@ -119,9 +120,8 @@ public class BlogMyController {
 		return "blog/detail/detail2";
 	}
 	
-	
-	@RequestMapping("/colordetail1.do")
-	public String colordetail(Model model, HttpSession session){
+	@RequestMapping("/layoutDetail.do")
+	public String layoutDetail1(Model model, HttpSession session, Integer layOutNo){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
 		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
@@ -129,19 +129,72 @@ public class BlogMyController {
 		Integer categoryNo = blogCategory.getNo();
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
 		model.addAttribute("subCategories",blogSubCategories);
-		return "blog/beautify/colordetail";
+		
+//	레이아웃 초기 화면 미리보기 설정	
+		if(session.getAttribute("firstCol") == null) {
+			session.setAttribute("firstCol", blog.getFirstCol());
+		}
+		
+		if(session.getAttribute("secondCol") == null) {
+			session.setAttribute("secondCol", blog.getSecondCol());
+		}
+		
+		if(session.getAttribute("thirdCol") == null) {
+			session.setAttribute("thirdCol", blog.getThirdCol());
+		}
+//		레이아웃 초기 화면 미리보기 설정 끝
+		
+		String firstCol = (String) session.getAttribute("firstCol");
+		String secondCol = (String) session.getAttribute("secondCol");
+		String thirdCol = (String) session.getAttribute("thirdCol");
+		
+		model.addAttribute("firstCol",firstCol);
+		model.addAttribute("secondCol",secondCol);
+		model.addAttribute("thirdCol",thirdCol);
+		
+		session.removeAttribute("firstCol");
+		session.removeAttribute("secondCol");
+		session.removeAttribute("thirdCol");
+
+		if(layOutNo == 1) {
+			model.addAttribute("layout",1);
+			return "blog/beautify/layoutDetail";
+		}
+		if(layOutNo == 2) {
+			model.addAttribute("layout",2);
+			return "blog/beautify/layoutDetail2";
+		}
+		if(layOutNo == 3) {
+			model.addAttribute("layout",3);
+			return "blog/beautify/layoutDetail3";
+		} else {
+			model.addAttribute("layout",4);
+			return "blog/beautify/layoutDetail4";
+		}
+		
 	}
 	
-	@RequestMapping("/colordetail2.do")
-	public String colordetail2(Model model, HttpSession session){
+	@RequestMapping("/colordetail.do")
+	public String colordetail1(Model model, HttpSession session){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
 		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
 		Integer blogNo = blog.getNo();
 		Integer categoryNo = blogCategory.getNo();
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
+		
 		model.addAttribute("subCategories",blogSubCategories);
-		return "blog/beautify/colordetail2";
+		if(blog.getLayout() == 1) {
+			return "blog/beautify/colordetail1";
+		}
+		if(blog.getLayout() == 2) {
+			return "blog/beautify/colordetail2";
+		}
+		if(blog.getLayout() == 3) {
+			return "blog/beautify/colordetail3";
+		} else {
+			return "blog/beautify/colordetail4";
+		}
 	}
 	
 	@RequestMapping(value="/mywrite.do", method = RequestMethod.GET)
