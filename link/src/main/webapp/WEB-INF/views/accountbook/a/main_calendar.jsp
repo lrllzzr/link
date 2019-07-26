@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-
+<!DOCTYPE html>
+<html lang="ko">
 <head>
     <title>Link : </title>
 	<link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
@@ -12,12 +10,13 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="../../../../resources/css/accountBook/expensive.css">
+	<link rel="stylesheet" href="/link/resources/css/accountBook/expensive.css">
+	<link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 	<style>
         div {
            margin-top: 2px;
         }
-        .ACbook{
+        .ACbook{6
               width:66px;
               height:20px;
               font-size:12px;
@@ -36,69 +35,38 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-default">    
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">LINK</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Page 1</a></li>
-                <li><a href="#">Page 2</a></li>
-                <li><a href="#">Page 3</a></li>
-            </ul>
-        </div>
-    </nav>
+   <%@include file="../../common/nav.jsp"%>
     <div class="container-fluid">
-        
         <div class="row">
-            <div class="col-sm-2" style="background-color: lightgray; ">
-                 <button type="button" class="btn-button btn" data-toggle="modal" data-target="#open-writing-account">
-                       <strong>빠른 쓰기</strong>
-                  </button>
+              <div class="col-sm-2" style="background-color: lightgray; ">
+                    <%@ include file="../modal.jsp" %>
                 <div>
-                    <ul>
-                       <li>
-                           <a href="#" class="active"><h4>쓰기</h4></a>
-                       </li>
-                        <li>
-                           <a href="#" style="color: dimgray"><h4>보고서</h4></a>
-                       </li>
-                        <li>
-                            <a href="#" style="color: dimgray"><h4>예산쓰기</h4></a>
-                       </li>
-                       <li>
-                           <a href="#" style="color: dimgray"><h4>월결산</h4></a>
-                       </li>
-                       <li class="month-accountBook">▼이달의 가계<ul>
-                            <li>+수입</li>
-                            <li>-지출</li>
-                        </ul>
-                       </li>
-                       <li>▼이달의 지출 분석<ul>
-                           <li>*그래프</li>
-                           <li><p>저축/보험= 파란색 (%)표시</p>
-                               <p>소비지출= 초록색 (%)표시</p>
-                               <p>분류(사용많이한 top4) %표시</p></li>
-                           </ul>
-                          
-                       </li>
-                       <li>
-                           <a href="#" style="color: black">▼총 누적 자산</a>
-                               <ul>
-                                   <li>
-                                        자산합계
-                                   </li>
-                               </ul>
-                       </li>
-                       <li>▼최근 태그</li>
-                       <ul>
-                           <li>미정국수</li>
-                       </ul>
-                    </ul>
-                </div>
-                
-                 
+					<ul>
+						<li><a href="/link/accountbook/expense.do" class="active"><h4>가계부</h4></a></li>
+						<li><a href="/link/accountbook/monthly.do"
+							style="color: dimgray"><h4>보고서</h4></a></li>
+						<li><a href="/link/accountbook/budget.do"
+							style="color: dimgray"><h4>예산쓰기</h4></a></li>
+						<li><a href="/link/accountbook/mylist.do"
+							style="color: dimgray"><h4>월결산</h4></a></li>
+						
+						<li class="month-accountBook">▼이달의 가계
+							<ul>
+								<li>+수입</li>
+								<li>-지출</li>
+							</ul>
+						</li>
+						
+						<li>▼총 누적 자산</li>
+
+						<li>자산합계</li>
+						
+						<li>▼최근 태그</li>
+
+						<li>미정국수</li>
+
+					</ul>
+				</div> 
             </div>
             <div class="col-sm-10">
                 <div class="row">
@@ -122,10 +90,10 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <ul class="nav nav-tabs">
-                            <li><a href="#">지출</a></li>
-                            <li><a href="#">수입</a></li>
-                            <li  class="active"><a href="#">달력</a></li>
+                        <<ul class="nav nav-tabs">
+                            <li class="active"><a href="/link/accountbook/expense.do">지출</a></li>
+                            <li><a href="/link/accountbook/income.do">수입</a></li>
+                            <li><a href="/link/accountbook/calendar.do">달력</a></li>
                         </ul>
                     </div>
                 </div>
@@ -137,8 +105,7 @@
             </div>
         </div>
     </div>
-    
-    <div id="open-writing-account" class="modal" role="dialog">
+    <!-- <div id="open-writing-account" class="modal" role="dialog">
         <div class="modal-dialog  modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -225,6 +192,6 @@
             </div>
 
         </div>
-    </div>
+    </div> -->
 </body>
 </html>

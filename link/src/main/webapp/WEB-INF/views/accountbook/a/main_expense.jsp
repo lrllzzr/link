@@ -1,19 +1,17 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-
+<!DOCTYPE html>
+<html lang="ko">
 <head>
     <title>Link : </title>
-	<link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/link/resources/css/accountBook/expensive.css">
+	<link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="../../../../resources/css/accountBook/expensive.css">
 	<style>
         div {
            margin-top: 2px;
@@ -29,106 +27,100 @@
             font-weight: bold;
         }
          .btn-button{float: right;padding: 1px 7px; font-size: 13px;}
+    	
     </style>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawStuff);
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+       <script>
+           google.charts.load('current', {packages: ['corechart', 'bar']});
+           google.charts.setOnLoadCallback(drawStacked);
 
-      function drawStuff() {
-        var data = new google.visualization.arrayToDataTable([
-          ['지출', '금액'],
-          ["주식", 700000],
-          ["교통비", 300000],
-          ["교육", 100000],
-          ["의류", 200000],
-          ['문화', 100000]
-        ]);
+           function drawStacked() {
+           var data = new google.visualization.DataTable();
+           data.addColumn('timeofday', 'Time of Day');
+           data.addColumn('number', 'Motivation Level');
+           data.addColumn('number', 'Energy Level');
 
-        var options = {
-          width: 800,
-          legend: { position: 'none' },
-          chart: {
-            title: '나의 지출 그래프',
-            subtitle: 'popularity by percentage' },
-          axes: {
-            x: {
-              0: { side: 'top', label: ''} // Top x-axis.
-            }
-          },
-          bar: { groupWidth: "10%" }
-        };
+           data.addRows([
+           [{v: [8, 0, 0], f: '8 am'}, 1, .25],
+           [{v: [9, 0, 0], f: '9 am'}, 2, .5],
+           [{v: [10, 0, 0], f:'10 am'}, 3, 1],
+           [{v: [11, 0, 0], f: '11 am'}, 4, 2.25],
+           [{v: [12, 0, 0], f: '12 pm'}, 5, 2.25],
+           [{v: [13, 0, 0], f: '1 pm'}, 6, 3],
+           [{v: [14, 0, 0], f: '2 pm'}, 7, 4],
+           [{v: [15, 0, 0], f: '3 pm'}, 8, 5.25],
+           [{v: [16, 0, 0], f: '4 pm'}, 9, 7.5],
+           [{v: [17, 0, 0], f: '5 pm'}, 10, 10],
+           ]);
 
-        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
-        // Convert the Classic options to Material options.
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      };
-    </script>
+           var options = {
+           title: '2017.01.01~2017.01.31',
+           isStacked: true,
+           hAxis: {
+           title: '',
+           format: 'h:mm a',
+           viewWindow: {
+           min: [7, 30, 0],
+           max: [17, 30, 0]
+           }
+           },
+           vAxis: {
+           title: ')'
+           }
+           };
+               
+            var data = google.visualization.arrayToDataTable([
+           ['카테고리', '금액', { role: 'style' }],
+           ['식비', 300000, '#365bd6'], // RGB value
+           ['주거', 1500000, '#365bd6'], // English color name
+           ['건강', 150000, '#365bd6'],
+           ['교통/차량', 250000, '#365bd6'],
+           ['경조사', 50000, '#365bd6'],
+           ['용돈', 350000, '#365bd6'],
+           ['생활용품', 350000, '#365bd6'],
+           ['기타', 21450, '#365bd6' ], // CSS-style declaration
+           ]);
+
+          var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+           chart.draw(data, options);
+           }
+           
+           </script>
 </head>
 <body>
-    <nav class="navbar navbar-default">    
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">LINK</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Page 1</a></li>
-                <li><a href="#">Page 2</a></li>
-                <li><a href="#">Page 3</a></li>
-            </ul>
-        </div>
-    </nav>
+     <%@include file="../../common/nav.jsp"%>
     <div class="container-fluid">
-        
         <div class="row">
+        
             <div class="col-sm-2" style="background-color: lightgray; ">
-                 <button type="button" class="btn-button btn" data-toggle="modal" data-target="#open-writing-account">
-                       <strong>빠른 쓰기</strong>
-                 </button>
+                  <%@ include file="../modal.jsp" %>
                 <div>
-                    <ul>
-                       <li>
-                           <a href="#" class="active"><h4>쓰기</h4></a>
-                       </li>
-                        <li>
-                           <a href="#" style="color: dimgray"><h4>보고서</h4></a>
-                       </li>
-                        <li>
-                            <a href="#" style="color: dimgray"><h4>예산쓰기</h4></a>
-                       </li>
-                       <li>
-                           <a href="#" style="color: dimgray"><h4>월결산</h4></a>
-                       </li>
-                       <li>▼이달의 가계<ul>
-                            <li>+수입</li>
-                            <li>-지출</li>
-                        </ul>
-                       </li>
-                       <li>▼이달의 지출 분석<ul>
-                           <li>*그래프</li>
-                           <li><p>저축/보험= 파란색 (%)표시</p>
-                               <p>소비지출= 초록색 (%)표시</p>
-                               <p>분류(사용많이한 top4) %표시</p></li>
-                           </ul>
-                          
-                       </li>
-                       <li>
-                           <a href="#" style="color: black">▼총 누적 자산</a>
-                               <ul>
-                                   <li>
-                                        자산합계
-                                   </li>
-                               </ul>
-                       </li>
-                       <li>▼최근 태그</li>
-                       <ul>
-                           <li>미정국수</li>
-                       </ul>
-                    </ul>
-                </div>
-                
-                 
+					<ul>
+						<li><a href="/link/accountbook/expense.do" class="active"><h4>가계부</h4></a></li>
+						<li><a href="/link/accountbook/monthly.do"
+							style="color: dimgray"><h4>보고서</h4></a></li>
+						<li><a href="/link/accountbook/budget.do"
+							style="color: dimgray"><h4>예산쓰기</h4></a></li>
+						<li><a href="/link/accountbook/mylist.do"
+							style="color: dimgray"><h4>월결산</h4></a></li>
+						
+						<li class="month-accountBook">▼이달의 가계
+							<ul>
+								<li>+수입</li>
+								<li>-지출</li>
+							</ul>
+						</li>
+						
+						<li>▼총 누적 자산</li>
+
+						<li>자산합계</li>
+						
+						<li>▼최근 태그</li>
+
+						<li>미정국수</li>
+
+					</ul>
+				</div> 
             </div>
             <div class="col-sm-10">
                 <div class="row">
@@ -147,22 +139,23 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12 text-center">
-                        <strong>2019-07-01 ~ 2019-07-31</strong>
+                        <strong></strong>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#">지출</a></li>
-                            <li><a href="#">수입</a></li>
-                            <li><a href="#">달력</a></li>
+                            <li class="active"><a href="/link/accountbook/expense.do">지출</a></li>
+                            <li><a href="/link/accountbook/income.do">수입</a></li>
+                            <li><a href="/link/accountbook/calendar.do">달력</a></li>
                         </ul>
                         <div id="outcome">
-                              <div id="top_x_div" style="width: 800px; height: 600px;"></div>
+                               <div id="chart_div"></div>
                         </div>
                         
                     </div>
                 </div>
+                <form action="" method="">
                 <div class="row">
                     <div class="col-sm-12">
                         <table class="table table-bordered">
@@ -180,48 +173,21 @@
                             <tbody>
                                <tr>
                                    <td><input type="checkbox"/></td>
-                                   <td>2019.07.03</td>
-                                   <td>국수</td>
-                                   <td class="text-right">0</td>
-                                   <td class="text-right">6900</td>
-                                   <td>식비>주식</td>
-                                   <td>미정국수</td>
+                                   <td><input class="form-control" type="text" placeholder="2019.07.03"></td>
+                                   <td><input class="form-control" type="text" placeholder="국수"></td>
+                                   <td class="text-right"><input class="form-control" type="text" placeholder="0"></td>
+                                   <td class="text-right"><input class="form-control" type="text" placeholder="70500"></td>
+                                   <td><input class="form-control" type="text" placeholder="식비>주식"></td>
+                                   <td><input class="form-control" type="text" placeholder="미정국수"></td>
                                </tr>
                                 <tr>
                                    <td><input type="checkbox"/></td>
-                                   <td>2019.07.03</td>
-                                   <td>국수</td>
-                                   <td class="text-right">0</td>
-                                   <td class="text-right">6900</td>
-                                   <td>식비>주식</td>
-                                   <td>미정국수</td>
-                               </tr>
-                               <tr>
-                                   <td><input type="checkbox"/></td>
-                                   <td>2019.07.03</td>
-                                   <td>국수</td>
-                                   <td class="text-right">0</td>
-                                   <td class="text-right">6900</td>
-                                   <td>식비>주식</td>
-                                   <td>미정국수</td>
-                               </tr>
-                               <tr>
-                                   <td><input type="checkbox"/></td>
-                                   <td>2019.07.03</td>
-                                   <td>국수</td>
-                                   <td class="text-right">0</td>
-                                   <td class="text-right">6900</td>
-                                   <td>식비>주식</td>
-                                   <td>미정국수</td>
-                               </tr>
-                               <tr>
-                                   <td><input type="checkbox"/></td>
-                                   <td>2019.07.03</td>
-                                   <td>국수</td>
-                                   <td class="text-right">0</td>
-                                   <td class="text-right">6900</td>
-                                   <td>식비>주식</td>
-                                   <td>미정국수</td>
+                                   <td><input class="form-control" type="text" placeholder="2019.07.03"></td>
+                                   <td><input class="form-control" type="text" placeholder="국수"></td>
+                                   <td class="text-right"><input class="form-control" type="text" placeholder="0"></td>
+                                   <td class="text-right"><input class="form-control" type="text" placeholder="70500"></td>
+                                   <td><input class="form-control" type="text" placeholder="식비>주식"></td>
+                                   <td><input class="form-control" type="text" placeholder="미정국수"></td>
                                </tr>
                             </tbody>
                             <tfoot>
@@ -250,12 +216,13 @@
                         </table>
                     </div>
                 </div>
+             </form>
                 
             </div>
         </div>
     </div>
-    
-    <div id="open-writing-account" class="modal" role="dialog">
+  
+<!--     <div id="open-writing-account" class="modal" role="dialog">
         <div class="modal-dialog  modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -340,8 +307,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                 </div>
             </div>
-
         </div>
-    </div>
+    </div> -->
 </body>
 </html>
