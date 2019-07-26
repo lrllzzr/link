@@ -90,8 +90,9 @@ public class BlogMyController {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
 		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
-		Integer blogNo = blog.getNo();
+		
 		Integer categoryNo = blogCategory.getNo();
+		Integer blogNo = blog.getNo();
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
 		model.addAttribute("subCategories",blogSubCategories);
 		if(blog.getLayout() == 1) {
@@ -196,66 +197,6 @@ public class BlogMyController {
 		}
 	}
 	
-//	@RequestMapping("/layoutDetail2.do")
-//	public String layoutDetail2(Model model, HttpSession session){
-//		User user = (User) session.getAttribute("LOGIN_USER");
-//		Blog blog = blogService.getBlogByUserId(user.getId());
-//		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
-//		Integer blogNo = blog.getNo();
-//		Integer categoryNo = blogCategory.getNo();
-//		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
-//		
-//		model.addAttribute("subCategories",blogSubCategories);
-//		return "blog/beautify/layoutDetail2";
-//	}
-//	@RequestMapping("/layoutDetail3.do")
-//	public String layoutDetail3(Model model, HttpSession session){
-//		User user = (User) session.getAttribute("LOGIN_USER");
-//		Blog blog = blogService.getBlogByUserId(user.getId());
-//		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
-//		Integer blogNo = blog.getNo();
-//		Integer categoryNo = blogCategory.getNo();
-//		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
-//		
-//		String firstCol = (String) session.getAttribute("firstCol");
-//		String secondCol = (String) session.getAttribute("secondCol");
-//		String thirdCol = (String) session.getAttribute("thirdCol");
-//		
-//		model.addAttribute("firstCol",firstCol);
-//		model.addAttribute("secondCol",secondCol);
-//		model.addAttribute("thirdCol",thirdCol);
-//		
-//		session.removeAttribute("firstCol");
-//		session.removeAttribute("secondCol");
-//		session.removeAttribute("thirdCol");
-//		
-//		model.addAttribute("subCategories",blogSubCategories);
-//		return "blog/beautify/layoutDetail3";
-//	}
-//	@RequestMapping("/layoutDetail4.do")
-//	public String layoutDetail(Model model, HttpSession session){
-//		User user = (User) session.getAttribute("LOGIN_USER");
-//		Blog blog = blogService.getBlogByUserId(user.getId());
-//		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
-//		Integer blogNo = blog.getNo();
-//		Integer categoryNo = blogCategory.getNo();
-//		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
-//		
-//		String firstCol = (String) session.getAttribute("firstCol");
-//		String secondCol = (String) session.getAttribute("secondCol");
-//		String thirdCol = (String) session.getAttribute("thirdCol");
-//		
-//		model.addAttribute("firstCol",firstCol);
-//		model.addAttribute("secondCol",secondCol);
-//		model.addAttribute("thirdCol",thirdCol);
-//		
-//		session.removeAttribute("firstCol");
-//		session.removeAttribute("secondCol");
-//		session.removeAttribute("thirdCol");
-//		
-//		model.addAttribute("subCategories",blogSubCategories);
-//		return "blog/beautify/layoutDetail2";
-//	}
 	@RequestMapping(value="/mywrite.do", method = RequestMethod.GET)
 	public String writePage(Model model, HttpSession session){
 		User user = (User) session.getAttribute("LOGIN_USER");

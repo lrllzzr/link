@@ -11,8 +11,6 @@ public class BlogCategory {
 	private Integer subCategoryNo;
 	private List<BlogBoard> boards;
 	
-	
-	
 	public List<BlogBoard> getBoards() {
 		return boards;
 	}

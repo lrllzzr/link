@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.link.dao.BlogDao;
 import kr.co.link.dao.BlogSubCategoryDao;
 import kr.co.link.vo.Blog;
 import kr.co.link.vo.BlogBoard;
@@ -59,6 +60,11 @@ public class BlogSubCategoryServiceImpl implements BlogSubCategoryService{
 			List<BlogSubCategory> blogSubCategories = blogSubCategoryService.getBlogSubCategoriesByuserId(userId);
 			return blogSubCategories;
 		}
+	}
+
+	@Override
+	public void addNewSubCategory(BlogSubCategory blogSubCategory) {
+		blogSubCategoryDao.addNewSubCategory(blogSubCategory);
 	}
 
 }

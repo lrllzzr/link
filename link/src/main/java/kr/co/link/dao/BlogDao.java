@@ -12,4 +12,5 @@ public interface BlogDao {
 	public Blog getBlogByBlogNo(Integer blogNo);
 	public List<Blog> get3BlogByVisits();
 	public void updateBlogByBlogNo(Blog blog);
+	public void addNewBlog(Blog blog);
 }

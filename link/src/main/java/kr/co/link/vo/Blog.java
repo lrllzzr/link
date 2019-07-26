@@ -24,7 +24,14 @@ public class Blog {
 	private Integer layout;
 	private String pageNumColor;
 	private String pageNumBackgroundColor;
+	private String topic;
 	
+	public String getTopic() {
+		return topic;
+	}
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
 	public String getPageNumColor() {
 		return pageNumColor;
 	}

@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.link.form.BlogBoardForm;
+import kr.co.link.form.BlogForm;
+import kr.co.link.form.BlogUpdateForm;
 import kr.co.link.form.ColorForm;
 import kr.co.link.service.BlogBoardService;
 import kr.co.link.service.BlogCategoryService;
@@ -56,11 +58,10 @@ public class BlogBeautyController {
 		return "blog/detail/start";
 	}
 	
-	@RequestMapping("/beauty.do")
-	public String beauty(Model model, Integer blogNo, HttpSession session) {
+	@RequestMapping(value="/beauty.do", method = RequestMethod.GET)
+	public String beauty(Model model, Integer blogNo, HttpSession session) throws IOException {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogservice.getBlogByUserId(user.getId());
-		
 		model.addAttribute("blog",blog);
 		// 기본 설정을 파랗게
 		model.addAttribute("column","updateProfile");
@@ -68,6 +69,25 @@ public class BlogBeautyController {
 		model.addAttribute("left","blogmain");
 		return "blog/beautify/beautymain";
 	}
+	
+	@RequestMapping(value="/beauty.do", method = RequestMethod.POST)
+	public String beautyApply(Model model, Integer blogNo, BlogUpdateForm blogUpdateForm, HttpSession session) throws IOException {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		BeanUtils.copyProperties(blogUpdateForm, blog);
+		user.setNickName(blogUpdateForm.getNickName());
+		MultipartFile mf = blogUpdateForm.getMainImg();
+		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images/userblogimgs";
+		if (!mf.isEmpty()) {
+			String filename = mf.getOriginalFilename();
+			FileCopyUtils.copy(mf.getBytes(), new File(profileImageSaveDirectory, filename));
+			blog.setMainImg(filename);
+		}
+		userService.updateUser(user);
+		blogservice.updateBlogByBlogNo(blog);
+		return "redirect:mydetail.do";
+	}
+	
 	@RequestMapping("/updateProfile.do")
 	public String updateProfile(Model model, HttpSession session) {
 		// 기본 설정을 파랗게
