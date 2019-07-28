@@ -1,0 +1,163 @@
+<!--
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>Link : 검색키워드 : 통합검색 </title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../../../resources/css/search/searchMain.css">
+	<link rel="stylesheet" href="../../../resources/css/blog/blog.css">
+</head>
+<body>
+        <div class="container-fluid" style="margin-top: 30px;">
+            <div class="row navbar main-nav">
+                <div class="col-sm-6 col-sm-offset-1" style="z-index: 100;">
+                    <form id="nx_search_form" name="search" action="" method="GET" style="width: 702px;">
+                <h1 class="search_logo"><a href="" class="spnew logo_naver"><img src="../../../resources/images/link_logo.PNG" alt="링크_로고"></a></h1>
+                <fieldset class="greenwindow" style="width: 503px;">
+                    <div class="greenbox"> <span class="keyword"> <input type="text" id="nx_query" name="query" class="box_window" maxlength="255" accesskey="s" value="" autocomplete="off" title="검색어 입력"> </span> 
+                    </div>
+                    <button type="submit" class="bt_search"><span class="
+                    glyphicon glyphicon-search"></span></button>
+                    <!-- 자동완성 -->
+                    <div id="nautocomplete" class="autocomplete"> 
+
+                        <!-- 펼쳤을 때 -->
+                        <a href="#" class="bt_atcp _btn_arw unfold"><span class="blind _text">자동완성 접기</span><span class="ico_arrow spnew"><img src="../../../resources/images/search_auto_complete.png" alt=""></span></a> 
+
+                        <!-- 접었을 때-->
+                        <a href="#" class="bt_atcp _btn_arw fold"><span class="blind _text">자동완성 펼치기</span><span class="ico_arrow spnew"><img src="../../../resources/images/search_auto_complete_unfold.png" alt=""></span></a> 
+                    </div>
+                    
+                    <!-- 자동검색 박스 -->
+                    <div class="ly_atcmp" id="nx_autoframe_top" style="display: none;">
+                       <div class="api_atcmp_wrap _atcmp" style="display: block">
+                            <div class="words _words expand" style="display: block;"> <div class="_atcmp_result_wrap"> <ul class="_resultBox" style="display: block;">
+                               <li class="_item"><a href="#">MFC</a></li>
+                                <li class="_item"><a href="#">MFC가 뭐고</a></li>
+                                <li class="_item"><a href="#">웹 개발?</a></li>
+                                <li class="_item"><a href="#">MFC로??!</a></li></ul>
+                            </div>
+                            </div>
+                           
+                       </div>
+                       
+                    </div>
+                    
+                </fieldset>
+            </form>
+                </div>
+
+                <div class="col-sm-4 text-right blog-toprow-right">
+                    <div class="blog-navbar-right collapse navbar-collapse navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown" id="my_saying">
+                                <a href="#" class="dropdown-toggle myfirst" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <img class="blog-profile-img" src="../../../resources/images/default_profile.PNG" alt="">
+                                    <span class="blog-navbar-id">빗취</span>
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">내 블로그</a></li>
+                                    <li><a href="#">밴드</a></li>
+                                    <li><a href="#">가계부 </a></li>
+                                    <li><a href="#">지식인</a></li>
+                                    <li><a href="#">시리즈</a></li>
+                                    <li><a href="#">TV</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">로그아웃</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="bell text-center"><a href=""><span class="glyphicon glyphicon-bell"></span></a></div>
+                        <div class="envelope"><a href=""><span class="glyphicon glyphicon-envelope"></span></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- 검색 결과 창 -->
+        <div class="container-fluid">
+            <div class="row search-category">
+                <ul class="search-category-list">
+                    <li><a href="#" class="category-btn cat-on">통합검색</a></li>
+                    <li><a href="#" class="category-btn">지식</a></li>
+                    <li><a href="#" class="category-btn">이미지</a></li>
+                    <li><a href="#" class="category-btn">블로그</a></li>
+                    <li><a href="#" class="category-btn">TV</a></li>
+                    <li><a href="#" class="category-btn">VOD</a></li>
+                    <li><a href="#" class="category-btn">BAND</a></li>
+                    <li><a href="#" class="search-opt btn">검색옵션<img src="../../../resources/images/search_auto_complete_unfold.png" alt="" width="15px;"></a></li>
+                </ul>
+            </div>
+            <div class="row search-category search-opt-box">
+                <div class="sort-area">
+                    <select name="sort" id="sort-box">
+                        <option value="" selected disabled>정렬</option>
+                        <option value="recent">최신순</option>
+                        <option value="gal">관련순</option>
+                    </select> 
+                </div>
+                <div class="sort-area">
+                    <select name="days" id="sort-box">
+                        <option value="" selected disabled>기간</option>
+                        <option value="day">1일</option>
+                        <option value="week">1주일</option>
+                    </select>  
+                </div>
+                <div class="sort-area">
+                    <select name="section" id="sort-box">
+                        <option value="" selected disabled>영역</option>
+                        <option value="total">전체</option>
+                        <option value="title">제목</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row search-content">
+                <div class="col-sm-8 search-result">
+                    검색 결과 내역
+                </div>
+                <div class="col-sm-4 search-ranking">
+                    검색순위 란
+                </div>
+            </div>
+        </div>
+<script>
+    /* 검색 옵션 상세 펼치기 */
+    $(".search-opt-box").toggle("hide");
+    
+    $(".search-opt").click(function(){
+        $(".search-opt-box").toggle("show");
+    })
+    
+    /* 해당 카테고리 불켜기 */
+    $(".category-btn").click(function(){
+        $(this).parent().siblings().find("a").removeClass("cat-on");
+        $(this).addClass("cat-on");
+        return false;   
+    })
+    
+    /* 자동완성 펼치기 접기 */
+    $("#nx_query").focus(function(){ 
+        $(".unfold").css("display", "block");
+        $("#nx_autoframe_top").css("display", "block");
+        $(".fold").css("display", "none");
+    });
+    
+    $("#nx_query").blur(function(){
+        $(".unfold").css("display", "none");
+        $("#nx_autoframe_top").css("display", "none");
+        $(".fold").css("display", "block");
+    });
+</script>
+</body>
+</html>
