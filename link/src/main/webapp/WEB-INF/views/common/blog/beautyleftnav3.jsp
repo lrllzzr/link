@@ -11,7 +11,6 @@
 			<div class="col-sm-12">
 				<hr class="blog-beauty-left-hr"/>
 			</div>
-			
 		</div>
 		<div class="col-sm-12 blog-manage-bigbox">
 		<div class="blog_open_neighbor">

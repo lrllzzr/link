@@ -16,10 +16,31 @@
 	where
 		blog_no = #{value}
 </select>
+<select id="getSubCategoryBySubCatNo" parameterType="int" resultType="blogsubcategory">
+	select
+		SUBCATEGORY_NO no,
+		SUBCATEGORY_TITLE title,
+		SUBCATEGORY_VISIBILITY visibility,
+		SUBCATEGORY_CREATE_DATE createDate,
+		BLOG_NO blogNo
+	from
+		blog_subcategory
+	where
+		SUBCATEGORY_NO = #{value}
+</select>
 <insert id="addNewSubCategory" parameterType="blogsubcategory">
 	insert into blog_subcategory
 	values(
 		blog_seq.nextval,#{title},'Y',sysdate,#{blogNo}
 	)
 </insert>
+<update id="updateSubCategory" parameterType="blogsubcategory">
+	update blog_subcategory
+	set
+		SUBCATEGORY_TITLE = #{title},
+		SUBCATEGORY_VISIBILITY = #{visibility},
+		BLOG_NO = #{blogNo}
+	where
+		SUBCATEGORY_NO = #{no}		
+</update>
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.link.dao.BlogCategoryDao;
 import kr.co.link.vo.BlogCategory;
+import kr.co.link.vo.BlogSubCategory;
 
 @Service
 public class BlogCategoryServiceImpl implements BlogCategoryService{
@@ -35,6 +36,11 @@ public class BlogCategoryServiceImpl implements BlogCategoryService{
 	@Override
 	public void addNewCategory(BlogCategory blogCategory) {
 		blogCategoryDao.addNewCategory(blogCategory);
+	}
+
+	@Override
+	public void updateCategory(BlogCategory blogCategory) {
+		blogCategoryDao.updateCategory(blogCategory);
 	}
 
 }

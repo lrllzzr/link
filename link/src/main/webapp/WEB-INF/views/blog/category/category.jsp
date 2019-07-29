@@ -34,76 +34,212 @@
 						<hr class="blog_manage_hr1" />
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-sm-12">
-						<span><strong>카테고리 관리 · 설정</strong></span>
-					</div>
-					<div class="col-sm-12">
-						<hr />
-					</div>
-					<div class="col-sm-12 blog_category_buttoncol">
-						<button class="btn btn-sm btn-default">+ 카테고리 추가</button>
-						<button class="btn btn-sm btn-default">+ 구분선 추가</button>
-						<button class="btn btn-sm btn-default">- 삭제</button>
-					</div>
-					<div class="col-sm-4">
-						<div class="blog_category_div">
-							<div class="row">
-								<div class="col-sm-12">
-									<span>카테고리 전체보기(${categorySize })</span>
+				<form action="alterCategory.do" method="post" class="form-horizontal">
+					<div class="row">
+						<div class="col-sm-12">
+							<span><strong>카테고리 관리 · 설정</strong></span>
+						</div>
+						<div class="col-sm-12">
+							<hr />
+						</div>
+						<div class="col-sm-12 blog_category_buttoncol">
+							<button type="button" id="blogAddCategoryBtn" class="btn btn-sm btn-default">+ 카테고리 추가</button>
+							<button type="button" id="" class="btn btn-sm btn-default">+ 구분선 추가</button>
+							<button type="button" id="blogDeleteCategoryBtn" class="btn btn-sm btn-default">- 삭제</button>
+						</div>
+						<div class="col-sm-4">
+							<div class="blog_category_div">
+								<div class="row blogCatShowAllDiv">
+									<div class="col-sm-12">
+										<span id="blogCatShowAll">카테고리 전체보기(${categorySize })</span>
+									</div>
+									<div class="col-sm-12">
+										<hr class="blog_category_hr1" />
+									</div>
 								</div>
-								<div class="col-sm-12">
-									<hr class="blog_category_hr1" />
-								</div>
-							</div>
-							<div class="row">
-								<c:forEach var="subCat" items="${subCategories }">
-									<div class="col-sm-12 blog-detail-showlist blog_category_row1">
-										<div class="row">
-											<div class="col-sm-12 blog_category_cat2">
-												<div class="blogSubCat">
-													<span class="glyphicon glyphicon-list-alt"></span> <span class="blog-detail-showall">${subCat.title }</span>
-												</div>
-											</div>
-											<c:forEach var="cat" items="${subCat.blogCategory}">
-												<div class="col-sm-12 blog_category_cat1">
-													<div class="blogCat">
-														<span class="blog-detail-showall">&nbsp;┗ ${cat.title }</span>
+								<div class="row blog_category_showRow">
+									<c:forEach var="subCat" items="${subCategories }" varStatus="subCatStatus">
+										<div class="col-sm-12 blog-detail-showlist blog_category_row1">
+											<div class="row blog_category_catdiv">
+												<div class="col-sm-12 blog_category_cat2">
+													<div class="blogSubCat" data-subCategoryPublic="${subCat.visibility }" data-subCategoryNo="${subCat.no }">
+														<span class="glyphicon glyphicon-list-alt"></span> <span class="blog-detail-showall">${subCat.title }</span>
+														<input type="hidden" name="subCatNo" id="sub-cat" value="${subCat.no }" />
+														<input type="hidden" name="subCatTitle" id="sub-title" value="${subCat.title }" />
+														<input type="hidden" id="blog_subCat_show" name="show" value="${subCat.visibility }" />
 													</div>
 												</div>
-											</c:forEach>
+												<c:forEach var="cat" items="${subCat.blogCategory}" varStatus="catStatus">
+													<div class="col-sm-12 blog_category_cat1">
+														<div class="blogCat" data-categoryPublic="${cat.visibility }" data-categoryNo="${cat.no }">
+															&nbsp;┗ <span class="blog-detail-showall">${cat.title }</span>
+															<input type="hidden" name="catSubCatNo" id="sub-cat" value="${subCat.no }" />
+															<input type="hidden" name="catNo" value="${cat.no }" />
+															<input type="hidden" name="catTitle" id="cat-title" value="${cat.title }" />
+															<input type="hidden" id="blog_cat_show" name="show" value="${subCat.visibility }" />
+														</div>
+													</div>
+												</c:forEach>
+											</div>
 										</div>
-									</div>
-								</c:forEach>
+									</c:forEach>
+								</div>
 							</div>
 						</div>
+						<div class="col-sm-7">
+							<div class="row">
+								<div class="form-inline form-group">
+									<label class="col-sm-3 control-label" id="blogCategoryName">카테고리명</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="blog_name" name="blogName" disabled="disabled">
+									</div>
+								</div>
+								<div class="form-inline form-group">
+									<label for="phone_num" class="col-sm-3 control-label">공개설정</label>
+									<div class="col-sm-9" style="padding-top: 7px;">
+										<span style="margin-right: 5px;"> <input id="blogPublic" type="radio" name="show2" disabled="disabled" />공개
+										</span> <span> <input id="blogPrivate" type="radio" name="show2" disabled="disabled" />비공개
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<hr />
+						</div>
+						<div class="col-sm-12 text-center">
+							<button type="submit" id="applyCategory" class="btn btn-default">적용</button>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
 	<script>
 		$(function() {
-			$('.blogSubCat').each(function() {
-				$(this).click(function() {
-					$(this).toggleClass('blogCategoryselected');
-					$(this).parents('.blog-detail-showlist').siblings('.blog-detail-showlist').find('.blogSubCat').removeClass('blogCategoryselected')
-					$(this).parents('.blog-detail-showlist').siblings('.blog-detail-showlist').find('.blogCat').removeClass('blogCategoryselected');
-					$(this).parent().siblings('.blog_category_cat1').find('.blogCat').removeClass('blogCategoryselected');
+			var autoSubCatNo = -1;
+
+			$('#blogPublic').click(function() {
+				var subCatNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-subCategoryNo');
+				var catNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-categoryNo');
+				$.ajax({
+					type : "GET",
+					url : "changeCatPublic.do?subCatNo=" + subCatNo + "&catNo=" + catNo,
+					success : function() {
+
+					}
 				})
 			});
 
-			$('.blogCat').each(function() {
-				$(this).click(function() {
-					$(this).toggleClass('blogCategoryselected');
-					// 동료 지우기
-					$(this).parent().siblings('.blog_category_cat1').find('.blogCat').removeClass('blogCategoryselected');
-					// 상위 지우기
-					$(this).parent().siblings('.blog_category_cat2').find('.blogSubCat').removeClass('blogCategoryselected');
-					$(this).parents('.blog-detail-showlist').siblings('.blog-detail-showlist').find('.blogSubCat').removeClass('blogCategoryselected');
-					$(this).parents('.blog-detail-showlist').siblings('.blog-detail-showlist').find('.blogCat').removeClass('blogCategoryselected');
-				});
+			$('#blogPrivate').click(function() {
+				var subCatNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-subCategoryNo');
+				var catNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-categoryNo');
+				$.ajax({
+					type : "GET",
+					url : "changeCatPrivate.do?subCatNo=" + subCatNo + "&catNo=" + catNo,
+					success : function() {
+
+					}
+				})
 			});
+
+			$('#applyCategory').click(function() {
+				$('input[name="blogNewCat"]').attr('value', $('#blogNewCat').text());
+				$('input[name="blogNewSubCat"]').attr('value', $('#blogNewSubCat').text());
+			});
+			$('#blogCatShowAll').click(function() {
+				$(this).parents('.blog_category_div').find('.blogCategoryselected').removeClass('blogCategoryselected');
+				$(this).addClass('blogCategoryselected');
+
+				$('#blog_name').val("").prop("disabled", true);
+				$('#blogPublic').prop('disabled', true);
+				$('#blogPrivate').prop('disabled', true);
+			});
+
+			$('.blog_category_showRow').on('click', '.blogSubCat', function() {
+				$(this).parents('.blog_category_showRow').find('.blogCategoryselected').removeClass('blogCategoryselected');
+				$(this).addClass('blogCategoryselected');
+				/* ajax 구현 하시오!!!  */
+				var visibility = $(this).attr('data-subCategoryPublic');
+
+				if (visibility == 'N') {
+					$('#blogPublic').prop('checked', false);
+					$('#blogPrivate').prop('checked', true);
+				} else {
+					$('#blogPublic').prop('checked', false);
+					$('#blogPublic').prop('checked', true);
+				}
+				
+				$('#blogCatShowAll').removeClass('blogCategoryselected');
+
+				$('#blog_name').prop('disabled', false);
+				$('#blog_name').val($('.blog_category_catdiv').find('.blogCategoryselected').find('.blog-detail-showall').text());
+				$('#blogPublic').prop('disabled', false);
+				$('#blogPrivate').prop('disabled', false);
+			});
+
+			$('.blog_category_showRow').on('click', '.blogCat', function() {
+				$(this).parents('.blog_category_showRow').find('.blogCategoryselected').removeClass('blogCategoryselected');
+				$(this).addClass('blogCategoryselected');
+
+				var visibility = $(this).attr('data-categoryPublic');
+				if (visibility == 'N') {
+					$('#blogPublic').prop('checked', true);
+					$('#blogPublic').prop('checked', false);
+				} else {
+					$('#blogPublic').prop('checked', false);
+					$('#blogPublic').prop('checked', true);
+				}
+				$('#blogCatShowAll').removeClass('blogCategoryselected');
+
+				$('#blog_name').prop('disabled', false);
+				$('#blog_name').val($('.blog_category_catdiv').find('.blogCategoryselected').find('.blog-detail-showall').text());
+				$('#blogPublic').prop('disabled', false);
+				$('#blogPrivate').prop('disabled', false);
+			});
+
+			$('#blogAddCategoryBtn').click(function() {
+				var categoryNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-categoryNo');
+				var subCatNo = $('.blog_category_div').find('.blogCategoryselected').attr('data-subCategoryNo');
+				var subCat = $('.blog_category_showRow').find('.blogCategoryselected');
+				var catType = $('.blog_category_div').find('.blogCategoryselected').attr('class');
+
+				if (catType == "blogCat blogCategoryselected") {
+					alert('카테고리는 2차 분류까지 만드실 수 있습니다');
+					// 카테고리 추가시
+				} else if (catType == "blogSubCat blogCategoryselected") {
+					// 원래 있던 서브카테고리면
+					var row = '';
+					row += '<div class="col-sm-12 blog_category_cat1">';
+					row += '<div class="blogCat">';
+					row += '&nbsp;┗ <span class="blog-detail-showall">&nbsp;<span id="blogNewCat">게시판</span></span>';
+					row += '<input type="hidden" name="catSubCatNo" id="sub-cat" value="'+subCatNo+'" />';
+					row += '<input type="hidden" name="catTitle" id="cat-title" value="게시판" />';
+					row += '</div>';
+					row += '</div>';
+					subCat.parents('.blog_category_catdiv').append(row);
+					// 서브카테고리 추가시
+				} else if (catType == "blogCategoryselected") {
+					var row = '<div class="row blog_category_catdiv">';
+					row += '<div class="col-sm-12 blog_category_cat2">';
+					row += '<div class="blogSubCat" data-subCategoryNo="'+autoSubCatNo+'">';
+					row += '<span class="glyphicon glyphicon-list-alt"></span> <span id="blogNewSubCat" class="blog-detail-showall">게시판</span>';
+					row += '<input type="hidden" name="subCatTitle" id="sub-title" value="게시판" />';
+					row += '<input type="hidden" name="subCatNo" id="sub-cat" value="'+autoSubCatNo+'" />';
+					row += '</div>';
+					row += '</div>';
+					row += '</div>';
+					$('.blog_category_row1:last').append(row);
+					autoSubCatNo -= 1;
+				}
+			});
+
+			$('#blog_name').keyup(function() {
+				$('.blogCategoryselected').find('.blog-detail-showall').text($(this).val());
+				$('.blogCategoryselected').find('#sub-title').val($(this).val());
+				$('.blogCategoryselected').find('#cat-title').val($(this).val());
+			});
+
 		});
 	</script>
 </body>

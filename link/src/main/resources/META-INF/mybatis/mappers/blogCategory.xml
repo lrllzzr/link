@@ -45,8 +45,7 @@
 			CATEGORY_SHOWTYPE showType,
 			CATEGORY_ORDERS orders,
 			CATEGORY_VISIBILITY visibility,
-			SUBCATEGORY_NO
-			subCategoryNo
+			SUBCATEGORY_NO subCategoryNo
 		from
 			blog_category
 		where
@@ -63,7 +62,18 @@
 			CATEGORY_CREATEDATE
 			)
 		values(
-			blog_seq.nextval,#{title},'onerow',1,'A',#{subCategoryNo},sysdate
+			blog_seq.nextval,#{title},'onerow',1,'As',#{subCategoryNo},sysdate
 		)
 	</insert>
+	<update id="updateCategory" parameterType="blogcategory">
+		update blog_category
+		set
+			CATEGORY_TITLE = #{title},
+			CATEGORY_SHOWTYPE = #{showType},
+			CATEGORY_ORDERS = #{orders},
+			CATEGORY_VISIBILITY = #{visibility},
+			SUBCATEGORY_NO = #{subCategoryNo}
+		where
+			CATEGORY_NO = #{no}			
+	</update>
 </mapper>

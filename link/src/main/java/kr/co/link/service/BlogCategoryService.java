@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.link.vo.BlogCategory;
+import kr.co.link.vo.BlogSubCategory;
 
 @Transactional
 public interface BlogCategoryService {
@@ -12,4 +13,5 @@ public interface BlogCategoryService {
 	public BlogCategory getOneCategoryByOrder(Integer blogNo);
 	public BlogCategory getCategoryByCategoryNo(Integer categoryNo);
 	void addNewCategory(BlogCategory blogCategory);
+	void updateCategory(BlogCategory blogCategory);
 }

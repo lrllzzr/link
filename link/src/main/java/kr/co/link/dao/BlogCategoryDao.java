@@ -12,4 +12,5 @@ public interface BlogCategoryDao {
 	public BlogCategory getOneCategoryByOrder(Integer blogNo);
 	public BlogCategory getCategoryByCategoryNo(Integer categoryNo);
 	void addNewCategory(BlogCategory blogCategory);
+	void updateCategory(BlogCategory blogCategory);
 }

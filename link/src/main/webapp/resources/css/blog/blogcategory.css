@@ -21,3 +21,6 @@
 .blogCategoryselected{
 	background-color: #B1B3BF;
 }
+.blogCat{
+	cursor:pointer;
+}

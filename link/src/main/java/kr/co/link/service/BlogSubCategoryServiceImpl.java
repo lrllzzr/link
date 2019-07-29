@@ -67,4 +67,14 @@ public class BlogSubCategoryServiceImpl implements BlogSubCategoryService{
 		blogSubCategoryDao.addNewSubCategory(blogSubCategory);
 	}
 
+	@Override
+	public void updateSubCategory(BlogSubCategory blogSubCategory) {
+		blogSubCategoryDao.updateSubCategory(blogSubCategory);
+	}
+
+	@Override
+	public BlogSubCategory getSubCategoryBySubCatNo(Integer subCatNo) {
+		return blogSubCategoryDao.getSubCategoryBySubCatNo(subCatNo);
+	}
+
 }

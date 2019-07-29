@@ -12,4 +12,6 @@ public interface BlogSubCategoryService{
 	List<BlogSubCategory> getBlogSubCategoriesByuserId(String userId);
 	List<BlogSubCategory> isMyBlog(Integer blogNo, String userId);
 	void addNewSubCategory(BlogSubCategory blogSubCategory);
+	void updateSubCategory(BlogSubCategory blogSubCategory);
+	BlogSubCategory getSubCategoryBySubCatNo(Integer subCatNo);
 }
