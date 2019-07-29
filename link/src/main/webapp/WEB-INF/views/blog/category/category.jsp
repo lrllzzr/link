@@ -34,7 +34,7 @@
 						<hr class="blog_manage_hr1" />
 					</div>
 				</div>
-				<form action="alterCategory.do" method="post" class="form-horizontal">
+				<form action="alterCategory.do" method="post" class="form-horizontal" id="blogApplyCategoryForm">
 					<div class="row">
 						<div class="col-sm-12">
 							<span><strong>카테고리 관리 · 설정</strong></span>
@@ -108,7 +108,7 @@
 							<hr />
 						</div>
 						<div class="col-sm-12 text-center">
-							<button type="submit" id="applyCategory" class="btn btn-default">적용</button>
+							<button type="button" id="applyCategory" class="btn btn-default">적용</button>
 						</div>
 					</div>
 				</form>
@@ -118,29 +118,65 @@
 	<script>
 		$(function() {
 			var autoSubCatNo = -1;
-
+			var autoCatNo = -1;
+			$('#applyCategory').click(function(){
+				var result = confirm('적용하시겠습니까?');
+				if(result){
+					$('#blogApplyCategoryForm').submit();
+					alert('적용되었습니다');
+				}
+			});
 			$('#blogPublic').click(function() {
-				var subCatNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-subCategoryNo');
-				var catNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-categoryNo');
-				$.ajax({
-					type : "GET",
-					url : "changeCatPublic.do?subCatNo=" + subCatNo + "&catNo=" + catNo,
-					success : function() {
-
+				var result = confirm("카테고리를 비공개로 하면 검색에서 제외됩니다.");
+				if(result){
+					var subCatNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-subCategoryNo');
+					var catNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-categoryNo');
+					
+					if(subCatNo != undefined){
+						$.ajax({
+							type : "GET",
+							url : "changeCatPublic.do?subCatNo=" + subCatNo,
+							success : function() {
+								$('.blog_category_showRow').find('.blogCategoryselected').attr('data-subCategoryPublic','Y');
+								
+							}
+						})
+					} else{
+						$.ajax({
+							type : "GET",
+							url : "changeCatPublic.do?catNo=" + catNo,
+							success : function() {
+								$('.blog_category_showRow').find('.blogCategoryselected').attr('data-categoryPublic','Y');
+							}
+						})
 					}
-				})
+				}
 			});
 
 			$('#blogPrivate').click(function() {
-				var subCatNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-subCategoryNo');
-				var catNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-categoryNo');
-				$.ajax({
-					type : "GET",
-					url : "changeCatPrivate.do?subCatNo=" + subCatNo + "&catNo=" + catNo,
-					success : function() {
-
+				var result = confirm("카테고리를 비공개로 하면 검색에서 제외됩니다.");
+				if(result){
+					var subCatNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-subCategoryNo');
+					var catNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-categoryNo');
+					
+					if(subCatNo != undefined){
+						$.ajax({
+							type : "GET",
+							url : "changeCatPrivate.do?subCatNo=" + subCatNo,
+							success : function() {
+								$('.blog_category_showRow').find('.blogCategoryselected').attr('data-subCategoryPublic','N');
+							}
+						})
+					} else{
+						$.ajax({
+							type : "GET",
+							url : "changeCatPrivate.do?catNo=" + catNo,
+							success : function() {
+								$('.blog_category_showRow').find('.blogCategoryselected').attr('data-categoryPublic','N');
+							}
+						})
 					}
-				})
+				}
 			});
 
 			$('#applyCategory').click(function() {
@@ -159,14 +195,13 @@
 			$('.blog_category_showRow').on('click', '.blogSubCat', function() {
 				$(this).parents('.blog_category_showRow').find('.blogCategoryselected').removeClass('blogCategoryselected');
 				$(this).addClass('blogCategoryselected');
-				/* ajax 구현 하시오!!!  */
 				var visibility = $(this).attr('data-subCategoryPublic');
 
 				if (visibility == 'N') {
 					$('#blogPublic').prop('checked', false);
 					$('#blogPrivate').prop('checked', true);
 				} else {
-					$('#blogPublic').prop('checked', false);
+					$('#blogPrivate').prop('checked', false);
 					$('#blogPublic').prop('checked', true);
 				}
 				
@@ -184,11 +219,11 @@
 
 				var visibility = $(this).attr('data-categoryPublic');
 				if (visibility == 'N') {
-					$('#blogPublic').prop('checked', true);
 					$('#blogPublic').prop('checked', false);
+					$('#blogPrivate').prop('checked', true);
 				} else {
-					$('#blogPublic').prop('checked', false);
 					$('#blogPublic').prop('checked', true);
+					$('#blogPrivate').prop('checked', false);
 				}
 				$('#blogCatShowAll').removeClass('blogCategoryselected');
 
@@ -206,25 +241,25 @@
 
 				if (catType == "blogCat blogCategoryselected") {
 					alert('카테고리는 2차 분류까지 만드실 수 있습니다');
-					// 카테고리 추가시
+					// 카테고리 추가하기
 				} else if (catType == "blogSubCat blogCategoryselected") {
-					// 원래 있던 서브카테고리면
 					var row = '';
 					row += '<div class="col-sm-12 blog_category_cat1">';
-					row += '<div class="blogCat">';
-					row += '&nbsp;┗ <span class="blog-detail-showall">&nbsp;<span id="blogNewCat">게시판</span></span>';
+					row += '<div class="blogCat" data-categoryPublic="Y">';
+					row += '&nbsp;┗ <span class="blog-detail-showall">&nbsp;<span id="blogNewCat">카테고리</span></span>';
 					row += '<input type="hidden" name="catSubCatNo" id="sub-cat" value="'+subCatNo+'" />';
-					row += '<input type="hidden" name="catTitle" id="cat-title" value="게시판" />';
+					row += '<input type="hidden" name="catTitle" id="cat-title" value="카테고리" />';
+					row += '<input type="hidden" name="catNo" value="'+autoCatNo+'" />';
 					row += '</div>';
 					row += '</div>';
 					subCat.parents('.blog_category_catdiv').append(row);
-					// 서브카테고리 추가시
+					// 서브카테고리 추가하기
 				} else if (catType == "blogCategoryselected") {
 					var row = '<div class="row blog_category_catdiv">';
 					row += '<div class="col-sm-12 blog_category_cat2">';
-					row += '<div class="blogSubCat" data-subCategoryNo="'+autoSubCatNo+'">';
-					row += '<span class="glyphicon glyphicon-list-alt"></span> <span id="blogNewSubCat" class="blog-detail-showall">게시판</span>';
-					row += '<input type="hidden" name="subCatTitle" id="sub-title" value="게시판" />';
+					row += '<div class="blogSubCat" data-categoryPublic="Y" data-subCategoryNo="'+autoSubCatNo+'">';
+					row += '<span class="glyphicon glyphicon-list-alt"></span> <span id="blogNewSubCat" class="blog-detail-showall">서브카테고리</span>';
+					row += '<input type="hidden" name="subCatTitle" id="sub-title" value="서브카테고리" />';
 					row += '<input type="hidden" name="subCatNo" id="sub-cat" value="'+autoSubCatNo+'" />';
 					row += '</div>';
 					row += '</div>';

@@ -62,7 +62,7 @@
 			CATEGORY_CREATEDATE
 			)
 		values(
-			blog_seq.nextval,#{title},'onerow',1,'As',#{subCategoryNo},sysdate
+			blog_seq.nextval,#{title},'onerow',blog_seq.nextval,'Y',#{subCategoryNo},sysdate
 		)
 	</insert>
 	<update id="updateCategory" parameterType="blogcategory">

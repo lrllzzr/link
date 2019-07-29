@@ -130,43 +130,51 @@ public class BlogCategoryController {
 				blogSubCategory.setBlogNo(blogNo);
 				blogSubCategory.setTitle(subCatTitleArray[i]);
 				blogSubCategoryService.addNewSubCategory(blogSubCategory);
-
 			}
 		}
 		// 카테고리 수정 or 추가
 		String[] catSubCatNoArray = catSubCatNo.split(",");
 		String[] catNoArray = catNo.split(",");
 		String[] catTitleArray = catTitle.split(",");
+		
+//		for (int i = 0; i < catNoArray.length; i++) {
+//			Integer newCatSubCatNo = Integer.parseInt(catSubCatNoArray[i]);
+//			Integer newCatNo = Integer.parseInt(catNoArray[i]);
+//			if (newCatNo > 0) {
+//				BlogCategory blogCategory = blogCategoryService.getCategoryByCategoryNo(newCatNo);
+//				blogCategory.setTitle(catTitleArray[i]);
+//				blogCategoryService.updateCategory(blogCategory);
+//			} else if (newCatNo < 0) {
+//				BlogCategory blogCategory = new BlogCategory();
+//				blogCategory.setTitle(catTitleArray[i]);
+//				blogCategory.setSubCategoryNo(newCatSubCatNo);
+//				blogCategoryService.addNewCategory(blogCategory);
+//			}
+//		}
 
-		for (int i = 0; i < catSubCatNoArray.length; i++) {
-			Integer newCatSubCatNo = Integer.parseInt(catSubCatNoArray[i]);
-			Integer newCatNo = Integer.parseInt(catNoArray[i]);
-			if (newCatSubCatNo > 0) {
-				BlogCategory blogCategory = blogCategoryService.getCategoryByCategoryNo(newCatNo);
-				blogCategory.setTitle(catTitleArray[i]);
-				blogCategoryService.updateCategory(blogCategory);
-			} else if (newCatSubCatNo < 0) {
-				BlogCategory blogCategory = new BlogCategory();
-				blogCategory.setTitle(catTitleArray[i]);
-				blogCategory.setSubCategoryNo(newCatSubCatNo);
-				blogCategoryService.addNewCategory(blogCategory);
-			}
-		}
-
+		return "redirect:alterCategory2.do?categoryNo?="+categoryNo+"&subCatNo="+subCatNo+"catSubCatNoArray"+catSubCatNoArray+"catNoArray="+catNoArray;
+	}
+	
+	@RequestMapping(value = "/alterCategory2.do", method = RequestMethod.GET)
+	public String alterCategory2(Model model, HttpSession session, Integer categoryNo, String catSubCatNoArray,
+			String catSubCatNo, String catNoArray) {
+		System.out.println("catogoryNo: "+categoryNo);
+		System.out.println("catSubCatNoArray: "+catSubCatNoArray);
+		System.out.println("catSubCatNo: "+catSubCatNo);
+		System.out.println("catNoArray: "+catNoArray);
+		
 		return "redirect:alterCategory.do";
 	}
 	
 	@RequestMapping("/changeCatPublic.do")
-	public @ResponseBody void changeCatPublic(HttpSession session, String categoryNo,String subCatNo) {
-		System.out.println(categoryNo);
-		System.out.println(subCatNo);
-		if(categoryNo != "undefined") {
-			Integer categoryNo2 = Integer.parseInt(categoryNo);
+	public @ResponseBody void changeCatPublic(HttpSession session, String catNo,String subCatNo) {
+		if(catNo != null) {
+			Integer categoryNo2 = Integer.parseInt(catNo);
 			BlogCategory blogCategory = blogCategoryService.getCategoryByCategoryNo(categoryNo2);
 			blogCategory.setVisibility("Y");
 			blogCategoryService.updateCategory(blogCategory);
 		}
-		if(subCatNo != "undefined") {
+		if(subCatNo != null) {
 			Integer subCatNo2 = Integer.parseInt(subCatNo);
 			BlogSubCategory blogSubCategory = blogSubCategoryService.getSubCategoryBySubCatNo(subCatNo2);
 			blogSubCategory.setVisibility("Y");
@@ -175,14 +183,14 @@ public class BlogCategoryController {
 	}
 	
 	@RequestMapping("/changeCatPrivate.do")
-	public @ResponseBody void changeCatPrivate(HttpSession session, String categoryNo,String subCatNo) {
-		if(categoryNo != "undefined") {
-			Integer categoryNo2 = Integer.parseInt(categoryNo);
+	public @ResponseBody void changeCatPrivate(HttpSession session, String catNo,String subCatNo) {
+		if(catNo != null) {
+			Integer categoryNo2 = Integer.parseInt(catNo);
 			BlogCategory blogCategory = blogCategoryService.getCategoryByCategoryNo(categoryNo2);
 			blogCategory.setVisibility("N");
 			blogCategoryService.updateCategory(blogCategory);
 		}
-		if(subCatNo != "undefined") {
+		if(subCatNo != null) {
 			Integer subCatNo2 = Integer.parseInt(subCatNo);
 			BlogSubCategory blogSubCategory = blogSubCategoryService.getSubCategoryBySubCatNo(subCatNo2);
 			blogSubCategory.setVisibility("N");
