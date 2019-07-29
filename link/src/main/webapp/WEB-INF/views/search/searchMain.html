@@ -398,6 +398,20 @@
                             <a href="#">이미지 더보기></a>
                         </div>
                     </div>
+                    <div class="row paging-row" style="display: none;">
+                        <div class="paging" style="padding-left:0px;">             <a href="#" class="paging-strong">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                            <a href="#">7</a>
+                            <a href="#">8</a>
+                            <a href="#">9</a>
+                            <a href="#">10</a>
+                            <a class="next" href="#">다음페이지</a> 
+                        </div>
+                    </div>
                 <!-- 내역 끝 -->
                 </div>
                 <div class="col-sm-4 search-ranking">
@@ -500,41 +514,65 @@
             </div>
         </div>
 <script>
+    /* 페이징 */
+    $(".paging a").click(function(){
+        $(this).siblings().removeClass("paging-strong");
+        $(this).addClass("paging-strong");
+    })
+    
     /* 검색 섹션 보이기/감추기 */
-    $("#jisikinsearch").click(function(){
+    $("#totalsearch").click(function(){
+        $(".result-section").css("display", "block");
+        $(".paging-row").css("display","none");
+        return false;
+    })
+    
+    $("#jisikinsearch, .result-jisikin .section-more").click(function(){
         $(".result-jisikin").css("display", "block");
         $(".result-jisikin").siblings().css("display", "none");
         $(".result-jisikin .section-more").css("display", "none");
+        $(".paging-row").css("display","block");
+        return false;
     })
     
-    $("#blogsearch").click(function(){
+    $("#blogsearch, .result-blog .section-more").click(function(){
         $(".result-blog").css("display", "block");
         $(".result-blog").siblings().css("display", "none");
         $(".result-blog .section-more").css("display", "none");
+        $(".paging-row").css("display","block");
+        return false;
     })
     
-    $("#seriessearch").click(function(){
+    $("#seriessearch, .result-series .section-more").click(function(){
         $(".result-series").css("display", "block");
         $(".result-series").siblings().css("display", "none");
         $(".result-series .section-more").css("display", "none");
+        $(".paging-row").css("display","block");
+        return false;
     })
     
-    $("#bandsearch").click(function(){
+    $("#bandsearch, .result-band .section-more").click(function(){
         $(".result-band").css("display", "block");
         $(".result-band").siblings().css("display", "none");
         $(".result-band .section-more").css("display", "none");
+        $(".paging-row").css("display","block");
+        return false;
     })
     
-    $("#tvsearch").click(function(){
+    $("#tvsearch, .result-tv .section-more").click(function(){
         $(".result-tv").css("display", "block");
         $(".result-tv").siblings().css("display", "none");
         $(".result-tv .section-more").css("display", "none");
+        $(".paging-row").css("display","block");
+        return false;
     })
     
-    $("#imagesearch").click(function(){
+    $("#imagesearch, .result-image .section-more").click(function(){
         $(".result-image").css("display", "block");
         $(".result-image").siblings().css("display", "none");
         $(".result-image .section-more").css("display", "none");
+        $(".paging-row").css("display","block");
+        return false;
     })
     
     /* 검색 옵션 상세 펼치기 */
