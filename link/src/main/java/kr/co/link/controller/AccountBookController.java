@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value="/accountbook")
 public class AccountBookController {
 	
-	/***** 가계부:주요 기능:지출 수입 내역 저장, 삭제,수정 (update, insert, delete) *****/
+	/***** 가계부:주요 기능:지출 수입 내역 추가, 삭제,수정 (update, insert, delete) *****/
 	
 	@RequestMapping(value="/expense.do") 						/*지출*/
 	public String expense() {
