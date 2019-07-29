@@ -4,7 +4,7 @@
 		<ul class="blog_beauty_ul">
 			<li class="${column eq 'updateProfile' ? 'blog_beauty_selected1' : ''}"><a href="beauty.do">기본 설정</a></li>
 			<li class="${column eq 'beautifyblog' ? 'blog_beauty_selected1' : ''}"><a href="beautifyblog.do">꾸미기 설정</a></li>
-			<li><a href="">메뉴,글 관리</a></li>
+			<li class="${column eq 'menu' ? 'blog_beauty_selected1' : ''}"><a href="beautyCategory.do">메뉴,글 관리</a></li>
 			<li><a href="">내 블로그 통계</a></li>
 		</ul>
 	</div>

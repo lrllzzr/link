@@ -89,14 +89,20 @@ public class BlogBeautyController {
 	}
 	
 	@RequestMapping(value="/beautyCategory.do", method = RequestMethod.GET)
-	public String beautyCategory(Model model, Integer blogNo, HttpSession session) throws IOException {
+	public String beautyCategory(Model model, HttpSession session, Integer categoryNo) throws IOException {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogservice.getBlogByUserId(user.getId());
+		Integer blogNo = blog.getNo();
+		
+		BlogDetailController blogDetailController = new BlogDetailController();
+		List<BlogSubCategory> blogSubCategories = blogDetailController.getBlogSubCategories(session, blogNo, model, categoryNo);
+		
+		model.addAttribute("subCategories", blogSubCategories);
 		model.addAttribute("blog",blog);
 		// 기본 설정을 파랗게
-		model.addAttribute("column","updateProfile");
+		model.addAttribute("column","menu");
 		// 블로그정보를 파랗게
-		model.addAttribute("left","blogmain");
+		model.addAttribute("left","menu");
 		return "blog/beautify/beautyCategory";
 	}
 	
