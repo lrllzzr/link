@@ -3,7 +3,10 @@ package kr.co.link.controller;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -52,6 +55,7 @@ public class BlogDetailController {
 		// 배경색상 투명도 바꾸기
 		String blogColor = blog.getBackgroundColor();
 		Color color = Color.decode(blogColor);
+		
 		String r = Integer.toString(color.getRed());
 		String g = Integer.toString(color.getGreen());
 		String b = Integer.toString(color.getBlue());
@@ -68,12 +72,21 @@ public class BlogDetailController {
 		model.addAttribute("user", user);
 		model.addAttribute("blog", blog);
 		if (categoryNo == null) {
-			BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
-			List<BlogBoard> blogBoards = blogBoardService.getBoardByCategory(blogCategory.getNo());
+			
+			BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blogNo);
+			int subCatNo = blogSubCategory.getNo();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("subCatNo", subCatNo);
+			map.put("blogNo", blogNo);
+			BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
+			
 			model.addAttribute("category", blogCategory);
-			model.addAttribute("blogBoards", blogBoards);
-			int blogCount = blogBoardService.countBoardsByCategoryId(blogCategory.getNo());
-			model.addAttribute("blogCount", blogCount);
+			if(blogCategory !=null) {
+				List<BlogBoard> blogBoards = blogBoardService.getBoardByCategory(blogCategory.getNo());
+				model.addAttribute("blogBoards", blogBoards);
+				int blogCount = blogBoardService.countBoardsByCategoryId(blogCategory.getNo());
+				model.addAttribute("blogCount", blogCount);
+			}
 		} else {
 			BlogCategory blogCategory = blogCategoryService.getCategoryByCategoryNo(categoryNo);
 			model.addAttribute("category", blogCategory);

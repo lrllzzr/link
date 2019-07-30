@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.link.dao.BlogCategoryDao;
 import kr.co.link.dao.BlogDao;
 import kr.co.link.dao.BlogSubCategoryDao;
 import kr.co.link.vo.Blog;
@@ -48,6 +49,22 @@ public class BlogSubCategoryServiceImpl implements BlogSubCategoryService{
 		}
 		return blogSubCategories;
 	}
+	@Override
+	public List<BlogSubCategory> getAllBlogSubCategoriesByuserId(String userId) {
+		Blog blog = blogService.getBlogByUserId(userId);
+		List<BlogSubCategory> blogSubCategories = blogSubCategoryService.getAllSubCategoryByBlogNo(blog.getNo());
+		for(BlogSubCategory blogSubCategory : blogSubCategories) {
+			
+			List<BlogCategory> blogCategories = blogCategoryService.getAllCategoryBySubCategory(blogSubCategory.getNo());
+			blogSubCategory.setBlogCategory(blogCategories);
+			
+			for(BlogCategory blogCategory : blogCategories) {
+				List<BlogBoard> blogBoards = blogBoardService.getBoardByCategory(blogCategory.getNo());
+				blogCategory.setBoards(blogBoards);
+			}
+		}
+		return blogSubCategories;
+	}
 
 
 	@Override
@@ -76,5 +93,40 @@ public class BlogSubCategoryServiceImpl implements BlogSubCategoryService{
 	public BlogSubCategory getSubCategoryBySubCatNo(Integer subCatNo) {
 		return blogSubCategoryDao.getSubCategoryBySubCatNo(subCatNo);
 	}
+	@Override
+	public BlogSubCategory selectLastSubCategory(Integer subCatNo) {
+		return blogSubCategoryDao.selectLastSubCategory(subCatNo);
+	}
+
+	@Override
+	public Integer getNextBlogSequence() {
+		return blogSubCategoryDao.getNextBlogSequence();
+	}
+
+	@Override
+	public void deleteSubCategory(Integer subCatNo) {
+		blogSubCategoryDao.deleteSubCategory(subCatNo);
+	}
+
+	@Override
+	public List<BlogSubCategory> getAllSubCategoryByBlogNo(int blogNo) {
+		return blogSubCategoryDao.getAllSubCategoryByBlogNo(blogNo);
+	}
+
+	@Override
+	public BlogSubCategory getAllSubCategoryBySubCatNo(Integer subCatNo) {
+		return blogSubCategoryDao.getAllSubCategoryBySubCatNo(subCatNo);
+	}
+
+	@Override
+	public void addNewSubCategoryWithNo(BlogSubCategory blogSubCategory) {
+		blogSubCategoryDao.addNewSubCategoryWithNo(blogSubCategory);
+	}
+
+	@Override
+	public BlogSubCategory getOneSubCategoryByBlogNo(Integer blogNo) {
+		return blogSubCategoryDao.getOneSubCategoryByBlogNo(blogNo);
+	}
+
 
 }

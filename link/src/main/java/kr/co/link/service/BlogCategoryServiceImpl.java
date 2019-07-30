@@ -1,6 +1,7 @@
 package kr.co.link.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,8 @@ public class BlogCategoryServiceImpl implements BlogCategoryService{
 	}
 
 	@Override
-	public BlogCategory getOneCategoryByOrder(Integer blogNo) {
-		BlogCategory blogCategory = blogCategoryDao.getOneCategoryByOrder(blogNo);
-		return blogCategory;
+	public BlogCategory getOneCategoryByOrder(Map<String, Object> map) {
+		return blogCategoryDao.getOneCategoryByOrder(map);
 	}
 
 	@Override
@@ -41,6 +41,23 @@ public class BlogCategoryServiceImpl implements BlogCategoryService{
 	@Override
 	public void updateCategory(BlogCategory blogCategory) {
 		blogCategoryDao.updateCategory(blogCategory);
+	}
+
+	@Override
+	public void deleteCategory(Integer categoryNo) {
+		blogCategoryDao.deleteCategory(categoryNo);
+	}
+
+	@Override
+	public List<BlogCategory> getAllCategoryBySubCategory(int subCategoryNo) {
+		List<BlogCategory> blogCategories = blogCategoryDao.getAllCategoryBySubCategory(subCategoryNo);
+		return blogCategories;
+	}
+
+	@Override
+	public BlogCategory getAllCategoryByCategoryNo(Integer categoryNo) {
+		BlogCategory blogCategory = blogCategoryDao.getAllCategoryByCategoryNo(categoryNo);
+		return blogCategory;
 	}
 
 }

@@ -3,7 +3,9 @@ package kr.co.link.controller;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -66,7 +68,12 @@ public class BlogMyController {
 		
 		model.addAttribute("blog",blog);
 		if(categoryNo == 0) {
-			BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
+			BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blogNo);
+			int subCatNo = blogSubCategory.getNo();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("subCatNo", subCatNo);
+			map.put("blogNo", blogNo);
+			BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
 			List<BlogBoard> blogBoards = blogBoardService.getBoardByCategory(blogCategory.getNo());
 			model.addAttribute("category",blogCategory);
 			model.addAttribute("blogBoards",blogBoards);
@@ -89,9 +96,16 @@ public class BlogMyController {
 	public String detail(Model model, HttpSession session){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
-		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
+		
+		BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blog.getNo());
+		int subCatNo = blogSubCategory.getNo();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("subCatNo", subCatNo);
+		map.put("blogNo", blog.getNo());
+		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
 		
 		Integer categoryNo = blogCategory.getNo();
+		
 		Integer blogNo = blog.getNo();
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
 		model.addAttribute("subCategories",blogSubCategories);
@@ -112,7 +126,12 @@ public class BlogMyController {
 	public String detail2(Model model, HttpSession session){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
-		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
+		BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blog.getNo());
+		int subCatNo = blogSubCategory.getNo();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("subCatNo", subCatNo);
+		map.put("blogNo", blog.getNo());
+		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
 		Integer blogNo = blog.getNo();
 		Integer categoryNo = blogCategory.getNo();
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
@@ -124,7 +143,12 @@ public class BlogMyController {
 	public String layoutDetail1(Model model, HttpSession session, Integer layOutNo){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
-		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
+		BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blog.getNo());
+		int subCatNo = blogSubCategory.getNo();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("subCatNo", subCatNo);
+		map.put("blogNo", blog.getNo());
+		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
 		Integer blogNo = blog.getNo();
 		Integer categoryNo = blogCategory.getNo();
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
@@ -178,8 +202,13 @@ public class BlogMyController {
 	public String colordetail1(Model model, HttpSession session){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
-		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
 		Integer blogNo = blog.getNo();
+		BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blogNo);
+		int subCatNo = blogSubCategory.getNo();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("subCatNo", subCatNo);
+		map.put("blogNo", blogNo);
+		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
 		Integer categoryNo = blogCategory.getNo();
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
 		
@@ -201,8 +230,13 @@ public class BlogMyController {
 	public String writePage(Model model, HttpSession session){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
-		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
 		Integer blogNo = blog.getNo();
+		BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blogNo);
+		int subCatNo = blogSubCategory.getNo();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("subCatNo", subCatNo);
+		map.put("blogNo", blogNo);
+		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
 		Integer categoryNo = blogCategory.getNo();
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
 		model.addAttribute("subCategories",blogSubCategories);
