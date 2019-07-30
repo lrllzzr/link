@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.SeriesNoticeDao">		<!-- Dao경로설정 -->
+	
+	<select id="getAllNotices" resultType="seriesNotice">
+		select
+			notice_no no,
+			notice_title title,
+			notice_contents contents,
+			notice_create_date createDate
+		from
+			series_notices
+		order by notice_no desc
+	</select>
+	
+	<insert id="addNotice" parameterType="seriesNotice">
+		insert into series_notices
+		(notice_no, notice_title, notice_contents)
+		values
+		(series_notice_seq.nextval, #{title}, #{contents})
+	</insert>
+	
+	<select id="getNotice" parameterType="int" resultType="seriesNotice">
+		select
+			notice_no no,
+			notice_title title,
+			notice_contents contents,
+			notice_create_date createDate
+		from
+			series_notices
+		where
+			notice_no = #{value}
+	</select>
+</mapper>

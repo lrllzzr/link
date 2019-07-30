@@ -2,15 +2,16 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>네이버 시리즈</title>
+<title>LINK 시리즈</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="blog.css" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style type="text/css">
-    /*div {border: 1px dotted red}*/
+    a {color:black;}
+    a:hover{color:black;}
+    
 </style>
 </head>
 <body>
@@ -29,33 +30,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!--<c:forEach var="notice" items="${notices}">
+                    <c:forEach var="notice" items="${notices}">
                         <tr>
                             <td>${notice.no}</td>
-                            <td>${notice.title}</td>
-                            <td>${notice.createDate}</td>
+                            <td><a href="noticedetail.do?no=${notice.no }">${notice.title}</a></td>
+                            <td><fmt:formatDate value="${notice.createDate}"/></td>
                         </tr>
-                    </c:forEach>-->
-                    <!-- 지워야 함 -->
-                    <tr>
-                        <td>1</td>
-                        <td>번호1번의 제목</td>
-                        <td>2019.07.25.</td>
-                    </tr>
+                    </c:forEach>
+                    
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="text-right">
-        <a href="#" class="btn btn-default">글쓰기</a>
-    </div>
     
+    <div class="row">
+		<div class="col-sm-12 text-center">
+	        <nav class="text-center">
+	          <ul class="pagination">
+	            <li>
+	              <a href="#" aria-label="Previous">
+	                <span aria-hidden="true">&laquo;</span>
+	              </a>
+	            </li>
+	            <li class="active"><a href="#">1</a></li>
+	            <li><a href="#">2</a></li>
+	            <li><a href="#">3</a></li>
+	            <li><a href="#">4</a></li>
+	            <li><a href="#">5</a></li>
+	            <li>
+	              <a href="#" aria-label="Next">
+	                <span aria-hidden="true">&raquo;</span>
+	              </a>
+	            </li>
+	          </ul>
+	        </nav>
+		</div>
+    </div>
+    <div class="text-right">
+        <a href="noticeform.do" class="btn btn-default">글쓰기</a>
+    </div>
 </div> 
 </body>
-
-
-<!--
-
-
-
--->

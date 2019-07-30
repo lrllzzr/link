@@ -1,18 +1,21 @@
-<!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<title>네이버 시리즈</title>
+<title>LINK 시리즈</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 <style type="text/css">
     
 </style>
 </head>
 <body>
+<%@ include file="common/nav.jsp" %>
 <div class="container">
     <div class="row text-center">
         <div class="col-sm-12">
@@ -29,7 +32,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -39,7 +42,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -49,7 +52,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -59,7 +62,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -69,7 +72,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -79,7 +82,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -89,7 +92,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -99,7 +102,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -109,7 +112,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -119,7 +122,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -129,7 +132,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -139,7 +142,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -153,7 +156,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -163,7 +166,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -173,7 +176,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -183,7 +186,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -193,7 +196,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -203,7 +206,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -213,7 +216,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -223,7 +226,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -233,7 +236,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -243,7 +246,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -253,7 +256,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -263,7 +266,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -277,7 +280,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -287,7 +290,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -297,7 +300,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -307,7 +310,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -317,7 +320,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -327,7 +330,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -337,7 +340,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -347,7 +350,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -357,7 +360,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -367,7 +370,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -377,7 +380,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>
@@ -387,7 +390,7 @@
                       <div class="row">
                           <div class="col-sm-2">1</div>
                           <div class="col-sm-10">
-                              <img src="../no_images.jpg" width="" height="200px" class="img-thumbnail">
+                              <img src="http://placehold.it/115X161" class="img-thumbnail">
                               <h4>호텔 델루나</h4>
                               <p><span>대여</span> <span>1,650원</span></p>
                           </div>

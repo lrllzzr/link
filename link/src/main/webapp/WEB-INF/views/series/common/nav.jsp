@@ -8,14 +8,13 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../../../resources/css/band.css">
-    <link rel="stylesheet" href="../../../resources/css/series.css">
-    <link rel="stylesheet" href="../../../resources/css/main.css">
-    <link href="series.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="/link/resources/css/series/series.css">
+    <link rel="stylesheet" href="/link/resources/css/main.css">
+    
 </head>
 <body>
-   <!-- 네비게이션 시작  -->
-    <nav class="navbar main-nav">
+   <!-- 공통 내비게이션 시작  -->
+     <nav class="navbar main-nav">
         <div class="container">
             <div class="row">
                 <div class="col-sm-2">
@@ -37,7 +36,7 @@
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <img class="series-profile-img" src="../../../../resources/images/series.png" alt="">
+                                    <img class="series-profile-img" src="/link/resources/images/series.png" alt="">
                                     <span class="series-navbar-id">빗취</span>
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
@@ -59,20 +58,24 @@
             </div>
         </div>
     </nav>
-    
+    <!-- 시리즈 내비게이션 -->
     <nav class="navbar navbar-default">
-      <div class="container-fluid">
+      <div class="container">
           <div class="navbar-header">
-              <a class="navbar-brand" href="#">Link</a>
+              <a class="navbar-brand" href="home.do">Link</a>
           </div>
           <ul class="nav navbar-nav">
-              <li class="active"><a href="#">방송 홈</a></li>
-              <li><a href="#">카테고리</a></li>
-              <li><a href="#">인기순위 TOP 100</a></li>
-              <li><a href="#">이벤트</a></li>
-              <li><a href="#"><span class="glyphicon glyphicon-user"></span> 마이 페이지</a></li>
+              <li class="active"><a href="home.do">방송 홈</a></li>
+              <li><a href="category.do">카테고리</a></li>
+              <li><a href="toprank.do">인기순위 TOP 100</a></li>
+              <li><a href="noticelist.do">공지사항</a></li>
+              
           </ul>
-          <a href=""><span class="glyphicon glyphicon-shopping-cart"></span></a>
+          <div style="overflow: hidden; float: right; height: 50px">
+              <a href="mypage/orderlist.do" style="line-height: 50px; padding: 15px;"><span class="glyphicon glyphicon-user" style="color: #777777"></span> 마이 페이지</a>
+              <a href="mypage/cart.do" style="line-height: 50px; padding: 15px;"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+          </div>
+          
       </div>
     </nav>
 </body>
