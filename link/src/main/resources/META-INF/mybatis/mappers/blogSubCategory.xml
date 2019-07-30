@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.BlogSubCategoryDao">		<!-- Dao경로설정 -->
+<select id="getSubCategoryByBlogNo" parameterType="int" resultType="blogsubcategory">
+	select
+		SUBCATEGORY_NO no,
+		SUBCATEGORY_TITLE title,
+		SUBCATEGORY_VISIBILITY visibility,
+		SUBCATEGORY_CREATE_DATE createDate,
+		BLOG_NO blogNo
+	from
+		blog_subcategory
+	where
+		blog_no = #{value}
+</select>
+<select id="getSubCategoryBySubCatNo" parameterType="int" resultType="blogsubcategory">
+	select
+		SUBCATEGORY_NO no,
+		SUBCATEGORY_TITLE title,
+		SUBCATEGORY_VISIBILITY visibility,
+		SUBCATEGORY_CREATE_DATE createDate,
+		BLOG_NO blogNo
+	from
+		blog_subcategory
+	where
+		SUBCATEGORY_NO = #{value}
+</select>
+<insert id="addNewSubCategory" parameterType="blogsubcategory">
+	insert into blog_subcategory
+	values(
+		blog_seq.nextval,#{title},'Y',sysdate,#{blogNo}
+	)
+</insert>
+<update id="updateSubCategory" parameterType="blogsubcategory">
+	update blog_subcategory
+	set
+		SUBCATEGORY_TITLE = #{title},
+		SUBCATEGORY_VISIBILITY = #{visibility},
+		BLOG_NO = #{blogNo}
+	where
+		SUBCATEGORY_NO = #{no}		
+</update>
+</mapper>
