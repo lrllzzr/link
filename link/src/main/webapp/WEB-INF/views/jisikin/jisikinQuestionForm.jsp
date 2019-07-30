@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinQna.css">
 	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinQuestion.css">
 	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinQuestionForm.css">
+	<script type="text/javascript" src="/link/resources/js/jisikin_se2/js/HuskyEZCreator.js"></script>
 </head>
 <body class="ifr_qna" marginwidth="0" marginheight="0">
     <nav class="navbar main-nav" style="margin-bottom: 0px;">
@@ -80,7 +81,7 @@
                     <input type="text" name="title" id="title" maxlength="80" class="txt_type on_focus" style="color:#333;" value="">
                 </div>
                 <!-- 도움말 말풍선 --> 
-                <div class="layer_balloon_help _help_layer" style="top:-12px; right:-237px;"> 
+                <div class="layer_balloon_help _help_layer" style="top:-12px; right:-423px;"> 
                     <p class="main_desc"><strong>정확한 답변을 원하시나요?<br>궁금한 점을 바로 알 수 <br>있도록 작성해 보세요</strong>(최소5자).</p> 
                     <h5>예문</h5> 
                     <ul class="order"> 
@@ -97,7 +98,7 @@
         </div>
         <!-- 스마트에디터 사진-->
         <div>
-            <img src="/link/resources/images/question-smartEditor.PNG" alt="">
+        		<textarea rows="10" class="form-control" name="contents" id="jisikin_content"></textarea>
         </div>
         <!-- -->
         
@@ -113,7 +114,7 @@
        <!-- 태그 -->
         <div class="box_type2" style="clear: both; display: block;" id="au_tag">
             <!-- 도움말 말풍선 -->
-            <div class="layer_balloon_help _help_layer" style="top: 0px; right: -237px; display: block;">
+            <div class="layer_balloon_help _help_layer" style="top: 0px; right: -423px; display: block;">
                     <p class="main_desc"><strong>질문에 관심 있는 답변자에게<br>잘 배달될 수 있도록 태그를<br>입력해주세요.</strong></p>
                 <div class="bg_bottom"></div> 
             </div>
@@ -148,7 +149,7 @@
        <!-- 카테고리 선택 영역 -->
         <div class="box_type2" style="clear: both; display: block;" id="au_directory"> 
             <!-- 도움말 말풍선 --> 
-            <div class="layer_balloon_help _help_layer" style="top: 0px; right: -237px; display: block;"> 
+            <div class="layer_balloon_help _help_layer" style="top: 0px; right: -423px; display: block;"> 
                 <p class="main_desc"><strong>질문을 해결해줄 수 있는<br> 답변자에게 배달될 수 있도록<br>세부 질문 분야까지 선택해주세요.</strong></p>
                 <div class="bg_bottom"></div> 
             </div>
@@ -182,7 +183,7 @@
          <!-- 설정 -->
           <div class="box_type3" style="display: block; z-index: 1100;  padding-top: 20px;" id="au_option">
             <!-- 도움말 말풍선 --> 
-            <div class="layer_balloon_help _help_layer" style="top: 0px; right: -237px; display: block;"> 
+            <div class="layer_balloon_help _help_layer" style="top: 0px; right: -423px; display: block;"> 
                 <p class="main_desc"><strong>추가 설정을 활용해보세요.</strong></p> 
                 <h5>추가내공</h5>
                 <p class="desc">내공을 추가하면 답변을 좀더<br>신속히 받을 수 있습니다.</p>
@@ -252,13 +253,30 @@
                 <button type="button" class="button_style _write_cancel _clickcode:sbm.cancel">작성취소</button>
             </div>
         </div>
-      
   </div>
        </form>
     </div>
 </div>
 
 <script>
+	/* 스마트에디터 사진 */
+	function pasteHTML(filepath){
+		setTimeout(function() {
+	    	var sHTML = '<img src="/link/resources/js/jisikin_se2/photo_uploader/upload/'+filepath+'">';
+	    	oEditors.getById["jisikin_content"].exec("PASTE_HTML", [sHTML]);
+		}, 5000);
+	}
+
+	/* 스마트에디터 */
+	var oEditors = [];
+	
+	nhn.husky.EZCreator.createInIFrame({
+		oAppRef: oEditors,
+   		elPlaceHolder: "jisikin_content",
+   		sSkinURI: "/link/resources/js/jisikin_se2/SmartEditor2Skin.html",
+    		fCreator: "createSEditor2"
+	});
+
     /* 별명 */
     $("._layer_menu_text").click(function(){
         $(".layer_idmenu ").css("display","block");
