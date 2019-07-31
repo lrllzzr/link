@@ -32,7 +32,7 @@
 							<li style="margin-left: 10px;"><a href="/link/blog/mydetail.do">내 블로그</a></li>
 							<li class="divider"></li>
 							<li><a href="#">밴드</a></li>
-							<li><a href="#">가계부 </a></li>
+							<li><a href="/link/accountbook/expense.do">가계부 </a></li>
 							<li><a href="#">지식인</a></li>
 							<li><a href="#">시리즈</a></li>
 							<li><a href="#">TV</a></li>
@@ -105,9 +105,9 @@
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
-					<a href="">가계부</a>
+					<a href="/link/accountbook/expense.do">가계부</a>
 				</div>
-				<a href="/link/accountbook/home.do"><img src="resources/images/gage.png" alt=""></a>
+				<a href="/link/accountbook/expense.do"><img src="resources/images/gage.png" alt=""></a>
 			</div>
 		</div>
 

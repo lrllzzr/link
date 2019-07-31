@@ -155,159 +155,67 @@
                         
                     </div>
                 </div>
-                <form action="" method="">
+               
                 <div class="row">
-                    <div class="col-sm-12">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                   <th><input type="checkbox"/></th>
-                                   <th>날짜</th>
-                                   <th>사용내역</th>
-                                   <th>현금</th>
-                                   <th>카드</th>
-                                   <th>분류</th>
-                                   <th>태그</th>
-                               </tr>
-                            </thead>   
-                            <tbody>
-                               <tr>
-                                   <td><input type="checkbox"/></td>
-                                   <td><input class="form-control" type="text" placeholder="2019.07.03"></td>
-                                   <td><input class="form-control" type="text" placeholder="국수"></td>
-                                   <td class="text-right"><input class="form-control" type="text" placeholder="0"></td>
-                                   <td class="text-right"><input class="form-control" type="text" placeholder="70500"></td>
-                                   <td><input class="form-control" type="text" placeholder="식비>주식"></td>
-                                   <td><input class="form-control" type="text" placeholder="미정국수"></td>
-                               </tr>
-                                <tr>
-                                   <td><input type="checkbox"/></td>
-                                   <td><input class="form-control" type="text" placeholder="2019.07.03"></td>
-                                   <td><input class="form-control" type="text" placeholder="국수"></td>
-                                   <td class="text-right"><input class="form-control" type="text" placeholder="0"></td>
-                                   <td class="text-right"><input class="form-control" type="text" placeholder="70500"></td>
-                                   <td><input class="form-control" type="text" placeholder="식비>주식"></td>
-                                   <td><input class="form-control" type="text" placeholder="미정국수"></td>
-                               </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="3">
-                                        <button class="btn btn-default btn-sm">선택삭제</button>
-                                        <button class="btn btn-default btn-sm">전부삭제</button>
-                                    </td>
-                                    <td class="text-right">0</td>
-                                    <td class="text-right">6900</td>
-                                    <td colspan="2" rowspan="2" class="text-center" style="vertical-align: middle;">
-                                       <form action="" method="">
-                                        <button class="btn btn-primary">저장하기</button>
-                                        <button class="btn btn-default">정산하기</button>   
-                                       </form>
-                                        
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">
-                                        <strong>지출합계</strong>
-                                    </td>
-                                    <td class="text-right" colspan="2">1,226,900</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-             </form>
-                
+						<div class="col-sm-12">
+							<form action="expense.do" method="post">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th><input type="checkbox" /></th>
+											<th>날짜</th>
+											<th>사용내역</th>
+											<th>현금</th>
+											<th>카드</th>
+											<th>분류</th>
+											<th>태그</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+										<c:forEach var="expense" items="${expenseList }">
+											<td><input type="checkbox" /></td>
+											<td><input class="form-control" type="text" name="date"
+												placeholder="${expense.dateString }"></td>
+											<td><input class="form-control" type="text" name=""
+												placeholder="${expense.detail }"></td>
+											<td class="text-right"><input class="form-control"
+												type="text"  name="cash" placeholder="${expense.cash }"></td>
+											<td class="text-right"><input class="form-control"
+												type="text" name="card"  placeholder="${expense.card }"></td>
+											<td><input class="form-control" type="text" name=""
+												placeholder="${expense.category.categoryName}"></td>
+											<td><input class="form-control" type="text" name=""
+												placeholder="${expense.tag.tagName }"></td>
+										</c:forEach>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="3">
+												<button class="btn btn-default btn-sm">선택삭제</button>
+												<button class="btn btn-default btn-sm">전부삭제</button>
+											</td>
+											<td class="text-right">0</td>
+											<td class="text-right">6900</td>
+											<td colspan="2" rowspan="2" class="text-center"
+												style="vertical-align: middle;">
+												<button class="btn btn-primary" type="submit">저장하기</button>
+												<button class="btn btn-default">정산하기</button>
+
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3"><strong>지출합계</strong></td>
+											<td class="text-right" colspan="2">1,226,900</td>
+										</tr>
+									</tfoot>
+								</table>
+							</form>
+						</div>
+					</div>                
             </div>
         </div>
     </div>
-  
-<!--     <div id="open-writing-account" class="modal" role="dialog">
-        <div class="modal-dialog  modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">가계부</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            달력
-                        </div>
-                        <div class="col-sm-9">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#">지출</a></li>
-                                <li><a href="#">수입</a></li>
-                            </ul>
-                            <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                   <th><input type="checkbox"/></th>
-                                   <th>사용내역</th>
-                                   <th>현금</th>
-                                   <th>카드</th>
-                                   <th>분류</th>
-                                   <th>태그</th>
-                               </tr>
-                            </thead>   
-                            <tbody>
-                               <tr>
-                                   <td><input type="checkbox"/></td>
-                                   <td>국수</td>
-                                   <td class="text-right">0</td>
-                                   <td class="text-right">6900</td>
-                                   <td>식비>주식</td>
-                                   <td>미정국수</td>
-                               </tr>
-                                <tr>
-                                   <td><input type="checkbox"/></td>
-                                   <td>국수</td>
-                                   <td class="text-right">0</td>
-                                   <td class="text-right">6900</td>
-                                   <td>식비>주식</td>
-                                   <td>미정국수</td>
-                               </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="2">
-                                        <button class="btn btn-default btn-sm">선택삭제</button>
-                                        합계
-                                    </td>
-                                    <td class="text-right">0</td>
-                                    <td class="text-right">6900</td>
-                                    <td colspan="2" ></td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h4>일정 <small>일정을 조회/등록합니다.</small> <button class="btn btn-default pull-right">일정추가</button></h4>
-                            <hr>
-                            <ul class="list-group">
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6">
-                            <h4>메모 작성하기 <small>(0/200)</small></h4> 
-                            <hr>
-                            <textarea class="form-control" rows="7"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-default"><strong>저장</strong></button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
 </body>
 </html>

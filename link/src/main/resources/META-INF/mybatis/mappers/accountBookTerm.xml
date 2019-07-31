@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="kr.co.link.dao.AccountBookDao"> <!-- Dao 경로 설정 -->
+  
+  	<!--지출내역 추가 -->
+  	<insert id="addTerm" parameterType="kr.co.link.form.AccountBookExpenseForm">
+		INSERT INTO ACCOUNTBOOK_TERM(		
+			TERM_CASH,
+			TERM_CARD,
+			TERM_NO,
+			TERM_DETAIL,
+			TERM_DATE,
+			TERM_REMAIN_AMOUNT,
+			TERM_MEMO,
+			CATEGORY_NO,
+			USER_ID,
+			TERM_GUBUN,
+			TERM_CREATE_DATE 
+		VALUES 
+				(#{cash},#{card},EXPENSE_NO_SEQ.nextval,#{detail},#{date},#{remainAmount},#{memo},#{category.no},#{user.id},#{gubun},sysdate)
+	  	
+  	</insert>
+  	
+  	
+  	
+  	<!-- 유저 아이디로 지출 내역 가져오기 -->
+  	<select id="getExpenseByuserId" parameterType="string" resultType="accountBookTerm">
+		 SELECT 
+  					A.TERM_CASH				cash, 
+  					A.TERM_NO				no, 
+  					A.TERM_DETAIL			detail, 
+  					A.TERM_DATE				"date", 
+  					A.TERM_REMAIN_AMOUNT	remainAmount, 
+  					A.TERM_MEMO				memo, 
+  					A.TERM_GUBUN			gubun, 
+  					A.TERM_CREATE_DATE		createDate, 
+  					B.TAG_NAME				"tag.tagName",
+  					C.CATEGORY_NAME			"category.categoryName"
+		FROM 
+					ACCOUNTBOOK_TERM A, ACCOUNTBOOK_TAG B, ACCOUNTBOOK_CATEGORY C
+		WHERE 
+					A.USER_ID=#{value}
+		AND
+					A.TERM_GUBUN='지출'
+		AND
+					A.CATEGORY_NO=C.CATEGORY_NO
+  	</select>
+  	
+  	<!-- 수입내역조회 -->
+  	<select id="getIncomeByuserId" parameterType="string" resultType="accountBookTerm">
+  		SELECT 
+  					A.TERM_CASH				cash, 
+  					A.TERM_NO				no, 
+  					A.TERM_DETAIL			detail, 
+  					A.TERM_DATE				"date", 
+  					A.TERM_REMAIN_AMOUNT	remainAmount, 
+  					A.TERM_MEMO				memo, 
+  					A.TERM_GUBUN			gubun, 
+  					A.TERM_CREATE_DATE		createDate, 
+  					B.TAG_NAME				"tag.tagName",
+  					C.CATEGORY_NAME			"category.categoryName"
+		FROM 
+					ACCOUNTBOOK_TERM A, ACCOUNTBOOK_TAG B, ACCOUNTBOOK_CATEGORY C
+		WHERE 
+					A.USER_ID=#{value}
+		AND
+					A.TERM_GUBUN='수입'
+		AND
+					A.CATEGORY_NO=C.CATEGORY_NO
+  	</select>
+  	
+  	<!-- 카테고리 -->
+  	<!-- <select id="getCategory" >
+  		
+  	</select>
+ 	-->
+  </mapper>

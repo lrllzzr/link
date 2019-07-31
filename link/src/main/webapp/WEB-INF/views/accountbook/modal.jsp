@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
+
 
  		<button type="button" class="btn-button btn" data-toggle="modal" data-target="#open-writing-account">
                       <strong>빠른 쓰기</strong>
@@ -95,5 +93,3 @@
             </div>
         </div>
     </div>
-</body>
-</html>

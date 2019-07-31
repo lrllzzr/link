@@ -1,8 +1,12 @@
 package kr.co.link.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
-public class AccountBookExpense {
+import kr.co.link.util.DateUtils;
+
+
+
+public class AccountBookTerm {
 
 	private Integer cash;
 	private Integer card;
@@ -12,16 +16,19 @@ public class AccountBookExpense {
 	private Integer remainAmount;
 	private AccountBookCategory category;
 	private String memo;
-	private User user;
+	private String id;
+	private String gubun;
+	private Date createDate;
 	private AccountBookTag tag;
 	
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
 	
+	
+	public AccountBookTag getTag() {
+		return tag;
+	}
+	public void setTag(AccountBookTag tag) {
+		this.tag = tag;
+	}
 	public Integer getCash() {
 		return cash;
 	}
@@ -45,6 +52,9 @@ public class AccountBookExpense {
 	}
 	public void setDetail(String detail) {
 		this.detail = detail;
+	}
+	public String getDateString() {
+		return DateUtils.dateToString(date);
 	}
 	public Date getDate() {
 		return date;
@@ -70,12 +80,25 @@ public class AccountBookExpense {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
-	public AccountBookTag getTag() {
-		return tag;
+	public String getId() {
+		return id;
 	}
-	public void setTag(AccountBookTag tag) {
-		this.tag = tag;
+	public void setId(String id) {
+		this.id = id;
 	}
+	public String getGubun() {
+		return gubun;
+	}
+	public void setGubun(String gubun) {
+		this.gubun = gubun;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	
 	
 	
 	

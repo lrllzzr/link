@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/link/resources/js/se2/js/HuskyEZCreator.js"></script>
 	 <link rel="stylesheet" href="/link/resources/css/accountBook/expensive.css">
 	<link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 	<style>
@@ -36,7 +37,8 @@
     </style>
 </head>
 <body>
-     <%@include file="../common/nav.jsp"%>
+<%@include file="../common/nav.jsp"%>
+	<form action="" method="post">
     <div class="container-fluid">
         <div class="row">
 			<div class="col-sm-2" style="background-color: lightgray; ">
@@ -143,7 +145,7 @@
                                   <td><input class="form-control" type="text" placeholder="688400"></td>
                               </tr>
                               <tr>
-                                  <td><input class="form-control" type="text" placeholder="식비"></td>
+                                  <td><input class="form-control"       type="text" placeholder="식비"></td>
                                   <td><input class="form-control" type="text" placeholder="0"></td>
                                   <td><input class="form-control" type="text" placeholder="0"></td>
                                   <td><input class="form-control" type="text" placeholder="0"></td>
@@ -181,14 +183,15 @@
                           </table>
                        </div>
                    </div>
-                   <form action="" method="">
-                       <button class="btn btn-primary btn-lg" type="button" id="save" name="save" value="" >
+                       <button class="btn btn-primary btn-lg" type="submit" id="save" name="save" value="" >
                            저장하기
                        </button>
-                   </form>
             </div>
-         
     </div>
     </div>
+    </form>
+    <script type="text/javascript">
+   
+    </script>
 </body>
 </html>

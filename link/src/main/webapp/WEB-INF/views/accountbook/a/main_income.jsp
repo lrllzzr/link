@@ -92,6 +92,7 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
      <%@include file="../../common/nav.jsp"%>
+<form action="income.do" method="post">
     <div class="container-fluid">
         <div class="row">
                    <div class="col-sm-2" style="background-color: lightgray; ">
@@ -146,8 +147,8 @@ pageEncoding="UTF-8"%>
                 <div class="row">
                     <div class="col-sm-12">
                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="/link/accountbook/expense.do">지출</a></li>
-                            <li><a href="/link/accountbook/income.do">수입</a></li>
+                            <li ><a href="/link/accountbook/expense.do">지출</a></li>
+                            <li class="active"><a href="/link/accountbook/income.do">수입</a></li>
                             <li><a href="/link/accountbook/calendar.do">달력</a></li>
                         </ul>
                         <div id="outcome">
@@ -155,7 +156,7 @@ pageEncoding="UTF-8"%>
                         </div>
                     </div>
                 </div>
-                <form action="" method="" >
+               <form action="" method="" >
                 <div class="row">
                     <div class="col-sm-12">
                         <table class="table table-bordered" class="form-inline">
@@ -171,12 +172,14 @@ pageEncoding="UTF-8"%>
                             </thead>   
                             <tbody>
                                 <tr>
+                            	<c:forEach var="income" items="${incomeList }">
                                   <td><input class="form-control" type="checkbox"/></td>
-                                   <td><input class="form-control" type="text" placeholder="2019.07.03"></td>
-                                   <td><input class="form-control" type="text" placeholder="월급"></td>
-                                   <td ><input class="form-control" type="text" placeholder="200,0000"></td>
-                                   <td><input class="form-control" type="text" placeholder="월급"></td>
-                                   <td><input class="form-control" type="text" placeholder="회사"></td>
+                                   <td><input class="form-control" type="text" name="date" placeholder="${income.dateString }"></td>
+                                   <td><input class="form-control" type="text" name="detail" placeholder="${income.detail }"></td>
+                                   <td ><input class="form-control" type="text" name="cash" placeholder="${income.cash }"></td>
+                                   <td><input class="form-control" type="text" name="category" placeholder="${income.category.categoryName }"></td>
+                                   <td><input class="form-control" type="text" name="tag" placeholder="${income.tag.tagName }"></td>
+                            	</c:forEach>
                                 </tr>
                             </tbody>
                             <tfoot>
@@ -188,10 +191,8 @@ pageEncoding="UTF-8"%>
                                     <td class="text-right">0</td>
                                     <td class="text-right"></td>
                                     <td colspan="2" rowspan="2" class="text-center" style="vertical-align: middle;">
-                                       <form action="" method="">
                                           <button class="btn btn-primary">저장하기</button>
                                         <button class="btn btn-default">정산하기</button>   
-                                       </form>
                                     </td>
                                 </tr>
                                 <tr>
@@ -204,96 +205,9 @@ pageEncoding="UTF-8"%>
                         </table>
                     </div>
                 </div>
-                </form>
             </div>
         </div>
     </div>
-  <!--   <div id="open-writing-account" class="modal" role="dialog">
-        <div class="modal-dialog  modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">가계부</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-3">달력</div>
-                        <div class="col-sm-9">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#">지출</a></li>
-                                <li><a href="#">수입</a></li>
-                            </ul>
-                            <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                   <th><input type="checkbox"/></th>
-                                   <th>사용내역</th>
-                                   <th>현금</th>
-                                   <th>카드</th>
-                                   <th>분류</th>
-                                   <th>태그</th>
-                               </tr>
-                            </thead>   
-                            <tbody>
-                               <tr>
-                                   <td><input type="checkbox"/></td>
-                                   <td>국수</td>
-                                   <td class="text-right">0</td>
-                                   <td class="text-right">6900</td>
-                                   <td>식비>주식</td>
-                                   <td>미정국수</td>
-                               </tr>
-                                <tr>
-                                   <td><input type="checkbox"/></td>
-                                   <td>국수</td>
-                                   <td class="text-right">0</td>
-                                   <td class="text-right">6900</td>
-                                   <td>식비>주식</td>
-                                   <td>미정국수</td>
-                               </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="2">
-                                        <button class="btn btn-default btn-sm">선택삭제</button>
-                                        합계
-                                    </td>
-                                    <td class="text-right">0</td>
-                                    <td class="text-right">6900</td>
-                                    <td colspan="2" ></td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h4>일정 <small>일정을 조회/등록합니다.</small> <button class="btn btn-default pull-right">일정추가</button></h4>
-                            <hr>
-                            <ul class="list-group">
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6">
-                            <h4>메모 작성하기 <small>(0/200)</small></h4> 
-                            <hr>
-                            <textarea class="form-control" rows="7"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-default"><strong>저장</strong></button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    
-    
+                </form>
 </body>
 </html>

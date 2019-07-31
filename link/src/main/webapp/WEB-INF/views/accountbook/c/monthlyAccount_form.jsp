@@ -13,6 +13,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	 <link rel="stylesheet" href="/link/resources/css/accountBook/expensive.css">
 	<link rel="stylesheet" href="/link/resources/css/blog/blog.css">
+	<script type="text/javascript" src="/link/resources/js/accountbook_se2/js/HuskyEZCreator.js"></script>
 	<style>
         div {
            margin-top: 2px;
@@ -38,6 +39,7 @@
 </head>
 <body>
     <%@include file="../../common/nav.jsp"%>
+<form action="" method="get">
     <div class="container-fluid">
         <div class="row">
 <div class="col-sm-2" style="background-color: lightgray; ">
@@ -98,19 +100,7 @@
                 </div>
                 <div class="row" style="padding-top: 50px;">
                     <div class="col-sm-12">
-                        <p>글쓰는 폼 들어갈자리</p>
-                        <p>글쓰는 폼 들어갈자리</p>
-                        <p>글쓰는 폼 들어갈자리</p>
-                        <p>글쓰는 폼 들어갈자리</p>
-                        <p>글쓰는 폼 들어갈자리</p>
-                        <p>글쓰는 폼 들어갈자리</p>
-                        <p>글쓰는 폼 들어갈자리</p>
-                        <p>글쓰는 폼 들어갈자리</p>
-                        <p>글쓰는 폼 들어갈자리</p>
-                        <p>글쓰는 폼 들어갈자리</p>
-                        <p>글쓰는 폼 들어갈자리</p>
-                        <p>글쓰는 폼 들어갈자리</p>
-                        <p>글쓰는 폼 들어갈자리</p>
+                        <textarea rows="10" class="form-control" name="contents" id="textareaID"></textarea>
                     </div>
                 </div>
             <div class="row" style="padding-top: 50px; padding-bottom: 30px; border-bottom: 1px grey solid">
@@ -134,19 +124,28 @@
             </div>
             <div class="row">
                <div class="col-sm-12">
-                    <form action="">
-                    <button type="btn btn-button" name="" value="">
+                    <button type="submit" name="" value="">
                         저장
                     </button>
                     <button type="btn btn-button">
                         취소
                     </button>   
-                </form>
                </div>
                
             </div>
             </div>
         </div>
     </div>
+   </form>
+    <script type="text/javascript">
+    
+		    var oEditors = [];
+			nhn.husky.EZCreator.createInIFrame({
+				oAppRef: oEditors,
+		   		elPlaceHolder: "textareaID",
+		   		sSkinURI: "/link/resources/js/accountbook_se2/SmartEditor2Skin.html",
+		    		fCreator: "createSEditor2"
+			});
+    </script>
 </body>
 </html>

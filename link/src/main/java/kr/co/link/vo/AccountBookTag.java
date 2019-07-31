@@ -1,21 +1,29 @@
 package kr.co.link.vo;
 
 public class AccountBookTag {
-	private Integer no;
-	private String name;
+	private Integer tagNo;
+	private String tagName;
+	private AccountBookTerm termNo;
 	
-	public Integer getNo() {
-		return no;
+	public Integer getTagNo() {
+		return tagNo;
 	}
-	public void setNo(Integer no) {
-		this.no = no;
+	public void setTagNo(Integer tagNo) {
+		this.tagNo = tagNo;
 	}
-	public String getName() {
-		return name;
+	public String getTagName() {
+		return tagName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
 	}
+	public AccountBookTerm getTermNo() {
+		return termNo;
+	}
+	public void setTermNo(AccountBookTerm termNo) {
+		this.termNo = termNo;
+	}
+	
 	
 	
 }

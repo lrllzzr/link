@@ -1,28 +1,30 @@
 package kr.co.link.vo;
 
 public class AccountBookCategory {
-	private Integer no;
-	private String name;
-	private Integer sortNo;
+	private Integer categoryNo;
+	private String categoryName;
+	private String categoryGubun;
 	
-	public Integer getNo() {
-		return no;
+	public Integer getCategoryNo() {
+		return categoryNo;
 	}
-	public void setNo(Integer no) {
-		this.no = no;
+	public void setCategoryNo(Integer categoryNo) {
+		this.categoryNo = categoryNo;
 	}
-	public String getName() {
-		return name;
+	public String getCategoryName() {
+		return categoryName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
-	public Integer getSortNo() {
-		return sortNo;
+	public String getCategoryGubun() {
+		return categoryGubun;
 	}
-	public void setSortNo(Integer sortNo) {
-		this.sortNo = sortNo;
+	public void setCategoryGubun(String categoryGubun) {
+		this.categoryGubun = categoryGubun;
 	}
+	
+
 	
 
 }
