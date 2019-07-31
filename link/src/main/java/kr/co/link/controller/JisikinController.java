@@ -40,8 +40,11 @@ public class JisikinController {
 		return "jisikin/jisikinMain";
 	}
 	
+	// Q&A
 	@RequestMapping("/qna.do")
-	public String qna() {
+	public String qna(Model model) {
+		List<JisikinCategory> categoriesParent = categoryService.getParentCategory();
+		model.addAttribute("categoriesParent", categoriesParent);
 		
 		return "jisikin/jisikinQna";
 	}
@@ -94,10 +97,9 @@ public class JisikinController {
 		return "jisikin/jisikinQuestion";
 	}
 	
+	// 자녀 카테고리 띄우기
 	@RequestMapping("subCategory.do")
 	public @ResponseBody List<JisikinCategory> subCategory(int parentNo){
-		
-		
 		return categoryService.getSubCategoryByParent(parentNo);
 	}
 	

@@ -87,59 +87,59 @@
                         <div class="spot_directory">
                             <ul>
                                         <li>
-                                            <a href="/qna/list.nhn?dirId=11" id="subMenuOfQna" class="_nclicks:dmp.sdir,r:1,i:11">교육, 학문</a>
+                                            <a href="/qna/list.nhn?dirId=11" id="subMenuOfQna">교육, 학문</a>
                                             <span>36,993</span>
                                         </li>
                                         <li>
-                                            <a href="/qna/list.nhn?dirId=1" class="_nclicks:dmp.sdir,r:2,i:1">컴퓨터통신</a>
+                                            <a href="/qna/list.nhn?dirId=1">컴퓨터통신</a>
                                             <span>26,723</span>	
                                         </li>
                                         <li>
-                                            <a href="/qna/list.nhn?dirId=2" class="_nclicks:dmp.sdir,r:3,i:2">게임</a>
+                                            <a href="/qna/list.nhn?dirId=2">게임</a>
                                             <span>18,142</span>
                                         </li>
                                         <li>
-                                            <a href="/qna/list.nhn?dirId=3" class="_nclicks:dmp.sdir,r:4,i:3">엔터테인먼트, 예술</a>
+                                            <a href="/qna/list.nhn?dirId=3">엔터테인먼트, 예술</a>
                                             <span>22,703</span>
                                         </li>
                                         <li>
-                                            <a href="/qna/list.nhn?dirId=8" class="_nclicks:dmp.sdir,r:5,i:8">생활</a>
+                                            <a href="/qna/list.nhn?dirId=8">생활</a>
                                             <span>28,913</span>
                                         </li>
                                         <li>
-                                            <a href="/qna/list.nhn?dirId=7" class="_nclicks:dmp.sdir,r:6,i:7">건강</a>
+                                            <a href="/qna/list.nhn?dirId=7">건강</a>
                                             <span>18,976</span>	
                                         </li>
                                         <li>
-                                            <a href="/qna/list.nhn?dirId=6" class="_nclicks:dmp.sdir,r:7,i:6">사회, 정치</a>
+                                            <a href="/qna/list.nhn?dirId=6">사회, 정치</a>
                                             <span>15,888,033</span>
                                         </li>
                                         <li>
-                                            <a href="/qna/list.nhn?dirId=4" class="_nclicks:dmp.sdir,r:8,i:4">경제</a>
+                                            <a href="/qna/list.nhn?dirId=4">경제</a>
                                             <span>13,770,306</span>
                                         </li>
                                         <li>		
-                                            <a href="/qna/list.nhn?dirId=9" class="_nclicks:dmp.sdir,r:9,i:9">여행</a>
+                                            <a href="/qna/list.nhn?dirId=9">여행</a>
                                             <span>4,249,461</span>
                                         </li>
                                         <li>
-                                            <a href="/qna/list.nhn?dirId=10" class="_nclicks:dmp.sdir,r:10,i:10">스포츠, 레저</a>
+                                            <a href="/qna/list.nhn?dirId=10">스포츠, 레저</a>
                                             <span>3,454,822</span>
                                         </li>
                                         <li>
-                                            <a href="/qna/list.nhn?dirId=5" class="_nclicks:dmp.sdir,r:11,i:5">쇼핑</a>
+                                            <a href="/qna/list.nhn?dirId=5">쇼핑</a>
                                             <span>15,973,714</span>
                                         </li>
                                         <li>		
-                                            <a href="/qna/list.nhn?dirId=13" class="_nclicks:dmp.sdir,r:12,i:13">쥬니버Q&amp;A</a>	
+                                            <a href="/qna/list.nhn?dirId=13">쥬니버Q&amp;A</a>	
                                         </li>
                                         <li>	
-                                            <a href="/qna/list.nhn?dirId=12" class="_nclicks:dmp.sdir,r:13,i:12">지역&amp;플레이스</a>	
+                                            <a href="/qna/list.nhn?dirId=12">지역&amp;플레이스</a>	
                                         </li>
                                         <li>						
-                                            <a href="/qna/list.nhn?dirId=20" class="_nclicks:dmp.sdir,r:14,i:20">고민Q&amp;A</a>			
+                                            <a href="/qna/list.nhn?dirId=20">고민Q&amp;A</a>			
                                         </li>
-                                <li><a href="/opendic/index.nhn" class="nclicks:dmp.sdir,r:15">오픈사전</a></li>
+                                <li><a href="/opendic/index.nhn">오픈사전</a></li>
                             </ul>
                         </div>
                         <!-- 인기(지역) 시작-->	
