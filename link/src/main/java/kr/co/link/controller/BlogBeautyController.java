@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -89,13 +90,15 @@ public class BlogBeautyController {
 	}
 	
 	@RequestMapping(value="/beautyCategory.do", method = RequestMethod.GET)
-	public String beautyCategory(Model model, HttpSession session, Integer categoryNo) throws IOException {
+	public String beautyCategory(Model model, HttpSession session, Integer categoryNo,
+			@RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
+			@RequestParam(value = "pno10", required = false, defaultValue = "1" ) Integer pno10) throws IOException {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogservice.getBlogByUserId(user.getId());
 		Integer blogNo = blog.getNo();
 		
 		BlogDetailController blogDetailController = new BlogDetailController();
-		List<BlogSubCategory> blogSubCategories = blogDetailController.getBlogSubCategories(session, blogNo, model, categoryNo);
+		List<BlogSubCategory> blogSubCategories = blogDetailController.getBlogSubCategories(session, blogNo, model, categoryNo,pno,pno10);
 		
 		model.addAttribute("subCategories", blogSubCategories);
 		model.addAttribute("blog",blog);

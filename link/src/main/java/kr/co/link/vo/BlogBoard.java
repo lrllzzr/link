@@ -6,7 +6,7 @@ public class BlogBoard {
 	private Integer no;
 	private String title;
 	private String contents;
-	private Date createDate;
+	private String createDate;
 	private Integer categoryNo;
 	private String mainImg;
 	
@@ -35,10 +35,10 @@ public class BlogBoard {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 	public Integer getCategoryNo() {

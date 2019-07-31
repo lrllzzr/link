@@ -59,6 +59,7 @@ public class BlogServiceImpl implements BlogService{
 		blog.setSecondCol("category");
 		blog.setThirdCol("bloginfo");
 		blog.setLayout(1);
+		blog.setPageNumBorderColor("#f2f2f2");
 	}
 
 }
