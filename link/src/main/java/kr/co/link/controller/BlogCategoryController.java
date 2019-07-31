@@ -2,7 +2,10 @@ package kr.co.link.controller;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Locale.Category;
 
 import javax.servlet.http.HttpSession;
 
@@ -41,7 +44,7 @@ public class BlogCategoryController {
 	@Autowired
 	private UserService userService;
 
-	public List<BlogSubCategory> getBlogSubCategories(HttpSession session, Integer blogNo, Model model, Integer categoryNo) {
+	public List<BlogSubCategory> getAllBlogSubCategories(HttpSession session, Integer blogNo, Model model, Integer categoryNo) {
 		Blog blog = blogService.getBlogByBlogNo(blogNo);
 		// 배경색상 투명도 바꾸기
 		String blogColor = blog.getBackgroundColor();
@@ -58,18 +61,25 @@ public class BlogCategoryController {
 		User user = userService.getUserById(userId);
 		User loginUser = (User) session.getAttribute("LOGIN_USER");
 
-		List<BlogSubCategory> blogSubCategories = blogSubCategoryService.getBlogSubCategoriesByuserId(userId);
+		List<BlogSubCategory> blogSubCategories = blogSubCategoryService.getAllBlogSubCategoriesByuserId(userId);
 		model.addAttribute("user", user);
 		model.addAttribute("blog", blog);
 		if (categoryNo == null) {
-			BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(blog.getNo());
-			List<BlogBoard> blogBoards = blogBoardService.getBoardByCategory(blogCategory.getNo());
+			BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blogNo);
+			int subCatNo = blogSubCategory.getNo();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("subCatNo", subCatNo);
+			map.put("blogNo", blogNo);
+			BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
+			if(blogCategory !=null) {
+				List<BlogBoard> blogBoards = blogBoardService.getBoardByCategory(blogCategory.getNo());
+				model.addAttribute("blogBoards", blogBoards);
+			}
 			model.addAttribute("category", blogCategory);
-			model.addAttribute("blogBoards", blogBoards);
 			int blogCount = blogBoardService.countBoardsByCategoryId(blogCategory.getNo());
 			model.addAttribute("blogCount", blogCount);
 		} else {
-			BlogCategory blogCategory = blogCategoryService.getCategoryByCategoryNo(categoryNo);
+			BlogCategory blogCategory = blogCategoryService.getAllCategoryByCategoryNo(categoryNo);
 			model.addAttribute("category", blogCategory);
 			List<BlogBoard> blogBoards = blogBoardService.getBoardByCategory(blogCategory.getNo());
 			model.addAttribute("blogBoards", blogBoards);
@@ -90,7 +100,7 @@ public class BlogCategoryController {
 		Blog blog = blogService.getBlogByUserId(user.getId());
 		Integer blogNo = blog.getNo();
 		model.addAttribute("blog", blog);
-		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
+		List<BlogSubCategory> blogSubCategories = getAllBlogSubCategories(session, blogNo, model, categoryNo);
 		int categorySize = blogSubCategories.size();
 		model.addAttribute("categorySize", categorySize);
 		model.addAttribute("subCategories", blogSubCategories);
@@ -101,17 +111,11 @@ public class BlogCategoryController {
 		model.addAttribute("left3", "category");
 		return "blog/category/category";
 	}
-	
+
 	@RequestMapping(value = "/alterCategory.do", method = RequestMethod.POST)
 	public String alterCategoryApply(Model model, HttpSession session, Integer categoryNo, String subCatNo, String subCatTitle,
-			String catSubCatNo, String catNo, String catTitle, String show) {
+		   String catSubCatNo, String catNo, String catTitle, String show) {
 
-		System.out.println("subCatNo: " + subCatNo);
-		System.out.println("subCatTitle: " + subCatTitle);
-		System.out.println("catSubCatNo: " + catSubCatNo);
-		System.out.println("catNo: " + catNo);
-		System.out.println("catTitle: " + catTitle);
-		System.out.println("---------");
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
 		Integer blogNo = blog.getNo();
@@ -119,76 +123,127 @@ public class BlogCategoryController {
 		// 서브카테고리 수정 or 추가
 		String[] subCatNoArray = subCatNo.split(",");
 		String[] subCatTitleArray = subCatTitle.split(",");
-		for (int i = 0; i < subCatNoArray.length; i++) {
-			Integer newSubCatNo = Integer.parseInt(subCatNoArray[i]);
-			if (newSubCatNo > 0) {
-				BlogSubCategory blogSubCategory = blogSubCategoryService.getSubCategoryBySubCatNo(newSubCatNo);
-				blogSubCategory.setTitle(subCatTitleArray[i]);
-				blogSubCategoryService.updateSubCategory(blogSubCategory);
-			} else if (newSubCatNo < 0) {
-				BlogSubCategory blogSubCategory = new BlogSubCategory();
-				blogSubCategory.setBlogNo(blogNo);
-				blogSubCategory.setTitle(subCatTitleArray[i]);
-				blogSubCategoryService.addNewSubCategory(blogSubCategory);
-
-			}
-		}
 		// 카테고리 수정 or 추가
 		String[] catSubCatNoArray = catSubCatNo.split(",");
 		String[] catNoArray = catNo.split(",");
 		String[] catTitleArray = catTitle.split(",");
+//		String[] showArray = show.split(",");
 
-		for (int i = 0; i < catSubCatNoArray.length; i++) {
-			Integer newCatSubCatNo = Integer.parseInt(catSubCatNoArray[i]);
-			Integer newCatNo = Integer.parseInt(catNoArray[i]);
-			if (newCatSubCatNo > 0) {
-				BlogCategory blogCategory = blogCategoryService.getCategoryByCategoryNo(newCatNo);
-				blogCategory.setTitle(catTitleArray[i]);
-				blogCategoryService.updateCategory(blogCategory);
-			} else if (newCatSubCatNo < 0) {
-				BlogCategory blogCategory = new BlogCategory();
-				blogCategory.setTitle(catTitleArray[i]);
-				blogCategory.setSubCategoryNo(newCatSubCatNo);
-				blogCategoryService.addNewCategory(blogCategory);
+		// 서브카테고리 번호 배열 조회
+		for (int i = 0; i < subCatNoArray.length; i++){
+			// 번호 숫자화
+			int newSubCatNo = Integer.parseInt(subCatNoArray[i]);
+			// 번호가 0보다 크면
+			if (newSubCatNo > 0) {
+				// 서브카테고리를 가져와서
+				BlogSubCategory blogSubCategory = blogSubCategoryService.getAllSubCategoryBySubCatNo(newSubCatNo);
+				// 서브카테고리 타이틀 i번째를 가져와서 적용
+				blogSubCategory.setTitle(subCatTitleArray[i]);
+				// 서브카테고리 업데이트
+				blogSubCategoryService.updateSubCategory(blogSubCategory);
+
+				// 카테고리의 서브카테고리 번호를 하나씩 가져와서
+				for (int j = 0; j < catNoArray.length; j++) {
+					int newCatSubCatNo = Integer.parseInt(catSubCatNoArray[j]);
+					if (newCatSubCatNo == newSubCatNo) {
+						int newCatNo = Integer.parseInt(catNoArray[j]);
+						
+						if (newCatNo > 0) {
+							BlogCategory blogCategory = blogCategoryService.getAllCategoryByCategoryNo(newCatNo);
+							blogCategory.setTitle(catTitleArray[j]);
+							blogCategoryService.updateCategory(blogCategory);
+						} else if (newCatNo < 0) {
+							BlogCategory blogCategory = new BlogCategory();
+							blogCategory.setTitle(catTitleArray[j]);
+							blogCategory.setSubCategoryNo(newCatSubCatNo);
+							blogCategoryService.addNewCategory(blogCategory);
+						}
+					}
+				}
+
+				// 서브카테고리 번호가 0보다 작으면
+			} else if (newSubCatNo < 0) {
+				// 추가할 번호를 가져옴
+				int lastSubCatNo = blogSubCategoryService.getNextBlogSequence();
+				// 서브카테고리를 새로 만들어서
+				BlogSubCategory blogSubCategory = new BlogSubCategory();
+				// blogNo를 정해주고
+				blogSubCategory.setBlogNo(blogNo);
+				// 서브카테고리 타이틀 i번째를 가져와서 적용
+				blogSubCategory.setTitle(subCatTitleArray[i]);
+				// 서브카테고리 번호 추가
+				blogSubCategory.setNo(lastSubCatNo);
+				// 서브카테고리 추가
+				blogSubCategoryService.addNewSubCategoryWithNo(blogSubCategory);
+
+				// 카테고리의 서브카테고리 번호를 하나씩 가져와서
+				for (int j = 0; j < catSubCatNoArray.length; j++) {
+					// 숫자화
+					int newCatSubCatNo = Integer.parseInt(catSubCatNoArray[j]);
+					// 카테고리의 서브카테고리 번호가 서브카테고리번호와 같으면
+					if (newCatSubCatNo == newSubCatNo) {
+						int newCatNo = Integer.parseInt(catNoArray[j]);
+						if (newCatNo > 0) {
+							BlogCategory blogCategory = blogCategoryService.getAllCategoryByCategoryNo(newCatNo);
+							blogCategory.setTitle(catTitleArray[j]);
+							blogCategoryService.updateCategory(blogCategory);
+						} else if (newCatNo < 0) {
+							BlogCategory blogCategory = new BlogCategory();
+							blogCategory.setTitle(catTitleArray[j]);
+							blogCategory.setSubCategoryNo(lastSubCatNo);
+							blogCategoryService.addNewCategory(blogCategory);
+						}
+					}
+				}
 			}
 		}
 
 		return "redirect:alterCategory.do";
 	}
-	
+
 	@RequestMapping("/changeCatPublic.do")
-	public @ResponseBody void changeCatPublic(HttpSession session, String categoryNo,String subCatNo) {
-		System.out.println(categoryNo);
-		System.out.println(subCatNo);
-		if(categoryNo != "undefined") {
-			Integer categoryNo2 = Integer.parseInt(categoryNo);
-			BlogCategory blogCategory = blogCategoryService.getCategoryByCategoryNo(categoryNo2);
+	public @ResponseBody void changeCatPublic(HttpSession session, String catNo, String subCatNo) {
+		if (catNo != null) {
+			Integer categoryNo2 = Integer.parseInt(catNo);
+			BlogCategory blogCategory = blogCategoryService.getAllCategoryByCategoryNo(categoryNo2);
 			blogCategory.setVisibility("Y");
 			blogCategoryService.updateCategory(blogCategory);
 		}
-		if(subCatNo != "undefined") {
+		if (subCatNo != null) {
 			Integer subCatNo2 = Integer.parseInt(subCatNo);
-			BlogSubCategory blogSubCategory = blogSubCategoryService.getSubCategoryBySubCatNo(subCatNo2);
+			BlogSubCategory blogSubCategory = blogSubCategoryService.getAllSubCategoryBySubCatNo(subCatNo2);
 			blogSubCategory.setVisibility("Y");
 			blogSubCategoryService.updateSubCategory(blogSubCategory);
 		}
 	}
-	
+
 	@RequestMapping("/changeCatPrivate.do")
-	public @ResponseBody void changeCatPrivate(HttpSession session, String categoryNo,String subCatNo) {
-		if(categoryNo != "undefined") {
-			Integer categoryNo2 = Integer.parseInt(categoryNo);
-			BlogCategory blogCategory = blogCategoryService.getCategoryByCategoryNo(categoryNo2);
+	public @ResponseBody void changeCatPrivate(HttpSession session, String catNo, String subCatNo) {
+		if (catNo != null) {
+			Integer categoryNo2 = Integer.parseInt(catNo);
+			BlogCategory blogCategory = blogCategoryService.getAllCategoryByCategoryNo(categoryNo2);
 			blogCategory.setVisibility("N");
 			blogCategoryService.updateCategory(blogCategory);
 		}
-		if(subCatNo != "undefined") {
+		if (subCatNo != null) {
 			Integer subCatNo2 = Integer.parseInt(subCatNo);
-			BlogSubCategory blogSubCategory = blogSubCategoryService.getSubCategoryBySubCatNo(subCatNo2);
+			BlogSubCategory blogSubCategory = blogSubCategoryService.getAllSubCategoryBySubCatNo(subCatNo2);
 			blogSubCategory.setVisibility("N");
 			blogSubCategoryService.updateSubCategory(blogSubCategory);
 		}
 	}
 	
+	@RequestMapping("/deleteCategory.do")
+	public String deleteCategory(HttpSession session, String catNo, String subCatNo) {
+		if (catNo != null) {
+			int categoryNo = Integer.parseInt(catNo);
+			blogCategoryService.deleteCategory(categoryNo);
+		}
+		if (subCatNo != null) {
+			int subCategoryNo = Integer.parseInt(subCatNo);
+			blogSubCategoryService.deleteSubCategory(subCategoryNo);
+		}
+		return "redirect:alterCategory.do";
+	}
 	
 }

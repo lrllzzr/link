@@ -1,6 +1,7 @@
 package kr.co.link.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,4 +13,6 @@ public interface BlogBoardService {
 	public BlogBoard getBoardByboardNo(int boardNo); 
 	public void addBoard(BlogBoard blogBoard);
 	public Integer countBoardsByCategoryId(Integer categoryNo);
+	List<BlogBoard> getBoardsByRange(Map<String, Object> rangeMap);
+	Integer getBoardsCountByCategoryNo(Integer catNo);
 }
