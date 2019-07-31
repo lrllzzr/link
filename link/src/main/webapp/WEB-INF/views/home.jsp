@@ -92,7 +92,6 @@
 				<div class="main-menu">
 					<a href="/link/jisikin/main.do">지식인</a>
 				</div>
-				<a href=""><img style="position: relative;" src="resources/images/jisik.jpg" alt=""></a>
 				<a href="/link/jisikin/main.do"><img style="position: relative;" src="resources/images/jisik.jpg" alt=""></a>
 			</div>
 			<div class="col-sm-2 text-center main-col">
