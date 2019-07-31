@@ -7,10 +7,10 @@
 
 	<select id="get3Notices" resultType="seriesNotice">
 		select 
-		notice_no no,
-		notice_title title,
-		notice_contents contents,
-		notice_create_date createDate
+			notice_no no,
+			notice_title title,
+			notice_contents contents,
+			notice_create_date createDate
 		from (select *
 			from series_notices
 			order by notice_create_date desc

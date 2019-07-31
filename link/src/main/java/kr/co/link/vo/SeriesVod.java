@@ -7,7 +7,6 @@ public class SeriesVod {
 	private Integer no;
 	private SeriesCategory category;
 	private String img;
-	private String country;
 	private Integer runningTime;
 	private Date airStartDate;
 	private Date airFinishedDate;
@@ -18,6 +17,7 @@ public class SeriesVod {
 	private String title;
 	private Date createDate;
 	private String isFinished;
+	private Integer price;
 	
 	public SeriesVod() {
 	}
@@ -44,14 +44,6 @@ public class SeriesVod {
 
 	public void setImg(String img) {
 		this.img = img;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
 	}
 
 	public Integer getRunningTime() {
@@ -134,6 +126,12 @@ public class SeriesVod {
 		this.isFinished = isFinished;
 	}
 
-	
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
 	
 }

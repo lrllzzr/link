@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.SeriesVodDao">		<!-- Dao경로설정 -->
+	
+	<select id="get10LikesVods" resultType="seriesVod">
+		select * from series_vods where vod_no in (
+    		select vod_no from (select * from 
+                						(select distinct vod_no , COUNT(*)OVER(PARTITION BY vod_no) A
+                						from series_likes)
+            			order by A desc) B
+    		where rownum &lt; 11
+		)
+	</select>
+	
+	<!-- <select id="get4BrandNewVods" resultType="seriesVod">
+	</select> -->
+</mapper>

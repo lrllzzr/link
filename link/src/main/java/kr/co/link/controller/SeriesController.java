@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.link.service.SeriesNoticeService;
+import kr.co.link.service.SeriesVodService;
 import kr.co.link.vo.SeriesNotice;
+import kr.co.link.vo.SeriesVod;
 
 @Controller
 @RequestMapping("/series")
@@ -16,6 +18,7 @@ public class SeriesController {
 	
 	@Autowired
 	private SeriesNoticeService seriesNoticeService;
+	private SeriesVodService seriesVodService;
 
 	@RequestMapping("/mypage/cart.do") 
 	public String cart(Model model) {
@@ -44,6 +47,12 @@ public class SeriesController {
 	
 	@RequestMapping("/home.do")
 	public String home(Model model) {
+		List<SeriesVod> likesVods = seriesVodService.get10LikesVods();
+		model.addAttribute("likesVods", likesVods);
+		/*
+		 * List<SeriesVod> brandNewVods = seriesVodService.get4BrandNewVods();
+		 * model.addAttribute("brandNewVods", brandNewVods);
+		 */
 		List<SeriesNotice> notices = seriesNoticeService.get3Notices();
 		model.addAttribute("notices", notices);
 		return "series/home";

@@ -22,12 +22,19 @@
             color: black;
         }
         
+        
         #slide-box {
             max-width: 1000px;
             margin: 10px auto;
         }
+		
+		.likes-vod-img-size {
+			width: 155px;
+            height: 228px
+		}
 
         .margin-top {margin-top: 20px;}
+        
         
         .price {color: #649dfa;}
 
@@ -59,7 +66,25 @@
         <!-- 슬라이드 -->
         <div class="row" id="slide-box">
             <div class="col-sm-1"></div>
+            
+            <c:forEach var="vod" items="${likesVods }">
             <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <a href="#"><img class="likes-vod-img-size" src="http://placehold.it/155X228"></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <h4><a href=""><strong>${vod.title }</strong></a></h4>
+                        <p>${vod.actor }</p>
+                        <p class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vod.price }"></fmt:formatNumber>원</p>
+                    </div>
+                </div>
+            </div>
+            </c:forEach>
+            
+            <!-- <div class="col-sm-2">
                 <div class="row">
                     <div class="col-sm-12 text-center">
                         <a href="#"><img src="http://placehold.it/155X228"></a>
@@ -114,21 +139,7 @@
                         <p class="price">1,650원</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <a href="#"><img src="http://placehold.it/155X228"></a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <h4><a href=""><strong>호텔 델루나</strong></a></h4>
-                        <p>아이유, 여진구, 조현철</p>
-                        <p class="price">1,650원</p>
-                    </div>
-                </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -146,19 +157,24 @@
                     </div>
 
                     <div class="row arrays">
+                    <%-- <c:forEach var="vod" items="brandNewVods"> --%>
                         <div class="col-sm-3">
                             <div class="row">
                                 <div class="col-sm-12 text-center">
                                     <a href="#"><img src="http://placehold.it/93X129" alt=""></a>
+                                    <%-- <a href="#"><img src="/resources/images/series/vods/${vod.img }" alt=""></a> --%>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 text-center">
                                     <p><strong>호텔 델루나</strong></p>
+                                    <%-- <p><strong>${vod.title }</strong></p> --%>
                                     <p class="price">1,650원</p>
+                                    <%-- <p class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vod.price }"></fmt:formatNumber>원</p> --%>
                                 </div>
                             </div>
                         </div>
+                    <%-- </c:forEach> --%>
                         <div class="col-sm-3">
                             <div class="row">
                                 <div class="col-sm-12 text-center">
@@ -212,7 +228,6 @@
                     <div class="row">
                         <ul class="list-group">
                         <c:forEach var="notice" items="${notices }"><li class="list-group-item">${notice.title }</li></c:forEach>
-                            
                         </ul>
                     </div>
                 </div>
