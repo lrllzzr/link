@@ -2,6 +2,9 @@ package kr.co.link.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.link.form.JisikinForm;
 import kr.co.link.service.JisikinCategoryService;
+import kr.co.link.service.JisikinService;
+import kr.co.link.service.JisikinTagService;
 import kr.co.link.vo.Jisikin;
 import kr.co.link.vo.JisikinCategory;
 import kr.co.link.vo.JisikinTag;
+import kr.co.link.vo.User;
 
 @Controller
 @RequestMapping("/jisikin")
@@ -21,6 +27,12 @@ public class JisikinController {
 
 	@Autowired
 	private JisikinCategoryService categoryService;
+	
+	@Autowired
+	private JisikinService jisikinService;
+	
+	@Autowired
+	private JisikinTagService tagService;
 	
 	@RequestMapping("/main.do")
 	public String main() {
@@ -53,10 +65,31 @@ public class JisikinController {
 	
 	// 질문폼 기입
 	@RequestMapping(value= "/questionform.do", method = RequestMethod.POST)
-	public String addform(JisikinForm jisikinForm) {
+	public String addform(JisikinForm jisikinForm, HttpSession session) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		
 		Jisikin jisikin = new Jisikin();
-		JisikinTag tag = new JisikinTag();
-		JisikinCategory category = new JisikinCategory();
+		// 폼객체를 지식인과 태그에 복사
+		BeanUtils.copyProperties(jisikinForm, jisikin);
+		System.out.println(jisikin.getContents());
+		List<String> tags = jisikinForm.getTags();
+
+		// 만들어질 지식인 번호
+		int jisikinNo = jisikinService.getJisikinSeq();
+		
+		// 폼객체에 없는 지식인 필드 추가
+		jisikin.setNo(jisikinNo);
+		jisikin.setUserId(user.getId());
+		jisikinService.addJisikin(jisikin);
+		
+		// 여러 태그들 추가하기
+		for (String tagName : tags ) {
+			JisikinTag tag = new JisikinTag();
+			
+			tag.setTagName(tagName);
+			tag.setJisikinNo(jisikinNo);
+			tagService.addTag(tag);
+		}
 		
 		return "jisikin/jisikinQuestion";
 	}

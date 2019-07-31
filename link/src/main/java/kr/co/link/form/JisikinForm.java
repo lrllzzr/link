@@ -1,12 +1,17 @@
 package kr.co.link.form;
 
+import java.util.List;
+
 public class JisikinForm {
 
 	private String title;
-	private String tagName;
-	private String categoryNo;
-	private Integer mentalPoint;
+	private String contents;
+	private Integer categoryNo;
 	private String secretYn;
+	private Integer mentalPoint;
+	private List<String> tags;
+	
+	private String tagName;
 	
 	public JisikinForm() {}
 
@@ -18,28 +23,20 @@ public class JisikinForm {
 		this.title = title;
 	}
 
-	public String getTagName() {
-		return tagName;
+	public String getContents() {
+		return contents;
 	}
 
-	public void setTagName(String tagName) {
-		this.tagName = tagName;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 
-	public String getCategoryNo() {
+	public Integer getCategoryNo() {
 		return categoryNo;
 	}
 
-	public void setCategoryNo(String categoryNo) {
+	public void setCategoryNo(Integer categoryNo) {
 		this.categoryNo = categoryNo;
-	}
-
-	public Integer getMentalPoint() {
-		return mentalPoint;
-	}
-
-	public void setMentalPoint(Integer mentalPoint) {
-		this.mentalPoint = mentalPoint;
 	}
 
 	public String getSecretYn() {
@@ -50,7 +47,29 @@ public class JisikinForm {
 		this.secretYn = secretYn;
 	}
 
-	
-	
+	public Integer getMentalPoint() {
+		return mentalPoint;
+	}
+
+	public void setMentalPoint(Integer mentalPoint) {
+		this.mentalPoint = mentalPoint;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+
+	public String getTagName() {
+		return tagName;
+	}
+
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
+	}
+
 	
 }

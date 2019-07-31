@@ -8,17 +8,17 @@
 	<insert id="addJisikin" parameterType="jisikin">
 		insert into Jisikin (jisikin_no, 
 							 jisikin_title, 
-							 jisikin_content, 
+							 jisikin_content,
 							 jisikin_secret_yn, 
 							 jisikin_mental_point, 
                              user_id,
 							 category_no)
 		values
-		(jisikin_seq.nextval, #{title},#{content},#{secretYn},#{mentalPoint},#{userId},#{categoryNo})
+		(#{no}, #{title},#{contents},#{secretYn},#{mentalPoint},#{userId},#{categoryNo})
 	</insert>
 	
 	<select id="getJisikinSeq" resultType="Integer">
 		select	jisikin_seq.nextval
-		from	dual;
+		from	dual
 	</select>
 </mapper>

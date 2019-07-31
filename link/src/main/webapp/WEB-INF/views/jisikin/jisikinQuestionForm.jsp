@@ -72,7 +72,7 @@
 <div class="container">
     <div class="row">
     <div class="col-sm-10">
-	       <form name="questionForm" action="" method="POST">
+	       <form name="questionForm" id="questionForm" action="questionform.do" method="POST">
 	           <!-- 제목 -->
 	            <div class="sub_qna_title_area"> 
 	            <div class="article"> 
@@ -165,7 +165,7 @@
 	                    	</c:forEach>
 	                    </select>
 	                    
-	                    <select id="subCategory" name="">
+	                    <select id="subCategory" name="categoryNo">
 	                    	<option value="">국어</option>
 	                    </select>
 	                </div>
@@ -220,9 +220,9 @@
 	                        <dd class="dd_type2" style="z-index: -1;">
 	                            <span class="first">별명 
 	                            <!-- 공개 설정 레이어 --> 
-                                <select id="secretYN" name="sercretYN" value="">
-                                	<option value="Y">비공개</option>
-                                	<option value="N">공개</option>
+                                <select id="secretYN" name="secretYn">
+                                	<option value="N">비공개</option>
+                                	<option value="Y">공개</option>
                                 </select>
 	                            </span>
 	                            <!-- //공개 설정 레이어 --> 
@@ -237,7 +237,7 @@
 	          <!-- 등록 -->
 	          <div class="sub_qna_btn_area" id="au_submit_button2" style="display: block;">
 	            <div class="btn_c2">
-	                <button type="submit" class="button_style is_primary _register _clickcode:sbm.ok">질문등록</button>
+	                <button type="submit" id="submit-question" class="button_style is_primary _register _clickcode:sbm.ok">질문등록</button>
 	            </div>
 	            <div class="btn_r">
 	                <button type="button" class="button_style _write_cancel _clickcode:sbm.cancel">작성취소</button>
@@ -251,7 +251,7 @@
 
 <script>
 
-	$("#category").change(function(){
+$("#category").change(function(){
  		var parentNo = $("[name=parentCategory]").val();
  	
 		$.ajax({
@@ -277,7 +277,7 @@
 	function pasteHTML(filepath){
 		setTimeout(function() {
 	    	var sHTML = '<img src="/link/resources/js/jisikin_se2/photo_uploader/upload/'+filepath+'">';
-	    	oEditors.getById["jisikin_content"].exec("PASTE_HTML", [sHTML]);
+	    	oEditors.getById['jisikin_content'].exec("PASTE_HTML", [sHTML]);
 		}, 5000);
 	}
 
@@ -288,8 +288,36 @@
 		oAppRef: oEditors,
    		elPlaceHolder: "jisikin_content",
    		sSkinURI: "/link/resources/js/jisikin_se2/SmartEditor2Skin.html",
-    		fCreator: "createSEditor2"
-	});
+    		fCreator: "createSEditor2",
+    		htParams : {
+				fOnBeforeUnload : function() {
+				}
+			}
+		// 이페이지 나오기 alert 삭제
+		});
+	
+	
+// 등록 버튼
+$("#submit-question").click(function(){
+	submitContents();
+})
+	
+	
+	//‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
+	function submitContents(elClickedObj) {
+		// 에디터의 내용이 textarea에 적용된다.
+		oEditors.getById["jisikin_content"].exec("UPDATE_CONTENTS_FIELD",
+				[]);
+
+		// 에디터의 내용에 대한 값 검증은 이곳에서
+		// document.getElementById("textAreaContent").value를 이용해서 처리한다.
+		console.log(document.getElementById("jisikin_content").value);
+		try {
+			$("#questionForm").submit();
+		} catch (e) {
+
+		}
+	}
 	
 
     /* 별명 */
@@ -317,7 +345,8 @@
         
         /*<li><span class="tag">#가자</span> <a href="#" class="_clickcode:tag.del _tagDelete _param('가자')"><span class="ico_cancel">태그 추가 취소</span></a></li>*/
         
-        var html = '<li>';
+        var html = '<input type="hidden" name="tags" value="'+tag+'">';
+        html += '<li>';
         html += '<span class="tag">#'+tag+'</span> <a href="#" val="#'+tag+'")><span class="ico_cancel">태그 추가 취소</span></a>';
         html += '</li>';
         

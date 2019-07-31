@@ -6,8 +6,8 @@ public class Jisikin {
 
 	private Integer no;
 	private String title;
-	private String content;
-	private String categoryNo;
+	private String contents;
+	private Integer categoryNo;
 	private String deadLineYn;
 	private String secretYn;
 	private Date createDate;
@@ -33,19 +33,19 @@ public class Jisikin {
 		this.title = title;
 	}
 
-	public String getContent() {
-		return content;
+	public String getContents() {
+		return contents;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 
-	public String getCategoryNo() {
+	public Integer getCategoryNo() {
 		return categoryNo;
 	}
 
-	public void setCategoryNo(String categoryNo) {
+	public void setCategoryNo(Integer categoryNo) {
 		this.categoryNo = categoryNo;
 	}
 
