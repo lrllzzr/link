@@ -10,6 +10,7 @@ public class SearchController {
 	
 	@RequestMapping("/search.do")
 	public String search() {
+		
 		return "search/searchMain";
 	}
 }

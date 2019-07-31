@@ -3,7 +3,7 @@ package kr.co.link.vo;
 public class JisikinTag {
 
 	private Integer no;
-	private String name;
+	private String tagName;
 	private Integer jisikinNo;
 	
 	public JisikinTag() {}
@@ -16,12 +16,14 @@ public class JisikinTag {
 		this.no = no;
 	}
 
-	public String getName() {
-		return name;
+	
+	
+	public String getTagName() {
+		return tagName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
 	}
 
 	public Integer getJisikinNo() {

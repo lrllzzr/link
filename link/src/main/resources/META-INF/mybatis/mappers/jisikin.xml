@@ -17,4 +17,8 @@
 		(jisikin_seq.nextval, #{title},#{content},#{secretYn},#{mentalPoint},#{userId},#{categoryNo})
 	</insert>
 	
+	<select id="getJisikinSeq" resultType="Integer">
+		select	jisikin_seq.nextval
+		from	dual;
+	</select>
 </mapper>
