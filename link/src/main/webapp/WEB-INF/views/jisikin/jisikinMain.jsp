@@ -14,50 +14,7 @@
 	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinmain.css">
 </head>
 <body>
-    <nav class="navbar main-nav" style="margin-bottom: 0px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-2">
-                    <a href="/src/main/webapp/WEB-INF/views/blog/blogmain.html">
-                        <span class="blog-main-javer">Link</span> <span class="blog-main-blog">지식인</span>
-                    </a>
-                </div>
-                <div class="col-sm-5 blog-searchbar">
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input style="width:300px;" type="text" class="form-control" placeholder="검색">
-                        </div>
-                        <button type="submit" class="btn btn-green"><span class="glyphicon glyphicon-search"></span></button>
-                    </form>
-                </div>
-
-                <div class="col-sm-4 col-sm-offset-1 text-right blog-toprow-right">
-                    <div class="blog-navbar-right collapse navbar-collapse navbar-right">
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <img class="blog-profile-img" src="/link/resources/images/blog.png" alt="">
-                                    <span class="blog-navbar-id">빗취</span>
-                                    <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">내 블로그</a></li>
-                                    <li><a href="#">밴드</a></li>
-                                    <li><a href="#">가계부 </a></li>
-                                    <li><a href="#">지식인</a></li>
-                                    <li><a href="#">시리즈</a></li>
-                                    <li><a href="#">TV</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">로그아웃</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="bell text-center"><a href=""><span class="glyphicon glyphicon-bell"></span></a></div>
-                        <div class="envelope"><a href=""><span class="glyphicon glyphicon-envelope"></span></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <%@ include file="../common/nav.jsp" %>
 <div class="container">
    <%@include file="jisikin-nav.jsp" %>
    
