@@ -11,5 +11,5 @@ import kr.co.link.vo.BlogBoard;
 @Repository
 public interface BlogNeighborDao {
 	List<Blog> getNeighborByBlogNo(Map<String, Object> neighborMap);
-	
+	List<Map<String, Object>> getNeighborBlogMap(Integer blogNo);
 }

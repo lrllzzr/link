@@ -37,32 +37,39 @@
 	and 
 		b.neighborhood_type = #{type}
 </select>
-<select id="">
-	select
-	    BOARD_NO no,
-	    BOARD_TITLE title,
-	    BOARD_CONTENTS contents,
-	    BOARD_CREATE_DATE createDate,
-	    CATEGORY_NO categoryNo,
-	    BOARD_MAIN_IMG mainImg
-	from(
-	    select ROW_NUMBER() OVER ( ORDER BY a.board_create_date desc) row_no,
-	    a.BOARD_NO,
-	    a.BOARD_TITLE,
-	    a.BOARD_CONTENTS,
-	    a.BOARD_CREATE_DATE,
-	    a.CATEGORY_NO,
-	    a.BOARD_MAIN_IMG
-	        from blog_boards a, blog_category b, blog_subcategory c, blog d
-	        where
-	            a.category_no = b.category_no
-	        and
-	            b.subcategory_no = c.subcategory_no
-	        and
-	            c.blog_no = d.blog_no
-	        and d.blog_no = #{value}
-	)
-	where row_no = 1
+<select id="getNeighborBlogMap" parameterType="int" resultType="map">
+	
+select row_no, id, nickName, title, categoryNo, boardNo, contents, no, boardMainImg, blogMainImg
+from
+    (   select ROW_number() over(partition by a.blog_no order by d.board_create_date) row_no,
+            c.user_id id,
+            c.user_nickname nickName,
+            d.board_title title,
+            e.category_no categoryNo,
+            d.board_no boardNo,
+            d.board_contents contents,
+            a.BLOG_NO no,
+            d.board_main_Img boardMainImg,
+            a.blog_main_Img blogMainImg
+        from
+            blog a, blog_neighbor b, users c, blog_boards d, blog_category e, blog_subcategory f
+        where
+            b.blog_no = #{value}
+        and
+            a.blog_no = b.neighborhood_no
+        and
+            a.user_id = c.user_id
+        and
+            f.blog_no = a.blog_no
+        and
+            f.subcategory_no = e.subcategory_no
+        and
+            e.category_no = d.category_no
+        and
+            b.neighborhood_type = 'All'
+        )
+    where
+        row_no &lt;= 2
 </select>
 
 </mapper>

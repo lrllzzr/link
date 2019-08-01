@@ -54,7 +54,7 @@
 						<!--     이웃 새글 시작    -->
 						<c:choose>
 							<c:when test="${isHaveBlog eq 'yes' }">
-								<c:forEach var="blog" items="${neighborBlogs}">
+								<c:forEach var="blog" items="${blogList}">
 									<div class="blog-hrdiv">
 										<hr class="blog-row-hr-2" />
 									</div>
@@ -62,31 +62,35 @@
 										<div class="col-sm-9">
 											<div class="row">
 												<div class="col-sm-1 blog-neighbor-col1">
-													<img class="blog-row-2-profile-img" src="/link/resources/images/${blog.mainImg }" alt="">
+													<img class="blog-row-2-profile-img" src="/link/resources/images/${blog.BLOGMAINIMG }" alt="">
 												</div>
 												<div class="col-sm-2 blog-neighbor-col2">
 													<div class="row">
 														<div class="col-sm-12">
-															<a href="">${blogUser.nickName }</a>
+															<a href="">${blog.NICKNAME }</a>
 														</div>
 														<div class="col-sm-12">2시간전</div>
 													</div>
 												</div>
 											</div>
-											<div class="row blog-neighbor-box">
-												<a href="">
-													<div class="col-sm-12">
-														<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
-													</div>
-													<div class="col-sm-12">
-														<p class="blog-neighbor-contents">이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~</p>
-													</div>
-												</a>
-											</div>
+											<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}">
+												<div class="row blog-neighbor-box">
+														<div class="col-sm-12">
+															<p class="blog-neighbor-title">${blog.TITLE }</p>
+														</div>
+														<div class="col-sm-12 blog-neighbor-contents3">
+															<div class="blog-neighbor-contents">${blog.CONTENTS }</div>
+														</div>
+												</div>
+											</a>
 										</div>
+										<!--  -->
 										<div class="col-sm-3">
-											<a href=""><img class="blog-neighbor-img " src="/link/resources/images/smooth.jfif" alt=""></a>
+											<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}">
+												<img style="max-width:100%;" class="blog-neighbor-img " src="/link/resources/images/userblogimgs/${blog.BOARDMAINIMG }" alt="">
+											</a>
 										</div>
+										
 									</div>
 								</c:forEach>
 							</c:when>
@@ -245,11 +249,11 @@
 							<div class="row blog-neighbor-box">
 								<a href="">
 									<div class="col-sm-12">
-										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
+										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기저탄고지식단으로 고구마아몬드스무디 만들기저탄고지식단으로 고구마아몬드스무디 만들기</p>
 									</div>
 									<div class="col-sm-12">
 										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit. Consequatur, officiis.</p>
+											consectetur adipisicing elit. Consequatur, officiis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum labore mollitia officia nihil maiores ratione libero magnam perspiciatis reprehenderit nam rem amet. Dolorum totam autem quam natus obcaecati quasi optio nihil ducimus minima quia! Ea blanditiis assumenda tenetur nisi quia amet distinctio voluptatem molestias eligendi voluptatibus repudiandae odio. Necessitatibus tempora doloribus quaerat ad saepe obcaecati nemo provident sapiente ducimus itaque eum inventore. Deserunt nulla aperiam quam a ipsam blanditiis vitae pariatur fugiat earum minus commodi similique totam reprehenderit animi odit placeat quaerat officiis quae et eum sequi fugit error iure libero ducimus accusamus delectus laboriosam aut ratione neque. Exercitationem natus?</p>
 									</div>
 								</a>
 							</div>
@@ -382,7 +386,11 @@
 		</div>
 	</div>
 	<script>
-		
+	$(function(){
+		$('.blog-neighbor-contents3 img').hide();
+		$('.blog-neighbor-contents3 p').css().remove();
+		$('.blog-neighbor-contents3 span').remove();
+	})
 	</script>
 </body>
 </html>

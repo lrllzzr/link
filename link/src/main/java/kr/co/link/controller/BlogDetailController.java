@@ -144,7 +144,6 @@ public class BlogDetailController {
 
 			int totalCount = blogBoardService.getBoardsCountByCategoryNo(categoryNo);
 			totalCount = (int) Math.ceil((double) totalCount / howMany);
-
 			int blogCount = blogBoardService.countBoardsByCategoryId(categoryNo);
 			model.addAttribute("blogCount", blogCount);
 			model.addAttribute("blogboardsByRange", blogboards);
@@ -184,17 +183,9 @@ public class BlogDetailController {
 			if (blog == null) {
 				model.addAttribute("isHaveBlog", "no");
 			} else {
-				// 블로그 유저 찾기
-				String blogUserId = blog.getUserId();
-				User blogUser = userService.getUserById(blogUserId);
 				// 이웃 블로그 전해주기
-				Map<String, Object> neighborMap = new HashMap<String, Object>();
-				neighborMap.put("blogNo", blog.getNo());
-				neighborMap.put("type", "All");
-				List<Blog> neighborBlogs = blogNeighborService.getNeighborByBlogNo(neighborMap);
-				
-				model.addAttribute("blogUser",blogUser);
-				model.addAttribute("neighborBlogs",neighborBlogs);
+				List<Map<String, Object>> blogList = blogNeighborService.getNeighborBlogMap(blog.getNo());
+				model.addAttribute("blogList", blogList);
 				model.addAttribute("isHaveBlog", "yes");
 			}
 		}

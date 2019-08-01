@@ -21,5 +21,10 @@ public class BlogNeighborServiceImpl implements BlogNeighborService{
 	public List<Blog> getNeighborByBlogNo(Map<String, Object> neighborMap) {
 		return blogNeighborDao.getNeighborByBlogNo(neighborMap);
 	}
+
+	@Override
+	public List<Map<String, Object>> getNeighborBlogMap(Integer blogNo) {
+		return blogNeighborDao.getNeighborBlogMap(blogNo);
+	}
 	
 }
