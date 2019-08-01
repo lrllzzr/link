@@ -28,6 +28,7 @@ import kr.co.link.form.BlogBoardForm;
 import kr.co.link.form.BlogForm;
 import kr.co.link.service.BlogBoardService;
 import kr.co.link.service.BlogCategoryService;
+import kr.co.link.service.BlogNeighborService;
 import kr.co.link.service.BlogService;
 import kr.co.link.service.BlogSubCategoryService;
 import kr.co.link.service.UserService;
@@ -50,6 +51,9 @@ public class BlogDetailController {
 	private BlogBoardService blogBoardService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BlogNeighborService blogNeighborService;
+	
 
 	public List<BlogSubCategory> getBlogSubCategories(HttpSession session, Integer blogNo, Model model, Integer categoryNo, Integer pno,
 			Integer pno10) {
@@ -187,7 +191,7 @@ public class BlogDetailController {
 				Map<String, Object> neighborMap = new HashMap<String, Object>();
 				neighborMap.put("blogNo", blog.getNo());
 				neighborMap.put("type", "All");
-				List<Blog> neighborBlogs = blogService.getNeighborByBlogNo(neighborMap);
+				List<Blog> neighborBlogs = blogNeighborService.getNeighborByBlogNo(neighborMap);
 				
 				model.addAttribute("blogUser",blogUser);
 				model.addAttribute("neighborBlogs",neighborBlogs);

@@ -16,5 +16,4 @@ public interface BlogService {
 	public void updateBlogByBlogNo(Blog blog);
 	public void addNewBlog(Blog blog);
 	void setBasicBlog(Blog blog, User user, String filename);
-	List<Blog> getNeighborByBlogNo(Map<String, Object> neighborMap);
 }

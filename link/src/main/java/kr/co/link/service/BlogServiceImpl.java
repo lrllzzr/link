@@ -63,9 +63,4 @@ public class BlogServiceImpl implements BlogService{
 		blog.setPageNumBorderColor("#f2f2f2");
 	}
 
-	@Override
-	public List<Blog> getNeighborByBlogNo(Map<String, Object> neighborMap) {
-		return blogDao.getNeighborByBlogNo(neighborMap);
-	}
-
 }
