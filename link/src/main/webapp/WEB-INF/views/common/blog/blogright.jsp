@@ -28,7 +28,7 @@
 			<div class="row">
 				<div class="col-sm-12 blog_detail_right_row_1">
 					<div class="col-sm-9">
-						<span><a href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}">${board.title }</a></span>
+						<span id="" style="" class="${board.no eq param.boardNo? 'blog_board_selected' : '' }"><a id="blog_board_list5" href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}&pno=${pno}">${board.title }</a></span>
 					</div>
 					<div class="col-sm-3 text-right">
 						<span class="blog_detail_board_create">2019.07.07</span>
@@ -73,6 +73,7 @@
 				$(this).html('목록 열기');
 			}
 		})
+		// 페이지네이션 버튼 클릭시
 		$('.blog_page_bum').click(event,function(){
 			event.preventDefault();
 			var page = $(this).text();
