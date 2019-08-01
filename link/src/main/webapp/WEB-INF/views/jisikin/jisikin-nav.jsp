@@ -11,9 +11,9 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
                 <li class="dropdown menu-tab">
-                  <a href="/link/jisikin/qna.do" class="qna-toggle dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Q&A <span class="caret"></span></a>
+                  <a href="/link/jisikin/qna.do" class="qna-toggle dropdown-toggle" aria-expanded="false">Q&A <span data-toggle="dropdown" role="button" class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="/link/jisikin/qna.do">교육,학문</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=1">교육,학문</a></li>    
                     <li><a href="#">컴퓨터통신</a></li>
                     <li><a href="#">게임</a></li>
                     <li><a href="#">엔터테인먼트,예술</a></li>

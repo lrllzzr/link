@@ -1,12 +1,13 @@
 package kr.co.link.form;
 
 import java.util.List;
+import java.util.Locale.Category;
 
 public class JisikinForm {
 
 	private String title;
 	private String contents;
-	private Integer categoryNo;
+	private int categoryNo;
 	private String secretYn;
 	private Integer mentalPoint;
 	private List<String> tags;
@@ -31,11 +32,11 @@ public class JisikinForm {
 		this.contents = contents;
 	}
 
-	public Integer getCategoryNo() {
+	public int getCategoryNo() {
 		return categoryNo;
 	}
 
-	public void setCategoryNo(Integer categoryNo) {
+	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
 	}
 
@@ -73,3 +74,4 @@ public class JisikinForm {
 
 	
 }
+

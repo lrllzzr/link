@@ -2,12 +2,13 @@ package kr.co.link.vo;
 
 import java.util.Date;
 
+
 public class Jisikin {
 
 	private Integer no;
 	private String title;
 	private String contents;
-	private Integer categoryNo;
+	private JisikinCategory category;
 	private String deadLineYn;
 	private String secretYn;
 	private Date createDate;
@@ -41,12 +42,12 @@ public class Jisikin {
 		this.contents = contents;
 	}
 
-	public Integer getCategoryNo() {
-		return categoryNo;
+	public JisikinCategory getCategory() {
+		return category;
 	}
 
-	public void setCategoryNo(Integer categoryNo) {
-		this.categoryNo = categoryNo;
+	public void setCategory(JisikinCategory category) {
+		this.category = category;
 	}
 
 	public String getDeadLineYn() {
@@ -96,6 +97,8 @@ public class Jisikin {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 	
-	
+	// timeago
+	public long getCreateTime() { return createDate.getTime(); }
 }

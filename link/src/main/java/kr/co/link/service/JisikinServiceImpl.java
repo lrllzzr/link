@@ -1,5 +1,7 @@
 package kr.co.link.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,21 @@ public class JisikinServiceImpl implements JisikinService {
 	@Override
 	public void addJisikin(Jisikin jisikin) {
 		jisikinDao.addJisikin(jisikin);
+	}
+	
+	
+	@Override
+	public int countTodayJisikin() {
+		return jisikinDao.countTodayJisikin();
+	}
+	
+	@Override
+	public List<Jisikin> getJisikinByCategory(int categoryNo) {
+		return jisikinDao.getJisikinByCategory(categoryNo);
+	}
+	
+	@Override
+	public List<Jisikin> getAllJisikin() {
+		return jisikinDao.getAllJisikin();
 	}
 }

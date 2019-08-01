@@ -14,11 +14,58 @@
                              user_id,
 							 category_no)
 		values
-		(#{no}, #{title},#{contents},#{secretYn},#{mentalPoint},#{userId},#{categoryNo})
+		(#{no}, #{title},#{contents},#{secretYn},#{mentalPoint},#{userId},#{category.no})
 	</insert>
 	
 	<select id="getJisikinSeq" resultType="Integer">
 		select	jisikin_seq.nextval
 		from	dual
+	</select>
+	
+	<select id="getAllJisikin" resultType="jisikin">
+		select
+			jisikin_no no, 
+			jisikin_title title, 
+			jisikin_content contents,
+			jisikin_secret_yn secretYn, 
+			jisikin_mental_point mentalPoint, 
+			jisikin.category_no "category.no",
+			category_name "category.name",
+			jisikin_create_date createDate
+		from
+			jisikin, jisikin_category
+		where
+			jisikin.category_no = jisikin_category.category_no
+		order by
+			jisikin_create_date desc
+	</select>
+	
+	<select id="getJisikinByCategory" parameterType="int" resultType="jisikin">
+		select
+			jisikin_no no, 
+			jisikin_title title, 
+			jisikin_content contents,
+			jisikin_secret_yn secretYn, 
+			jisikin_mental_point mentalPoint, 
+			jisikin.category_no "category.no",
+			category_name "category.name",
+			jisikin_create_date createDate
+		from
+			jisikin, jisikin_category
+		where
+			jisikin.category_no = jisikin_category.category_no
+		and
+			jisikin.category_no = #{value}
+		order by
+			jisikin_create_date desc
+	</select>
+	
+	<select id="countTodayJisikin" resultType="Integer">
+		select 
+			count(*)
+		from 
+			jisikin
+		where 
+		    to_char(jisikin_create_date, 'yy/mm/dd') = (select to_char(sysdate, 'yy/mm/dd') from dual)
 	</select>
 </mapper>

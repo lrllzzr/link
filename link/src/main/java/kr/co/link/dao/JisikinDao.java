@@ -12,4 +12,7 @@ public interface JisikinDao {
 
 	public void addJisikin(Jisikin jisikin);
 	public int getJisikinSeq();
+	public int countTodayJisikin();
+	public List<Jisikin> getJisikinByCategory(int categoryNo);
+	public List<Jisikin> getAllJisikin();
 }
