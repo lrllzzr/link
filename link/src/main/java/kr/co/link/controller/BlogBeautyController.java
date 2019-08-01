@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.link.dao.UserDao;
 import kr.co.link.form.BlogBoardForm;
 import kr.co.link.form.BlogForm;
 import kr.co.link.form.BlogUpdateForm;
@@ -78,7 +79,8 @@ public class BlogBeautyController {
 		BeanUtils.copyProperties(blogUpdateForm, blog);
 		user.setNickName(blogUpdateForm.getNickName());
 		MultipartFile mf = blogUpdateForm.getMainImg();
-		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images/userblogimgs";
+		
+		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images";
 		if (!mf.isEmpty()) {
 			String filename = mf.getOriginalFilename();
 			FileCopyUtils.copy(mf.getBytes(), new File(profileImageSaveDirectory, filename));
@@ -109,14 +111,30 @@ public class BlogBeautyController {
 		return "blog/beautify/beautyCategory";
 	}
 	
-	@RequestMapping("/updateProfile.do")
+	@RequestMapping(value="/updateProfile.do", method = RequestMethod.GET)
 	public String updateProfile(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		model.addAttribute("user",user);
 		// 기본 설정을 파랗게
 		model.addAttribute("column","updateProfile");
 		// 프로필정보를 파랗게
 		model.addAttribute("left","updateProfile");
 		return "blog/beautify/beautyUpdateProfile";
 	}
+	
+	@RequestMapping(value="/updateProfile.do", method = RequestMethod.POST)
+	public String updateProfileApply(Model model, HttpSession session, String nameVisibility, String genderVisibility) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		user.setNameVisibility(nameVisibility);
+		user.setGenderVisibility(genderVisibility);
+		userService.updateUser(user);
+		// 기본 설정을 파랗게
+		model.addAttribute("column","updateProfile");
+		// 프로필정보를 파랗게
+		model.addAttribute("left","updateProfile");
+		return "redirect:updateProfile.do";
+	}
+	
 	// 기본 설정(left) 끝
 	
 	//꾸미기 설정 시작 (left2)

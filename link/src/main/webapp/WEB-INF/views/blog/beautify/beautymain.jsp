@@ -105,7 +105,7 @@
 							<strong style="font-size: 14px; letter-spacing: -1px;">블로그 프로필 이미지</strong>
 						</div>
 						<div class="col-sm-3">
-							<img id="blogImg" src="/link/resources/images/userblogimgs/${blog.mainImg }">
+							<img id="blogImg" src="/link/resources/images/${blog.mainImg }">
 						</div>
 						<div class="col-sm-3">
 							<span>블로그 프로필 사진에 등록됩니다.</span> <input style="margin-top: 10px;" class="form-control" type="file" id="mainImg" name="mainImg" />

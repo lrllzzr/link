@@ -50,78 +50,84 @@
 						</div>
 					</div>
 					<div class="blog-neighbor-div">
-						<!--     이웃 새글 시작    -->
-						<div class="blog-hrdiv">
-							<hr class="blog-row-hr-2" />
-						</div>
-						<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
-							<div class="col-sm-9">
-								<div class="row">
-									<div class="col-sm-1 blog-neighbor-col1">
-										<img class="blog-row-2-profile-img" src="/link/resources/images/blog.png" alt="">
-									</div>
-									<div class="col-sm-2 blog-neighbor-col2">
-										<div class="row">
-											<div class="col-sm-12">
-												<a href="">이웃맘</a>
-											</div>
-											<div class="col-sm-12">2시간전</div>
-										</div>
-									</div>
-								</div>
-								<div class="row blog-neighbor-box">
-									<a href="">
-										<div class="col-sm-12">
-											<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
-										</div>
-										<div class="col-sm-12">
-											<p class="blog-neighbor-contents">이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~</p>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="col-sm-3">
-								<a href=""><img class="blog-neighbor-img " src="/link/resources/images/smooth.jfif" alt=""></a>
-							</div>
-						</div>
-
-						<!--     이웃 새글 끝     -->
 
 						<!--     이웃 새글 시작    -->
-						<div class="blog-hrdiv">
-							<hr class="blog-row-hr-2" />
-						</div>
-						<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
-							<div class="col-sm-9">
-								<div class="row">
-									<div class="col-sm-1 blog-neighbor-col1">
-										<img class="blog-row-2-profile-img" src="/link/resources/images/blog.png" alt="">
+						<c:choose>
+							<c:when test="${isHaveBlog eq 'yes' }">
+								<c:forEach var="blog" items="${neighborBlogs}">
+									<div class="blog-hrdiv">
+										<hr class="blog-row-hr-2" />
 									</div>
-									<div class="col-sm-2 blog-neighbor-col2">
-										<div class="row">
-											<div class="col-sm-12">
-												<a href="">이웃맘</a>
+									<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
+										<div class="col-sm-9">
+											<div class="row">
+												<div class="col-sm-1 blog-neighbor-col1">
+													<img class="blog-row-2-profile-img" src="/link/resources/images/${blog.mainImg }" alt="">
+												</div>
+												<div class="col-sm-2 blog-neighbor-col2">
+													<div class="row">
+														<div class="col-sm-12">
+															<a href="">${blogUser.nickName }</a>
+														</div>
+														<div class="col-sm-12">2시간전</div>
+													</div>
+												</div>
 											</div>
-											<div class="col-sm-12">2시간전</div>
+											<div class="row blog-neighbor-box">
+												<a href="">
+													<div class="col-sm-12">
+														<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
+													</div>
+													<div class="col-sm-12">
+														<p class="blog-neighbor-contents">이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~</p>
+													</div>
+												</a>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<a href=""><img class="blog-neighbor-img " src="/link/resources/images/smooth.jfif" alt=""></a>
 										</div>
 									</div>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<!--     이웃 새글 끝     -->
+								<div class="blog-hrdiv">
+									<hr class="blog-row-hr-2" />
 								</div>
-								<div class="row blog-neighbor-box">
-									<a href="">
-										<div class="col-sm-12">
-											<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
+								<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
+									<div class="col-sm-9">
+										<div class="row">
+											<div class="col-sm-1 blog-neighbor-col1">
+												<img class="blog-row-2-profile-img" src="/link/resources/images/blog.png" alt="">
+											</div>
+											<div class="col-sm-2 blog-neighbor-col2">
+												<div class="row">
+													<div class="col-sm-12">
+														<a href="">이웃맘</a>
+													</div>
+													<div class="col-sm-12">2시간전</div>
+												</div>
+											</div>
 										</div>
-										<div class="col-sm-12">
-											<p class="blog-neighbor-contents">이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~</p>
+										<div class="row blog-neighbor-box">
+											<a href="">
+												<div class="col-sm-12">
+													<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
+												</div>
+												<div class="col-sm-12">
+													<p class="blog-neighbor-contents">이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~</p>
+												</div>
+											</a>
 										</div>
-									</a>
+									</div>
+									<div class="col-sm-3">
+										<a href=""><img class="blog-neighbor-img " src="/link/resources/images/smooth.jfif" alt=""></a>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-3">
-								<a href=""><img class="blog-neighbor-img " src="/link/resources/images/smooth.jfif" alt=""></a>
-							</div>
-						</div>
-
+								<!--     이웃 새글 끝  -->
+							</c:otherwise>
+						</c:choose>
 						<!--     이웃 새글 끝     -->
 					</div>
 
@@ -162,7 +168,8 @@
 										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
 									</div>
 									<div class="col-sm-12">
-										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, officiis.</p>
+										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet,
+											consectetur adipisicing elit. Consequatur, officiis.</p>
 									</div>
 								</a>
 							</div>
@@ -202,7 +209,8 @@
 										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
 									</div>
 									<div class="col-sm-12">
-										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, officiis.</p>
+										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet,
+											consectetur adipisicing elit. Consequatur, officiis.</p>
 									</div>
 								</a>
 							</div>
@@ -240,7 +248,8 @@
 										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
 									</div>
 									<div class="col-sm-12">
-										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, officiis.</p>
+										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet,
+											consectetur adipisicing elit. Consequatur, officiis.</p>
 									</div>
 								</a>
 							</div>
@@ -290,7 +299,7 @@
 							</div>
 							<a id="makeBlogButton" href="/link/blog/makeblog.do">
 								<div class="row blog-col-4" style="padding: 20px !important;">
-									<div style="font-size:15px; font-weight: bold; color:white;" class="col-sm-12 text-center">블로그 생성하러 가기</div>
+									<div style="font-size: 15px; font-weight: bold; color: white;" class="col-sm-12 text-center">블로그 생성하러 가기</div>
 								</div>
 							</a>
 						</c:when>

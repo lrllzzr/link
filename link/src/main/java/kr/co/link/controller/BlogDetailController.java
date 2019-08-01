@@ -180,6 +180,17 @@ public class BlogDetailController {
 			if (blog == null) {
 				model.addAttribute("isHaveBlog", "no");
 			} else {
+				// 블로그 유저 찾기
+				String blogUserId = blog.getUserId();
+				User blogUser = userService.getUserById(blogUserId);
+				// 이웃 블로그 전해주기
+				Map<String, Object> neighborMap = new HashMap<String, Object>();
+				neighborMap.put("blogNo", blog.getNo());
+				neighborMap.put("type", "All");
+				List<Blog> neighborBlogs = blogService.getNeighborByBlogNo(neighborMap);
+				
+				model.addAttribute("blogUser",blogUser);
+				model.addAttribute("neighborBlogs",neighborBlogs);
 				model.addAttribute("isHaveBlog", "yes");
 			}
 		}
@@ -365,5 +376,26 @@ public class BlogDetailController {
 		user.setIsHaveBlog("Y");
 		userService.updateUser(user);
 		return "redirect:mydetail.do";
+	}
+	@RequestMapping(value="/profile.do", method = RequestMethod.GET)
+	public String profile(Model model,HttpSession session, Integer blogNo, Integer categoryNo,
+			@RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
+			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10) {
+		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo, pno, pno10);
+		model.addAttribute("blogSubCategories",blogSubCategories);
+		
+		
+		Blog blog = blogService.getBlogByBlogNo(blogNo);
+		if (blog.getLayout() == 1) {
+			return "blog/detail/profile";
+		}
+		if (blog.getLayout() == 2) {
+			return "blog/detail/profile2";
+		}
+		if (blog.getLayout() == 3) {
+			return "blog/detail/profile3";
+		} else {
+			return "blog/detail/profile4";
+		}
 	}
 }
