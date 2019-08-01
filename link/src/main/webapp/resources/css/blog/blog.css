@@ -373,7 +373,39 @@ a {
 .glyphicon-envelope {
     color: white;
     position: relative;
-    right: 4px;
     font-size: 20px;
     padding: 12px 20px;
+}
+.blog_nav_tabs a{
+	color:gray;
+}
+.blog_nav_tabs a:hover{
+	color:gray;
+}
+.blog_nav_tabs a:focus{
+	color:gray;
+}
+.blog_table{
+	margin-top: 15px;
+}
+.blog_table td{
+	border-top:none !important;
+}
+.blogselectAllTd {
+    border-bottom: none !important;
+    border-top: none;
+}
+.blog_table tr{
+    border-bottom: 1px solid #ddd;
+    border-top: none;
+}
+.blog_table > tr:last-child{
+    border-bottom: 1px solid #ddd;
+    border-top: none;
+}
+.blog_selectAll_span{
+	margin-right: 5px;
+}
+.blog_table input{
+	margin-right:10px;
 }

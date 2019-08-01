@@ -285,6 +285,21 @@ public class BlogBeautyController {
 		return "redirect:blogtheme.do";
 	}
 	
+	@RequestMapping(value="/eachNeighbor.do", method = RequestMethod.GET)
+	public String eachNeighbor(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		// 블로그 얻어오기
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		
+		// 서로이웃 맺기 파랗게
+		model.addAttribute("left","eachneighbor");
+		// 기본 설정을 파랗게
+		model.addAttribute("column","updateProfile");
+		
+		return "blog/beautify/eachNeighbor";
+	}
+	
+	
 	
 	
 }

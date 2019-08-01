@@ -75,22 +75,23 @@
 											</div>
 											<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}">
 												<div class="row blog-neighbor-box">
-														<div class="col-sm-12">
-															<p class="blog-neighbor-title">${blog.TITLE }</p>
-														</div>
-														<div class="col-sm-12 blog-neighbor-contents3">
-															<div class="blog-neighbor-contents">${blog.CONTENTS }</div>
-														</div>
+													<div class="col-sm-12">
+														<p class="blog-neighbor-title">${blog.TITLE }</p>
+													</div>
+													<div class="col-sm-12 blog-neighbor-contents3">
+														<div class="blog-neighbor-contents">${blog.CONTENTS }</div>
+													</div>
 												</div>
 											</a>
 										</div>
 										<!--  -->
 										<div class="col-sm-3">
-											<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}">
-												<img style="max-width:100%;" class="blog-neighbor-img " src="/link/resources/images/userblogimgs/${blog.BOARDMAINIMG }" alt="">
+											<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}"> <img
+												style="max-width: 100%;" class="blog-neighbor-img " src="/link/resources/images/userblogimgs/${blog.BOARDMAINIMG }" alt=""
+											>
 											</a>
 										</div>
-										
+
 									</div>
 								</c:forEach>
 							</c:when>
@@ -253,7 +254,13 @@
 									</div>
 									<div class="col-sm-12">
 										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit. Consequatur, officiis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum labore mollitia officia nihil maiores ratione libero magnam perspiciatis reprehenderit nam rem amet. Dolorum totam autem quam natus obcaecati quasi optio nihil ducimus minima quia! Ea blanditiis assumenda tenetur nisi quia amet distinctio voluptatem molestias eligendi voluptatibus repudiandae odio. Necessitatibus tempora doloribus quaerat ad saepe obcaecati nemo provident sapiente ducimus itaque eum inventore. Deserunt nulla aperiam quam a ipsam blanditiis vitae pariatur fugiat earum minus commodi similique totam reprehenderit animi odit placeat quaerat officiis quae et eum sequi fugit error iure libero ducimus accusamus delectus laboriosam aut ratione neque. Exercitationem natus?</p>
+											consectetur adipisicing elit. Consequatur, officiis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum labore
+											mollitia officia nihil maiores ratione libero magnam perspiciatis reprehenderit nam rem amet. Dolorum totam autem quam natus
+											obcaecati quasi optio nihil ducimus minima quia! Ea blanditiis assumenda tenetur nisi quia amet distinctio voluptatem molestias
+											eligendi voluptatibus repudiandae odio. Necessitatibus tempora doloribus quaerat ad saepe obcaecati nemo provident sapiente
+											ducimus itaque eum inventore. Deserunt nulla aperiam quam a ipsam blanditiis vitae pariatur fugiat earum minus commodi similique
+											totam reprehenderit animi odit placeat quaerat officiis quae et eum sequi fugit error iure libero ducimus accusamus delectus
+											laboriosam aut ratione neque. Exercitationem natus?</p>
 									</div>
 								</a>
 							</div>
@@ -329,33 +336,19 @@
 
 							<div class="row blog-col-6 text-center">
 								<div class="col-sm-12">
-									<div class="row blog-alarm">
-										<div class="col-sm-10">
-											<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="">호야님이 서로이웃을 신청했습니다.</a>
+									<c:forEach var="request" items="${realRequestList}">
+										<div class="row blog-alarm">
+											<div class="col-sm-10">
+												<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a
+													href="detail.do?blogNo=${request.neighborhoodBlogNo }"
+												>${request.neighborNickName }님이 서로이웃을 신청했습니다.</a>
+											</div>
+											<div class="col-sm-1">
+												<a href=""><span class="glyphicon glyphicon-remove"></span></a>
+											</div>
 										</div>
-										<div class="col-sm-1">
-											<a href=""><span class="glyphicon glyphicon-remove"></span></a>
-										</div>
-									</div>
-									<div class="row blog-alarm">
-										<div class="col-sm-10">
-											<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="">호야님이 서로이웃을 신청했습니다.</a>
-										</div>
-										<div class="col-sm-1">
-											<a href=""><span class="glyphicon glyphicon-remove"></span></a>
-										</div>
-									</div>
-									<div class="row blog-alarm">
-										<div class="col-sm-10">
-											<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="">호야님이 서로이웃을 신청했습니다.</a>
-										</div>
-										<div class="col-sm-1">
-											<a href=""><span class="glyphicon glyphicon-remove"></span></a>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
-
-
 							</div>
 							<div class="row blog-col-7">
 								<div class="col-sm-12">
@@ -386,11 +379,9 @@
 		</div>
 	</div>
 	<script>
-	$(function(){
-		$('.blog-neighbor-contents3 img').hide();
-		$('.blog-neighbor-contents3 p').css().remove();
-		$('.blog-neighbor-contents3 span').remove();
-	})
+		$(function() {
+			$('.blog-neighbor-contents3 img').hide();
+		})
 	</script>
 </body>
 </html>

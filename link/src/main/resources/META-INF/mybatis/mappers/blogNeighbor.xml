@@ -72,4 +72,30 @@ from
         row_no &lt;= 2
 </select>
 
+<select id="isNeighbor" parameterType="map" resultType="int">
+	select 
+		b.neighborhood_no
+	from 
+		blog a, blog_neighbor b
+	where 
+		a.blog_no = b.blog_no
+	and 
+		a.blog_no = #{myBlogNo}
+	and 
+		b.neighborhood_no = #{neighborhoodNo}
+</select>
+<select id="getNeighborRequest" parameterType="int" resultType="map">
+	select 
+		c.user_id NEIGHBORID, c.user_nickName NICKNAME, d.blog_no NEIGHBORBLOGNO 
+	from 
+		blog a, blog_neighbor b, users c, blog d
+	where
+	    a.blog_no = b.neighborhood_no
+	and
+	    b.blog_no = d.blog_no
+	and
+	    d.user_id = c.user_id
+	and
+	    a.blog_no = #{value}
+</select>
 </mapper>
