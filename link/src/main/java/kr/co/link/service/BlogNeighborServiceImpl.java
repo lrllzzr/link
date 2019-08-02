@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.co.link.dao.BlogDao;
 import kr.co.link.dao.BlogNeighborDao;
 import kr.co.link.vo.Blog;
+import kr.co.link.vo.BlogNeighbor;
 import kr.co.link.vo.User;
 
 @Service
@@ -35,6 +36,25 @@ public class BlogNeighborServiceImpl implements BlogNeighborService{
 	@Override
 	public List<Map<String, Object>> getNeighborRequest(Integer blogNo) {
 		return blogNeighborDao.getNeighborRequest(blogNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> getNeighborNoByBlogNo(Map<String, Object> map) {
+		return blogNeighborDao.getNeighborNoByBlogNo(map);
+	}
+
+	@Override
+	public void addNewNeighborRequest(BlogNeighbor blogNeighbor) {
+		blogNeighborDao.addNewNeighborRequest(blogNeighbor);
+	}
+
+	@Override
+	public void updateBlogNeighbor(BlogNeighbor blogNeighbor) {
+		blogNeighborDao.updateBlogNeighbor(blogNeighbor);
+	}
+	@Override
+	public BlogNeighbor getNeighborByMyBlogNo(Map<String, Object> map) {
+		return blogNeighborDao.getNeighborByMyBlogNo(map);
 	}
 	
 }

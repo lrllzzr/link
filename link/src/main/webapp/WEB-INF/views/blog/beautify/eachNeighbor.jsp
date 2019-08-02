@@ -42,42 +42,50 @@
 						</ul>
 					</div>
 					<div class="col-sm-12">
-						<table class="table blog_table">
-						<colgroup>
-							<col width="25%">
-							<col width="35%">
-							<col width="20%">
-							<col width="20%">
-						</colgroup>
-							<thead>
-								<tr>
-									<th><input type="checkbox"></input>신청한 사람</th>
-									<th class="text-center">메시지</th>
-									<th class="text-center">신청일</th>
-									<th class="text-center">관리</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><input type="checkbox"></input>호야(asdkjl)</td>
-									<td>이웃신청합니다</td>
-									<td class="text-center">19.07.01</td>
-									<td class="text-center">
-										<button class="btn btn-default btn-sm">수락</button>
-										<button class="btn btn-default btn-sm">거절</button>
-									</td>
-								</tr>
-
-								<tr class="blogselectAllTd">
-									<td class="blogselectAllTd">
-										<span class="blog_selectAll_span"><input type="checkbox"></input>전체선택</span>
-										<button class="btn btn-default btn-sm">수락</button>
-										<button class="btn btn-default btn-sm">거절</button>
-									</td>
-								</tr>
-
-							</tbody>
-						</table>
+						
+							<table class="table blog_table">
+								<colgroup>
+									<col width="25%">
+									<col width="35%">
+									<col width="20%">
+									<col width="20%">
+								</colgroup>
+								<thead>
+									<tr>
+										<th><input type="checkbox" id="blog_whoApply" name=""></input>신청한 사람</th>
+										<th class="text-center">메시지</th>
+										<th class="text-center">신청일</th>
+										<th class="text-center">관리</th>
+									</tr>
+								</thead>
+								<tbody>
+								<form id="neighborForm" action="eachNeighbor.do" method="post">
+									<input type="hidden" name="reply" id="hiddenInput1" />
+									<c:forEach var="neighbor" items="${neighbors }">
+										<tr>
+											<td>
+												<input type="checkbox" name="neighborBlogNo" value="${neighbor.BLOGNO }"/>${neighbor.NICKNAME }(${neighbor.USERID  })
+											</td>
+											<td>${neighbor.MESSAGE}</td>
+											<td class="text-center">
+												<fmt:formatDate value="${neighbor.CREATEDATE}" pattern="yyyy-mm-dd HH:mm" />
+											</td>
+											<td class="text-center">
+												<button id="singo" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-exclamation-sign"></span>신고</button>
+											</td>
+										</tr>
+									</c:forEach>
+									</form>
+									<tr class="blogselectAllTd">
+										<td class="blogselectAllTd">
+											<span class="blog_selectAll_span"><input type="checkbox" id="blog_select_all"></input>전체선택</span>
+											<button class="btn btn-default btn-sm blog_neigh_accept_btn">수락</button>
+											<button class="btn btn-default btn-sm blog_neigh_deny_btn">거절</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						
 					</div>
 				</div>
 			</div>
@@ -85,6 +93,55 @@
 	</div>
 	<script>
 		$(function() {
+			$('#singo').click(function(){
+				var result = confirm('신고하시겠습니까?');
+				if(result){
+					alert('신고되었습니다.');
+				}
+			});
+			$('.blog_neigh_accept_btn').click(function(){
+				var isChecked = false;
+				$.each($('tbody input[type=checkbox]'), function(index,item){
+					console.log(item);
+					if($(this).prop('checked') == true){
+						isChecked = true;
+						console.log('each 안: '+isChecked);
+					}
+				});
+				
+				if(isChecked == true){
+					$('#hiddenInput1').val('accept');
+					neighborForm.submit();
+				} else{
+					alert('수락할 항목을 선택해주세요');
+					return false;
+				}
+			});
+			
+			$('.blog_neigh_deny_btn').click(function(){
+				var isChecked = false;
+				$.each($('tbody input[type=checkbox]'), function(){
+					if($(this).prop('checked') == true){
+						isChecked = true;
+					}
+				});
+				if(isChecked == true){
+					$('#hiddenInput1').val('deny');
+					neighborForm.submit();
+				} else{
+					alert('거절할 항목을 선택해주세요');
+					return false;
+				}
+				
+			});
+			
+			$('#blog_select_all').change(function() {
+				$('table input[type=checkbox]').prop('checked', $(this).prop('checked'));
+			});
+			$('#blog_whoApply').change(function() {
+				$('table input[type=checkbox]').prop('checked', $(this).prop('checked'));
+			});
+
 			$('.blog_beuaty_submit_button').click(function() {
 				if ($('.blog_manage_input').val() == "") {
 					alert('블로그명은 필수입력 사항입니다.');

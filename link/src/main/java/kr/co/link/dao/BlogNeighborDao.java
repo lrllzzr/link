@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.link.vo.Blog;
 import kr.co.link.vo.BlogBoard;
+import kr.co.link.vo.BlogNeighbor;
 
 @Repository
 public interface BlogNeighborDao {
@@ -14,4 +15,8 @@ public interface BlogNeighborDao {
 	List<Map<String, Object>> getNeighborBlogMap(Integer blogNo);
 	Integer isNeighbor(Map<String, Object> isNeighborMap);
 	List<Map<String, Object>> getNeighborRequest(Integer blogNo);
+	List<Map<String, Object>> getNeighborNoByBlogNo(Map<String, Object> map);
+	void addNewNeighborRequest(BlogNeighbor blogNeighbor);
+	void updateBlogNeighbor(BlogNeighbor blogNeighbor);
+	BlogNeighbor getNeighborByMyBlogNo(Map<String, Object> map);
 }

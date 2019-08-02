@@ -207,7 +207,6 @@ public class BlogDetailController {
 						isNeighborMap.put("neighborhoodNo", neighborhoodBlogNo);
 						Integer isBlog1 = blogNeighborService.isNeighbor(isNeighborMap);
 						
-						
 						// 상대방이 나를 이웃으로 가지고 있는지
 						Map<String, Object> isNeighborMap2 = new HashMap<String, Object>();
 						isNeighborMap.put("myBlogNo", neighborhoodBlogNo);

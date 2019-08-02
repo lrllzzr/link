@@ -358,7 +358,6 @@
 
 						</c:otherwise>
 					</c:choose>
-
 				</div>
 			</c:if>
 			<c:if test="${empty LOGIN_USER }">

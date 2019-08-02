@@ -37,6 +37,56 @@
 	and 
 		b.neighborhood_type = #{type}
 </select>
+<select id="getNeighborNoByBlogNo" parameterType="map" resultType="map">
+		select
+			NEIGHBORHOOD_NO no,
+			a.BLOG_NO blogNo,
+			NEIGHBORHOOD_TYPE type,
+			NEIGHBOR_STATUS status,
+            c.user_id userId,
+            c.user_name nickName,
+            a.NEIGHBOR_MESSAGE message,
+            a.neighbor_create_date createDate
+		from
+			blog_neighbor a, blog b, users c
+		where
+            b.user_id = c.user_id
+        and
+            a.blog_no = b.blog_no
+        and
+            a.NEIGHBORHOOD_NO = #{myBlogNo}
+		<if test="type !=null">
+			and
+				a.NEIGHBORHOOD_TYPE = #{type}
+		</if>
+		<if test="status !=null">
+			and
+				a.NEIGHBOR_STATUS = #{status}
+		</if>
+</select>
+<insert id="addNewNeighborRequest" parameterType="blogNeighbor">
+	insert into blog_neighbor
+		(NEIGHBORHOOD_NO,
+		BLOG_NO,
+		NEIGHBORHOOD_TYPE,
+		NEIGHBOR_STATUS,
+		NEIGHBOR_MESSAGE,
+		NEIGHBOR_CREATE_DATE)
+	values
+	(#{no}, #{blogNo}, #{type}, #{status}, #{message}, sysdate)
+</insert>
+<update id="updateBlogNeighbor" parameterType="blogNeighbor">
+	update blog_neighbor
+	set
+		NEIGHBORHOOD_TYPE = #{type},
+		NEIGHBOR_STATUS = #{status},
+		NEIGHBOR_MESSAGE = #{message},
+		NEIGHBOR_CREATE_DATE = #{createDate}
+	where
+		NEIGHBORHOOD_NO = #{no}
+	and
+		BLOG_NO = #{blogNo}
+</update>
 <select id="getNeighborBlogMap" parameterType="int" resultType="map">
 	
 select row_no, id, nickName, title, categoryNo, boardNo, contents, no, boardMainImg, blogMainImg
@@ -86,7 +136,9 @@ from
 </select>
 <select id="getNeighborRequest" parameterType="int" resultType="map">
 	select 
-		c.user_id NEIGHBORID, c.user_nickName NICKNAME, d.blog_no NEIGHBORBLOGNO 
+		c.user_id NEIGHBORID, 
+		c.user_nickName NICKNAME, 
+		d.blog_no NEIGHBORBLOGNO
 	from 
 		blog a, blog_neighbor b, users c, blog d
 	where
@@ -97,5 +149,21 @@ from
 	    d.user_id = c.user_id
 	and
 	    a.blog_no = #{value}
+</select>
+<select id="getNeighborByMyBlogNo" parameterType="map" resultType="blogNeighbor">
+	select
+		NEIGHBORHOOD_NO no,
+		BLOG_NO blogNo,
+		NEIGHBORHOOD_TYPE type,
+		NEIGHBOR_STATUS status,
+		NEIGHBOR_MESSAGE message,
+		NEIGHBOR_CREATE_DATE createDate
+	from
+		blog_neighbor
+	where
+		neighborhood_no = #{myBlogNo}
+	and
+		blog_no = #{neighborBlogNo}
+
 </select>
 </mapper>
