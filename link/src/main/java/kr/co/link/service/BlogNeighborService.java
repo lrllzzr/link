@@ -14,7 +14,7 @@ public interface BlogNeighborService {
 	List<Blog> getNeighborByBlogNo(Map<String, Object> neighborMap);
 	List<Map<String, Object>> getNeighborBlogMap(Integer blogNo);
 	Integer isNeighbor(Map<String, Object> isNeighborMap);
-	List<Map<String, Object>> getNeighborRequest(Integer blogNo);
+	List<Map<String, Object>> getNeighborRequest(Map<String, Object> map);
 	List<Map<String, Object>> getNeighborNoByBlogNo(Map<String, Object> map);
 	void addNewNeighborRequest(BlogNeighbor blogNeighbor);
 	void updateBlogNeighbor(BlogNeighbor blogNeighbor);

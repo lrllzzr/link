@@ -357,5 +357,4 @@ public class BlogBeautyController {
 	}
 	
 	
-	
 }

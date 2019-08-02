@@ -29,8 +29,18 @@
 	</div>
 </c:if>
 <c:if test="${isMyBlog eq 'others' }">
-	<div class="col-sm-8 col-sm-offset-2 blog_detail_neighborplus text-center">
-		<a href=""><span class="blog_detail_plus">+</span><span class="blog_detail_plus2">이웃추가</span></a>
-	</div>
+	<!-- 이웃이 아니면  -->
+	<c:if test="${isNeighbor eq 'N' }">
+		<div class="col-sm-8 col-sm-offset-2 blog_detail_neighborplus text-center">
+			<a href="addNeighbor.do?blogNo=${blog.no }"><span class="blog_detail_plus">+</span><span class="blog_detail_plus2">이웃추가</span></a>
+		</div>
+	</c:if>
+	<!-- 이웃이면  -->
+	<c:if test="${isNeighbor eq 'Y' }">
+		<div class="col-sm-8 col-sm-offset-2 blog_detail_neighborplus text-center">
+			<a href=""><span class="blog_detail_plus2">이웃</span></a>
+		</div>
+	</c:if>
+	
 </c:if>
 <!-- 내 블로그면 끝  -->

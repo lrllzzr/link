@@ -336,12 +336,12 @@
 
 							<div class="row blog-col-6 text-center">
 								<div class="col-sm-12">
-									<c:forEach var="request" items="${realRequestList}">
+									<c:forEach var="request" items="${requestList}">
 										<div class="row blog-alarm">
 											<div class="col-sm-10">
 												<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a
-													href="detail.do?blogNo=${request.neighborhoodBlogNo }"
-												>${request.neighborNickName }님이 서로이웃을 신청했습니다.</a>
+													href="eachNeighbor.do"
+												>${request.NICKNAME }님이 서로이웃을 신청했습니다.</a>
 											</div>
 											<div class="col-sm-1">
 												<a href=""><span class="glyphicon glyphicon-remove"></span></a>

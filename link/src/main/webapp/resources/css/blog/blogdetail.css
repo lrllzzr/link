@@ -6,7 +6,37 @@ body {
     background-color: white;
     padding-bottom: 50px;
 }
+.blog_neighbor_apply_div1{
+	margin-bottom: 20px;	
+}
+.blog-btn-apply1,
+.blog-btn-apply1:hover,
+.blog-btn-apply1:focus,
+.blog-btn-apply1:active{
+	background-color:#649dfa !important;
+	color:white !important;
+}
+.blog-btn-apply2,
+.blog-btn-apply2:hover,
+.blog-btn-apply2:focus,
+.blog-btn-apply2:active{
+	color:black !important;
+	background-color:white !important;
+}
 
+.blog_add_neighbor_row_1{
+	font-size: 17px;
+}
+.blog_request_div1, .blog_request_div2{
+	border:1px solid lightgray;
+	padding:5px 10px;
+	cursor: pointer;
+}
+.blog_neighbor_selected1{
+font-weight:bold;
+	background-color:#649dfa;
+	color:white;
+}
 .blog_detail_title{
     font-size: 17px;
     font-weight: bold;
