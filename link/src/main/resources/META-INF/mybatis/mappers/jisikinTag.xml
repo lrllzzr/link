@@ -12,4 +12,14 @@
 		(jisikin_tag_seq.nextval, #{tagName}, #{jisikinNo})
 	</insert>
 	
+	<select id="getTagByJisikin" parameterType="int" resultType="jisikinTag">
+		select
+			tag_no no,
+			tag_name tagName,
+			jisikin_no jisikinNo
+		from
+			jisikin_tag
+		where
+			jisikin_no = #{value}
+	</select>
 </mapper>

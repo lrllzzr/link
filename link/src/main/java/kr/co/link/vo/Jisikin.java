@@ -19,11 +19,25 @@ public class Jisikin {
 	
 	private Integer countAnswer;
 	
+	private List<JisikinTag> tags;
+	
 	
 	public Jisikin() {}
 
 	
 	
+	public List<JisikinTag> getTags() {
+		return tags;
+	}
+
+
+
+	public void setTags(List<JisikinTag> tags) {
+		this.tags = tags;
+	}
+
+
+
 	public Integer getCountAnswer() {
 		return countAnswer;
 	}

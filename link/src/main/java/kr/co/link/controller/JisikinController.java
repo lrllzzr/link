@@ -68,6 +68,11 @@ public class JisikinController {
 	@RequestMapping("/questionDetail.do")
 	public String questionDetail(@RequestParam(value= "jisikinNo")int jisikinNo, Model model) {
 		Jisikin jisikin = jisikinService.getJisikinByNo(jisikinNo);
+		
+		// 태그들 지식인에 담기
+		List<JisikinTag> tags = tagService.getTagByJisikin(jisikinNo);
+		jisikin.setTags(tags);
+		
 		model.addAttribute("jisikin", jisikin);
 		
 		return "jisikin/jisikinQuestion";

@@ -54,15 +54,10 @@
                 </div>
 
                 <div class="tag-list tag-list--end-title" role="region" aria-label="관련태그 목록" data-select="type-a">
-                    <a href="#" class="tag-list__item tag-list__item--category" target="_blank"><span class="blind">태그 디렉터리</span>Ξ 고등학교교육</a>
 
-                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>공부</a>
-
-                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>문제집추천</a>
-
-                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>예비고1</a>
-
-                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>영어</a>
+				<c:forEach var="tag" items="${jisikin.tags}">
+                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>${tag.tagName }</a>
+                	</c:forEach> 
 
                 </div>
 

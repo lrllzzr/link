@@ -1,5 +1,7 @@
 package kr.co.link.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class JisikinTagServiceImpl implements JisikinTagService{
 	@Override
 	public void addTag(JisikinTag jiskinTag) {
 		tagDao.addTag(jiskinTag);
+	}
+	
+	@Override
+	public List<JisikinTag> getTagByJisikin(int jisikinNo) {
+		return tagDao.getTagByJisikin(jisikinNo);
 	}
 
 }
