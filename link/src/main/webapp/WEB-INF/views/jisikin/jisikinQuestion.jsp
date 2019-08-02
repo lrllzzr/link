@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="/link/resources/js/jquery.timeago.js"></script>
+    <script src="/link/resources/js/jquery.timeago.ko.js"></script>
     <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinmain.css">
 	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinQna.css">
@@ -38,16 +40,16 @@
                     <div class="c-heading__title">
                         <div class="c-heading__title-inner">
                                 <div class="c-heading__icons-front">
-                                    <span class="grade-point grade-point__large"><span class="blind">내공</span>50</span>
+                                    <span class="grade-point grade-point__large"><span class="blind">내공</span>${jisikin.mentalPoint }</span>
                                 </div>
 
                             <div class="title">	
-                                        예비고1 문제집 추천 좀요
+                                        ${jisikin.title }
                             </div>
                         </div>
                     </div>
                     <div class="c-heading__content">
-                        현 중3입니다. 아직 고등학교 내용은 한 번도 본 적 없고 이번이 처음입니다. 예비고1 문제집, 특히 영어 문제집을 좀 추천해주셨으면 좋겠습니다. 타과목들도 괜찮다 싶은 문제집 소개해 주면 감사하겠는데 수학은 필요 없어요.<br> 제가 초6 때부터 영어 학원을 안 다니고 혼자서 공부를 하고 있는데 중학교 영어는 따라가는데 큰 문제가 없었지만 고등학교는 좀 불안해서요. 고등학교 문제집 말고도 중학교 3년 간 배운 영문법을 총정리하는 문제집있다면 추천해주셨음 합니다.
+                    					${jisikin.contents }
                     </div>
                 </div>
 
@@ -80,9 +82,11 @@
                                     </ul>
                                 </div>
                             </div>
-                                    <span class="c-userinfo__author"><span class="blind">닉네임</span>비공개</span>
+                                    <span class="c-userinfo__author" style="margin-left:20px;"><span class="blind">닉네임</span>
+                                    ${jisikin.secretYn eq 'Y' ? jisikin.userId : '비공개'}
+                                    </span>
                         </div>
-                        <span class="c-userinfo__date"><span class="blind">작성일</span>26분 전</span>
+                        <span class="c-userinfo__date tg">${jisikin.createTime }</span>
                     </div>
 
                     <div class="c-userinfo__right" role="listbox">
@@ -251,7 +255,14 @@
             return false;
           }
         })
-          
+        
+        
+     // timeAgo
+        $(".tg").each(function(){
+           var timeago_t = jQuery.timeago( new Date(parseInt($(this).text())));
+           console.log(timeago_t);
+           $(this).text(timeago_t);
+        });
       })
 
     $(".c-userinfo__left").hover(function(){

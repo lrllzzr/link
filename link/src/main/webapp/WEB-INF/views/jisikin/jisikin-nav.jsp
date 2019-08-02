@@ -14,20 +14,20 @@
                   <a href="/link/jisikin/qna.do" class="qna-toggle dropdown-toggle" aria-expanded="false">Q&A <span data-toggle="dropdown" role="button" class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="/link/jisikin/qna.do?categoryNo=1">교육,학문</a></li>    
-                    <li><a href="#">컴퓨터통신</a></li>
-                    <li><a href="#">게임</a></li>
-                    <li><a href="#">엔터테인먼트,예술</a></li>
-                    <li><a href="#">생활</a></li>
-                    <li><a href="#">건강</a></li>
-                    <li><a href="#">사회,정치</a></li>
-                    <li><a href="#">경제</a></li>
-                    <li><a href="#">여행</a></li>
-                    <li><a href="#">스포츠,레저</a></li>
-                    <li><a href="#">쇼핑</a></li>
-                    <li><a href="#">쥬니버Q&A</a></li>
-                    <li><a href="#">지역&플레이스</a></li>
-                    <li><a href="#">고민Q&A</a></li>
-                    <li><a href="#">오픈사전</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=2">컴퓨터통신</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=3">게임</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=4">엔터테인먼트,예술</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=5">생활</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=6">건강</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=7">사회,정치</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=8">경제</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=9">여행</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=10">스포츠,레저</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=11">쇼핑</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=12">쥬니버Q&A</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=13">지역&플레이스</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=14">고민Q&A</a></li>
+                    <li><a href="/link/jisikin/qna.do?categoryNo=15">오픈사전</a></li>
                   </ul>
                 </li>
                 <li class="menu-tab">

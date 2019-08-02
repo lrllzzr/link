@@ -39,4 +39,9 @@ public class JisikinServiceImpl implements JisikinService {
 	public List<Jisikin> getAllJisikin() {
 		return jisikinDao.getAllJisikin();
 	}
+	
+	@Override
+	public Jisikin getJisikinByNo(int jisikinNo) {
+		return (Jisikin)jisikinDao.getJisikinByNo(jisikinNo);
+	}
 }

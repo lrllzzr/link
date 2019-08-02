@@ -1,6 +1,7 @@
 package kr.co.link.vo;
 
 import java.util.Date;
+import java.util.List;
 
 
 public class Jisikin {
@@ -16,7 +17,24 @@ public class Jisikin {
 	private Integer recommend;
 	private String userId;
 	
+	private Integer countAnswer;
+	
+	
 	public Jisikin() {}
+
+	
+	
+	public Integer getCountAnswer() {
+		return countAnswer;
+	}
+
+
+
+	public void setCountAnswer(Integer countAnswer) {
+		this.countAnswer = countAnswer;
+	}
+
+
 
 	public Integer getNo() {
 		return no;

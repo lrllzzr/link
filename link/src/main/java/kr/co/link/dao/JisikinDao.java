@@ -15,4 +15,5 @@ public interface JisikinDao {
 	public int countTodayJisikin();
 	public List<Jisikin> getJisikinByCategory(int categoryNo);
 	public List<Jisikin> getAllJisikin();
+	public Jisikin getJisikinByNo(int jisikinNo);
 }

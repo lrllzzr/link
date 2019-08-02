@@ -42,6 +42,11 @@
             }
             
         })
+        app.filter("timeago", function() {
+        	return function(time) {
+        		return jQuery.timeago( new Date(time));
+        	}
+        })
 	</script>
 </head>
 <body  ng-app="myApp" ng-controller="categoryCtrl">
@@ -111,11 +116,11 @@
 
 						<tr ng-repeat="question in jisikinByCategory">
 							<td class="title">
-	                                <a href="#" rel="KIN" target="_blank" class="">{{question.title}}</a>
+	                                <a href="/link/jisikin/questionDetail.do?jisikinNo={{question.no}}" rel="KIN" target="_blank" class="">{{question.title}}</a>
 	                            </td>
 	                            <td class="field"><a href="#" class="">{{question.category.name}}</a></td>
-	                            <td class="t_num">0</td>
-	                            <td class="t_num tg">{{question.createTime }}</td>
+	                            <td class="t_num">{{question.countAnswer}}</td>
+	                            <td class="t_num tg">{{question.createTime | timeago}}</td>
 	                        </tr>
 	                 </tbody>
 	                        
@@ -124,10 +129,10 @@
 						<c:forEach var="all" items="${allJisikin }">
 	                        <tr>
 	                            <td class="title">
-	                                <a href="#" rel="KIN" target="_blank" class="">${all.title }</a>
+	                                <a href="/link/jisikin/questionDetail.do?jisikinNo=${all.no}" rel="KIN" target="_blank" class="">${all.title }</a>
 	                            </td>
 	                            <td class="field"><a href="#" class="">${all.category.name }</a></td>
-	                            <td class="t_num">0</td>
+	                            <td class="t_num">${all.countAnswer }</td>
 	                            <td class="t_num tg">${all.createTime }</td>
 	                        </tr>
 						</c:forEach>

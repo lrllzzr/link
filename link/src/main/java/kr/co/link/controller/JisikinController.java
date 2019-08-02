@@ -36,12 +36,14 @@ public class JisikinController {
 	private JisikinTagService tagService;
 	
 	@RequestMapping("/main.do")
-	public String main() {
+	public String main(Model model) {
+		int countToday = jisikinService.countTodayJisikin();
+		model.addAttribute("countToday", countToday);
 		
 		return "jisikin/jisikinMain";
 	}
 	
-	// Q&A
+	// Q&A							값이 없어도되는      변수명과 값일치      required=false일때 기본값
 	@RequestMapping("/qna.do")
 	public String qna(@RequestParam(required = false, value = "categoryNo", defaultValue = "0")int categoryNo, Model model) {
 		if (categoryNo == 0) {
@@ -61,8 +63,12 @@ public class JisikinController {
 		return "jisikin/jisikinQna";
 	}
 	
-	@RequestMapping("/question.do")
-	public String question() {
+	
+	// 질문 상세
+	@RequestMapping("/questionDetail.do")
+	public String questionDetail(@RequestParam(value= "jisikinNo")int jisikinNo, Model model) {
+		Jisikin jisikin = jisikinService.getJisikinByNo(jisikinNo);
+		model.addAttribute("jisikin", jisikin);
 		
 		return "jisikin/jisikinQuestion";
 	}

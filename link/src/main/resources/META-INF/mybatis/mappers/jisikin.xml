@@ -22,6 +22,28 @@
 		from	dual
 	</select>
 	
+	<select id="getJisikinByNo" parameterType="int" resultType="jisikin">
+		select
+			jisikin_no no, 
+			jisikin_title title, 
+			jisikin_content contents,
+			jisikin_secret_yn secretYn, 
+			jisikin_mental_point mentalPoint, 
+			jisikin.category_no "category.no",
+			category_name "category.name",
+			jisikin_create_date createDate,
+			user_id userId,
+			(select count(answer_no) from jisikin_answer where jisikin_answer.jisikin_no = jisikin.jisikin_no) countAnswer
+		from
+			jisikin, jisikin_category
+		where
+			jisikin.category_no = jisikin_category.category_no
+		and
+			jisikin.jisikin_no = #{value}
+		order by
+			jisikin_create_date desc
+	</select>
+	
 	<select id="getAllJisikin" resultType="jisikin">
 		select
 			jisikin_no no, 
@@ -31,7 +53,9 @@
 			jisikin_mental_point mentalPoint, 
 			jisikin.category_no "category.no",
 			category_name "category.name",
-			jisikin_create_date createDate
+			jisikin_create_date createDate,
+			user_id userId,
+			(select count(answer_no) from jisikin_answer where jisikin_answer.jisikin_no = jisikin.jisikin_no) countAnswer
 		from
 			jisikin, jisikin_category
 		where
@@ -55,7 +79,7 @@
 		where
 			jisikin.category_no = jisikin_category.category_no
 		and
-			jisikin.category_no = #{value}
+			jisikin_category.category_parent_no = #{value}
 		order by
 			jisikin_create_date desc
 	</select>

@@ -368,8 +368,9 @@
                 <div class="aside aside_statistics well">
                     <h4>오늘의 질문과 답변</h4>
                     <div class="stats stats_today">
-                        <span class="blind">질문</span><strong class="num">15,781</strong><em class="slash sp_common">/</em><span class="blind">답변</span><strong class="num">28,849</strong>
-                        <p class="date_info">2019.07.23.</p>
+                        <span class="blind">질문</span><strong class="num">${countToday }</strong><em class="slash sp_common">/</em><span class="blind">답변</span><strong class="num">28,849</strong>
+                        <c:set var="now" value="<%=new java.util.Date()%>" />
+                        <p class="date_info"><fmt:formatDate value="${now }" pattern="yyyy.MM.dd"/></p>
                     </div>
                     <h4>누적 답변수</h4>
                     <div class="stats stats_accum">
