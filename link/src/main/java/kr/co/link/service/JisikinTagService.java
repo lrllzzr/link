@@ -8,4 +8,5 @@ public interface JisikinTagService {
 
 	public void addTag(JisikinTag jiskinTag);
 	public List<JisikinTag> getTagByJisikin(int jisikinNo);
+	public List<JisikinTag> getPopularTagTop10();
 }

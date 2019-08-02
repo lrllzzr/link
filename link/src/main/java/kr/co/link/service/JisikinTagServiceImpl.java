@@ -23,5 +23,9 @@ public class JisikinTagServiceImpl implements JisikinTagService{
 	public List<JisikinTag> getTagByJisikin(int jisikinNo) {
 		return tagDao.getTagByJisikin(jisikinNo);
 	}
-
+	
+	@Override
+	public List<JisikinTag> getPopularTagTop10(){
+		return tagDao.getPopularTagTop10();
+	}
 }

@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.link.form.JisikinForm;
+import kr.co.link.service.JisikinAnswerService;
 import kr.co.link.service.JisikinCategoryService;
 import kr.co.link.service.JisikinService;
 import kr.co.link.service.JisikinTagService;
 import kr.co.link.vo.Jisikin;
+import kr.co.link.vo.JisikinAnswer;
 import kr.co.link.vo.JisikinCategory;
 import kr.co.link.vo.JisikinTag;
 import kr.co.link.vo.User;
@@ -35,10 +37,22 @@ public class JisikinController {
 	@Autowired
 	private JisikinTagService tagService;
 	
+	@Autowired
+	private JisikinAnswerService answerService;
+	
+	
+	// 지식인 메인
 	@RequestMapping("/main.do")
 	public String main(Model model) {
+		
+		// 오늘의 질문
 		int countToday = jisikinService.countTodayJisikin();
 		model.addAttribute("countToday", countToday);
+		
+		// 인기 태그
+		List<JisikinTag> toptag = tagService.getPopularTagTop10();
+		model.addAttribute("toptag", toptag);
+		
 		
 		return "jisikin/jisikinMain";
 	}
@@ -46,6 +60,7 @@ public class JisikinController {
 	// Q&A							값이 없어도되는      변수명과 값일치      required=false일때 기본값
 	@RequestMapping("/qna.do")
 	public String qna(@RequestParam(required = false, value = "categoryNo", defaultValue = "0")int categoryNo, Model model) {
+		// 지식인 카테고리
 		if (categoryNo == 0) {
 			List<Jisikin> allJisikin = jisikinService.getAllJisikin();
 			model.addAttribute("allJisikin", allJisikin);
@@ -57,6 +72,10 @@ public class JisikinController {
 		List<JisikinCategory> categoriesParent = categoryService.getParentCategory();
 		model.addAttribute("categoriesParent", categoriesParent);
 		
+		// 인기 태그
+		List<JisikinTag> toptag = tagService.getPopularTagTop10();
+		model.addAttribute("toptag", toptag);
+		
 		int countToday = jisikinService.countTodayJisikin();
 		model.addAttribute("countToday", countToday);
 		
@@ -65,7 +84,7 @@ public class JisikinController {
 	
 	
 	// 질문 상세
-	@RequestMapping("/questionDetail.do")
+	@RequestMapping(value= "/questionDetail.do", method = RequestMethod.GET)
 	public String questionDetail(@RequestParam(value= "jisikinNo")int jisikinNo, Model model) {
 		Jisikin jisikin = jisikinService.getJisikinByNo(jisikinNo);
 		
@@ -76,6 +95,21 @@ public class JisikinController {
 		model.addAttribute("jisikin", jisikin);
 		
 		return "jisikin/jisikinQuestion";
+	}
+	
+	@RequestMapping(value= "/questionDetail.do", method = RequestMethod.POST)
+	public String questionDetail(JisikinAnswer jisikinAnswer, HttpSession session) {
+		JisikinAnswer answer = new JisikinAnswer();
+		
+		User user = (User) session.getAttribute("LOGIN_USER");
+		BeanUtils.copyProperties(jisikinAnswer, answer);
+		// 작성자 아이디 넣기
+		answer.setUserId(user.getId());
+		System.out.println(answer.getUserId());
+		
+		answerService.addAnswer(answer);
+		
+		return "redirect:jisikin/jisikinQuestion?jisikinNo="+jisikinAnswer.getJisikinNo()+"";
 	}
 	
 	// 카테고리별 질문
@@ -137,8 +171,17 @@ public class JisikinController {
 		return categoryService.getSubCategoryByParent(parentNo);
 	}
 	
+	
+	// 답변하기 메뉴
 	@RequestMapping("/answer.do")
-	public String answer() {
+	public String answer(Model model) {
+		// 인기 태그
+		List<JisikinTag> toptag = tagService.getPopularTagTop10();
+		model.addAttribute("toptag", toptag);
+		
+		// 오늘의 질문
+		int countToday = jisikinService.countTodayJisikin();
+		model.addAttribute("countToday", countToday);
 		
 		return "jisikin/jisikinAnswer";
 	}
@@ -149,8 +192,13 @@ public class JisikinController {
 		return "jisikin/jisikinProfile";
 	}
 	
+	
+	// 명예의 전당
 	@RequestMapping("/rank.do")
-	public String rank() {
+	public String rank(Model model) {
+		// 인기 태그
+		List<JisikinTag> toptag = tagService.getPopularTagTop10();
+		model.addAttribute("toptag", toptag);
 		
 		return "jisikin/jisikinRank";
 	}

@@ -395,23 +395,17 @@
                 <div class="aside aside_tag well">
                     <h4>지식iN 인기태그</h4>
                     <div class="tag_wrap">
-                            <a href="#" class="tag">#안병민</a>
-                            <a href="#" class="tag">#블라디보스톡</a>
-                            <a href="#" class="tag">#중앙HTA</a>
-                            <a href="#" class="tag">#모텔</a>
-                            <a href="#" class="tag">#메인보드</a>
-                            <a href="#" class="tag">#필터</a>
-                            <a href="#" class="tag">#사주풀이</a>
-                            <a href="#" class="tag">#식품공학과</a>
-                            <a href="#" class="tag">#디포유</a>
-                            <a href="#" class="tag">#네이버지도</a>
+                            <c:forEach var="tag" items="${toptag }">
+	                            <a href="#" class="tag">#${tag.tagName }</a>
+                    		</c:forEach>
                     </div>
                 </div>
                 <div class="aside aside_statistics well">
                     <h4>오늘의 질문과 답변</h4>
                     <div class="stats stats_today">
-                        <span class="blind">질문</span><strong class="num">15,781</strong><em class="slash sp_common">/</em><span class="blind">답변</span><strong class="num">28,849</strong>
-                        <p class="date_info">2019.07.23.</p>
+                        <span class="blind">질문</span><strong class="num">${countToday }</strong><em class="slash sp_common">/</em><span class="blind">답변</span><strong class="num">28,849</strong>
+                        <c:set var="now" value="<%=new java.util.Date()%>" />
+                        <p class="date_info"><fmt:formatDate value="${now }" pattern="yyyy.MM.dd"/></p>
                     </div>
                     <h4>누적 답변수</h4>
                     <div class="stats stats_accum">

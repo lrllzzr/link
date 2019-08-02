@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinmain.css">
 	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinQna.css">
 	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinQuestion.css">
+	<script type="text/javascript" src="/link/resources/js/jisikin_se2/js/HuskyEZCreator.js"></script>
 </head>
 <body>
     <%@ include file="../common/nav.jsp" %>
@@ -113,6 +114,32 @@
                     <a href="#" id="answerWriteButton" role="button" aria-expanded="false" aria-controls="" class="c-button-default c-button-default--blue"><span class="c-button-default__title">답변하기</span></a>
                 </div>
             </div>
+       </div>
+       <div class="answer-form well" style="display:none;">
+       		<form action="" method="POST">
+       			<input type="hidden" name="jisikinNo" value="${jisikin.no }"/>
+	       		<div>
+		        		<textarea rows="10" class="form-control" name="contents" id="answer_contents"></textarea>
+		        </div>
+       			<span class="first">아이디 
+                <!-- 공개 설정 레이어 --> 
+                   <select id="secretYN" name="secretYn">
+                   	<option value="N">비공개</option>
+                   	<option value="Y">공개</option>
+                   </select>
+                </span>
+                <!-- 등록 -->
+				<div class="text-center">
+					<div class="btn_c2" style="float:center;">
+						<button type="submit" id="submit-question"
+							class="btn btn-primary _register _clickcode:sbm.ok">답변등록</button>
+					</div>
+					<div class="btn_r" style="float:right; margin-top : -34px;">
+						<button type="button"
+							class="btn btn-default answer-cancel">작성취소</button>
+					</div>
+				</div>
+				</form>
        </div>
    </div>
    <div class="row">
@@ -235,7 +262,44 @@
 </div>
 
 <script>
+   	/* 스마트에디터 */
+   	var oEditors = [];
+
+   	/* 스마트에디터 사진 */
+   	function pasteHTML(filepath){
+   		setTimeout(function() {
+   	    	var sHTML = '<img src="/link/resources/js/jisikin_se2/photo_uploader/upload/'+filepath+'">';
+   	    	oEditors.getById['answer_contents'].exec("PASTE_HTML", [sHTML]);
+   		}, 5000);
+   	}
+   	
     $(document).ready(function(){
+    	
+		$("#answerWriteButton").click(function(){
+			$(".answer-form").css("display", "block");
+			
+			$('iframe').remove();
+			console.log(oEditors);
+			// 에디터 창
+	    	nhn.husky.EZCreator.createInIFrame({
+	    		oAppRef: oEditors,
+	    			elPlaceHolder: "answer_contents",
+	    			sSkinURI: "/link/resources/js/jisikin_se2/SmartEditor2Skin.html",
+	    			fCreator: "createSEditor2",
+	    			htParams : {
+	    				fOnBeforeUnload : function() {
+	    				}
+	    			}
+	    		// 이페이지 나오기 alert 삭제
+	    		});
+		})
+		
+		$(".answer-cancel").click(function(){
+			$(".answer-form").css("display", "none");
+		})
+    	
+    	
+    	
          
         $('.dropdown,.dropdown-menu').hover(function(){
 

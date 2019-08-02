@@ -116,7 +116,7 @@
 
 						<tr ng-repeat="question in jisikinByCategory">
 							<td class="title">
-	                                <a href="/link/jisikin/questionDetail.do?jisikinNo={{question.no}}" rel="KIN" target="_blank" class="">{{question.title}}</a>
+	                                <a href="/link/jisikin/questionDetail.do?jisikinNo={{question.no}}" rel="KIN" class="">{{question.title}}</a>
 	                            </td>
 	                            <td class="field"><a href="#" class="">{{question.category.name}}</a></td>
 	                            <td class="t_num">{{question.countAnswer}}</td>
@@ -129,7 +129,7 @@
 						<c:forEach var="all" items="${allJisikin }">
 	                        <tr>
 	                            <td class="title">
-	                                <a href="/link/jisikin/questionDetail.do?jisikinNo=${all.no}" rel="KIN" target="_blank" class="">${all.title }</a>
+	                                <a href="/link/jisikin/questionDetail.do?jisikinNo=${all.no}" rel="KIN" class="">${all.title }</a>
 	                            </td>
 	                            <td class="field"><a href="#" class="">${all.category.name }</a></td>
 	                            <td class="t_num">${all.countAnswer }</td>
@@ -198,7 +198,10 @@
        </div>
    </div>
        <div class="col-sm-3 aside-content">
-            <div class="aside-login" style="display: none;">
+       
+       <c:choose>
+       	<c:when test="${empty LOGIN_USER}">
+            <div class="aside-login"">
                <p class="top_text">질문과 답변을 하고 싶다면,</p>
                 <button type="text" class="btn btn-default">
                     <img src="/link/resources/images/link_logo.PNG" alt="" style="width: 50%;"><strong>로그인</strong>
@@ -214,68 +217,80 @@
                         <a href="#">회원가입</a>
                     </div>
 			    </div>
-            </div>
-            <div class="aside-login" style="background-color: #f8f8f8; border: 1px solid #e3e3e3;">
-                <div id="aside_login" class="aside_myinfo">
-	<h2 class="blind">NAVER <em>로그인</em> 영역</h2>
-	
-		<div class="my_wrap">
-			<a href="/myinfo/index.nhn" onclick="nhn.Kin.Utility.nClicks('kmy_lgd.id','','',event);">
-				<div class="my_photo">
-					<img src="https://ssl.pstatic.net/static/kin/09renewal/avatar/200x200_m/4.png" alt="프로필이미지" class="img" width="50" height="50">
-				</div>
-				<div class="my_service">
-					<p class="user_id ellipsis">allman956</p>
-					<p class="user_mykin">프로필 바로가기 <span>&gt;</span></p>
-				</div>
-			</a>
-			<span class="btn_login_area">
-				<a href="https://nid.naver.com/nidlogin.logout?retrul=https%3A%2F%2Fkin.naver.com%2Fqna%2Flist.nhn" onclick="nhn.Kin.Utility.nClicks('kmy_lgd.out', '', '', event);" class="btn_login">로그아웃</a>
-			</span>
-		<div class="mykin_wrap _tab_myarea">
-					<div class="mykin_tab_content tc-panel tc-selected"><h4 class="blind">나의 지식iN</h4><div class="scroll_area _panel"><div class="gradeup_info">
-		<div class="lv_area grd_lv4">
-			<div class="mylv">
-				<div class="gauge" id="level_guage">
-					<div class="grd_wrap">
-						
-						<div class="inner" style="width: 14%;">
-							<div class="grd_bar"><span class="grd_action"></span></div>
+           </div>
+       	</c:when>
+       	<c:otherwise>
+			<div class="aside-login" style="background-color: #f8f8f8; border: 1px solid #e3e3e3;">
+				<div id="aside_login" class="aside_myinfo">
+					<h2 class="blind">
+						NAVER <em>로그인</em> 영역
+					</h2>
+					<div class="my_wrap">
+						<a href="/myinfo/index.nhn">
+							<div class="my_photo">
+								<img
+									src="https://ssl.pstatic.net/static/kin/09renewal/avatar/200x200_m/4.png"
+									alt="프로필이미지" class="img" width="50" height="50">
+							</div>
+							<div class="my_service">
+								<p class="user_id ellipsis">${LOGIN_USER.id }</p>
+								<p class="user_mykin">
+									프로필 바로가기 <span>&gt;</span>
+								</p>
+							</div>
+						</a> <span class="btn_login_area"> <a
+							href="https://nid.naver.com/nidlogin.logout?retrul=https%3A%2F%2Fkin.naver.com%2Fqna%2Flist.nhn"
+							onclick="nhn.Kin.Utility.nClicks('kmy_lgd.out', '', '', event);"
+							class="btn_login">로그아웃</a>
+						</span>
+						<div class="mykin_wrap _tab_myarea">
+							<div class="mykin_tab_content tc-panel tc-selected">
+								<h4 class="blind">나의 지식iN</h4>
+								<div class="scroll_area _panel">
+									<div class="gradeup_info">
+										<div class="lv_area grd_lv4">
+											<div class="mylv">
+												<div class="gauge" id="level_guage">
+													<div class="grd_wrap">
+
+														<div class="inner" style="width: 14%;">
+															<div class="grd_bar">
+																<span class="grd_action"></span>
+															</div>
+														</div>
+													</div>
+													<div class="my_level_num" style="padding-top: 40px;">
+														<strong style="display: block;">내공:</strong> <strong
+															style="display: block;">${LOGIN_USER.mentalPoint }</strong>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
 						</div>
-					</div>
-					<div class="my_level_num"  style="padding-top: 40px;">
-					    <strong style="display: block;">내공:</strong> <strong style="display:block;">1,704</strong>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div></div></div>
-			
-		</div>
-		</div>
-	
-	
-	
-			
-	
-	<!-- 관심키워드 추가 레이어 -->
+       	</c:otherwise>
+       </c:choose>
 
-</div>
-            </div>
+
+
+
+
+
+			<!-- 관심키워드 추가 레이어 -->
+
             <div style="margin-top: 5px;">
                 <div class="aside aside_tag well">
                     <h4>지식iN 인기태그</h4>
                     <div class="tag_wrap">
-                            <a href="#" class="tag">#안병민</a>
-                            <a href="#" class="tag">#블라디보스톡</a>
-                            <a href="#" class="tag">#중앙HTA</a>
-                            <a href="#" class="tag">#모텔</a>
-                            <a href="#" class="tag">#메인보드</a>
-                            <a href="#" class="tag">#필터</a>
-                            <a href="#" class="tag">#사주풀이</a>
-                            <a href="#" class="tag">#식품공학과</a>
-                            <a href="#" class="tag">#디포유</a>
-                            <a href="#" class="tag">#네이버지도</a>
+                            <c:forEach var="tag" items="${toptag }">
+	                            <a href="#" class="tag">#${tag.tagName }</a>
+                    		</c:forEach>
                     </div>
                 </div>
                 <div class="aside aside_statistics well">

@@ -38,49 +38,38 @@
 		<ul class="top_list">
 			
 			<li class="list_divide first">
-				<a href="/search/list.nhn?sort=none&amp;section=kin&amp;query=%EA%B8%B0%EB%A7%90%EA%B3%A0%EC%82%AC&amp;period=2019.06.01.|2019.06.30." class="list_item" onclick="nhn.Kin.Utility.nClicks('hfh.tpkw', '', '', event);">
+				<a href="#" class="list_item" onclick="nhn.Kin.Utility.nClicks('hfh.tpkw', '', '', event);">
 					<div class="list_body">
 						<span class="rank"><em>1</em></span>
 						<div class="heading">
-							<strong class="tit ellipsis">기말고사</strong>
-							<p class="text"><em class="num">1,610</em>개의 질문<i class="sp_hall ico_arrow_rl">더보기</i></p>
-						</div>
-						<div class="content">
-							<p class="key_text ellipsis">성적 역전의 찬스!</p>
+							<strong class="tit ellipsis">${toptag[0].tagName }</strong>
+							<p class="text"><em class="num">${toptag[0].countTag }</em>개의 질문<i class="sp_hall ico_arrow_rl">더보기</i></p>
 						</div>
 					</div>
 				</a>
 			</li>
 			
 			<li class="list_divide ">
-				<a href="/search/list.nhn?sort=none&amp;section=kin&amp;query=%EC%95%8C%EB%9D%BC%EB%94%98&amp;period=2019.06.01.|2019.06.30." class="list_item" onclick="nhn.Kin.Utility.nClicks('hfh.tpkw', '', '', event);">
+				<a href="#" class="list_item" onclick="nhn.Kin.Utility.nClicks('hfh.tpkw', '', '', event);">
 					<div class="list_body">
 						<span class="rank"><em>2</em></span>
 						<div class="heading">
-							<strong class="tit ellipsis">알라딘</strong>
-							<p class="text"><em class="num">980</em>개의 질문<i class="sp_hall ico_arrow_rl">더보기</i></p>
-						</div>
-						<div class="content">
-							<p class="key_text ellipsis">디즈니 흥행 신드롬</p>
+							<strong class="tit ellipsis">${toptag[1].tagName }</strong>
+							<p class="text"><em class="num">${toptag[1].countTag }</em>개의 질문<i class="sp_hall ico_arrow_rl">더보기</i></p>
 						</div>
 					</div>
-					
 				</a>
 			</li>
 			
 			<li class="list_divide last">
-				<a href="/search/list.nhn?sort=none&amp;section=kin&amp;query=%EC%9B%94%EB%93%9C%EC%BB%B5&amp;period=2019.06.01.|2019.06.30." class="list_item" onclick="nhn.Kin.Utility.nClicks('hfh.tpkw', '', '', event);">
+				<a href="#" class="list_item" onclick="nhn.Kin.Utility.nClicks('hfh.tpkw', '', '', event);">
 					<div class="list_body">
 						<span class="rank"><em>3</em></span>
 						<div class="heading">
-							<strong class="tit ellipsis">월드컵</strong>
-							<p class="text"><em class="num">974</em>개의 질문<i class="sp_hall ico_arrow_rl">더보기</i></p>
-						</div>
-						<div class="content">
-							<p class="key_text ellipsis">잘 싸웠다! 대한민국</p>
+							<strong class="tit ellipsis">${toptag[2].tagName }</strong>
+							<p class="text"><em class="num">${toptag[2].countTag }</em>개의 질문<i class="sp_hall ico_arrow_rl">더보기</i></p>
 						</div>
 					</div>
-
 				</a>
 			</li>
 			

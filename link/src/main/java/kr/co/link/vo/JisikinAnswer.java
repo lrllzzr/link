@@ -5,8 +5,8 @@ import java.util.Date;
 public class JisikinAnswer {
 
 	private Integer no;
-	private String writer;
 	private Date createDate;
+	private String contents;
 	private String selectedYn;
 	private String secretYn;
 	private Integer jisikinNo;
@@ -15,20 +15,26 @@ public class JisikinAnswer {
 	
 	public JisikinAnswer() {}
 
+	
+	
+	public String getContents() {
+		return contents;
+	}
+
+
+
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
+
+
+
 	public Integer getNo() {
 		return no;
 	}
 
 	public void setNo(Integer no) {
 		this.no = no;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 
 	public Date getCreateDate() {
