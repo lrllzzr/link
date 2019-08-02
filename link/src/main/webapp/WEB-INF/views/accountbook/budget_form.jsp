@@ -38,7 +38,7 @@
 </head>
 <body>
 <%@include file="../common/nav.jsp"%>
-	<form action="" method="post">
+<form action="budget.do" method="post">
     <div class="container-fluid">
         <div class="row">
 			<div class="col-sm-2" style="background-color: lightgray; ">
@@ -127,69 +127,69 @@
                                   <th>남은돈</th>
                               </tr>
                               <tr>
-                                  <td><input class="form-control" type="text" placeholder="식비"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="688400"></td>
-                                  <td><input class="form-control" type="text" placeholder="100000"></td>
-                                  <td><input class="form-control" type="text" placeholder="688400"></td>
+                                  <td><input class="form-control" type="text" value="식비"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="688400"></td>
+                                  <td><input class="form-control" type="text" value="100000"></td>
+                                  <td><input class="form-control" type="text" value="688400"></td>
                               </tr>
                               <tr>
-                                  <td><input class="form-control" type="text" placeholder="식비"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="688400"></td>
-                                  <td><input class="form-control" type="text" placeholder="100000"></td>
-                                  <td><input class="form-control" type="text" placeholder="688400"></td>
+                                  <td><input class="form-control" type="text" value="식비"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="688400"></td>
+                                  <td><input class="form-control" type="text" value="100000"></td>
+                                  <td><input class="form-control" type="text" value="688400"></td>
                               </tr>
                               <tr>
-                                  <td><input class="form-control"       type="text" placeholder="식비"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="688400"></td>
-                                  <td><input class="form-control" type="text" placeholder="100000"></td>
-                                  <td><input class="form-control" type="text" placeholder="688400"></td>
+                                  <td><input class="form-control" type="text" value="식비"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="688400"></td>
+                                  <td><input class="form-control" type="text" value="100000"></td>
+                                  <td><input class="form-control" type="text" value="688400"></td>
                               </tr>
                               <tr>
-                                  <td><input class="form-control" type="text" placeholder="식비"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="688400"></td>
-                                  <td><input class="form-control" type="text" placeholder="100000"></td>
-                                  <td><input class="form-control" type="text" placeholder="688400"></td>
+                                  <td><input class="form-control" type="text" value="식비"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="688400"></td>
+                                  <td><input class="form-control" type="text" value="100000"></td>
+                                  <td><input class="form-control" type="text" value="688400"></td>
                               </tr>
                               <tr>
-                                  <td><input class="form-control" type="text" placeholder="식비"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="688400"></td>
-                                  <td><input class="form-control" type="text" placeholder="100000"></td>
-                                  <td><input class="form-control" type="text" placeholder="688400"></td>
+                                  <td><input class="form-control" type="text" value="식비"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="688400"></td>
+                                  <td><input class="form-control" type="text" value="100000"></td>
+                                  <td><input class="form-control" type="text" value="688400"></td>
                               </tr>
                               <tr>
-                                  <td><input class="form-control" type="text" placeholder="식비"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="0"></td>
-                                  <td><input class="form-control" type="text" placeholder="688400"></td>
-                                  <td><input class="form-control" type="text" placeholder="100000"></td>
-                                  <td><input class="form-control" type="text" placeholder="688400"></td>
+                                  <td><input class="form-control" type="text" value="식비"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="0"></td>
+                                  <td><input class="form-control" type="text" value="688400"></td>
+                                  <td><input class="form-control" type="text" value="100000"></td>
+                                  <td><input class="form-control" type="text" value="688400"></td>
                               </tr>
                           </table>
                        </div>
                    </div>
-                       <button class="btn btn-primary btn-lg" type="submit" id="save" name="save" value="" >
+                       <button class="btn btn-primary btn-lg" type="submit" id="save" name="save" >
                            저장하기
                        </button>
             </div>
     </div>
     </div>
-    </form>
+</form>
     <script type="text/javascript">
    
     </script>

@@ -106,7 +106,7 @@
                           <div class="col-sm-12">
                                    <h3>전체 월결산 목록</h3>      
                               </div>
-                        <table class="table table-hober" >
+                        <table class="table table-hober"  >
                            <tbody>
                                <tr>
                                 <th>결산월</th>

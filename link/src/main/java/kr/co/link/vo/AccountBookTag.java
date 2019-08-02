@@ -3,7 +3,7 @@ package kr.co.link.vo;
 public class AccountBookTag {
 	private Integer tagNo;
 	private String tagName;
-	private AccountBookTerm termNo;
+	private Integer termNo;
 	
 	public Integer getTagNo() {
 		return tagNo;
@@ -17,10 +17,10 @@ public class AccountBookTag {
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
 	}
-	public AccountBookTerm getTermNo() {
+	public Integer getTermNo() {
 		return termNo;
 	}
-	public void setTermNo(AccountBookTerm termNo) {
+	public void setTermNo(Integer termNo) {
 		this.termNo = termNo;
 	}
 	

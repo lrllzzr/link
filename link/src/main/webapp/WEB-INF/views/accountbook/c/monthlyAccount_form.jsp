@@ -79,7 +79,7 @@
                     <div class="col-sm-6">
                     </div>
                     <div class="col-sm-6 text-right">
-                        <form class="form-inline">
+                        <form class="form-inline" action="" method="">
                             <div class="form-group">
                                 <input type="text" class="form-control">
                                 <button class="btn btn-success">검색</button>
@@ -98,11 +98,13 @@
                         </div>
                     </div>
                 </div>
+                <form>
                 <div class="row" style="padding-top: 50px;">
                     <div class="col-sm-12">
                         <textarea rows="10" class="form-control" name="contents" id="textareaID"></textarea>
                     </div>
                 </div>
+                </form>
             <div class="row" style="padding-top: 50px; padding-bottom: 30px; border-bottom: 1px grey solid">
                 <div class="col-sm-12">
                     <div class="col-sm-1">

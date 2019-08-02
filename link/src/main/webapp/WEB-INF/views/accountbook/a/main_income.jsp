@@ -35,64 +35,40 @@ pageEncoding="UTF-8"%>
     </style>
      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
        <script>
-           google.charts.load('current', {packages: ['corechart', 'bar']});
-           google.charts.setOnLoadCallback(drawStacked);
+       google.charts.load('current', {packages: ['corechart', 'bar']});
+       google.charts.setOnLoadCallback(drawBasic);
 
-           function drawStacked() {
-           var data = new google.visualization.DataTable();
-           data.addColumn('timeofday', 'Time of Day');
-           data.addColumn('number', 'Motivation Level');
-           data.addColumn('number', 'Energy Level');
+       function drawBasic() {
 
-           data.addRows([
-           [{v: [8, 0, 0], f: '8 am'}, 1, .25],
-           [{v: [9, 0, 0], f: '9 am'}, 2, .5],
-           [{v: [10, 0, 0], f:'10 am'}, 3, 1],
-           [{v: [11, 0, 0], f: '11 am'}, 4, 2.25],
-           [{v: [12, 0, 0], f: '12 pm'}, 5, 2.25],
-           [{v: [13, 0, 0], f: '1 pm'}, 6, 3],
-           [{v: [14, 0, 0], f: '2 pm'}, 7, 4],
-           [{v: [15, 0, 0], f: '3 pm'}, 8, 5.25],
-           [{v: [16, 0, 0], f: '4 pm'}, 9, 7.5],
-           [{v: [17, 0, 0], f: '5 pm'}, 10, 10],
-           ]);
+             var data = new google.visualization.DataTable();
+             data.addColumn('string', '카테고리');
+             data.addColumn('number', '금액');
 
-           var options = {
-           title: '2017.01.01~2017.01.31',
-           isStacked: true,
-           hAxis: {
-           title: '',
-           format: 'h:mm a',
-           viewWindow: {
-           min: [7, 30, 0],
-           max: [17, 30, 0]
+             data.addRows([
+            <c:forEach var="income" items="${totalIncome}">
+               ['${income.CATEGORY_NAME}', ${income.TOTAL}],
+			</c:forEach>
+               ]);
+
+             var options = {
+               title: '카테고리별 총 수입금액',
+               hAxis: {
+                 title: '카테고리'
+               },
+               vAxis: {
+                 title: '수입금액(원)'
+               }
+             };
+
+             var chart = new google.visualization.ColumnChart(
+               document.getElementById('chart_div'));
+
+             chart.draw(data, options);
            }
-           },
-           vAxis: {
-           title: ')'
-           }
-           };
-               
-            var data = google.visualization.arrayToDataTable([
-           ['카테고리', '금액', { role: 'style' }],
-           ['식비', 300000, '#365bd6'], // RGB value
-           ['주거', 1500000, '#365bd6'], // English color name
-           ['건강', 150000, '#365bd6'],
-           ['교통/차량', 250000, '#365bd6'],
-           ['경조사', 50000, '#365bd6'],
-           ['용돈', 350000, '#365bd6'],
-           ['생활용품', 350000, '#365bd6'],
-           ['기타', 21450, '#365bd6' ], // CSS-style declaration
-           ]);
-
-          var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-           chart.draw(data, options);
-           }
-          </script>
+           </script>
 </head>
 <body>
      <%@include file="../../common/nav.jsp"%>
-<form action="income.do" method="post">
     <div class="container-fluid">
         <div class="row">
                    <div class="col-sm-2" style="background-color: lightgray; ">
@@ -131,12 +107,12 @@ pageEncoding="UTF-8"%>
                         <button class="btn btn-default btn-xs">금액감추기</button>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <form class="form-inline">
+                        <div class="form-inline">
                             <div class="form-group">
                                 <input type="text" class="form-control">
                                 <button class="btn btn-success">검색</button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -156,9 +132,10 @@ pageEncoding="UTF-8"%>
                         </div>
                     </div>
                 </div>
-               <form action="" method="" >
+            
                 <div class="row">
                     <div class="col-sm-12">
+                    	<form action="income.do" method="post">
                         <table class="table table-bordered" class="form-inline">
                             <thead>
                                 <tr>
@@ -171,16 +148,41 @@ pageEncoding="UTF-8"%>
                                </tr>
                             </thead>   
                             <tbody>
-                                <tr>
                             	<c:forEach var="income" items="${incomeList }">
-                                  <td><input class="form-control" type="checkbox"/></td>
-                                   <td><input class="form-control" type="text" name="date" placeholder="${income.dateString }"></td>
-                                   <td><input class="form-control" type="text" name="detail" placeholder="${income.detail }"></td>
-                                   <td ><input class="form-control" type="text" name="cash" placeholder="${income.cash }"></td>
-                                   <td><input class="form-control" type="text" name="category" placeholder="${income.category.categoryName }"></td>
-                                   <td><input class="form-control" type="text" name="tag" placeholder="${income.tag.tagName }"></td>
-                            	</c:forEach>
+                                <tr>
+                            	   <td><input type="checkbox" /></td>
+                                   <td><input class="form-control" type="text" value="${income.dateString }"></td>
+                                   <td><input class="form-control" type="text"  value="${income.detail }"></td>
+                                   <td ><input class="form-control" type="text"  value="${income.cash }"></td>
+                                   <td>
+										<select id="cat"  class="form-control">
+											<option value="">카테고리 선택</option>
+											<c:forEach var="category" items="${incomeCategory }">
+												<option  value="${category.categoryNo }"  ${income.category.categoryNo eq category.categoryNo ? 'selected' :'' }> 
+												${category.categoryName }
+												</option>
+											</c:forEach>
+										</select>
+									</td>
+                                   <td><input class="form-control" type="text" value="${income.tag.tagName }"></td>
                                 </tr>
+                            	</c:forEach>
+                               	
+                               	<tr>
+									<td><input type="checkbox" /></td>
+									<td><input class="form-control" type="date" name="date" ></td>
+									<td><input class="form-control" type="text" name="detail" ></td>
+									<td class="text-right"><input class="form-control" type="text"  name="cash" ></td>
+									<td>
+										<select id="cat" name="category" class="form-control">
+											<option value="">카테고리 선택</option>
+											<c:forEach var="category" items="${incomeCategory }">
+												<option value="${category.categoryNo }"> ${category.categoryName }</option>
+											</c:forEach>
+										</select>
+									</td>
+									<td><input class="form-control" type="text" name="tag" ></td>
+								</tr>
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -188,10 +190,10 @@ pageEncoding="UTF-8"%>
                                         <button class="btn btn-default btn-sm">선택삭제</button>
                                         <button class="btn btn-default btn-sm">전부삭제</button>
                                     </td>
-                                    <td class="text-right">0</td>
+                                    <td class="text-right"><fmt:formatNumber value="${totalCash }"/></td>
                                     <td class="text-right"></td>
                                     <td colspan="2" rowspan="2" class="text-center" style="vertical-align: middle;">
-                                          <button class="btn btn-primary">저장하기</button>
+                                          <button class="btn btn-primary" type="submit">저장하기</button>
                                         <button class="btn btn-default">정산하기</button>   
                                     </td>
                                 </tr>
@@ -199,15 +201,18 @@ pageEncoding="UTF-8"%>
                                     <td colspan="3">
                                         <strong>수입합계</strong>
                                     </td>
-                                    <td class="text-right" colspan="2">2,000,000</td>
+                                    <td class="text-right" colspan="2" >
+                                    	<fmt:formatNumber value="${totalCash }"/>
+                                    </td>
                                 </tr>
                             </tfoot>
                         </table>
+                       </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                </form>
+
 </body>
 </html>

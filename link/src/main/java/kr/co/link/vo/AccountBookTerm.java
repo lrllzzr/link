@@ -20,9 +20,15 @@ public class AccountBookTerm {
 	private String gubun;
 	private Date createDate;
 	private AccountBookTag tag;
+	private Integer totalAmount;
 	
 	
-	
+	public Integer getTotalAmount() {
+		return totalAmount;
+	}
+	public void setTotalAmount(Integer totalAmount) {
+		this.totalAmount = totalAmount;
+	}
 	public AccountBookTag getTag() {
 		return tag;
 	}
