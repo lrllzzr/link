@@ -68,6 +68,9 @@ a{
 a:hover{
 	text-decoration: none;
 }
+#blog_board_list5:hover{
+	text-decoration: none;
+}
 body{
 	background-color: ${blog.bodyColor};
 }
@@ -122,10 +125,10 @@ hr{
 	background-color: rgba(${blog.backgroundColor},${blog.opacity});
 	color:${blog.fontColor};
 }
-/* .blog_detail_page_1_selected{
+.blog_board_selected{
 	font-weight: bold;
-	color:black !important;
-	border: 1px solid black !important;
-} */
+	text-decoration: underline;	
+}
+
 </style>
 </head>

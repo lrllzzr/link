@@ -3,6 +3,7 @@ package kr.co.link.controller;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,7 @@ import kr.co.link.form.BlogBoardForm;
 import kr.co.link.form.BlogForm;
 import kr.co.link.service.BlogBoardService;
 import kr.co.link.service.BlogCategoryService;
+import kr.co.link.service.BlogNeighborService;
 import kr.co.link.service.BlogService;
 import kr.co.link.service.BlogSubCategoryService;
 import kr.co.link.service.UserService;
@@ -50,6 +52,9 @@ public class BlogDetailController {
 	private BlogBoardService blogBoardService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BlogNeighborService blogNeighborService;
+	
 
 	public List<BlogSubCategory> getBlogSubCategories(HttpSession session, Integer blogNo, Model model, Integer categoryNo, Integer pno,
 			Integer pno10) {
@@ -140,7 +145,6 @@ public class BlogDetailController {
 
 			int totalCount = blogBoardService.getBoardsCountByCategoryNo(categoryNo);
 			totalCount = (int) Math.ceil((double) totalCount / howMany);
-
 			int blogCount = blogBoardService.countBoardsByCategoryId(categoryNo);
 			model.addAttribute("blogCount", blogCount);
 			model.addAttribute("blogboardsByRange", blogboards);
@@ -180,7 +184,46 @@ public class BlogDetailController {
 			if (blog == null) {
 				model.addAttribute("isHaveBlog", "no");
 			} else {
+				int myBlogNo = blog.getNo();
+				// 이웃 블로그 전해주기
+				List<Map<String, Object>> blogList = blogNeighborService.getNeighborBlogMap(myBlogNo);
+				model.addAttribute("blogList", blogList);
 				model.addAttribute("isHaveBlog", "yes");
+				
+				// 블로그 신청 처리
+				List<Map<String, Object>> neighborRequestList = blogNeighborService.getNeighborRequest(myBlogNo);
+				List<Map<String, Object>> realRequestList = new ArrayList<Map<String,Object>>();
+				
+				if(neighborRequestList.size() !=0) {
+					for(Map<String, Object> map : neighborRequestList) {
+						
+						int neighborhoodBlogNo = ((BigDecimal)map.get("NEIGHBORBLOGNO")).intValue();
+						
+						String neighborId = (String) map.get("NEIGHBORID");
+						String neighborNickName = (String) map.get("NICKNAME");
+						// 내 이웃에 상대방이 있는지
+						Map<String, Object> isNeighborMap = new HashMap<String, Object>();
+						isNeighborMap.put("myBlogNo", myBlogNo);
+						isNeighborMap.put("neighborhoodNo", neighborhoodBlogNo);
+						Integer isBlog1 = blogNeighborService.isNeighbor(isNeighborMap);
+						
+						// 상대방이 나를 이웃으로 가지고 있는지
+						Map<String, Object> isNeighborMap2 = new HashMap<String, Object>();
+						isNeighborMap.put("myBlogNo", neighborhoodBlogNo);
+						isNeighborMap.put("neighborhoodNo", myBlogNo);
+						Integer isBlog2 = blogNeighborService.isNeighbor(isNeighborMap2); 
+						
+						// 나한테 상대방이 없다면
+						if(isBlog1 == null) {
+							Map<String, Object> map2 = new HashMap<String, Object>();
+							map2.put("neighborId",neighborId);
+							map2.put("neighborNickName", neighborNickName);
+							map2.put("neighborhoodBlogNo", neighborhoodBlogNo);
+							realRequestList.add(map2);
+						}
+					}
+				}
+				model.addAttribute("realRequestList",realRequestList);
 			}
 		}
 		model.addAttribute("blogs", blogs);
@@ -237,7 +280,7 @@ public class BlogDetailController {
 	public String detail(Model model, HttpSession session, Integer blogNo, Integer categoryNo,
 			@RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
 			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10) {
-
+		
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo, pno, pno10);
 		Blog blog = blogService.getBlogByBlogNo(blogNo);
 
@@ -365,5 +408,26 @@ public class BlogDetailController {
 		user.setIsHaveBlog("Y");
 		userService.updateUser(user);
 		return "redirect:mydetail.do";
+	}
+	@RequestMapping(value="/profile.do", method = RequestMethod.GET)
+	public String profile(Model model,HttpSession session, Integer blogNo, Integer categoryNo,
+			@RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
+			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10) {
+		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo, pno, pno10);
+		model.addAttribute("blogSubCategories",blogSubCategories);
+		
+		
+		Blog blog = blogService.getBlogByBlogNo(blogNo);
+		if (blog.getLayout() == 1) {
+			return "blog/detail/profile";
+		}
+		if (blog.getLayout() == 2) {
+			return "blog/detail/profile2";
+		}
+		if (blog.getLayout() == 3) {
+			return "blog/detail/profile3";
+		} else {
+			return "blog/detail/profile4";
+		}
 	}
 }

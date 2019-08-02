@@ -44,13 +44,14 @@
 				CATEGORY_NO categoryNo,
 				BOARD_MAIN_IMG mainImg
 		from blog_boards
+		where
+    		category_No = #{categoryNo}
 		)
 		where
 		    row_no &lt;= #{end}
 		and
 		    row_no >=#{begin}
-		and
-    		categoryNo = #{categoryNo}
+		
 </select>
 <select id="getBoardsCountByCategoryNo" parameterType="int" resultType="int">
 	select

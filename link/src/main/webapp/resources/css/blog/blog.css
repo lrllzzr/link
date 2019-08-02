@@ -130,11 +130,12 @@ a {
 
 .blog-row-2 > img {
     width: 250px;
-    height:250px;
+    height:190px;
 }
 
 .blog-row-2-profile-img {
     width: 40px;
+    height:40px;
     border-radius: 50%;
 }
 .blog-row-3-profile-img{
@@ -240,6 +241,8 @@ a {
     font-weight: bold;
     font-size: 15px;
     color:black;
+    height:21px;
+    overflow:hidden;
 }
 .blog-neighbor-contents{
     color:#666666;
@@ -290,7 +293,22 @@ a {
 .blog-alarm{
     margin-bottom: 15px;
 }
-.blog-neighbor-div
+.blog-neighbor-contents{
+	height:65px;
+	overflow: hidden;
+ 	display: inline-block; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    
+    /* 여러 줄 자르기 추가 스타일 */ 
+    white-space: normal; 
+    text-align: left; 
+    word-wrap: break-word; 
+    display: -webkit-box; 
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; 
+}
 .blog-main-col-2-1-1:last-child{
     margin-bottom: 40px;
 }
@@ -355,7 +373,39 @@ a {
 .glyphicon-envelope {
     color: white;
     position: relative;
-    right: 4px;
     font-size: 20px;
     padding: 12px 20px;
+}
+.blog_nav_tabs a{
+	color:gray;
+}
+.blog_nav_tabs a:hover{
+	color:gray;
+}
+.blog_nav_tabs a:focus{
+	color:gray;
+}
+.blog_table{
+	margin-top: 15px;
+}
+.blog_table td{
+	border-top:none !important;
+}
+.blogselectAllTd {
+    border-bottom: none !important;
+    border-top: none;
+}
+.blog_table tr{
+    border-bottom: 1px solid #ddd;
+    border-top: none;
+}
+.blog_table > tr:last-child{
+    border-bottom: 1px solid #ddd;
+    border-top: none;
+}
+.blog_selectAll_span{
+	margin-right: 5px;
+}
+.blog_table input{
+	margin-right:10px;
 }

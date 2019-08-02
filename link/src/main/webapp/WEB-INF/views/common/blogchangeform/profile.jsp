@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="col-sm-12 blog_detail_left_col_img_col">
-	<a href=""><img class="blog_detail_left_col_img" src="/link/resources/images/${blog.mainImg }" alt=""></a>
+	<a target="blank" href="/link/resources/images/${blog.mainImg }"><img class="blog_detail_left_col_img" src="/link/resources/images/${blog.mainImg }" alt=""></a>
 </div>
 <div class="col-sm-12 blog-detail-left-col-user">
 	<div class="row">
 		<div class="col-sm-12">
-			<strong style="font-size: 15px;">${user.nickName }</strong>
+			<a href="profile.do?blogNo=${blog.no }"><strong style="font-size: 15px;">${user.nickName }</strong></a>
 		</div>
 	</div>
 	<div class="row">
@@ -18,7 +18,7 @@
 <!-- 내 블로그면  시작-->
 <c:if test="${isMyBlog eq 'others' }">
 	<div class="col-sm-12 blog_detail_leftcol_contents2">
-		<a href="">프로필<span class="glyphicon glyphicon-play blog-detail-profile"></span></a> <a href="">쪽지<span class="glyphicon glyphicon-play blog-detail-profile"></span></a>
+		<a href="profile.do?blogNo=${blog.no }">프로필<span class="glyphicon glyphicon-play blog-detail-profile"></span></a> <a href="">쪽지<span class="glyphicon glyphicon-play blog-detail-profile"></span></a>
 	</div>
 </c:if>
 <c:if test="${isMyBlog eq 'mine' }">

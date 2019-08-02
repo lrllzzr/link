@@ -13,7 +13,10 @@
 			user_phone phone,
 			user_point point,
 			user_mental_point mentalPoint,
-			USER_ISHAVEBLOG isHaveBlog
+			USER_ISHAVEBLOG isHaveBlog,
+			USER_NAME_VISIBILITY nameVisibility,
+			USER_GENDER gender,
+			USER_GENDER_VISIBILITY genderVisibility
 		from
 			users
 		where
@@ -23,12 +26,15 @@
 		update users
 		set
 			user_name =  #{name},
-			user_password =  #{password},
+			user_password = #{password},
 			user_nickname = #{nickName},
 			user_phone = #{phone},
 			user_point = #{point},
 			user_mental_point = #{mentalPoint},
-			USER_ISHAVEBLOG = #{isHaveBlog}
+			USER_ISHAVEBLOG = #{isHaveBlog},
+			USER_NAME_VISIBILITY = #{nameVisibility},
+			USER_GENDER = #{gender},
+			USER_GENDER_VISIBILITY = #{genderVisibility}
 		where
 			user_id = #{id}
 	</update>
