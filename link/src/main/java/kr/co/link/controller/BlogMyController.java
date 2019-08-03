@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.link.form.BlogBoardForm;
@@ -46,7 +47,7 @@ public class BlogMyController {
 	@Autowired
 	private UserService userService;
 	
-	public List<BlogSubCategory> getBlogSubCategories(HttpSession session,Integer blogNo, Model model, Integer categoryNo) {
+	public List<BlogSubCategory> getBlogSubCategories(HttpSession session,Integer blogNo, Model model, Integer categoryNo, Integer pno, Integer pno10) {
 		Blog blog = blogService.getBlogByBlogNo(blogNo);
 		String blogColor = blog.getBackgroundColor();
 		Color color = Color.decode(blogColor);
@@ -67,21 +68,68 @@ public class BlogMyController {
 		model.addAttribute("user",user);
 		
 		model.addAttribute("blog",blog);
-		if(categoryNo == 0) {
+		if(categoryNo == null) {
 			BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blogNo);
 			int subCatNo = blogSubCategory.getNo();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("subCatNo", subCatNo);
 			map.put("blogNo", blogNo);
 			BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
-			List<BlogBoard> blogBoards = blogBoardService.getBoardByCategory(blogCategory.getNo());
-			model.addAttribute("category",blogCategory);
-			model.addAttribute("blogBoards",blogBoards);
+			
+			// 페이지네이션 시작
+			Map<String, Object> rangeMap = new HashMap<String, Object>();
+			int howMany = 5;
+			int begin = (pno - 1) * howMany + 1;
+			int end = pno * howMany;
+			rangeMap.put("begin", begin);
+			rangeMap.put("end", end);
+			rangeMap.put("categoryNo", blogCategory.getNo());
+			List<BlogBoard> blogboards = blogBoardService.getBoardsByRange(rangeMap);
+
+			int totalCount = blogBoardService.getBoardsCountByCategoryNo(blogCategory.getNo());
+			totalCount = (int) Math.ceil((double) totalCount / howMany);
+
+			model.addAttribute("blogboardsByRange", blogboards);
+			model.addAttribute("pno", pno);
+			model.addAttribute("totalCount", totalCount);
+			// 페이지네이션 끝
 		} else {
 			BlogCategory blogCategory = blogCategoryService.getCategoryByCategoryNo(categoryNo);
-			model.addAttribute("category",blogCategory);
+			model.addAttribute("category", blogCategory);
 			List<BlogBoard> blogBoards = blogBoardService.getBoardByCategory(blogCategory.getNo());
-			model.addAttribute("blogBoards",blogBoards);
+			model.addAttribute("blogBoards", blogBoards);
+			// 페이지네이션 시작
+			Map<String, Object> rangeMap = new HashMap<String, Object>();
+			int howMany = 5;
+			int begin = (pno - 1) * howMany + 1;
+			int end = pno * howMany;
+			rangeMap.put("begin", begin);
+			rangeMap.put("end", end);
+			rangeMap.put("categoryNo", categoryNo);
+			List<BlogBoard> blogboards = blogBoardService.getBoardsByRange(rangeMap);
+
+			int totalCount = blogBoardService.getBoardsCountByCategoryNo(categoryNo);
+			totalCount = (int) Math.ceil((double) totalCount / howMany);
+
+			model.addAttribute("blogboardsByRange", blogboards);
+			model.addAttribute("pno", pno);
+			model.addAttribute("totalCount", totalCount);
+			
+			// 12개 시작
+						howMany = 12;
+						begin = (pno10 - 1) * howMany + 1;
+						end = pno10 * howMany;
+						rangeMap.put("begin", begin);
+						rangeMap.put("end", end);
+						rangeMap.put("categoryNo", blogCategory.getNo());
+						List<BlogBoard> blogboards10 = blogBoardService.getBoardsByRange(rangeMap);
+						totalCount = blogBoardService.getBoardsCountByCategoryNo(blogCategory.getNo());
+						totalCount = (int) Math.ceil((double) totalCount / howMany);
+
+						model.addAttribute("blogboardsByRange10", blogboards10);
+						model.addAttribute("pno10", pno10);
+						model.addAttribute("totalCount10", totalCount);
+			// 페이지네이션 끝
 		}
 		if(blog.getUserId().equals(loginUser.getId())) {
 			model.addAttribute("isMyBlog","mine");
@@ -93,7 +141,9 @@ public class BlogMyController {
 	}
 	
 	@RequestMapping("/mydetail.do")
-	public String detail(Model model, HttpSession session){
+	public String detail(Model model, HttpSession session,
+			 @RequestParam(value = "pno", required = false, defaultValue="1") Integer pno,
+				@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
 		
@@ -107,7 +157,7 @@ public class BlogMyController {
 		Integer categoryNo = blogCategory.getNo();
 		
 		Integer blogNo = blog.getNo();
-		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
+		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo,pno,pno10);
 		model.addAttribute("subCategories",blogSubCategories);
 		if(blog.getLayout() == 1) {
 			return "blog/detail/detail";
@@ -123,7 +173,9 @@ public class BlogMyController {
 	}
 	
 	@RequestMapping("/mydetail2.do")
-	public String detail2(Model model, HttpSession session){
+	public String detail2(Model model, HttpSession session,
+			 @RequestParam(value = "pno", required = false, defaultValue="1") Integer pno,
+				@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
 		BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blog.getNo());
@@ -134,13 +186,15 @@ public class BlogMyController {
 		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
 		Integer blogNo = blog.getNo();
 		Integer categoryNo = blogCategory.getNo();
-		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
+		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo,pno,pno10);
 		model.addAttribute("subCategories",blogSubCategories);
 		return "blog/detail/detail2";
 	}
 	
 	@RequestMapping("/layoutDetail.do")
-	public String layoutDetail1(Model model, HttpSession session, Integer layOutNo){
+	public String layoutDetail1(Model model, HttpSession session, Integer layOutNo,
+			@RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
+			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
 		BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blog.getNo());
@@ -151,7 +205,7 @@ public class BlogMyController {
 		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
 		Integer blogNo = blog.getNo();
 		Integer categoryNo = blogCategory.getNo();
-		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
+		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo,pno,pno10);
 		model.addAttribute("subCategories",blogSubCategories);
 		
 //	레이아웃 초기 화면 미리보기 설정	
@@ -199,7 +253,9 @@ public class BlogMyController {
 	}
 	
 	@RequestMapping("/colordetail.do")
-	public String colordetail1(Model model, HttpSession session){
+	public String colordetail1(Model model, HttpSession session,
+			@RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
+			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
 		Integer blogNo = blog.getNo();
@@ -210,7 +266,7 @@ public class BlogMyController {
 		map.put("blogNo", blogNo);
 		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
 		Integer categoryNo = blogCategory.getNo();
-		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
+		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo,pno,pno10);
 		
 		model.addAttribute("subCategories",blogSubCategories);
 		if(blog.getLayout() == 1) {
@@ -227,7 +283,9 @@ public class BlogMyController {
 	}
 	
 	@RequestMapping(value="/mywrite.do", method = RequestMethod.GET)
-	public String writePage(Model model, HttpSession session){
+	public String writePage(Model model, HttpSession session,
+			@RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
+			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
 		Integer blogNo = blog.getNo();
@@ -238,7 +296,7 @@ public class BlogMyController {
 		map.put("blogNo", blogNo);
 		BlogCategory blogCategory = blogCategoryService.getOneCategoryByOrder(map);
 		Integer categoryNo = blogCategory.getNo();
-		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo);
+		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo,pno,pno10);
 		model.addAttribute("subCategories",blogSubCategories);
 		return "blog/detail/write";
 	}

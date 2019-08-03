@@ -1,6 +1,7 @@
 package kr.co.link.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,6 +60,7 @@ public class BlogServiceImpl implements BlogService{
 		blog.setSecondCol("category");
 		blog.setThirdCol("bloginfo");
 		blog.setLayout(1);
+		blog.setPageNumBorderColor("#f2f2f2");
 	}
 
 }

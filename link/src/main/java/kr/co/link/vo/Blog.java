@@ -25,7 +25,15 @@ public class Blog {
 	private String pageNumColor;
 	private String pageNumBackgroundColor;
 	private String topic;
+	private String pageNumBorderColor;
 	
+	
+	public String getPageNumBorderColor() {
+		return pageNumBorderColor;
+	}
+	public void setPageNumBorderColor(String pageNumBorderColor) {
+		this.pageNumBorderColor = pageNumBorderColor;
+	}
 	public String getTopic() {
 		return topic;
 	}

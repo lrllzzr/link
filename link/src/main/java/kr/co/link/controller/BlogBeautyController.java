@@ -3,7 +3,9 @@ package kr.co.link.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,15 +17,18 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.link.dao.UserDao;
 import kr.co.link.form.BlogBoardForm;
 import kr.co.link.form.BlogForm;
 import kr.co.link.form.BlogUpdateForm;
 import kr.co.link.form.ColorForm;
 import kr.co.link.service.BlogBoardService;
 import kr.co.link.service.BlogCategoryService;
+import kr.co.link.service.BlogNeighborService;
 import kr.co.link.service.BlogService;
 import kr.co.link.service.BlogSubCategoryService;
 import kr.co.link.service.BlogThemeService;
@@ -31,6 +36,7 @@ import kr.co.link.service.UserService;
 import kr.co.link.vo.Blog;
 import kr.co.link.vo.BlogBoard;
 import kr.co.link.vo.BlogCategory;
+import kr.co.link.vo.BlogNeighbor;
 import kr.co.link.vo.BlogSubCategory;
 import kr.co.link.vo.BlogTheme;
 import kr.co.link.vo.User;
@@ -51,6 +57,8 @@ public class BlogBeautyController {
 	private BlogThemeService blogThemeService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BlogNeighborService blogNeighborService;
 	
 	// 기본 설정 시작
 	@RequestMapping("/start.do")
@@ -79,6 +87,8 @@ public class BlogBeautyController {
 		MultipartFile mf = blogUpdateForm.getMainImg();
 //		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images/userblogimgs";
 		String profileImageSaveDirectory = "C:/Users/BMAHN/git/link2/link/src/main/webapp/resources/images/userblogimgs";
+		
+		
 		if (!mf.isEmpty()) {
 			String filename = mf.getOriginalFilename();
 			FileCopyUtils.copy(mf.getBytes(), new File(profileImageSaveDirectory, filename));
@@ -90,13 +100,15 @@ public class BlogBeautyController {
 	}
 	
 	@RequestMapping(value="/beautyCategory.do", method = RequestMethod.GET)
-	public String beautyCategory(Model model, HttpSession session, Integer categoryNo) throws IOException {
+	public String beautyCategory(Model model, HttpSession session, Integer categoryNo,
+			@RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
+			@RequestParam(value = "pno10", required = false, defaultValue = "1" ) Integer pno10) throws IOException {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogservice.getBlogByUserId(user.getId());
 		Integer blogNo = blog.getNo();
 		
 		BlogDetailController blogDetailController = new BlogDetailController();
-		List<BlogSubCategory> blogSubCategories = blogDetailController.getBlogSubCategories(session, blogNo, model, categoryNo);
+		List<BlogSubCategory> blogSubCategories = blogDetailController.getBlogSubCategories(session, blogNo, model, categoryNo,pno,pno10);
 		
 		model.addAttribute("subCategories", blogSubCategories);
 		model.addAttribute("blog",blog);
@@ -107,14 +119,30 @@ public class BlogBeautyController {
 		return "blog/beautify/beautyCategory";
 	}
 	
-	@RequestMapping("/updateProfile.do")
+	@RequestMapping(value="/updateProfile.do", method = RequestMethod.GET)
 	public String updateProfile(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		model.addAttribute("user",user);
 		// 기본 설정을 파랗게
 		model.addAttribute("column","updateProfile");
 		// 프로필정보를 파랗게
 		model.addAttribute("left","updateProfile");
 		return "blog/beautify/beautyUpdateProfile";
 	}
+	
+	@RequestMapping(value="/updateProfile.do", method = RequestMethod.POST)
+	public String updateProfileApply(Model model, HttpSession session, String nameVisibility, String genderVisibility) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		user.setNameVisibility(nameVisibility);
+		user.setGenderVisibility(genderVisibility);
+		userService.updateUser(user);
+		// 기본 설정을 파랗게
+		model.addAttribute("column","updateProfile");
+		// 프로필정보를 파랗게
+		model.addAttribute("left","updateProfile");
+		return "redirect:updateProfile.do";
+	}
+	
 	// 기본 설정(left) 끝
 	
 	//꾸미기 설정 시작 (left2)
@@ -265,6 +293,70 @@ public class BlogBeautyController {
 		return "redirect:blogtheme.do";
 	}
 	
+	@RequestMapping(value="/eachNeighbor.do", method = RequestMethod.GET)
+	public String eachNeighbor(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		// 블로그 얻어오기
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("myBlogNo", blog.getNo());
+		map.put("status", "applying");
+		List<Map<String, Object>> neighbors = blogNeighborService.getNeighborNoByBlogNo(map);
+		model.addAttribute("neighbors",neighbors);
+		// 서로이웃 맺기 파랗게
+		model.addAttribute("left","eachneighbor");
+		// 기본 설정을 파랗게
+		model.addAttribute("column","updateProfile");
+		
+		return "blog/beautify/eachNeighbor";
+	}
+	
+	@RequestMapping(value="/eachNeighbor.do", method = RequestMethod.POST)
+	public String eachNeighborRequest(HttpSession session, Model model,
+										String neighborBlogNo,
+										String reply) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		// 블로그 얻어오기
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		String[] neighborBlogNums = neighborBlogNo.split(",");
+		// 수락시
+		if(reply.equals("accept")) {
+			for(int i=0; i<neighborBlogNums.length; i++) {
+				int neighborBlogNum = Integer.parseInt(neighborBlogNums[i]);
+				// 블로그 이웃 얻어오기
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("myBlogNo", blog.getNo());
+				map.put("neighborBlogNo", neighborBlogNum);
+				
+				// 상태 변경
+				BlogNeighbor blogNeighbor = blogNeighborService.getNeighborByMyBlogNo(map);
+				blogNeighbor.setStatus("accept");
+				blogNeighborService.updateBlogNeighbor(blogNeighbor);
+				BlogNeighbor newBlogNeighbor = new BlogNeighbor();
+				
+				// 내 이웃에 추가
+				newBlogNeighbor.setBlogNo(blog.getNo());
+				newBlogNeighbor.setNo(neighborBlogNum);
+				newBlogNeighbor.setStatus("accept");
+				newBlogNeighbor.setType("All");
+				blogNeighborService.addNewNeighborRequest(newBlogNeighbor);
+				
+			}
+		} else if(reply.equals("deny")) {
+			for(int i=0; i<neighborBlogNums.length; i++) {
+				int neighborBlogNum = Integer.parseInt(neighborBlogNums[i]);
+				// 블로그 이웃 얻어오기
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("myBlogNo", blog.getNo());
+				map.put("neighborBlogNo", neighborBlogNum);
+				BlogNeighbor blogNeighbor = blogNeighborService.getNeighborByMyBlogNo(map);
+				blogNeighbor.setStatus("deny");
+				blogNeighborService.updateBlogNeighbor(blogNeighbor);
+			}
+		}
+		
+		return "redirect:eachNeighbor.do";
+	}
 	
 	
 }

@@ -26,7 +26,8 @@
 		BLOG_LAYOUT layout,
 		BLOG_PAGENUM_COLOR pageNumColor, 
 		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor,
-		BLOG_TOPIC topic
+		BLOG_TOPIC topic,
+		BLOG_PAGENUMBORDERCOLOR pageNumBorderColor
 	from
 		blog
 	where
@@ -54,7 +55,8 @@
 		BLOG_LAYOUT layout,
 		BLOG_PAGENUM_COLOR pageNumColor, 
 		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor,
-		BLOG_TOPIC topic
+		BLOG_TOPIC topic,
+		BLOG_PAGENUMBORDERCOLOR pageNumBorderColor
 	from
 		blog
 	where
@@ -83,7 +85,8 @@
 		BLOG_LAYOUT layout,
 		BLOG_PAGENUM_COLOR pageNumColor, 
 		BLOG_PAGENUM_BACKGROUNDCOLOR pageNumBackgroundColor,
-		BLOG_TOPIC topic
+		BLOG_TOPIC topic,
+		BLOG_PAGENUMBORDERCOLOR pageNumBorderColor
 		
 	from(
         select
@@ -108,7 +111,8 @@
 			BLOG_LAYOUT,
 			BLOG_PAGENUM_COLOR , 
 			BLOG_PAGENUM_BACKGROUNDCOLOR ,
-			BLOG_TOPIC
+			BLOG_TOPIC,
+			BLOG_PAGENUMBORDERCOLOR
         from
             blog
     )
@@ -135,7 +139,8 @@
 		BLOG_LAYOUT = #{layout},
 		BLOG_PAGENUM_COLOR = #{pageNumColor}, 
 		BLOG_PAGENUM_BACKGROUNDCOLOR = #{pageNumBackgroundColor},
-		BLOG_TOPIC = #{topic}
+		BLOG_TOPIC = #{topic},
+		BLOG_PAGENUMBORDERCOLOR = #{pageNumBorderColor}
 	where
 		BLOG_NO = #{no}
 </update>
@@ -144,7 +149,7 @@
 	values(
 		blog_seq.nextval,#{title},#{mainImg},#{theme},#{description},sysdate,#{userId},0,#{backgroundColor},#{fontColor},
 		#{opacity},#{atagColor},#{hrColor},#{bodyColor},#{firstCol},#{secondCol},#{thirdCol},#{layout},#{pageNumColor},
-		#{pageNumBackgroundColor},#{topic}
+		#{pageNumBackgroundColor},#{topic}, #{pageNumBorderColor}
 	)
 </insert>
 </mapper>

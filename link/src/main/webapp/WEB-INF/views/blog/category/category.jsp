@@ -63,8 +63,9 @@
 											<div class="row blog_category_catdiv">
 												<div class="col-sm-12 blog_category_cat2">
 													<div class="blogSubCat" data-subCategoryPublic="${subCat.visibility }" data-subCategoryNo="${subCat.no }">
-														<span class="glyphicon glyphicon-list-alt"></span> <span class="blog-detail-showall">${subCat.title }</span>
-														<span class="blog_category_1">${subCat.visibility eq 'N' ? '(비공개)' : ''}</span>
+														<span class="glyphicon glyphicon-list-alt"></span> <span class="blog-detail-showall">${subCat.title }</span> <span
+															class="blog_category_1"
+														>${subCat.visibility eq 'N' ? '(비공개)' : ''}</span>
 														<input type="hidden" name="subCatNo" id="sub-cat" value="${subCat.no }" />
 														<input type="hidden" name="subCatTitle" id="sub-title" value="${subCat.title }" />
 														<input type="hidden" id="blog_subCat_show" name="show" value="${subCat.visibility }" />
@@ -73,8 +74,7 @@
 												<c:forEach var="cat" items="${subCat.blogCategory}" varStatus="catStatus">
 													<div class="col-sm-12 blog_category_cat1">
 														<div class="blogCat" data-categoryPublic="${cat.visibility }" data-categoryNo="${cat.no }">
-															&nbsp;┗ <span class="blog-detail-showall">${cat.title }</span>
-															<span class="blog_category_1"> ${cat.visibility eq 'N' ? '(비공개)' : ''}</span>
+															&nbsp;┗ <span class="blog-detail-showall">${cat.title }</span> <span class="blog_category_1"> ${cat.visibility eq 'N' ? '(비공개)' : ''}</span>
 															<input type="hidden" name="catSubCatNo" id="sub-cat" value="${subCat.no }" />
 															<input type="hidden" name="catNo" value="${cat.no }" />
 															<input type="hidden" name="catTitle" id="cat-title" value="${cat.title }" />
@@ -155,10 +155,10 @@
 						$('.blog_category_showRow').find('.blogCategoryselected').find('#blog_cat_show').val('Y');
 						$('.blog_category_showRow').find('.blogCategoryselected').find('#blog_subCat_show').val('Y');
 					}
-					location.href="alterCategory.do";
+					location.href = "alterCategory.do";
 				}
 			});
-			
+
 			$('#blogPrivate').click(function() {
 				var result = confirm("카테고리를 비공개로 하면 검색에서 제외됩니다.");
 				if (result) {
@@ -185,7 +185,7 @@
 						$('.blog_category_showRow').find('.blogCategoryselected').find('#blog_cat_show').val('N');
 						$('.blog_category_showRow').find('.blogCategoryselected').find('#blog_subCat_show').val('N');
 					}
-					location.href="alterCategory.do";
+					location.href = "alterCategory.do";
 				}
 			});
 
@@ -246,28 +246,35 @@
 				$('#blogPublic').prop('disabled', false);
 				$('#blogPrivate').prop('disabled', false);
 			});
-			
+
 			// 삭제
-			$('#blogDeleteCategoryBtn').click(function(){
-				var catType = $('.blog_category_div').find('.blogCategoryselected').attr('class');
-				
-				// 카테고리 일때
-				if (catType == "blogCat blogCategoryselected") {
-					var catNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-categoryNo');
-					var result = confirm("정말 삭제하시겠습니까?");
-					if(result){
-						location.href = "deleteCategory.do?catNo="+catNo;
-					}
-				} else if (catType == "blogSubCat blogCategoryselected") {
-					// 서브카테고리 일때
-					var subCatNo = $('.blog_category_div').find('.blogCategoryselected').attr('data-subCategoryNo');
-					var result = confirm("정말 삭제하시겠습니까?");
-					if(result){
-						location.href = "deleteCategory.do?subCatNo="+subCatNo;
-					}
-				}
-			});
-			
+			$('#blogDeleteCategoryBtn').click(
+					function() {
+						if ($('.blog_category_showRow').find('.blogCategoryselected input[name="catNo"]').val() < 0
+								|| $('.blog_category_showRow').find('.blogCategoryselected input[name="subCatNo"]').val() < 0) {
+							$('.blog_category_div').find('.blogCategoryselected').parent().remove();
+						} else {
+
+							var catType = $('.blog_category_div').find('.blogCategoryselected').attr('class');
+
+							// 카테고리 일때
+							if (catType == "blogCat blogCategoryselected") {
+								var catNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-categoryNo');
+								var result = confirm("정말 삭제하시겠습니까?");
+								if (result) {
+									location.href = "deleteCategory.do?catNo=" + catNo;
+								}
+							} else if (catType == "blogSubCat blogCategoryselected") {
+								// 서브카테고리 일때
+								var subCatNo = $('.blog_category_div').find('.blogCategoryselected').attr('data-subCategoryNo');
+								var result = confirm("정말 삭제하시겠습니까?");
+								if (result) {
+									location.href = "deleteCategory.do?subCatNo=" + subCatNo;
+								}
+							}
+						}
+					});
+
 			$('#blogAddCategoryBtn').click(function() {
 				var categoryNo = $('.blog_category_showRow').find('.blogCategoryselected').attr('data-categoryNo');
 				var subCatNo = $('.blog_category_div').find('.blogCategoryselected').attr('data-subCategoryNo');
@@ -275,13 +282,13 @@
 				var catType = $('.blog_category_div').find('.blogCategoryselected').attr('class');
 				var isShow = $('#blog_subCat_show').prop('checked');
 				console.log(isShow);
-				
+
 				if (catType == "blogCat blogCategoryselected") {
 					alert('카테고리는 2차 분류까지 만드실 수 있습니다');
 					// 카테고리 추가하기
 				} else if (catType == "blogSubCat blogCategoryselected") {
 					var row = '';
-					
+
 					row += '<div class="col-sm-12 blog_category_cat1">';
 					row += '<div class="blogCat" data-categoryPublic="Y">';
 					row += '&nbsp;┗ <span class="blog-detail-showall"><span id="blogNewCat">카테고리</span></span>';
@@ -315,8 +322,8 @@
 				$('.blogCategoryselected').find('#sub-title').val($(this).val());
 				$('.blogCategoryselected').find('#cat-title').val($(this).val());
 			});
-			$('#blog_name').focusout(function(){
-				if($(this).val() == ""){
+			$('#blog_name').focusout(function() {
+				if ($(this).val() == "") {
 					$(this).val('카테고리');
 				}
 				$('.blogCategoryselected').find('.blog-detail-showall').text($(this).val());

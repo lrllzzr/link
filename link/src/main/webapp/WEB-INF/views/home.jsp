@@ -31,12 +31,12 @@
 							<li><a href="/link/blog/main.do">블로그</a></li>
 							<c:if test="${LOGIN_USER.isHaveBlog eq 'Y' }">
 								<li style="margin-left: 10px;"><a href="/link/blog/mydetail.do">내 블로그</a></li>
-								<li style="margin-left: 10px;"><a href="/link/blog/beautifyblog.do">내 블로그 관리</a></li>
+								<li style="margin-left: 10px;"><a href="/link/blog/beauty.do">내 블로그 관리</a></li>
 							</c:if>
 							<li class="divider"></li>
 							<li><a href="#">밴드</a></li>
 							<li><a href="#">가계부 </a></li>
-							<li><a href="#">지식인</a></li>
+							<li><a href="/link/jisikin/main.do">지식인</a></li>
 							<li><a href="#">시리즈</a></li>
 							<li><a href="#">TV</a></li>
 
@@ -90,9 +90,9 @@
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
-					<a href="">지식인</a>
+					<a href="/link/jisikin/main.do">지식인</a>
 				</div>
-				<a href=""><img style="position: relative;" src="resources/images/jisik.jpg" alt=""></a>
+				<a href="/link/jisikin/main.do"><img style="position: relative;" src="resources/images/jisik.jpg" alt=""></a>
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
