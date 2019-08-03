@@ -34,105 +34,108 @@
 
 				</div>
 				<div class="row blog-main-row-2">
-					<div class="col-sm-12">
-						<div class="row">
-							<div class="col-sm-9 blog-neighbor-col">
-								<span class="blog-neighbor">이웃새글</span>
-							</div>
-							<div class="col-sm-3">
-								<div class="form-group">
-									<select class="form-control" name="" id="">
-										<option value=""selected;>전체이웃</option>
-										<option value="">새 그룹</option>
-									</select>
+					<c:if test="${not empty LOGIN_USER }">
+						<div class="col-sm-12">
+							<div class="row">
+								<div class="col-sm-9 blog-neighbor-col">
+									<span class="blog-neighbor">이웃새글</span>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<select class="form-control" name="" id="">
+											<option value=""selected;>전체이웃</option>
+											<option value="">새 그룹</option>
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</c:if>
 					<div class="blog-neighbor-div">
 
 						<!--     이웃 새글 시작    -->
-						<c:choose>
-							<c:when test="${isHaveBlog eq 'yes' }">
-								<c:forEach var="blog" items="${blogList}">
+						<c:if test="${not empty LOGIN_USER }">
+							<c:choose>
+								<c:when test="${isHaveBlog eq 'yes' }">
+									<c:if test="${not empty blogList}">
+										<c:forEach var="blog" items="${blogList}">
+											<div class="blog-hrdiv">
+												<hr class="blog-row-hr-2" />
+											</div>
+											<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
+												<div class="col-sm-9">
+													<div class="row">
+														<div class="col-sm-1 blog-neighbor-col1">
+															<img class="blog-row-2-profile-img" src="/link/resources/images/${blog.BLOGMAINIMG }" alt="">
+														</div>
+														<div class="col-sm-2 blog-neighbor-col2">
+															<div class="row">
+																<div class="col-sm-12">
+																	<a href="">${blog.NICKNAME }</a>
+																</div>
+																<div class="col-sm-12">2시간전</div>
+															</div>
+														</div>
+													</div>
+													<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}">
+														<div class="row blog-neighbor-box">
+															<div class="col-sm-12">
+																<p class="blog-neighbor-title">${blog.TITLE }</p>
+															</div>
+															<div class="col-sm-12 blog-neighbor-contents3">
+																<div class="blog-neighbor-contents">${blog.CONTENTS }</div>
+															</div>
+														</div>
+													</a>
+												</div>
+												<!--  -->
+												<div class="col-sm-3">
+													<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}"> <img style="max-width: 100%;" class="blog-neighbor-img "
+														src="/link/resources/images/userblogimgs/${blog.BOARDMAINIMG }" alt="">
+													</a>
+												</div>
+
+											</div>
+										</c:forEach>
+									</c:if>
+									<c:if test="${empty blogList }">
+										<div class="blog-hrdiv">
+											<hr class="blog-row-hr-2" />
+										</div>
+										<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
+											<div class="col-sm-12 text-center">
+												<p>업데이트된 이웃의 새 글이 없습니다.</p>
+												<p>아래 주제별 블로거 추천을 통해 관심 주제의 블로그 이웃을 만들어보세요.</p>
+											</div>
+										</div>
+									</c:if>
+								</c:when>
+								<c:otherwise>
+									<!--     이웃 새글 끝     -->
 									<div class="blog-hrdiv">
 										<hr class="blog-row-hr-2" />
 									</div>
 									<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
-										<div class="col-sm-9">
-											<div class="row">
-												<div class="col-sm-1 blog-neighbor-col1">
-													<img class="blog-row-2-profile-img" src="/link/resources/images/${blog.BLOGMAINIMG }" alt="">
-												</div>
-												<div class="col-sm-2 blog-neighbor-col2">
-													<div class="row">
-														<div class="col-sm-12">
-															<a href="">${blog.NICKNAME }</a>
-														</div>
-														<div class="col-sm-12">2시간전</div>
-													</div>
-												</div>
-											</div>
-											<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}">
-												<div class="row blog-neighbor-box">
-													<div class="col-sm-12">
-														<p class="blog-neighbor-title">${blog.TITLE }</p>
-													</div>
-													<div class="col-sm-12 blog-neighbor-contents3">
-														<div class="blog-neighbor-contents">${blog.CONTENTS }</div>
-													</div>
-												</div>
-											</a>
+										<div class="col-sm-12 text-center">
+											<p>아직 블로그가 생성되지 않았습니다.</p>
+											<p>블로그를 생성해보세요!</p>
 										</div>
-										<!--  -->
-										<div class="col-sm-3">
-											<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}"> <img
-												style="max-width: 100%;" class="blog-neighbor-img " src="/link/resources/images/userblogimgs/${blog.BOARDMAINIMG }" alt=""
-											>
-											</a>
-										</div>
-
 									</div>
-								</c:forEach>
-							</c:when>
-							<c:otherwise>
-								<!--     이웃 새글 끝     -->
-								<div class="blog-hrdiv">
-									<hr class="blog-row-hr-2" />
+									<!--     이웃 새글 끝  -->
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+						<c:if test="${empty LOGIN_USER }">
+							<div class="blog-hrdiv">
+								<hr class="blog-row-hr-2" />
+							</div>
+							<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
+								<div class="col-sm-12 text-center">
+									<p>로그아웃 상태입니다.</p>
+									<p>로그인하여 이웃 새글을 확인해보세요.</p>
 								</div>
-								<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
-									<div class="col-sm-9">
-										<div class="row">
-											<div class="col-sm-1 blog-neighbor-col1">
-												<img class="blog-row-2-profile-img" src="/link/resources/images/blog.png" alt="">
-											</div>
-											<div class="col-sm-2 blog-neighbor-col2">
-												<div class="row">
-													<div class="col-sm-12">
-														<a href="">이웃맘</a>
-													</div>
-													<div class="col-sm-12">2시간전</div>
-												</div>
-											</div>
-										</div>
-										<div class="row blog-neighbor-box">
-											<a href="">
-												<div class="col-sm-12">
-													<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
-												</div>
-												<div class="col-sm-12">
-													<p class="blog-neighbor-contents">이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~</p>
-												</div>
-											</a>
-										</div>
-									</div>
-									<div class="col-sm-3">
-										<a href=""><img class="blog-neighbor-img " src="/link/resources/images/smooth.jfif" alt=""></a>
-									</div>
-								</div>
-								<!--     이웃 새글 끝  -->
-							</c:otherwise>
-						</c:choose>
+							</div>
+						</c:if>
 						<!--     이웃 새글 끝     -->
 					</div>
 
@@ -173,8 +176,7 @@
 										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
 									</div>
 									<div class="col-sm-12">
-										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit. Consequatur, officiis.</p>
+										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, officiis.</p>
 									</div>
 								</a>
 							</div>
@@ -214,8 +216,7 @@
 										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
 									</div>
 									<div class="col-sm-12">
-										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit. Consequatur, officiis.</p>
+										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, officiis.</p>
 									</div>
 								</a>
 							</div>
@@ -253,14 +254,11 @@
 										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기저탄고지식단으로 고구마아몬드스무디 만들기저탄고지식단으로 고구마아몬드스무디 만들기</p>
 									</div>
 									<div class="col-sm-12">
-										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit. Consequatur, officiis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum labore
-											mollitia officia nihil maiores ratione libero magnam perspiciatis reprehenderit nam rem amet. Dolorum totam autem quam natus
-											obcaecati quasi optio nihil ducimus minima quia! Ea blanditiis assumenda tenetur nisi quia amet distinctio voluptatem molestias
-											eligendi voluptatibus repudiandae odio. Necessitatibus tempora doloribus quaerat ad saepe obcaecati nemo provident sapiente
-											ducimus itaque eum inventore. Deserunt nulla aperiam quam a ipsam blanditiis vitae pariatur fugiat earum minus commodi similique
-											totam reprehenderit animi odit placeat quaerat officiis quae et eum sequi fugit error iure libero ducimus accusamus delectus
-											laboriosam aut ratione neque. Exercitationem natus?</p>
+										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, officiis. Lorem ipsum dolor sit amet, consectetur adipisicing
+											elit. Voluptatum labore mollitia officia nihil maiores ratione libero magnam perspiciatis reprehenderit nam rem amet. Dolorum totam autem quam natus obcaecati quasi optio nihil ducimus minima quia! Ea blanditiis assumenda tenetur
+											nisi quia amet distinctio voluptatem molestias eligendi voluptatibus repudiandae odio. Necessitatibus tempora doloribus quaerat ad saepe obcaecati nemo provident sapiente ducimus itaque eum inventore. Deserunt nulla aperiam quam
+											a ipsam blanditiis vitae pariatur fugiat earum minus commodi similique totam reprehenderit animi odit placeat quaerat officiis quae et eum sequi fugit error iure libero ducimus accusamus delectus laboriosam aut ratione neque.
+											Exercitationem natus?</p>
 									</div>
 								</a>
 							</div>
@@ -339,9 +337,7 @@
 									<c:forEach var="request" items="${requestList}">
 										<div class="row blog-alarm">
 											<div class="col-sm-10">
-												<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a
-													href="eachNeighbor.do"
-												>${request.NICKNAME }님이 서로이웃을 신청했습니다.</a>
+												<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="eachNeighbor.do">${request.NICKNAME }님이 서로이웃을 신청했습니다.</a>
 											</div>
 											<div class="col-sm-1">
 												<a href=""><span class="glyphicon glyphicon-remove"></span></a>

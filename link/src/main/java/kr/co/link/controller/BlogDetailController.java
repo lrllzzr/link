@@ -197,6 +197,7 @@ public class BlogDetailController {
 		List<Blog> blogs = blogService.get3BlogByVisits();
 		if (user != null) {
 			Blog blog = blogService.getBlogByUserId(user.getId());
+			
 			if (blog == null) {
 				model.addAttribute("isHaveBlog", "no");
 			} else {
@@ -362,6 +363,7 @@ public class BlogDetailController {
 		BeanUtils.copyProperties(blogForm, blog);
 		MultipartFile mf = blogForm.getMainImg();
 		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images";
+		profileImageSaveDirectory = "C:/Users/BMAHN/git/link2/link/src/main/webapp/resources/images";
 		String filename = "profile.jpg";
 
 		if (!mf.isEmpty()) {

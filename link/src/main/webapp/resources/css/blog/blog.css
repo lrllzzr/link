@@ -309,6 +309,13 @@ a {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical; 
 }
+.blog-neighbor-contents span{
+	font-size:14px !important;
+}
+.blog-neighbor-contents p{
+	text-align: left !important;
+}
+
 .blog-main-col-2-1-1:last-child{
     margin-bottom: 40px;
 }

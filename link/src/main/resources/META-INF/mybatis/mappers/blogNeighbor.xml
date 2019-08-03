@@ -164,8 +164,10 @@ from
 		blog_neighbor
 	where
 		neighborhood_no = #{myBlogNo}
-	and
-		blog_no = #{neighborBlogNo}
+	<if test="neighborBlogNo != null">
+		and
+			blog_no = #{neighborBlogNo}
+	</if>
 </select>
 
 
