@@ -86,4 +86,7 @@ public class JisikinAnswer {
 	}
 	
 	
+	// timeago
+	public long getCreateTime() { return createDate.getTime(); }
+	
 }

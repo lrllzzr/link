@@ -94,6 +94,11 @@ public class JisikinController {
 		
 		model.addAttribute("jisikin", jisikin);
 		
+		
+		// 답변 뿌리기
+		List<JisikinAnswer> answers = answerService.getAnswersByJisikinNo(jisikinNo);
+		model.addAttribute("answers", answers);
+		
 		return "jisikin/jisikinQuestion";
 	}
 	
@@ -105,11 +110,13 @@ public class JisikinController {
 		BeanUtils.copyProperties(jisikinAnswer, answer);
 		// 작성자 아이디 넣기
 		answer.setUserId(user.getId());
+		
+		System.out.println(jisikinAnswer.getContents());
 		System.out.println(answer.getUserId());
 		
 		answerService.addAnswer(answer);
 		
-		return "redirect:jisikin/jisikinQuestion?jisikinNo="+jisikinAnswer.getJisikinNo()+"";
+		return "redirect:/jisikin/questionDetail.do?jisikinNo="+jisikinAnswer.getJisikinNo()+"";
 	}
 	
 	// 카테고리별 질문
@@ -162,7 +169,7 @@ public class JisikinController {
 			tagService.addTag(tag);
 		}
 		
-		return "jisikin/jisikinQuestion";
+		return "redirect:/jisikin/questionDetail.do?jisikinNo="+jisikinNo+"";
 	}
 	
 	// 자녀 카테고리 띄우기

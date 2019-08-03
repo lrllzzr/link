@@ -11,7 +11,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
-	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinmain.css">
+	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinmain.css">
+	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinQna.css">
 </head>
 <body>
     <%@ include file="../common/nav.jsp" %>
@@ -332,9 +333,11 @@
             </div>
         </div>
         <div class="col-sm-3 aside-content">
-            <div class="aside-login">
+            <c:choose>
+       	<c:when test="${empty LOGIN_USER}">
+            <div class="aside-login"">
                <p class="top_text">질문과 답변을 하고 싶다면,</p>
-                <button type="text" class="btn btn-default">
+                <button type="text" class="btn btn-default" onclick ="location.href = '/link/loginform.do'">
                     <img src="/link/resources/images/link_logo.PNG" alt="" style="width: 50%;"><strong>로그인</strong>
                 </button>
                 <div class="row sign_area">
@@ -348,7 +351,66 @@
                         <a href="#">회원가입</a>
                     </div>
 			    </div>
-            </div>
+           </div>
+       	</c:when>
+       	<c:otherwise>
+			<div class="aside-login" style="background-color: #f8f8f8; border: 1px solid #e3e3e3;">
+				<div id="aside_login" class="aside_myinfo">
+					<h2 class="blind">
+						NAVER <em>로그인</em> 영역
+					</h2>
+					<div class="my_wrap">
+						<a href="/myinfo/index.nhn">
+							<div class="my_photo">
+								<img
+									src="https://ssl.pstatic.net/static/kin/09renewal/avatar/200x200_m/4.png"
+									alt="프로필이미지" class="img" width="50" height="50">
+							</div>
+							<div class="my_service">
+								<p class="user_id ellipsis">${LOGIN_USER.id }</p>
+								<p class="user_mykin">
+									프로필 바로가기 <span>&gt;</span>
+								</p>
+							</div>
+						</a> <span class="btn_login_area"> <a
+							href="/link/logout.do"
+							class="btn_login">로그아웃</a>
+						</span>
+						<div class="mykin_wrap _tab_myarea">
+							<div class="mykin_tab_content tc-panel tc-selected">
+								<h4 class="blind">나의 지식iN</h4>
+								<div class="scroll_area _panel">
+									<div class="gradeup_info">
+										<div class="lv_area grd_lv4">
+											<div class="mylv">
+												<div class="gauge" id="level_guage">
+													<div class="grd_wrap">
+
+														<div class="inner" style="width: 14%;">
+															<div class="grd_bar">
+																<span class="grd_action"></span>
+															</div>
+														</div>
+													</div>
+													<div class="my_level_num" style="padding-top: 40px;">
+														<strong style="display: block;">내공:</strong> <strong
+															style="display: block;">${LOGIN_USER.mentalPoint }</strong>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+       	</c:otherwise>
+       </c:choose>
+       
+       
             <div style="margin-top: 5px;">
                 <div class="aside aside_tag well">
                     <h4>지식iN 인기태그</h4>

@@ -11,4 +11,22 @@
 		values
 		(jisikin_answer_seq.nextval, #{secretYn}, #{jisikinNo}, #{userId}, #{contents})
 	</insert>
+	
+	<select id="getAnswersByJisikinNo" parameterType="int" resultType="jisikinAnswer">
+		select
+			answer_no no,
+			answer_create_date createDate,
+			answer_selected_yn secretYn,
+			answer_secret_yn secretYn,
+			jisikin_no jisikinNo,
+			answer_recommend recommend,
+			user_id userId,
+			answer_contents contents
+		from
+			jisikin_answer
+		where
+			jisikin_no = #{value}
+		order by
+			answer_create_date desc
+	</select>
 </mapper>

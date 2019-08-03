@@ -14,8 +14,8 @@
     <script src="/link/resources/js/jquery.timeago.js"></script>
     <script src="/link/resources/js/jquery.timeago.ko.js"></script>
     <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
-	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinmain.css">
-	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinQna.css">
+	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinmain.css">
+	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinQna.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<script>
 	
@@ -201,9 +201,9 @@
        
        <c:choose>
        	<c:when test="${empty LOGIN_USER}">
-            <div class="aside-login"">
+            <div class="aside-login">
                <p class="top_text">질문과 답변을 하고 싶다면,</p>
-                <button type="text" class="btn btn-default">
+                <button type="text" class="btn btn-default" onclick ="location.href = '/link/loginform.do'">
                     <img src="/link/resources/images/link_logo.PNG" alt="" style="width: 50%;"><strong>로그인</strong>
                 </button>
                 <div class="row sign_area">
@@ -239,8 +239,7 @@
 								</p>
 							</div>
 						</a> <span class="btn_login_area"> <a
-							href="https://nid.naver.com/nidlogin.logout?retrul=https%3A%2F%2Fkin.naver.com%2Fqna%2Flist.nhn"
-							onclick="nhn.Kin.Utility.nClicks('kmy_lgd.out', '', '', event);"
+							href="/link/logout.do"
 							class="btn_login">로그아웃</a>
 						</span>
 						<div class="mykin_wrap _tab_myarea">
