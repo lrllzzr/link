@@ -17,9 +17,9 @@
 					<span>글 제목</span>
 				</div>
 				<div class="col-sm-9 text-right">작성일</div>
-			</div>
 			<div class="col-sm-12 blog_detail_hr_1">
 				<hr class="blog_detail_hr_1">
+			</div>
 			</div>
 		</div>
 		<!--   글 제목 시작-->
