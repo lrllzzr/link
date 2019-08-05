@@ -1,6 +1,8 @@
 package kr.co.link.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -111,8 +113,7 @@ public class JisikinController {
 		// 작성자 아이디 넣기
 		answer.setUserId(user.getId());
 		
-		System.out.println(jisikinAnswer.getContents());
-		System.out.println(answer.getUserId());
+		System.out.println(answer.getUserId()+"이 답변을 등록하였습니다!");
 		
 		answerService.addAnswer(answer);
 		
@@ -123,6 +124,17 @@ public class JisikinController {
 	@RequestMapping(value="/byCategory.do")
 	public @ResponseBody List<Jisikin> byCategory(int categoryNo){
 		return jisikinService.getJisikinByCategory(categoryNo);
+	}
+	
+	// 카테고리별 검색
+	@RequestMapping(value="/byKeywordCategory.do")
+	public @ResponseBody List<Jisikin> byKeywordCategory(int categoryNo, String keyword){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("no", categoryNo);
+		map.put("keyword", keyword);
+		
+		return jisikinService.searchJisikinsByCategory(map);
 	}
 	
 	// 질문폼
@@ -181,7 +193,16 @@ public class JisikinController {
 	
 	// 답변하기 메뉴
 	@RequestMapping("/answer.do")
-	public String answer(Model model) {
+	public String answer(@RequestParam(required = false, value = "categoryNo", defaultValue = "0")int categoryNo, Model model) {
+		// 카테고리별 질문글 뿌리기
+		if (categoryNo == 0) {
+			List<Jisikin> allJisikin = jisikinService.getAllJisikin();
+			model.addAttribute("allJisikin", allJisikin);
+		} else {
+			List<Jisikin> allJisikin = jisikinService.getJisikinByCategory(categoryNo);
+			model.addAttribute("allJisikin", allJisikin);
+		}
+		
 		// 인기 태그
 		List<JisikinTag> toptag = tagService.getPopularTagTop10();
 		model.addAttribute("toptag", toptag);
@@ -192,6 +213,8 @@ public class JisikinController {
 		
 		return "jisikin/jisikinAnswer";
 	}
+	
+
 	
 	@RequestMapping("/profile.do")
 	public String profile() {

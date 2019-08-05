@@ -42,6 +42,7 @@
             }
             
         })
+        
         app.filter("timeago", function() {
         	return function(time) {
         		return jQuery.timeago( new Date(time));
@@ -312,11 +313,12 @@
 </div>
 
 <script>
+	/*
 	$(".a-category").click(function(){
 		var categoryNo = $(this).attr("data-value");
 		console.log(categoryNo);
 		
-		/* $.ajax({
+		    $.ajax({
 			url:"byCategory.do",
 			data:{categoryNo:categoryNo},
 			dateType:"JSON",
@@ -325,9 +327,9 @@
 			}
 		})
 		
-		return false; */
+		return false; 
 	})
-	
+	*/
 	
 
      $(document).ready(function(){

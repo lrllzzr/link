@@ -92,4 +92,27 @@
 		where 
 		    to_char(jisikin_create_date, 'yy/mm/dd') = (select to_char(sysdate, 'yy/mm/dd') from dual)
 	</select>
+	
+	
+	<!-- 카테고리별 키워드 검색 -->
+	<select id="searchJisikinsByCategory" parameterType="map" resultType="jisikin">
+		select
+			jisikin_no no, 
+			jisikin_title title, 
+			jisikin_content contents,
+			jisikin_secret_yn secretYn, 
+			jisikin_mental_point mentalPoint, 
+			jisikin.category_no "category.no",
+			category_name "category.name",
+			jisikin_create_date createDate
+		from
+			jisikin, jisikin_category
+		where
+            jisikin.category_no = jisikin_category.category_no
+        and
+			jisikin_category.category_parent_no = #{no}
+		and
+			(jisikin.jisikin_title like '%' || #{keyword} || '%' or jisikin.jisikin_content like '%' || #{keyword} || '%')
+			
+	</select>
 </mapper>
