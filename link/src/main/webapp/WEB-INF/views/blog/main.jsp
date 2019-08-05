@@ -10,6 +10,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 <link rel="stylesheet" href="/link/resources/css/main.css">
+<link href="https://fonts.googleapis.com/css?family=Jura|Marck+Script|Russo+One|Sacramento&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -21,7 +22,7 @@
 					<div class="col-sm-12">
 						<span class="blog-hot-topic">Hot topics</span>
 					</div>
-					<c:forEach var="blog" items="${blogs }">
+					<c:forEach var="blog" items="${blogsByVisit }">
 						<a href="detail.do?blogNo=${blog.no }">
 							<div class="col-sm-4 blog-row-2 text-center">
 								<img src="/link/resources/images/${blog.mainImg }" alt="">
@@ -90,8 +91,9 @@
 												</div>
 												<!--  -->
 												<div class="col-sm-3">
-													<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}"> <img style="max-width: 100%;" class="blog-neighbor-img "
-														src="/link/resources/images/userblogimgs/${blog.BOARDMAINIMG }" alt="">
+													<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}"> <img
+														style="max-width: 100%;" class="blog-neighbor-img " src="/link/resources/images/userblogimgs/${blog.BOARDMAINIMG }" alt=""
+													>
 													</a>
 												</div>
 
@@ -143,135 +145,66 @@
 						<hr class="blog-row-hr-3" />
 					</div>
 					<div class="row blog-hr-row">
-						<div class="col-sm-12">
-							<span>전체</span> <span>방송</span> <span>인테리어</span> <span>문학</span>
+						<div class="col-sm-12 blog_topics">
+							<span id="all" class="blog_topic_selected">전체</span>
+							<span data-topic="movie" class="">영화</span>
+							<span data-topic="literature" class="">문학</span>
+							<span data-topic="travel" class="">여행</span>
+							<span data-topic="game" class="">게임</span>
+							<span data-topic="programming" class="">프로그래밍</span>
+							<span data-topic="streamming" class="">스트리밍</span>
 						</div>
 					</div>
 					<div class="blog-hrdiv">
 						<hr class="blog-row-hr-4" />
 					</div>
 
-					<!--                  추천 새글 시작  -->
-					<div class="row blog-main-col-2-1">
-						<div class="col-sm-9">
-							<div class="row">
-								<div class="col-sm-1 blog-neighbor-col1">
-									<img class="blog-row-2-profile-img" src="/link/resources/images/band.png" alt="">
-								</div>
-								<div class="col-sm-2 blog-neighbor-col2">
+					<div class="blog3topic">
+						<c:forEach var="blog3" items="${blogsByType }">
+							<!--                  추천 새글 시작  -->
+							<div class="row blog-main-col-2-1">
+								<div class="col-sm-9">
 									<div class="row">
-										<div class="col-sm-12">
-											<a href="">웅이맘</a>
+										<div class="col-sm-1 blog-neighbor-col1">
+											<img class="blog-row-2-profile-img" src="/link/resources/images/${blog3.BLOGMAINIMG }" alt="">
 										</div>
-										<div class="col-sm-12">2시간전</div>
-									</div>
-								</div>
-								<div class="col-sm-2 col-sm-offset-7">
-									<span class="blog-addneighbor"><a href="">+이웃추가</a></span>
-								</div>
-							</div>
-							<div class="row blog-neighbor-box">
-								<a href="">
-									<div class="col-sm-12">
-										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
-									</div>
-									<div class="col-sm-12">
-										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, officiis.</p>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<a href=""><img class="blog-neighbor-img " src="/link/resources/images/goguma.jfif" alt=""></a>
-						</div>
-					</div>
-					<div class="blog-hrdiv">
-						<hr class="blog-row-hr-2" />
-					</div>
-
-
-					<!--                  추천 새글 끝  -->
-					<!--                  추천 새글 시작  -->
-					<div class="row blog-main-col-2-1">
-						<div class="col-sm-9">
-							<div class="row">
-								<div class="col-sm-1 blog-neighbor-col1">
-									<img class="blog-row-2-profile-img" src="/link/resources/images/band.png" alt="">
-								</div>
-								<div class="col-sm-2 blog-neighbor-col2">
-									<div class="row">
-										<div class="col-sm-12">
-											<a href="">추천맘</a>
+										<div class="col-sm-2 blog-neighbor-col2">
+											<div class="row">
+												<div class="col-sm-12">
+													<a href="board.do?blogNo=${blog3.NO }&categoryNo=${blog3.CATEGORYNO}&boardNo=${blog3.BOARDNO}">${blog3.NICKNAME }</a>
+												</div>
+												<div class="col-sm-12">2시간전</div>
+											</div>
 										</div>
-										<div class="col-sm-12">2시간전</div>
+										<c:if test="${isHaveBlog eq 'yes' }">
+											<div class="col-sm-2 col-sm-offset-7">
+												<span class="blog-addneighbor"><a href="addNeighbor.do?blogNo=${blog3.NO }">+이웃추가</a></span>
+											</div>
+										</c:if>
+									</div>
+									<div class="row blog-neighbor-box">
+										<a href="board.do?blogNo=${blog3.NO }&categoryNo=${blog3.CATEGORYNO}&boardNo=${blog3.BOARDNO}">
+											<div class="col-sm-12">
+												<p class="blog-neighbor-title">${blog3.TITLE }</p>
+											</div>
+											<div class="col-sm-12">
+												<div class="blog-neighbor-contents ">${blog3.CONTENTS }</div>
+											</div>
+										</a>
 									</div>
 								</div>
-								<div class="col-sm-2 col-sm-offset-7">
-									<span class="blog-addneighbor"><a href="">+이웃추가</a></span>
-								</div>
-							</div>
-							<div class="row blog-neighbor-box">
-								<a href="">
-									<div class="col-sm-12">
-										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
-									</div>
-									<div class="col-sm-12">
-										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, officiis.</p>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<a href=""><img class="blog-neighbor-img " src="/link/resources/images/goguma.jfif" alt=""></a>
-						</div>
-					</div>
-					<div class="blog-hrdiv">
-						<hr class="blog-row-hr-2" />
-					</div>
-					<!--                  추천 새글 끝  -->
-					<!--                  추천 새글 시작  -->
-					<div class="row blog-main-col-2-1">
-						<div class="col-sm-9">
-							<div class="row">
-								<div class="col-sm-1 blog-neighbor-col1">
-									<img class="blog-row-2-profile-img" src="/link/resources/images/band.png" alt="">
-								</div>
-								<div class="col-sm-2 blog-neighbor-col2">
-									<div class="row">
-										<div class="col-sm-12">
-											<a href="">웅이맘</a>
-										</div>
-										<div class="col-sm-12">2시간전</div>
-									</div>
-								</div>
-								<div class="col-sm-2 col-sm-offset-7">
-									<span class="blog-addneighbor"><a href="">+이웃추가</a></span>
+								<div class="col-sm-3">
+									<a href="board.do?blogNo=${blog3.NO }&categoryNo=${blog3.CATEGORYNO}&boardNo=${blog3.BOARDNO}"><img class="blog-neighbor-img "
+										src="/link/resources/images/userblogimgs/${blog3.BOARDMAINIMG }" alt=""
+									></a>
 								</div>
 							</div>
-							<div class="row blog-neighbor-box">
-								<a href="">
-									<div class="col-sm-12">
-										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기저탄고지식단으로 고구마아몬드스무디 만들기저탄고지식단으로 고구마아몬드스무디 만들기</p>
-									</div>
-									<div class="col-sm-12">
-										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, officiis. Lorem ipsum dolor sit amet, consectetur adipisicing
-											elit. Voluptatum labore mollitia officia nihil maiores ratione libero magnam perspiciatis reprehenderit nam rem amet. Dolorum totam autem quam natus obcaecati quasi optio nihil ducimus minima quia! Ea blanditiis assumenda tenetur
-											nisi quia amet distinctio voluptatem molestias eligendi voluptatibus repudiandae odio. Necessitatibus tempora doloribus quaerat ad saepe obcaecati nemo provident sapiente ducimus itaque eum inventore. Deserunt nulla aperiam quam
-											a ipsam blanditiis vitae pariatur fugiat earum minus commodi similique totam reprehenderit animi odit placeat quaerat officiis quae et eum sequi fugit error iure libero ducimus accusamus delectus laboriosam aut ratione neque.
-											Exercitationem natus?</p>
-									</div>
-								</a>
+							<div class="blog-hrdiv">
+								<hr class="blog-row-hr-2" />
 							</div>
-						</div>
-						<div class="col-sm-3">
-							<a href=""><img class="blog-neighbor-img " src="/link/resources/images/goguma.jfif" alt=""></a>
-						</div>
+							<!--                  추천 새글 끝  -->
+						</c:forEach>
 					</div>
-					<div class="blog-hrdiv">
-						<hr class="blog-row-hr-2" />
-					</div>
-					<!--                  추천 새글 끝  -->
-
 
 				</div>
 			</div>
@@ -294,7 +227,7 @@
 							</div>
 							<c:if test="${isHaveBlog eq 'yes' }">
 								<div class="row">
-									<span class="blog-right-col-info">오늘 0명 방문</span>
+									<span class="blog-right-col-info">오늘 ${myblog.visits }명 방문</span>
 								</div>
 							</c:if>
 						</div>
@@ -334,16 +267,24 @@
 
 							<div class="row blog-col-6 text-center">
 								<div class="col-sm-12">
-									<c:forEach var="request" items="${requestList}">
-										<div class="row blog-alarm">
-											<div class="col-sm-10">
-												<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="eachNeighbor.do">${request.NICKNAME }님이 서로이웃을 신청했습니다.</a>
+									<c:if test="${not empty requestList }">
+										<c:forEach var="request" items="${requestList}">
+											<div class="row blog-alarm">
+												<div class="col-sm-10">
+													<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="eachNeighbor.do">${request.NICKNAME }님이
+														서로이웃을 신청했습니다.</a>
+												</div>
+												<div class="col-sm-1">
+													<a href=""><span class="glyphicon glyphicon-remove"></span></a>
+												</div>
 											</div>
-											<div class="col-sm-1">
-												<a href=""><span class="glyphicon glyphicon-remove"></span></a>
-											</div>
+										</c:forEach>
+									</c:if>
+									<c:if test="${empty requestList }">
+										<div class="row blog-alarm" style="margin-top: 10px;">
+											<div class="col-sm-12">새로운 소식이 없습니다.</div>
 										</div>
-									</c:forEach>
+									</c:if>
 								</div>
 							</div>
 							<div class="row blog-col-7">
@@ -373,9 +314,78 @@
 			<!--오른쪽 네브 끝-->
 		</div>
 	</div>
+			<%@ include file="../common/bottom.jsp" %>
 	<script>
 		$(function() {
 			$('.blog-neighbor-contents3 img').hide();
+			$('.blog-neighbor-contents img').hide();
+
+			$('.blog_topics span').click(
+					function() {
+						$(this).addClass('blog_topic_selected').siblings().removeClass('blog_topic_selected');
+						var blogType = $(this).attr('data-topic');
+						if (blogType == '전체') {
+							blogType = "";
+						}
+						$.ajax({
+							type : "GET",
+							url : "topicAjax.do",
+							data : {
+								blogType : blogType
+							},
+							dataType : "json",
+							success : function(result) {
+								console.log(result);
+								$('.blog3topic').empty();
+
+								$.each(result, function(index, blog) {
+									var row = "";
+									row += '<div class="row blog-main-col-2-1">';
+									row += '	<div class="col-sm-9">';
+									row += '		<div class="row">';
+									row += '			<div class="col-sm-1 blog-neighbor-col1">';
+									row += '				<img class="blog-row-2-profile-img" src="/link/resources/images/'+blog.BLOGMAINIMG+'" alt="">';
+									row += '			</div>';
+									row += '			<div class="col-sm-2 blog-neighbor-col2">';
+									row += '				<div class="row">';
+									row += '					<div class="col-sm-12">';
+									row += '						<a href="">' + blog.NICKNAME + '</a>';
+									row += '					</div>';
+									row += '					<div class="col-sm-12">2시간전</div>';
+									row += '				</div>';
+									row += '			</div>';
+									row += '			<div class="col-sm-2 col-sm-offset-7">';
+									row += '				<span class="blog-addneighbor"><a href="">+이웃추가</a></span>';
+									row += '			</div>';
+									row += '		</div>';
+									row += '		<div class="row blog-neighbor-box">';
+									row += '			<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
+									row += '		<div class="col-sm-12">';
+									row += '<p class="blog-neighbor-title">${blog3.TITLE }</p>';
+									row += '</div>';
+									row += '<div class="col-sm-12">';
+									row += '<div class="blog-neighbor-contents ">' + blog.CONTENTS + '</div>';
+									row += '</div>';
+									row += '</a>';
+									row += '</div>';
+									row += '</div>';
+									row += '<div class="col-sm-3">';
+									row += '<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO
+											+ '"><img class="blog-neighbor-img" src="/link/resources/images/userblogimgs/'+blog.BLOGMAINIMG+'" alt=""></a>';
+									row += '</div>';
+									row += '</div>';
+									row += '<div class="blog-hrdiv">';
+									row += '<hr class="blog-row-hr-2" />';
+									row += '</div>';
+
+									$('.blog3topic').append(row);
+									$('.blog-neighbor-contents3 img').hide();
+									$('.blog-neighbor-contents img').hide();
+									console.log('dddddddddddddddddddddddddddddddddddddddd')
+								})
+							}
+						})
+					})
 		})
 	</script>
 </body>

@@ -7,7 +7,7 @@
 			</h5>
 		</div>
 		<div class="col-sm-12">
-			<span><a href="">블로그 이웃 1명</a></span>
+			<span><a href="">블로그 이웃 ${neighborCounts }명</a></span>
 		</div>
 		<div class="col-sm-12">
 			<span><a href="">글 보내기 0회</a></span>
@@ -15,6 +15,10 @@
 		<div class="col-sm-12">
 			<span><a href="">글 스크랩 0회</a></span>
 		</div>
+		<div class="col-sm-12">
+			<span><a href="">방문횟수 ${blog.visits }회</a></span>
+		</div>
+		
 
 	</div>
 </div>

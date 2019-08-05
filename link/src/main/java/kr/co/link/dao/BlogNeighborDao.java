@@ -19,4 +19,5 @@ public interface BlogNeighborDao {
 	void addNewNeighborRequest(BlogNeighbor blogNeighbor);
 	void updateBlogNeighbor(BlogNeighbor blogNeighbor);
 	BlogNeighbor getNeighborByMyBlogNo(Map<String, Object> map);
+	Integer getNeighborCountsByBlogNo(Integer blogNo);
 }

@@ -116,11 +116,11 @@ hr{
 	background-color: rgba(${blog.backgroundColor},${blog.opacity});
 	color:${blog.fontColor};
 }
-.blog_detail_right_row {
-	background-color: rgba(${blog.backgroundColor},${blog.opacity});
-	color:${blog.fontColor};
-}
-.blog_detail_right_row1 {
+.blog_detail_right_row,
+.blog_detail_right_row1,
+.blog_board_comment1,
+.blog_board_comment2,
+.blog_likes_box1 {
 	background-color: rgba(${blog.backgroundColor},${blog.opacity});
 	color:${blog.fontColor};
 }

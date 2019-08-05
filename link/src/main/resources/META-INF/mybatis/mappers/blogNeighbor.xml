@@ -169,6 +169,13 @@ from
 			blog_no = #{neighborBlogNo}
 	</if>
 </select>
-
+<select id="getNeighborCountsByBlogNo" parameterType="int" resultType="int">
+	select
+		count(*)
+	from
+		blog_neighbor
+	where
+		blog_no = #{value}
+</select>
 
 </mapper>

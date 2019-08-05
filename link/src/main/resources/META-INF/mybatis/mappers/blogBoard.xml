@@ -70,4 +70,57 @@
 	from blog_boards
 	where category_no = #{value}
 </select>
+<select id="getBlogsWhoLikeBoard" parameterType="int" resultType="map">
+	select
+		a.likes_NO no,
+		a.BOARD_NO boardNo,
+		a.BLOG_NO blogNo,
+		a.LIKE_CREATE_DATE createDate,
+        b.blog_main_img mainImg,
+        b.blog_title blogTitle,
+        b.blog_description blogDescription,
+        c.user_nickname nickName
+	from
+		blog_Board_Likes a, blog b, users c
+	where
+		a.board_no = #{value}
+    and
+        b.blog_no = a.blog_no
+    and
+        b.user_id = c.user_id
+</select>
+<select id="getisLikedBoardByBloardNoMyBlogNo" parameterType="map" resultType="blogBoardLikes">
+	select
+		likes_NO no,
+		BOARD_NO boardNo,
+		BLOG_NO blogNo,
+		LIKE_CREATE_DATE createDate
+	from
+		blog_Board_Likes
+	where
+		board_no = #{boardNo}
+	and
+		blog_no = #{myBlogNo}
+</select>
+<select id="getBoardLikesCount" parameterType="int" resultType="int">
+	select
+		count(*)
+	from
+		blog_board_likes
+	where
+		board_no = #{value}
+</select>
+<insert id="addNewBlogLikes" parameterType="blogBoardLikes">
+	insert into blog_board_likes
+	values(blog_seq.nextval,#{boardNo},#{blogNo},sysdate)
+</insert>
+<delete id="deleteBlogLikes" parameterType="map">
+	delete
+	from
+		blog_board_likes
+	where
+		blog_no = #{myBlogNo}
+	and
+		board_no = #{boardNo}
+</delete>
 </mapper>

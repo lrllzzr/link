@@ -86,7 +86,7 @@
 						<span class="blog_request_div1">이웃을 신청합니다.</span>
 						<span class="blog_request_div2">서로이웃을 신청합니다.</span>
 						<!-- hidden value each or oneway  -->
-						<input id="blog_neighborType" type="hidden" name="eachNeighbor" value="" />
+						<input id="blog_neighborType" type="hidden" name="eachNeighbor" value="oneway" />
 					</div>
 				</div>
 				<div class="row">
@@ -108,6 +108,7 @@
 	<script>
 		$(function() {
 			$('#blog_neighbor_textarea').hide();
+			$('.blog_request_div1').addClass('blog_neighbor_selected1');
 			$('.blog_request_div1, .blog_request_div2').click(function() {
 				$(this).addClass('blog_neighbor_selected1').siblings().removeClass('blog_neighbor_selected1');
 			});
@@ -122,13 +123,22 @@
 			});
 			
 			$('.blog-btn-apply1').click(function(){
-				var result = confirm('신청을 보내시겠습니까?');
-				if(result){
-					$('#neighborApplyingForm').submit();
+				if($('#blog_neighborType').val() == 'oneway'){
+					var result = confirm('이웃을 추가하시겠습니까?');
+					if(result){
+						$('#neighborApplyingForm').submit();
+					}
+				} else if($('#blog_neighborType').val() == 'each'){
+					var result = confirm('서로이웃을 신청하시겠습니까?');
+					if(result){
+						$('#neighborApplyingForm').submit();
+					}
 				}
+				
 			});
 			$('.blog-btn-apply2').click(function(){
 				var result = confirm('취소하시겠습니까? 내용은 저장되지 않습니다.');
+				
 				if(result){
 					history.back();
 				}

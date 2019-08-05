@@ -6,8 +6,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.BeanProperty.Bogus;
+
 import kr.co.link.dao.BlogBoardDao;
 import kr.co.link.vo.BlogBoard;
+import kr.co.link.vo.BlogBoardLikes;
 
 @Service
 public class BlogBoardServiceImpl implements BlogBoardService{
@@ -46,5 +49,25 @@ public class BlogBoardServiceImpl implements BlogBoardService{
 	@Override
 	public Integer getBoardsCountByCategoryNo(Integer catNo) {
 		return blogBoardDao.getBoardsCountByCategoryNo(catNo);
+	}
+	@Override
+	public List<Map<String, Object>> getBlogsWhoLikeBoard(Integer boardNo) {
+		return blogBoardDao.getBlogsWhoLikeBoard(boardNo);
+	}	
+	@Override
+	public void addNewBlogLikes(BlogBoardLikes blogBoardLikes) {
+		blogBoardDao.addNewBlogLikes(blogBoardLikes);
+	}
+	@Override
+	public BlogBoardLikes getisLikedBoardByBloardNoMyBlogNo(Map<String, Object> map) {
+		return blogBoardDao.getisLikedBoardByBloardNoMyBlogNo(map);
+	}
+	@Override
+	public void deleteBlogLikes(Map<String, Object> map) {
+		blogBoardDao.deleteBlogLikes(map);
+	}
+	@Override
+	public Integer getBoardLikesCount(Integer boardNo) {
+		return blogBoardDao.getBoardLikesCount(boardNo);
 	}
 }
