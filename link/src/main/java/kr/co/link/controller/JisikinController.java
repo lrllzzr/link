@@ -211,6 +211,7 @@ public class JisikinController {
 		int countToday = jisikinService.countTodayJisikin();
 		model.addAttribute("countToday", countToday);
 		
+		
 		return "jisikin/jisikinAnswer";
 	}
 	

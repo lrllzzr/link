@@ -44,18 +44,7 @@
 	        })
 	    }
 	    
-	})
-	
-	$('#category-list-box li').click(function(){
-		$(this).siblings().removeClass('on');
-		$(this).addClass('on')
-	})
-	
-	var text = $('#category-list-box li').hasClass('on').find('a').text();
-	$('#text-box').text('');
-	$('#text-box').text(text);
-	
-	
+	})	
 	
 	// timeago
 	app.filter("timeago", function() {
@@ -63,6 +52,8 @@
     		return jQuery.timeago( new Date(time));
     	}
     })
+    
+
 </script>
 <body ng-app="myApp" ng-controller="searchCtrl">
     <%@ include file="../common/nav.jsp" %>
@@ -87,7 +78,7 @@
 				
 					
 						<li dirid="0" class="on"><a href="/link/jisikin/answer.do">전체<span class="blind _selected">질문 목록 선택됨</span></a></li>						
-						<li dirid="1"><a href="/link/jisikin/answer.do?categoryNo=1" data-value="1">교육, 학문</a></li>						
+						<li dirid="1" class="${param.categoryNo eq 1 ? 'on' : '' }"><a href="/link/jisikin/answer.do?categoryNo=1" data-value="1">교육, 학문</a></li>						
 						<li dirid="2"><a href="/link/jisikin/answer.do?categoryNo=2">컴퓨터통신</a></li>						
 						<li dirid="3"><a href="/link/jisikin/answer.do?categoryNo=3">게임</a></li>						
 						<li dirid="4"><a href="/link/jisikin/answer.do?categoryNo=4">엔터테인먼트, 예술</a></li>						
@@ -113,9 +104,7 @@
 			
 			<h5 class="tit ellipsis _heading_title">
 		
-			<a href="/qna/list.nhn"><strong id="text-box">
-				전체
-			</strong></a>
+			<a href="/qna/list.nhn"><strong id="text-box">전체</strong></a>
 
 	</h5>
 			
@@ -340,6 +329,19 @@
     </div>
 </div>
 <script>
+/* $('#category-list-box li').click(function() {
+	$(this).siblings().removeClass('on');
+	$(this).addClass('on');
+	
+	
+	var text = $(this).find('a').text();
+	console.log(text);
+	
+	$('#text-box').text(text);
+									집가서 여기하자 
+}); */			
+
+
 //timeAgo
 $(".tg").each(function(){
    var timeago_t = jQuery.timeago( new Date(parseInt($(this).text())));
