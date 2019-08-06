@@ -132,11 +132,11 @@
 					<div class="answer_update_info">
 						<span class="num_answer">답변 <em>{{jisikin.countAnswer }}</em></span> <span
 							class="info">
-							<a href="#" ng-repeat="tag in tags">
-									{{tag.tagName }}
+							<a href="#" ng-repeat="tag in jisikin.tags">
+							{{tag.tagName}}
 							</a>
 							
-							</span> <span class="info tg">{{jisikin.createTime | timeago}}</span>
+							</span> <span class="info">{{jisikin.createTime |  timeago}}</span>
 					</div>
 		
 					<div class="lnk_wrap">
@@ -347,7 +347,7 @@ $(".tg").each(function(){
    var timeago_t = jQuery.timeago( new Date(parseInt($(this).text())));
    console.log(timeago_t);
    $(this).text(timeago_t);
-});
+});	
 
 
     /* 나도 답변하기 */

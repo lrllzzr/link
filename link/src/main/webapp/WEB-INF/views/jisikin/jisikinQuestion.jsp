@@ -90,7 +90,10 @@
 
                             <a href="#" id="questionMenuBtn" class="button_compose _questionMenuLayerButton is_active" onclick="naver.kin.pc.common.nClicks('end*q.more', '', '', event);" role="option" aria-selected="true" aria-haspopup="true" aria-expanded="true"><i class="icon icon_compose_setting _questionMenuLayerButton" aria-hidden="true"></i><span class="blind">더보기</span></a>
                             <div class="c-userinfo__list-setting _questionMenuLayer _popupLayer" role="listbox" aria-hidden="true">
-                                <a href="#" id="opt_2" class="_ros c-userinfo__setting-item _questionMenuButton"><span class="glyphicon glyphicon-bell" style="color: red;"></span>신고</a>
+                                <a href="/link/jisikin/addRecommend.do?jisikinNo=${jisikin.no }" id="opt_2" class="_ros c-userinfo__setting-item _questionMenuButton">
+                                <span class="glyphicon glyphicon-thumbs-up" style="font-size:19px; width:23px;color: blue;"></span>추천</a>${jisikin.recommend }
+                                <a href="#" id="opt_2" class="_ros c-userinfo__setting-item _questionMenuButton">
+                                <span class="glyphicon glyphicon-bell" style="color: red;"></span>신고</a>
                             </div>
                         </div>
                     </div>
@@ -262,6 +265,7 @@
 </div>
 
 <script>
+
    	/* 스마트에디터 */
    	var oEditors = [];
 
@@ -276,8 +280,36 @@
  
    	
     $(document).ready(function(){
+    	$("#opt_2").click(function(){
+    		if('${LOGIN_USER}'== ""){
+				var result = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+				var host = location.host;
+				var returnUrl = location.pathname;
+				var queryString = location.search.substr(1).replace(/&/g, ',');
+				
+				if(result){
+					location.href = '/link/loginform.do?returnUrl='+returnUrl+'&queryString='+queryString;
+					return false;
+				}
+				return false;
+			}
+    	})
+    	
     	
 		$("#answerWriteButton").click(function(){
+			if('${LOGIN_USER}'== ""){
+				var result = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+				var host = location.host;
+				var returnUrl = location.pathname;
+				var queryString = location.search.substr(1).replace(/&/g, ',');
+				
+				if(result){
+					location.href = '/link/loginform.do?returnUrl='+returnUrl+'&queryString='+queryString;
+					return false;
+				}
+				return false;
+			}
+			
 			$(".answer-form").css("display", "block");
 			
 			$('iframe').remove();

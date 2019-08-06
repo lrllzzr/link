@@ -10,7 +10,6 @@ public class JisikinAnswer {
 	private String selectedYn;
 	private String secretYn;
 	private Integer jisikinNo;
-	private Integer recommend;
 	private String userId;
 	
 	public JisikinAnswer() {}
@@ -69,13 +68,6 @@ public class JisikinAnswer {
 		this.jisikinNo = jisikinNo;
 	}
 
-	public Integer getRecommend() {
-		return recommend;
-	}
-
-	public void setRecommend(Integer recommend) {
-		this.recommend = recommend;
-	}
 
 	public String getUserId() {
 		return userId;

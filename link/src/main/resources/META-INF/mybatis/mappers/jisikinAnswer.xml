@@ -16,10 +16,9 @@
 		select
 			answer_no no,
 			answer_create_date createDate,
-			answer_selected_yn secretYn,
+			answer_selected_yn selectedYn,
 			answer_secret_yn secretYn,
 			jisikin_no jisikinNo,
-			answer_recommend recommend,
 			user_id userId,
 			answer_contents contents
 		from
@@ -28,5 +27,25 @@
 			jisikin_no = #{value}
 		order by
 			answer_create_date desc
+	</select>
+	
+	<select id="getRank" resultType="jisikinrank">
+		select 
+			rownum rank, 
+			cnt cnt, 
+			user_id userId
+		from
+		    (select 
+		        user_id, count(*) cnt
+		    from 
+		        jisikin_answer
+		    where
+		        jisikin_answer.answer_selected_yn = 'Y'
+		    group by
+		        user_id
+		    order by
+		        cnt desc)
+		where
+		    rownum &lt;= 3
 	</select>
 </mapper>

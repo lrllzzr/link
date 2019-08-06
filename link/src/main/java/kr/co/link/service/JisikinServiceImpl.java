@@ -1,11 +1,13 @@
 package kr.co.link.service;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.link.vo.JisikinAnswer;
 import kr.co.link.dao.JisikinDao;
 import kr.co.link.vo.Jisikin;
 import kr.co.link.vo.JisikinTag;
@@ -18,6 +20,7 @@ public class JisikinServiceImpl implements JisikinService {
 	
 	@Autowired
 	private JisikinTagService tagService;
+	
 	
 	@Override
 	public int getJisikinSeq() {
@@ -78,5 +81,38 @@ public class JisikinServiceImpl implements JisikinService {
 		}
 		
 		return allJisikin;
+	}
+	
+	// 추천
+	@Override
+	public void updateJisikinByNo(int jisikinNo) {
+
+		// 추천수 +1
+		Jisikin jisikin = getJisikinByNo(jisikinNo);
+		System.out.println(jisikin);
+		int recommend = jisikin.getRecommend();
+		System.out.println(recommend);
+		recommend = recommend + 1;
+		jisikin.setRecommend(recommend);
+		
+		jisikinDao.updateJisikinByNo(jisikin);
+	}
+	
+	// 성지글
+	@Override
+	public List<Jisikin> getJisikinByrecommend() {
+		return jisikinDao.getJisikinByrecommend();
+	}
+	
+	// 나의 질문, 답변
+	
+	@Override
+	public List<Jisikin> getMyJisikin(String userId){
+		return jisikinDao.getMyJisikin(userId);
+	}
+	
+	@Override
+	public List<JisikinAnswer> getMyAnswer(String userId){
+		return jisikinDao.getMyAnswer(userId);
 	}
 }

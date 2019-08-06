@@ -1,5 +1,6 @@
 package kr.co.link.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import kr.co.link.service.JisikinTagService;
 import kr.co.link.vo.Jisikin;
 import kr.co.link.vo.JisikinAnswer;
 import kr.co.link.vo.JisikinCategory;
+import kr.co.link.vo.JisikinRank;
 import kr.co.link.vo.JisikinTag;
 import kr.co.link.vo.User;
 
@@ -216,9 +218,22 @@ public class JisikinController {
 	}
 	
 
-	
+	// 프로필
 	@RequestMapping("/profile.do")
-	public String profile() {
+	public String profile(String userId , Model model) {
+		List<JisikinAnswer> myAnswer = jisikinService.getMyAnswer(userId);
+		List<Jisikin> myJisikin = jisikinService.getMyJisikin(userId);
+		
+		// 답변으로 질문정보 구하기
+		List<Jisikin> myAnswerQuestion = new ArrayList<Jisikin>();
+		for (JisikinAnswer a : myAnswer) {
+			Jisikin j = jisikinService.getJisikinByNo(a.getJisikinNo());
+			myAnswerQuestion.add(j);
+		}
+		
+		model.addAttribute("myAnswerQuestion", myAnswerQuestion);
+		model.addAttribute("myJisikin", myJisikin);
+		model.addAttribute("myAnswer", myAnswer);
 		
 		return "jisikin/jisikinProfile";
 	}
@@ -231,6 +246,24 @@ public class JisikinController {
 		List<JisikinTag> toptag = tagService.getPopularTagTop10();
 		model.addAttribute("toptag", toptag);
 		
+		// 채택왕
+		List<JisikinRank> ranks = answerService.getRank();
+		model.addAttribute("ranks", ranks);
+		
+		// 성지글
+		List<Jisikin> bestJisikin = jisikinService.getJisikinByrecommend();
+		model.addAttribute("bestJisikin", bestJisikin);
+		
 		return "jisikin/jisikinRank";
+	}
+	
+	// 추천하기
+	@RequestMapping("/addRecommend.do")
+	public String addRecommend(@RequestParam(value= "jisikinNo")int jisikinNo) {
+		
+		// 추천
+		jisikinService.updateJisikinByNo(jisikinNo);
+		
+		return "redirect:/jisikin/questionDetail.do?jisikinNo="+jisikinNo+"";
 	}
 }

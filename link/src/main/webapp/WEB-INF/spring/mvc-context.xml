@@ -31,6 +31,10 @@
 			<mvc:exclude-mapping path="/blog/detail.do"/>
 			<mvc:exclude-mapping path="/blog/profile.do"/>
 			<mvc:exclude-mapping path="/blog/board.do"/>
+			<mvc:exclude-mapping path="/jisikin/main.do"/>
+			<mvc:exclude-mapping path="/jisikin/qna.do"/>
+			<mvc:exclude-mapping path="/jisikin/questionDetail.do"/>
+			<mvc:exclude-mapping path="/jisikin/rank.do"/>
 			<ref bean="loginCheckInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

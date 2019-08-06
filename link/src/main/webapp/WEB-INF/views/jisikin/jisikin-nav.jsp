@@ -30,18 +30,34 @@
                     <li><a href="/link/jisikin/qna.do?categoryNo=15">오픈사전</a></li>
                   </ul>
                 </li>
-                <li class="menu-tab">
+                <li class="menu-tab user-only">
                     <a href="/link/jisikin/answer.do">답변하기 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="menu-tab"><a href="/link/jisikin/rank.do">명예의 전당</a></li>
               </ul>
              
               <ul class="nav navbar-nav navbar-right">
-                <li class="menu-tab"><a href="/link/jisikin/profile.do">프로필</a></li>
-                <li class="menu-tab"><a href="/link/jisikin/questionform.do"><span class="glyphicon glyphicon-pencil"></span>질문하기</a>
+                <li class="menu-tab user-only"><a href="/link/jisikin/profile.do?userId=${LOGIN_USER.id }">프로필</a></li>
+                <li class="menu-tab user-only"><a href="/link/jisikin/questionform.do"><span class="glyphicon glyphicon-pencil"></span>질문하기</a>
                 </li>
               </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
    </div>
+   <script>
+   $(".user-only").click(function(){
+	   if('${LOGIN_USER}'== ""){
+			var result = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+			var host = location.host;
+			var returnUrl = location.pathname;
+			var queryString = location.search.substr(1).replace(/&/g, ',');
+			
+			if(result){
+				location.href = '/link/loginform.do?returnUrl='+returnUrl+'&queryString='+queryString;
+				return false;
+			}
+			return false;
+		}
+   })
+   </script>

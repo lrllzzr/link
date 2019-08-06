@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.link.dao.JisikinAnswerDao;
 import kr.co.link.vo.JisikinAnswer;
+import kr.co.link.vo.JisikinRank;
 
 @Service
 public class JisikinAnswerServiceImpl implements JisikinAnswerService {
@@ -22,5 +23,10 @@ public class JisikinAnswerServiceImpl implements JisikinAnswerService {
 	@Override
 	public List<JisikinAnswer> getAnswersByJisikinNo(int jisikinNo) {
 		return answerDao.getAnswersByJisikinNo(jisikinNo);
+	}
+	
+	@Override
+	public List<JisikinRank> getRank() {
+		return answerDao.getRank();
 	}
 }

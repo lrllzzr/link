@@ -1,6 +1,7 @@
 package kr.co.link.controller;
 
 import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.link.service.UserService;
 import kr.co.link.vo.User;
 
-@Controller
+@Controller 
 public class UserController {
 
 	@Autowired
