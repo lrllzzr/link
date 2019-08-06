@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.BeanProperty.Bogus;
 
 import kr.co.link.dao.BlogBoardDao;
 import kr.co.link.vo.BlogBoard;
+import kr.co.link.vo.BlogBoardComment;
 import kr.co.link.vo.BlogBoardLikes;
 
 @Service
@@ -69,5 +70,25 @@ public class BlogBoardServiceImpl implements BlogBoardService{
 	@Override
 	public Integer getBoardLikesCount(Integer boardNo) {
 		return blogBoardDao.getBoardLikesCount(boardNo);
+	}
+	@Override
+	public List<Map<String, Object>> getBoardCommentByBoardNoParentCno(Map<String, Object> map) {
+		return blogBoardDao.getBoardCommentByBoardNoParentCno(map);
+	}
+	@Override
+	public List<Map<String, Object>> getBoardCommentReplies(Map<String, Object> map) {
+		return blogBoardDao.getBoardCommentReplies(map);
+	}
+	@Override
+	public Integer getCommentsCountByBoardNo(Integer boardNo) {
+		return blogBoardDao.getCommentsCountByBoardNo(boardNo);
+	}
+	@Override
+	public void addNewComment(BlogBoardComment blogBoardComment) {
+		blogBoardDao.addNewComment(blogBoardComment);
+	}
+	@Override
+	public void updateBoard(BlogBoard blogBoard) {
+		blogBoardDao.updateBoard(blogBoard);
 	}
 }

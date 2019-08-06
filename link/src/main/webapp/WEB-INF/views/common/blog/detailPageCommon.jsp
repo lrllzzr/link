@@ -11,7 +11,7 @@
 				</div>
 			</div>
 			<div class="row blog_detail_board_title_row">
-				<div class="col-sm-12">
+				<div class="col-sm-12" style="height:40px; overflow:hidden;">
 					<span class="blog_detail_board_title">${board.title }</span>
 				</div>
 			</div>

@@ -67,11 +67,13 @@ public class BlogServiceImpl implements BlogService{
 		return blogDao.getAllblogs();
 	}
 	@Override
-	public List<Map<String, Object>> getAllBlogsByType(String blogType) {
+	public List<Map<String, Object>> getAllBlogsByType(Map<String, Object> map) {
+		String blogType = (String) map.get("blogType");
 		if("".equals(blogType)) {
-			blogType = null;
+			map.put("blogType", null);
 		}
-		return blogDao.getAllBlogsByType(blogType);
+		
+		return blogDao.getAllBlogsByType(map);
 	}
 
 }

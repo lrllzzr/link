@@ -35,6 +35,7 @@ import kr.co.link.service.BlogSubCategoryService;
 import kr.co.link.service.UserService;
 import kr.co.link.vo.Blog;
 import kr.co.link.vo.BlogBoard;
+import kr.co.link.vo.BlogBoardComment;
 import kr.co.link.vo.BlogBoardLikes;
 import kr.co.link.vo.BlogCategory;
 import kr.co.link.vo.BlogNeighbor;
@@ -207,7 +208,12 @@ public class BlogDetailController {
 		
 		// 전체 topic 블로그 출력
 		String blogType = "";
-		List<Map<String, Object>> blogsByType = blogService.getAllBlogsByType(blogType);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("blogType", blogType);
+		if(user !=null) {
+			map.put("userId", user.getId());
+		}
+		List<Map<String, Object>> blogsByType = blogService.getAllBlogsByType(map);
 		
 		if (user != null) {
 			Blog blog = blogService.getBlogByUserId(user.getId());
@@ -221,10 +227,10 @@ public class BlogDetailController {
 				model.addAttribute("blogList", blogList);
 				model.addAttribute("isHaveBlog", "yes");
 				
-				Map<String, Object> map = new HashMap<String, Object>();
+				Map<String, Object> map2 = new HashMap<String, Object>();
 				map.put("myBlogNo", myBlogNo);
 				map.put("status", "applying");
-				List<Map<String, Object>> blogNeighbors = blogNeighborService.getNeighborRequest(map);
+				List<Map<String, Object>> blogNeighbors = blogNeighborService.getNeighborRequest(map2);
 				model.addAttribute("requestList",blogNeighbors);
 			}
 		}
@@ -235,8 +241,14 @@ public class BlogDetailController {
 	}
 	
 	@RequestMapping("topicAjax.do")
-	public @ResponseBody List<Map<String, Object>> topicAjax(String blogType){
-		List<Map<String, Object>> map = blogService.getAllBlogsByType(blogType);
+	public @ResponseBody List<Map<String, Object>> topicAjax(HttpSession session, String blogType){
+		Map<String, Object> topicMap = new HashMap<String, Object>();
+		User user = (User) session.getAttribute("LOGIN_USER");
+		if(user != null) {
+			topicMap.put("userId", user.getId());
+		}
+		topicMap.put("blogType", blogType);
+		List<Map<String, Object>> map = blogService.getAllBlogsByType(topicMap);
 		return map;
 	}
 	
@@ -332,10 +344,12 @@ public class BlogDetailController {
 		if(user != null) {
 			Blog myBlog = blogService.getBlogByUserId(user.getId());
 			if(myBlog!=null) {
+				model.addAttribute("myBlog",myBlog);
 				int myBlogNo = myBlog.getNo();
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("boardNo", boardNo);
 				map.put("myBlogNo", myBlogNo);
+				model.addAttribute("myBlogNo",myBlogNo);
 				BlogBoardLikes isBlogBoardLikes = blogBoardService.getisLikedBoardByBloardNoMyBlogNo(map);
 				if(isBlogBoardLikes == null) {
 					model.addAttribute("isLiked","N");
@@ -346,6 +360,26 @@ public class BlogDetailController {
 		}
 		// 끝
 		
+		// 댓글 시작
+		Map<String, Object> parentMap = new HashMap<String, Object>();
+		parentMap.put("boardNo", boardNo);
+		// 댓글 목록 가져오기
+		List<Map<String, Object>> blogBoardComments = blogBoardService.getBoardCommentByBoardNoParentCno(parentMap);
+		// 댓글 수 전해주기
+		int commentsCount = blogBoardService.getCommentsCountByBoardNo(boardNo);
+		model.addAttribute("commentsCount",commentsCount);
+		
+		Map<String, Object> sunMap = new HashMap<String, Object>();
+		for (Map<String, Object> comment : blogBoardComments) {
+			int commentNo = ((BigDecimal) comment.get("NO")).intValue();
+			sunMap.put("boardNo", boardNo);
+			sunMap.put("parentCommentNo", commentNo);
+			List<Map<String, Object>> sunComments = blogBoardService.getBoardCommentReplies(sunMap);
+			comment.put("replies", sunComments);
+		}
+		
+		model.addAttribute("blogBoardComments",blogBoardComments);
+		// 댓글 끝
 		model.addAttribute("board", board);
 		model.addAttribute("subCategories", blogSubCategories);
 
@@ -362,6 +396,20 @@ public class BlogDetailController {
 		}
 
 	}
+	@RequestMapping(value="addNewComment.do", method = RequestMethod.POST)
+	public String addNewComment(HttpSession session, Integer boardNo, Integer categoryNo, Integer blogNo,
+								String contents, Integer parentCommentNo) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		BlogBoardComment blogBoardComment = new BlogBoardComment();
+		blogBoardComment.setUserId(user.getId());
+		blogBoardComment.setBoardNo(boardNo);
+		blogBoardComment.setContents(contents);
+		blogBoardComment.setParentCommentNo(parentCommentNo);
+		blogBoardService.addNewComment(blogBoardComment);
+		
+		return "redirect:board.do?boardNo="+boardNo+"&categoryNo="+categoryNo+"&blogNo="+blogNo;
+	}
+	
 	
 	@RequestMapping("addNewBlogLike.do")
 	public String addNewBlogLike(HttpSession session, Integer boardNo, Integer categoryNo, Integer blogNo, String action) {
@@ -403,7 +451,56 @@ public class BlogDetailController {
 			return "blog/detail/write4";
 		}
 	}
-
+	
+	@RequestMapping(value = "/boardUpdate.do", method = RequestMethod.GET)
+	public String boardUpdate(Model model, HttpSession session, Integer blogNo, Integer categoryNo,
+			@RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
+			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10,
+			Integer boardNo){
+		
+		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo, pno, pno10);
+		model.addAttribute("subCategories", blogSubCategories);
+		Blog blog = blogService.getBlogByBlogNo(blogNo);
+		BlogBoard blogBoard = blogBoardService.getBoardByboardNo(boardNo);
+		model.addAttribute("blogBoard",blogBoard);
+		
+		if (blog.getLayout() == 1) {
+			return "blog/detail/boardUpdate";
+		}
+		if (blog.getLayout() == 2) {
+			return "blog/detail/boardUpdate2";
+		}
+		if (blog.getLayout() == 3) {
+			return "blog/detail/boardUpdate3";
+		} else {
+			return "blog/detail/boardUpdate4";
+		}
+	}
+	
+	@RequestMapping(value = "/boardUpdate.do", method = RequestMethod.POST)
+	public String boardUpdateApply(Model model, HttpSession session, Integer blogNo, Integer categoryNo,
+			@RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
+			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10,
+			Integer boardNo, BlogBoardForm blogBoardForm, String contents) throws IOException{
+		System.out.println(contents);
+		System.out.println(blogBoardForm.getContents());
+		System.out.println(blogBoardForm.getTitle());
+		
+		BlogBoard blogBoard = blogBoardService.getBoardByboardNo(boardNo);
+		BeanUtils.copyProperties(blogBoardForm, blogBoard);
+		MultipartFile mf = blogBoardForm.getUpfile();
+		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images/userblogimgs";
+//		profileImageSaveDirectory = "C:/Users/BMAHN/git/link2/link/src/main/webapp/resources/images/userblogimgs";
+		if (!mf.isEmpty()) {
+			String filename = mf.getOriginalFilename();
+			FileCopyUtils.copy(mf.getBytes(), new File(profileImageSaveDirectory, filename));
+			blogBoard.setMainImg(filename);
+		}
+		blogBoardService.updateBoard(blogBoard);
+		
+		return "redirect:board.do?boardNo="+boardNo+"&blogNo="+blogNo+"&categoryNo="+categoryNo;
+	}
+	
 	@RequestMapping(value = "/write.do", method = RequestMethod.POST)
 	public String writeMethod(Model model, HttpSession session, HttpServletRequest request, BlogBoardForm blogBoardForm, Integer blogNo,
 			Integer categoryNo) throws IOException {
@@ -420,6 +517,7 @@ public class BlogDetailController {
 		}
 		blogBoardService.addBoard(blogBoard);
 		return "redirect:detail.do?blogNo=" + blogNo + "&categoryNo=" + categoryNo;
+		
 	}
 
 	@RequestMapping(value = "/makeblog.do", method = RequestMethod.GET)

@@ -123,4 +123,84 @@
 	and
 		board_no = #{boardNo}
 </delete>
+<select id="getBoardCommentByBoardNoParentCno" parameterType="map" resultType="hashmap">
+	select
+    a.COMMENT_NO no,
+    a.COMMENT_CONTENTS contents,
+    a.COMMENT_LIKES likes,
+    a.BOARD_NO boardNo,
+    a.COMMENT_CREATE_DATE createDate,
+    a.PARENTCOMMENT_NO parentCommentNo,
+    b.blog_no blogNo,
+    b.blog_main_img blogMainImg,
+    c.user_id userId,
+    c.user_nickname nickName
+from
+    blog_boards_comments a, blog b, users c
+where
+    board_no = #{boardNo}
+and
+	parentcomment_no is null
+and 
+	a.user_id = c.user_id
+and
+	b.user_id = c.user_id
+</select>
+
+<select id="getBoardCommentReplies" parameterType="map" resultType="hashmap">
+	select
+    a.COMMENT_NO no,
+    a.COMMENT_CONTENTS contents,
+    a.COMMENT_LIKES likes,
+    a.BOARD_NO boardNo,
+    a.COMMENT_CREATE_DATE createDate,
+    a.PARENTCOMMENT_NO parentCommentNo,
+    b.blog_no blogNo,
+    b.blog_main_img blogMainImg,
+    c.user_id userId,
+    c.user_nickname nickName
+from
+    blog_boards_comments a, blog b, users c
+where
+    board_no = #{boardNo}
+   <if test="parentCommentNo != null">
+	and
+		parentcomment_no = #{parentCommentNo}
+   </if>
+and 
+	a.user_id = c.user_id
+and
+	b.user_id = c.user_id
+</select>
+<select id="getCommentsCountByBoardNo" parameterType="int" resultType="int">
+	select
+		count(*)
+	from
+		blog_boards_comments
+	where
+		board_no = #{value}
+</select>
+<insert id="addNewComment" parameterType="blogboardcomment">
+insert into blog_boards_comments
+	(COMMENT_NO,
+	COMMENT_CONTENTS,
+	COMMENT_LIKES,
+	BOARD_NO,
+	COMMENT_CREATE_DATE,
+	user_id,
+	PARENTCOMMENT_NO)
+values(
+	blog_seq.nextval, #{contents}, 0, #{boardNo}, sysdate, #{userId}, #{parentCommentNo}
+	)
+</insert>
+<update id="updateBoard" parameterType="blogboard">
+	update blog_boards
+	set
+		BOARD_TITLE = #{title},
+		BOARD_CONTENTS = #{contents},
+		CATEGORY_NO = #{categoryNo},
+		BOARD_MAIN_IMG = #{mainImg}
+	where
+		BOARD_NO = #{no}	
+</update>
 </mapper>

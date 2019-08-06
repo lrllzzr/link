@@ -227,7 +227,7 @@
 							</div>
 							<c:if test="${isHaveBlog eq 'yes' }">
 								<div class="row">
-									<span class="blog-right-col-info">오늘 ${myblog.visits }명 방문</span>
+									<span class="blog-right-col-info">총 ${myblog.visits }명 방문</span>
 								</div>
 							</c:if>
 						</div>
@@ -354,14 +354,16 @@
 									row += '					<div class="col-sm-12">2시간전</div>';
 									row += '				</div>';
 									row += '			</div>';
-									row += '			<div class="col-sm-2 col-sm-offset-7">';
-									row += '				<span class="blog-addneighbor"><a href="">+이웃추가</a></span>';
-									row += '			</div>';
+									row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
+									row += '				<div class="col-sm-2 col-sm-offset-7">';
+									row += '					<span class="blog-addneighbor"><a href="">+이웃추가</a></span>';
+									row += '				</div>';
+									row += '			</c:if>';
 									row += '		</div>';
 									row += '		<div class="row blog-neighbor-box">';
 									row += '			<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
 									row += '		<div class="col-sm-12">';
-									row += '<p class="blog-neighbor-title">${blog3.TITLE }</p>';
+									row += '<p class="blog-neighbor-title">'+blog.TITLE+'</p>';
 									row += '</div>';
 									row += '<div class="col-sm-12">';
 									row += '<div class="blog-neighbor-contents ">' + blog.CONTENTS + '</div>';
@@ -371,7 +373,7 @@
 									row += '</div>';
 									row += '<div class="col-sm-3">';
 									row += '<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO
-											+ '"><img class="blog-neighbor-img" src="/link/resources/images/userblogimgs/'+blog.BLOGMAINIMG+'" alt=""></a>';
+											+ '"><img class="blog-neighbor-img" src="/link/resources/images/userblogimgs/'+blog.BOARDMAINIMG+'" alt=""></a>';
 									row += '</div>';
 									row += '</div>';
 									row += '<div class="blog-hrdiv">';

@@ -32,6 +32,7 @@
 					</div>
 					<!--  우측 게시판 글 하나 끝-->
 				</div>
+				<%@ include file="../../common/blog/blogGongGam.jsp" %>
 				<!-- 우측 게시판 두번째 nav 끝-->
 			<!--좌측 nav 시작-->
 			<%@include file="../../common/blog/blogrightForLayout4.jsp"%>

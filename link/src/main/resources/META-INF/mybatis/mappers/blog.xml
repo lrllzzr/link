@@ -179,7 +179,7 @@
 	from
 		blog
 </select>
-<select id="getAllBlogsByType" parameterType="string" resultType="map">
+<select id="getAllBlogsByType" parameterType="map" resultType="map">
 	select row_no, id, nickName, title, categoryNo, boardNo, contents, no, boardMainImg, blogMainImg
 	from
    		(
@@ -203,9 +203,13 @@
             f.subcategory_no = e.subcategory_no
         and
             e.category_no = d.category_no
-        <if test="value != null">
+        <if test="userId != null">
 	        and
-	        	a.blog_topic = #{value}
+	            c.user_id != #{userId}
+        </if>
+        <if test="blogType != null">
+	        and
+	        	a.blog_topic = #{blogType}
         </if>
         )
     where

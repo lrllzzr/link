@@ -17,5 +17,5 @@ public interface BlogService {
 	public void addNewBlog(Blog blog);
 	void setBasicBlog(Blog blog, User user, String filename);
 	List<Blog> getAllblogs();
-	List<Map<String, Object>> getAllBlogsByType(String blogType);
+	List<Map<String, Object>> getAllBlogsByType(Map<String, Object> map);
 }
