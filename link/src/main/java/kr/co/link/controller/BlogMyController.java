@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.link.form.BlogBoardForm;
 import kr.co.link.service.BlogBoardService;
 import kr.co.link.service.BlogCategoryService;
+import kr.co.link.service.BlogNeighborService;
 import kr.co.link.service.BlogService;
 import kr.co.link.service.BlogSubCategoryService;
 import kr.co.link.service.UserService;
@@ -43,9 +44,10 @@ public class BlogMyController {
 	private BlogCategoryService blogCategoryService;
 	@Autowired
 	private BlogBoardService blogBoardService;
-	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BlogNeighborService blogNeighborService;
 	
 	public List<BlogSubCategory> getBlogSubCategories(HttpSession session,Integer blogNo, Model model, Integer categoryNo, Integer pno, Integer pno10) {
 		Blog blog = blogService.getBlogByBlogNo(blogNo);
@@ -147,6 +149,11 @@ public class BlogMyController {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
 		
+		// 이웃 블로그수 전해주기
+		int neighborCounts = blogNeighborService.getNeighborCountsByBlogNo(blog.getNo());
+		model.addAttribute("neighborCounts",neighborCounts);
+		// 끝
+		
 		BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blog.getNo());
 		int subCatNo = blogSubCategory.getNo();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -178,6 +185,10 @@ public class BlogMyController {
 				@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
+		// 이웃 블로그수 전해주기
+		int neighborCounts = blogNeighborService.getNeighborCountsByBlogNo(blog.getNo());
+		model.addAttribute("neighborCounts",neighborCounts);
+		// 끝
 		BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blog.getNo());
 		int subCatNo = blogSubCategory.getNo();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -207,8 +218,11 @@ public class BlogMyController {
 		Integer categoryNo = blogCategory.getNo();
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo,pno,pno10);
 		model.addAttribute("subCategories",blogSubCategories);
-		
-//	레이아웃 초기 화면 미리보기 설정	
+		// 이웃 블로그수 전해주기
+		int neighborCounts = blogNeighborService.getNeighborCountsByBlogNo(blog.getNo());
+		model.addAttribute("neighborCounts",neighborCounts);
+		// 끝
+		// 레이아웃 초기 화면 미리보기 설정	
 		if(session.getAttribute("firstCol") == null) {
 			session.setAttribute("firstCol", blog.getFirstCol());
 		}
@@ -258,6 +272,10 @@ public class BlogMyController {
 			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
+		// 이웃 블로그수 전해주기
+		int neighborCounts = blogNeighborService.getNeighborCountsByBlogNo(blog.getNo());
+		model.addAttribute("neighborCounts",neighborCounts);
+		// 끝
 		Integer blogNo = blog.getNo();
 		BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blogNo);
 		int subCatNo = blogSubCategory.getNo();
@@ -288,6 +306,10 @@ public class BlogMyController {
 			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10){
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
+		// 이웃 블로그수 전해주기
+		int neighborCounts = blogNeighborService.getNeighborCountsByBlogNo(blog.getNo());
+		model.addAttribute("neighborCounts",neighborCounts);
+		// 끝
 		Integer blogNo = blog.getNo();
 		BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blogNo);
 		int subCatNo = blogSubCategory.getNo();

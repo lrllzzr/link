@@ -20,4 +20,18 @@
 
 	<context:component-scan base-package="kr.co.link.controller" />
 	
+	<bean id="loginCheckInterceptor" class="kr.co.link.interceptor.LoginCheckInterceptor"></bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/home.do"/>
+			<mvc:exclude-mapping path="/loginform.do"/>
+			<mvc:exclude-mapping path="/login.do"/>
+			<mvc:exclude-mapping path="/blog/main.do"/>
+			<mvc:exclude-mapping path="/blog/detail.do"/>
+			<mvc:exclude-mapping path="/blog/profile.do"/>
+			<mvc:exclude-mapping path="/blog/board.do"/>
+			<ref bean="loginCheckInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

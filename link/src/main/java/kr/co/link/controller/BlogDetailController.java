@@ -35,7 +35,9 @@ import kr.co.link.service.BlogSubCategoryService;
 import kr.co.link.service.UserService;
 import kr.co.link.vo.Blog;
 import kr.co.link.vo.BlogBoard;
+import kr.co.link.vo.BlogBoardLikes;
 import kr.co.link.vo.BlogCategory;
+import kr.co.link.vo.BlogNeighbor;
 import kr.co.link.vo.BlogSubCategory;
 import kr.co.link.vo.User;
 
@@ -59,25 +61,47 @@ public class BlogDetailController {
 	public List<BlogSubCategory> getBlogSubCategories(HttpSession session, Integer blogNo, Model model, Integer categoryNo, Integer pno,
 			Integer pno10) {
 		Blog blog = blogService.getBlogByBlogNo(blogNo);
+		
+		// 이웃 블로그수 전해주기
+		int neighborCounts = blogNeighborService.getNeighborCountsByBlogNo(blogNo);
+		model.addAttribute("neighborCounts",neighborCounts);
+		
 		// 배경색상 투명도 바꾸기
 		String blogColor = blog.getBackgroundColor();
 		Color color = Color.decode(blogColor);
-
+		
 		String r = Integer.toString(color.getRed());
 		String g = Integer.toString(color.getGreen());
 		String b = Integer.toString(color.getBlue());
 		String rgb = r + "," + g + "," + b;
 		blog.setBackgroundColor(rgb);
-
+		
 		// 블로그 주인 아이디
 		String userId = blog.getUserId();
 		// 블로그 주인 유저 찾기
 		User user = userService.getUserById(userId);
 		User loginUser = (User) session.getAttribute("LOGIN_USER");
-
+		
 		List<BlogSubCategory> blogSubCategories = blogSubCategoryService.getBlogSubCategoriesByuserId(userId);
 		model.addAttribute("user", user);
 		model.addAttribute("blog", blog);
+		
+		// 블로그 이웃인지
+		User me = (User) session.getAttribute("LOGIN_USER");
+		if(me !=null) {
+			Blog myblog = blogService.getBlogByUserId(me.getId());
+			if(myblog != null) {
+				Map<String, Object> isNeighborMap = new HashMap<String, Object>();
+				isNeighborMap.put("myBlogNo", myblog.getNo());
+				isNeighborMap.put("neighborhoodNo",blog.getNo());
+				Integer isNeighbor = blogNeighborService.isNeighbor(isNeighborMap);
+				if(isNeighbor == null) {
+					model.addAttribute("isNeighbor","N");
+				} else if(isNeighbor != null) {
+					model.addAttribute("isNeighbor","Y");
+				}
+			}
+		}
 		if (categoryNo == null) {
 
 			BlogSubCategory blogSubCategory = blogSubCategoryService.getOneSubCategoryByBlogNo(blogNo);
@@ -179,8 +203,15 @@ public class BlogDetailController {
 	public String main(Model model, HttpSession session) {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		List<Blog> blogs = blogService.get3BlogByVisits();
+		List<Blog> allBlogs = blogService.getAllblogs();
+		
+		// 전체 topic 블로그 출력
+		String blogType = "";
+		List<Map<String, Object>> blogsByType = blogService.getAllBlogsByType(blogType);
+		
 		if (user != null) {
 			Blog blog = blogService.getBlogByUserId(user.getId());
+				model.addAttribute("myblog",blog);
 			if (blog == null) {
 				model.addAttribute("isHaveBlog", "no");
 			} else {
@@ -190,46 +221,25 @@ public class BlogDetailController {
 				model.addAttribute("blogList", blogList);
 				model.addAttribute("isHaveBlog", "yes");
 				
-				// 블로그 신청 처리
-				List<Map<String, Object>> neighborRequestList = blogNeighborService.getNeighborRequest(myBlogNo);
-				List<Map<String, Object>> realRequestList = new ArrayList<Map<String,Object>>();
-				
-				if(neighborRequestList.size() !=0) {
-					for(Map<String, Object> map : neighborRequestList) {
-						
-						int neighborhoodBlogNo = ((BigDecimal)map.get("NEIGHBORBLOGNO")).intValue();
-						
-						String neighborId = (String) map.get("NEIGHBORID");
-						String neighborNickName = (String) map.get("NICKNAME");
-						// 내 이웃에 상대방이 있는지
-						Map<String, Object> isNeighborMap = new HashMap<String, Object>();
-						isNeighborMap.put("myBlogNo", myBlogNo);
-						isNeighborMap.put("neighborhoodNo", neighborhoodBlogNo);
-						Integer isBlog1 = blogNeighborService.isNeighbor(isNeighborMap);
-						
-						// 상대방이 나를 이웃으로 가지고 있는지
-						Map<String, Object> isNeighborMap2 = new HashMap<String, Object>();
-						isNeighborMap.put("myBlogNo", neighborhoodBlogNo);
-						isNeighborMap.put("neighborhoodNo", myBlogNo);
-						Integer isBlog2 = blogNeighborService.isNeighbor(isNeighborMap2); 
-						
-						// 나한테 상대방이 없다면
-						if(isBlog1 == null) {
-							Map<String, Object> map2 = new HashMap<String, Object>();
-							map2.put("neighborId",neighborId);
-							map2.put("neighborNickName", neighborNickName);
-							map2.put("neighborhoodBlogNo", neighborhoodBlogNo);
-							realRequestList.add(map2);
-						}
-					}
-				}
-				model.addAttribute("realRequestList",realRequestList);
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("myBlogNo", myBlogNo);
+				map.put("status", "applying");
+				List<Map<String, Object>> blogNeighbors = blogNeighborService.getNeighborRequest(map);
+				model.addAttribute("requestList",blogNeighbors);
 			}
 		}
-		model.addAttribute("blogs", blogs);
+		model.addAttribute("blogsByVisit", blogs);
+		model.addAttribute("allBlogs", allBlogs);
+		model.addAttribute("blogsByType", blogsByType);
 		return "blog/main";
 	}
-
+	
+	@RequestMapping("topicAjax.do")
+	public @ResponseBody List<Map<String, Object>> topicAjax(String blogType){
+		List<Map<String, Object>> map = blogService.getAllBlogsByType(blogType);
+		return map;
+	}
+	
 	@RequestMapping("paginationAjax.do")
 	public @ResponseBody Map<String, Object> paginationAjax(Model model, HttpSession session, Integer blogNo, Integer categoryNo,
 			@RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
@@ -282,9 +292,12 @@ public class BlogDetailController {
 			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10) {
 		
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo, pno, pno10);
+		// 방문횟수 증가
 		Blog blog = blogService.getBlogByBlogNo(blogNo);
-
+		blog.setVisits(blog.getVisits()+1);
+		blogService.updateBlogByBlogNo(blog);
 		model.addAttribute("subCategories", blogSubCategories);
+		
 		if (blog.getLayout() == 1) {
 			return "blog/detail/detail";
 		}
@@ -305,6 +318,34 @@ public class BlogDetailController {
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo, pno, pno10);
 		Blog blog = blogService.getBlogByBlogNo(blogNo);
 		BlogBoard board = blogBoardService.getBoardByboardNo(boardNo);
+		// 공감 기능
+		// 공감 리스트
+		List<Map<String, Object>> blogBoardLikesMap = blogBoardService.getBlogsWhoLikeBoard(boardNo);
+		model.addAttribute("blogBoardLikes",blogBoardLikesMap);
+		
+		Integer boardLikes = blogBoardService.getBoardLikesCount(boardNo);
+		model.addAttribute("boardLikes",boardLikes);
+		// 공감 리스트 끝
+		
+		// 내가 공감 했는지
+		User user = (User) session.getAttribute("LOGIN_USER");
+		if(user != null) {
+			Blog myBlog = blogService.getBlogByUserId(user.getId());
+			if(myBlog!=null) {
+				int myBlogNo = myBlog.getNo();
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("boardNo", boardNo);
+				map.put("myBlogNo", myBlogNo);
+				BlogBoardLikes isBlogBoardLikes = blogBoardService.getisLikedBoardByBloardNoMyBlogNo(map);
+				if(isBlogBoardLikes == null) {
+					model.addAttribute("isLiked","N");
+				} else {
+					model.addAttribute("isLiked","Y");
+				}
+			}
+		}
+		// 끝
+		
 		model.addAttribute("board", board);
 		model.addAttribute("subCategories", blogSubCategories);
 
@@ -321,7 +362,27 @@ public class BlogDetailController {
 		}
 
 	}
-
+	
+	@RequestMapping("addNewBlogLike.do")
+	public String addNewBlogLike(HttpSession session, Integer boardNo, Integer categoryNo, Integer blogNo, String action) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		Blog blog = blogService.getBlogByUserId(user.getId());
+		int myBlogNo = blog.getNo();
+		
+		if(action.equals("add")) {
+			BlogBoardLikes blogBoardLikes = new BlogBoardLikes();
+			blogBoardLikes.setBlogNo(myBlogNo);
+			blogBoardLikes.setBoardNo(boardNo);
+			blogBoardService.addNewBlogLikes(blogBoardLikes);
+		} else if(action.equals("cancel")) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("boardNo", boardNo);
+			map.put("myBlogNo", myBlogNo);
+			blogBoardService.deleteBlogLikes(map);
+		}
+		return "redirect:board.do?boardNo="+boardNo+"&categoryNo="+categoryNo+"&blogNo="+blogNo;
+	}
+	
 	@RequestMapping(value = "/write.do", method = RequestMethod.GET)
 	public String writePage(Model model, HttpSession session, Integer blogNo, Integer categoryNo,
 			@RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
@@ -351,6 +412,7 @@ public class BlogDetailController {
 		BeanUtils.copyProperties(blogBoardForm, blogBoard);
 		MultipartFile mf = blogBoardForm.getUpfile();
 		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images/userblogimgs";
+//		profileImageSaveDirectory = "C:/Users/BMAHN/git/link2/link/src/main/webapp/resources/images/userblogimgs";
 		if (!mf.isEmpty()) {
 			String filename = mf.getOriginalFilename();
 			FileCopyUtils.copy(mf.getBytes(), new File(profileImageSaveDirectory, filename));
@@ -372,6 +434,7 @@ public class BlogDetailController {
 		BeanUtils.copyProperties(blogForm, blog);
 		MultipartFile mf = blogForm.getMainImg();
 		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images";
+//		profileImageSaveDirectory = "C:/Users/BMAHN/git/link2/link/src/main/webapp/resources/images";
 		String filename = "profile.jpg";
 
 		if (!mf.isEmpty()) {
@@ -430,4 +493,38 @@ public class BlogDetailController {
 			return "blog/detail/profile4";
 		}
 	}
+	@RequestMapping(value="/addNeighbor.do", method = RequestMethod.GET)
+	public String addNeighbor(Model model, HttpSession session, Integer blogNo) {
+		Blog blog = blogService.getBlogByBlogNo(blogNo);
+		User user = userService.getUserById(blog.getUserId());
+		
+		model.addAttribute("blog",blog);
+		model.addAttribute("user",user);
+		return "blog/detail/addNeighbor";
+	}
+	
+	@RequestMapping(value="/addNeighbor.do", method = RequestMethod.POST)
+	public String addNeighborApply(Model model, HttpSession session,
+									String eachNeighbor,
+									String neighborMessage,
+									Integer neighborBlogNo) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		Blog blog = blogService.getBlogByUserId(user.getId());
+		int myBlogNo = blog.getNo();
+		
+		BlogNeighbor blogNeighbor = new BlogNeighbor();
+		if(eachNeighbor.equals("oneway")) {
+			blogNeighbor.setStatus("accept");
+		} else if(eachNeighbor.equals("each")) {
+			blogNeighbor.setStatus("applying");
+		}
+		blogNeighbor.setBlogNo(myBlogNo);
+		blogNeighbor.setNo(neighborBlogNo);
+		blogNeighbor.setMessage(neighborMessage);
+		blogNeighbor.setType("All");
+		blogNeighborService.addNewNeighborRequest(blogNeighbor);
+		return "redirect:detail.do?blogNo="+neighborBlogNo;
+	}
+	
 }
+

@@ -64,7 +64,7 @@
 									<c:forEach var="neighbor" items="${neighbors }">
 										<tr>
 											<td>
-												<input type="checkbox" name="neighborBlogNo" value="${neighbor.BLOGNO }"/>${neighbor.NICKNAME }(${neighbor.USERID  })
+												<input type="checkbox" name="neighborBlogNo" value="${neighbor.BLOGNO }"/><a href="detail.do?blogNo=${neighbor.BLOGNO }">${neighbor.NICKNAME }(${neighbor.USERID  })</a>
 											</td>
 											<td>${neighbor.MESSAGE}</td>
 											<td class="text-center">

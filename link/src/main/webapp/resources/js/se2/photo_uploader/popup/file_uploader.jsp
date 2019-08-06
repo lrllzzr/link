@@ -8,7 +8,7 @@
 <%
 
 String path = "C:/Users/BM/git/link/link/src/main/webapp/resources/images/userblogimgs"; // 이미지가 저장될 주소
-/* path = "C:/Users/BMAHN/git/link/link/src/main/webapp/resources/images/userblogimgs"; // 이미지가 저장될 주소 */
+/* path = "C:/Users/BMAHN/git/link2/link/src/main/webapp/resources/images/userblogimgs"; // 이미지가 저장될 주소 */ 
 String filename = "";
 
 if(request.getContentLength() > 10*1024*1024 ){

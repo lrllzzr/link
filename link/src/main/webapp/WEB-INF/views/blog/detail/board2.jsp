@@ -20,6 +20,11 @@
 							<div class="col-sm-12 blog_detail_main_board_contents">
 								<div class="page-header">
 									<h2>${board.title }</h2>
+									<div class="row">
+									<div class="col-sm-12 text-right">
+										<span>작성일: ${board.createDate }</span>
+									</div>
+								</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-12">${board.contents }</div>

@@ -17,9 +17,9 @@
 					<span>글 제목</span>
 				</div>
 				<div class="col-sm-9 text-right">작성일</div>
-			</div>
 			<div class="col-sm-12 blog_detail_hr_1">
 				<hr class="blog_detail_hr_1">
+			</div>
 			</div>
 		</div>
 		<!--   글 제목 시작-->
@@ -30,7 +30,7 @@
 						<span><a href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}">${board.title }</a></span>
 					</div>
 					<div class="col-sm-3 text-right">
-						<span class="blog_detail_board_create"><fmt:formatDate value="${board.createDate }"/></span>
+						<span class="blog_detail_board_create">${board.createDate }</span>
 					</div>
 					<div class="col-sm-12 blog_detail-hr-div">
 						<hr class="blog_detail_hr_2" />

@@ -14,4 +14,6 @@ public interface BlogDao {
 	public List<Blog> get3BlogByVisits();
 	public void updateBlogByBlogNo(Blog blog);
 	public void addNewBlog(Blog blog);
+	List<Blog> getAllblogs();
+	List<Map<String, Object>> getAllBlogsByType(String blogType);
 }

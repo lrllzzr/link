@@ -62,5 +62,16 @@ public class BlogServiceImpl implements BlogService{
 		blog.setLayout(1);
 		blog.setPageNumBorderColor("#f2f2f2");
 	}
+	@Override
+	public List<Blog> getAllblogs() {
+		return blogDao.getAllblogs();
+	}
+	@Override
+	public List<Map<String, Object>> getAllBlogsByType(String blogType) {
+		if("".equals(blogType)) {
+			blogType = null;
+		}
+		return blogDao.getAllBlogsByType(blogType);
+	}
 
 }

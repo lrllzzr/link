@@ -44,7 +44,7 @@
 			NEIGHBORHOOD_TYPE type,
 			NEIGHBOR_STATUS status,
             c.user_id userId,
-            c.user_name nickName,
+            c.user_nickname nickName,
             a.NEIGHBOR_MESSAGE message,
             a.neighbor_create_date createDate
 		from
@@ -134,7 +134,7 @@ from
 	and 
 		b.neighborhood_no = #{neighborhoodNo}
 </select>
-<select id="getNeighborRequest" parameterType="int" resultType="map">
+<select id="getNeighborRequest" parameterType="map" resultType="map">
 	select 
 		c.user_id NEIGHBORID, 
 		c.user_nickName NICKNAME, 
@@ -148,7 +148,9 @@ from
 	and
 	    d.user_id = c.user_id
 	and
-	    a.blog_no = #{value}
+	    a.blog_no = #{myBlogNo}
+	and
+		b.neighbor_status = #{status}
 </select>
 <select id="getNeighborByMyBlogNo" parameterType="map" resultType="blogNeighbor">
 	select
@@ -162,8 +164,18 @@ from
 		blog_neighbor
 	where
 		neighborhood_no = #{myBlogNo}
-	and
-		blog_no = #{neighborBlogNo}
-
+	<if test="neighborBlogNo != null">
+		and
+			blog_no = #{neighborBlogNo}
+	</if>
 </select>
+<select id="getNeighborCountsByBlogNo" parameterType="int" resultType="int">
+	select
+		count(*)
+	from
+		blog_neighbor
+	where
+		blog_no = #{value}
+</select>
+
 </mapper>
