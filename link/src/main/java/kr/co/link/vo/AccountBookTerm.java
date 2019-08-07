@@ -21,8 +21,28 @@ public class AccountBookTerm {
 	private Date createDate;
 	private AccountBookTag tag;
 	private Integer totalAmount;
+	private String userId;
+	private String expense;
+	private String income;
 	
-	
+	public String getExpense() {
+		return expense;
+	}
+	public void setExpense(String expense) {
+		this.expense = expense;
+	}
+	public String getIncome() {
+		return income;
+	}
+	public void setIncome(String income) {
+		this.income = income;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public Integer getTotalAmount() {
 		return totalAmount;
 	}

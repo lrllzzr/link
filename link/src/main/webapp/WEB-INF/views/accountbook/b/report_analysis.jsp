@@ -29,10 +29,12 @@
         li{
             list-style: none;
         }
-        .active{
+        .point{
             color: #111;
             font-weight: bold;
         }
+        
+        
         .btn-button{float: right;padding: 1px 7px; font-size: 13px;}
     </style>
     <!--막대그래프-->
@@ -82,8 +84,8 @@
 
         var data = google.visualization.arrayToDataTable([
           ['구분', '금액',{ role: 'style' }],
-          ['수입', 2000000,'#e04931'],
-          ['지출', 600000,'#edcc4a' ],
+          ['지출', parseInt('${totalTerm.expense}'),'#e04931'],
+          ['수입', parseInt('${totalTerm.income}'),'#edcc4a' ],
         ]);
 
         var options = {
@@ -97,18 +99,16 @@
     </script>
 </head>
 <body>
-     <%@include file="../../common/nav.jsp"%>
+ <%@include file="../../common/nav.jsp"%>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2" style="background-color: lightgray; ">
-                 <button type="button" class="btn-button btn" data-toggle="modal" data-target="#open-writing-account">
-                     <strong>빠른 쓰기</strong>
-                 </button>
+                 <%@ include file="../modal.jsp" %>
                 <div>
 					<ul>
-						<li><a href="/link/accountbook/expense.do" class="active"><h4>가계부</h4></a></li>
-						<li><a href="/link/accountbook/monthly.do"
-							style="color: dimgray"><h4>보고서</h4></a></li>
+						<li><a href="/link/accountbook/expense.do" ><h4>가계부</h4></a></li>
+						<li><a href="/link/accountbook/monthly.do" 
+							class="point" style="color: dimgray"><h4>보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
@@ -155,9 +155,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                          <ul class="nav nav-tabs">
-                            <li  class="active"><a href="/link/accountbook/monthly.do">월 보고서</a></li>
+                            <li><a href="/link/accountbook/monthly.do">월 보고서</a></li>
                             <li><a href="/link/accountbook/annual.do">연간 보고서</a></li>
-                            <li><a href="/link/accountbook/analysis.do">지출 분석</a></li>
+                            <li class="active"><a href="/link/accountbook/analysis.do">지출 분석</a></li>
                         </ul>
                     </div>
                 </div>

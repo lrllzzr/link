@@ -29,7 +29,7 @@
         li{
             list-style: none;
         }
-        .active{
+        .point{
             color: #111;
             font-weight: bold;
         }
@@ -83,11 +83,11 @@
 
       function drawChart() {
 
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['수입',    2000000],
-          ['지출',    600000],
-        ]);
+    	   var data = google.visualization.arrayToDataTable([
+    	          ['분류', '금액'],
+    	          ['지출', parseInt('${annualTerm.expense}')],
+    	          ['수입', parseInt('${annualTerm.income}')],
+    	        ]);
 
         var options = {
           title: '연간 수입/지출 분석'
@@ -100,22 +100,20 @@
     </script>
 </head>
 <body>
-     <%@include file="../../common/nav.jsp"%>
+<%@include file="../../common/nav.jsp"%>
     <div class="container-fluid">
         <div class="row">
         <div class="col-sm-2" style="background-color: lightgray; ">
-                 <button type="button" class="btn-button btn" data-toggle="modal" data-target="#open-writing-account">
-                     <strong>빠른 쓰기</strong>
-                 </button>
+              <%@ include file="../modal.jsp" %>
                 <div>
 					<ul>
-						<li><a href="/link/accountbook/expense.do" class="active"><h4>가계부</h4></a></li>
+						<li><a href="/link/accountbook/expense.do" ><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
-							style="color: dimgray"><h4>보고서</h4></a></li>
+							class="point" style="color: dimgray"><h4>보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
-							style="color: dimgray"><h4>월결산</h4></a></li>
+							 style="color: dimgray"><h4>월결산</h4></a></li>
 						
 						<li class="month-accountBook">▼이달의 가계
 							<ul>
@@ -158,8 +156,8 @@
                 <div class="row">
                     <div class="col-sm-12">
                        <ul class="nav nav-tabs">
-                            <li  class="active"><a href="/link/accountbook/monthly.do">월 보고서</a></li>
-                            <li><a href="/link/accountbook/annual.do">연간 보고서</a></li>
+                            <li><a href="/link/accountbook/monthly.do">월 보고서</a></li>
+                            <li class="active"><a href="/link/accountbook/annual.do">연간 보고서</a></li>
                             <li><a href="/link/accountbook/analysis.do">지출 분석</a></li>
                         </ul>
                     </div>
@@ -180,10 +178,7 @@
                             <div id="chart_div1" style="width: 1000; height: 1000;"></div>
                     </div>
                 </div>
-                        <script>
-                            ${'#chart_div'}.hide;
-                            ${'#piechart'}.click(function{})
-                        </script>
+                    
                 <div class="row">
                     <div class="col-sm-12" id="strong-pading">
                      <strong>연간보고서</strong>

@@ -29,7 +29,7 @@
         li{
             list-style: none;
         }
-        .active{
+        .point{
             color: #111;
             font-weight: bold;
         }
@@ -37,24 +37,21 @@
         .tb{padding: 50px;}
     </style>
 </head>
-<body>
-    <%@include file="../../common/nav.jsp"%>
+<body><%@include file="../../common/nav.jsp"%>
 <form action="" method="get">
     <div class="container-fluid">
         <div class="row">
-<div class="col-sm-2" style="background-color: lightgray; ">
-                 <button type="button" class="btn-button btn" data-toggle="modal" data-target="#open-writing-account">
-                      <strong>빠른 쓰기</strong>
-                 </button>
+			<div class="left-navi" style="background-color: lightgray; ">
+                 <%@ include file="../modal.jsp" %>
                 <div>
 					<ul>
-						<li><a href="/link/accountbook/expense.do" class="active"><h4>가계부</h4></a></li>
+						<li><a href="/link/accountbook/expense.do"><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
 							style="color: dimgray"><h4>보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
-							style="color: dimgray"><h4>월결산</h4></a></li>
+							class="point" style="color: dimgray"><h4>월결산</h4></a></li>
 						
 						<li class="month-accountBook">▼이달의 가계
 							<ul>
@@ -79,12 +76,10 @@
                     <div class="col-sm-6">
                     </div>
                     <div class="col-sm-6 text-right">
-                        <form class="form-inline" action="" method="">
                             <div class="form-group">
                                 <input type="text" class="form-control">
                                 <button class="btn btn-success">검색</button>
                             </div>
-                        </form>
                     </div>
                 </div>
            
@@ -98,13 +93,11 @@
                         </div>
                     </div>
                 </div>
-                <form>
                 <div class="row" style="padding-top: 50px;">
                     <div class="col-sm-12">
                         <textarea rows="10" class="form-control" name="contents" id="textareaID"></textarea>
                     </div>
                 </div>
-                </form>
             <div class="row" style="padding-top: 50px; padding-bottom: 30px; border-bottom: 1px grey solid">
                 <div class="col-sm-12">
                     <div class="col-sm-1">

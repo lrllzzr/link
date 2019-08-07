@@ -68,7 +68,7 @@ pageEncoding="UTF-8"%>
            </script>
 </head>
 <body>
-     <%@include file="../../common/nav.jsp"%>
+ <%@include file="../../common/nav.jsp"%>
     <div class="container-fluid">
         <div class="row">
                    <div class="col-sm-2" style="background-color: lightgray; ">
@@ -125,7 +125,7 @@ pageEncoding="UTF-8"%>
                        <ul class="nav nav-tabs">
                             <li ><a href="/link/accountbook/expense.do">지출</a></li>
                             <li class="active"><a href="/link/accountbook/income.do">수입</a></li>
-                            <li><a href="/link/accountbook/calendar.do">달력</a></li>
+                           <!--  <li><a href="/link/accountbook/calendar.do">달력</a></li> -->
                         </ul>
                         <div id="outcome">
                              <div id="chart_div"></div>
@@ -135,11 +135,11 @@ pageEncoding="UTF-8"%>
             
                 <div class="row">
                     <div class="col-sm-12">
-                    	<form action="income.do" method="post">
+                    	<form  id="income-form" action="income.do" method="post">
                         <table class="table table-bordered" class="form-inline">
                             <thead>
                                 <tr>
-                                   <th><input type="checkbox"/></th>
+                                   <th><input type="checkbox" id="all-check"/></th>
                                    <th>날짜</th>
                                    <th>수입내역</th>
                                    <th>금액</th>
@@ -149,27 +149,27 @@ pageEncoding="UTF-8"%>
                             </thead>   
                             <tbody>
                             	<c:forEach var="income" items="${incomeList }">
-                                <tr>
-                            	   <td><input type="checkbox" /></td>
-                                   <td><input class="form-control" type="text" value="${income.dateString }"></td>
-                                   <td><input class="form-control" type="text"  value="${income.detail }"></td>
-                                   <td ><input class="form-control" type="text"  value="${income.cash }"></td>
-                                   <td>
-										<select id="cat"  class="form-control">
-											<option value="">카테고리 선택</option>
-											<c:forEach var="category" items="${incomeCategory }">
-												<option  value="${category.categoryNo }"  ${income.category.categoryNo eq category.categoryNo ? 'selected' :'' }> 
-												${category.categoryName }
-												</option>
-											</c:forEach>
-										</select>
-									</td>
-                                   <td><input class="form-control" type="text" value="${income.tag.tagName }"></td>
-                                </tr>
+	                                <tr>
+	                            	   <td><input type="checkbox" name="termNos" value="${income.no }"/></td>
+	                                   <td><input class="form-control" type="text" value="${income.dateString }"></td>
+	                                   <td><input class="form-control" type="text"  value="${income.detail }"></td>
+	                                   <td ><input class="form-control" type="text"  value="${income.cash }"></td>
+	                                   <td>
+											<select id="cat"  class="form-control">
+												<option value="">카테고리 선택</option>
+												<c:forEach var="category" items="${incomeCategory }">
+													<option  value="${category.categoryNo }"  ${income.category.categoryNo eq category.categoryNo ? 'selected' :'' }> 
+													${category.categoryName }
+													</option>
+												</c:forEach>
+											</select>
+										</td>
+	                                   <td><input class="form-control" type="text" value="${income.tag.tagName }"></td>
+	                                </tr>
                             	</c:forEach>
                                	
                                	<tr>
-									<td><input type="checkbox" /></td>
+									<td><input type="checkbox"/></td>
 									<td><input class="form-control" type="date" name="date" ></td>
 									<td><input class="form-control" type="text" name="detail" ></td>
 									<td class="text-right"><input class="form-control" type="text"  name="cash" ></td>
@@ -187,13 +187,13 @@ pageEncoding="UTF-8"%>
                             <tfoot>
                                 <tr>
                                     <td colspan="3">
-                                        <button class="btn btn-default btn-sm">선택삭제</button>
-                                        <button class="btn btn-default btn-sm">전부삭제</button>
+                                        <button id="btn-selected-del"class="btn btn-default btn-sm">선택삭제</button>
+                                        <button id="btn-all-del" class="btn btn-default btn-sm">전부삭제</button>
                                     </td>
                                     <td class="text-right"><fmt:formatNumber value="${totalCash }"/></td>
                                     <td class="text-right"></td>
                                     <td colspan="2" rowspan="2" class="text-center" style="vertical-align: middle;">
-                                          <button class="btn btn-primary" type="submit">저장하기</button>
+                                          <button id="btn-save" class="btn btn-primary" type="submit">저장하기</button>
                                         <button class="btn btn-default">정산하기</button>   
                                     </td>
                                 </tr>
@@ -213,6 +213,25 @@ pageEncoding="UTF-8"%>
             </div>
         </div>
     </div>
-
+<script type="text/javascript">
+	/*내역 추가*/
+	$('#btn-save').click(function(){
+		$('#income-form').attr('action','income.do')
+		$('#income-form').submit();
+	})
+	/*내역 삭제(선택)*/
+	$('#btn-selected-del').click(function(){
+		$('#income-form').attr('action','delincome.do')
+		$('#income-form').submit();
+		
+	})
+	
+	/*내역 삭제(전체)*/
+	$('#btn-all-del').click(function(){
+		$('#income-form').attr('action','delAllincome.do')
+		$('#income-form').submit();
+		
+	})
+</script>
 </body>
 </html>

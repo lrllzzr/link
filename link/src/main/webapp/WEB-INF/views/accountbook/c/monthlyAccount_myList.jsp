@@ -36,22 +36,20 @@
     </style>
 </head>
 <body>
-     <%@include file="../../common/nav.jsp"%>
+<%@include file="../../common/nav.jsp"%>
     <div class="container-fluid">
         <div class="row">
-      <div class="col-sm-2" style="background-color: lightgray; ">
-                 <button type="button" class="btn-button btn" data-toggle="modal" data-target="#open-writing-account">
-                      <strong>빠른 쓰기</strong>
-                 </button>
+     		 <div class="col-sm-2" style="background-color: lightgray; ">
+                 <%@ include file="../modal.jsp" %>
                 <div>
 					<ul>
-						<li><a href="/link/accountbook/expense.do" class="active"><h4>가계부</h4></a></li>
+						<li><a href="/link/accountbook/expense.do" ><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
 							style="color: dimgray"><h4>보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
-							style="color: dimgray"><h4>월결산</h4></a></li>
+							class="point" style="color: dimgray"><h4>월결산</h4></a></li>
 						
 						<li class="month-accountBook">▼이달의 가계
 							<ul>

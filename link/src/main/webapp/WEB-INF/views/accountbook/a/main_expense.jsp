@@ -63,7 +63,7 @@
            </script>
 </head>
 <body>
-     <%@include file="../../common/nav.jsp"%>
+<%@include file="../../common/nav.jsp"%>
     <div class="container-fluid">
         <div class="row">
         <c:forEach var="a" items="${totalExpense}">
@@ -124,8 +124,9 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="/link/accountbook/expense.do">지출</a></li>
                             <li><a href="/link/accountbook/income.do">수입</a></li>
-                            <li><a href="/link/accountbook/calendar.do">달력</a></li>
+                           <!--  <li><a href="/link/accountbook/calendar.do">달력</a></li> -->
                         </ul>
+          
                         <div id="outcome">
                                <div id="chart_div"></div>
                         </div>
@@ -135,11 +136,11 @@
                
                 <div class="row">
 						<div class="col-sm-12">
-							<form action="expense.do" method="post">
+							<form id="expense-form" action="expense.do" method="post">
 								<table class="table table-bordered">
 									<thead>
 										<tr>
-											<th><input type="checkbox" /></th>
+											<th><input type="checkbox" id="all-check"/></th>
 											<th>날짜</th>
 											<th>사용내역</th>
 											<th>현금</th>
@@ -151,7 +152,7 @@
 									<tbody>
 										<c:forEach var="expense" items="${expenseList }">
 											<tr>
-												<td><input type="checkbox" /></td>
+												<td><input type="checkbox" id="expenseItem" name="termNos" value="${expense.no }"/></td>
 												<td><input class="form-control" type="date"  value="${expense.dateString }"></td>
 												<td><input class="form-control" type="text" value="${expense.detail }"></td>
 												<td class="text-right"><input class="form-control" type="text"  value="${expense.cash }"></td>
@@ -192,14 +193,14 @@
 									<tfoot>
 										<tr>
 											<td colspan="3">
-												<button class="btn btn-default btn-sm">선택삭제</button>
-												<button class="btn btn-default btn-sm">전부삭제</button>
+												<button class="btn btn-default btn-sm" type="button" id="btn-selected-del">선택삭제</button>
+												<button class="btn btn-default btn-sm" type="button" id="btn-all-del">전부삭제</button>
 											</td>
 											<td class="text-right"><fmt:formatNumber value="${totalCash }"/> </td>
 											<td class="text-right"><fmt:formatNumber value="${totalCard }"/></td>
 											<td colspan="2" rowspan="2" class="text-center"
 												style="vertical-align: middle;">
-												<button class="btn btn-primary" type="submit">저장하기</button>
+												<button class="btn btn-primary" type="button" id="btn-save">저장하기</button>
 												<button class="btn btn-default">정산하기</button>
 
 											</td>
@@ -217,6 +218,34 @@
         </div>
     </div>
     <script type="text/javascript">
+    	/*내역추가*/	
+    $('#btn-save').click(function() {
+    		$("#expense-form").attr("action", "expense.do");
+    		$("#expense-form").submit();
+    	})
+    
+    	/*내역 삭제(선택)*/
+    	$('#btn-selected-del').click(function() {
+    		$("#expense-form").attr("action", "delexpense.do")
+    		$("#expense-form").submit();
+    	})
+    	
+    	/*전체 선택*/
+	    $(function(){ 
+	 		$("#all-check").click(function(){
+	    		
+	 			if($("#all-check").prop("checked")) { 
+	    			$("input[type=checkbox]").prop("checked",true); 
+	    		} else { 
+	    			$("input[type=checkbox]").prop("checked",false); }
+	    		
+	 			}) })
+    	
+    	/*내역 삭제(전체)*/
+    	$('#btn-all-del').click(function() {
+    		$("#expense-form").attr("action", "delAllexpense.do")
+    		$("#expense-form").submit();
+    	})
     	
     </script>
 </body>
