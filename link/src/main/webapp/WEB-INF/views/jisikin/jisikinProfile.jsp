@@ -76,14 +76,14 @@
 			</div>
 			<div class="profile_info">
 				<div class="profile_name">
-					<strong class="profile_user">${LOGIN_USER.id }</strong>
+					<strong class="profile_user">${param.userId }</strong>
 					
 				</div>
 				
 				
 				
 				
-					<div class="profile_answer_date">최초답변일 <span>2008.04.07.</span></div>
+					<div class="profile_answer_date">최초답변일 <span>${firstAnswerById }</span></div>
 				
 				
 			</div>
@@ -96,27 +96,27 @@
 				<div class="lv_area grd_lv4">
 				
 					<ul class="lv_cnt">
-					<li><em class="tit">전체답변</em><p class="num" id="total_answer">27</p></li>
-					<li><em class="tit">채택답변</em><p class="num" id="total_best">6</p></li>
-					<li><em class="tit">답변채택률</em><p class="num" id="best_rate">37.5%</p></li>
+					<li><em class="tit">전체답변</em><p class="num" id="total_answer">${countAllAnswerById }</p></li>
+					<li><em class="tit">채택답변</em><p class="num" id="total_best">${countSelectById }</p></li>
+					<li><em class="tit">답변채택률</em><p class="num" id="best_rate">${selectPercent }%</p></li>
 					</ul>
 				</div>
 				
 				<dl class="my_spec">
 				
 					<dt>내공순위</dt>
-					<dd><strong>11,838,056</strong>위</dd>
+					<dd><strong>${rankMentalPointById }</strong>위</dd>
 				
 				<dt>질문</dt>
 				<dd>
-					<span class="q_list">전체질문 <strong>126건</strong></span>
-					<span class="q_list rec_text">답변 받은 질문 <strong>84건</strong></span>
-					<span class="q_list">전체마감률 <strong>95.2%</strong></span>
-					<span class="q_list rec_text">답변채택률 <strong>94%</strong></span>
+					<span class="q_list">전체질문 <strong>${countAllJisikinById }건</strong></span>
+					<span class="q_list rec_text">답변 받은 질문 <strong>${countJisikinSelectById }건</strong></span>
+					<span class="q_list">전체마감률 <strong>${deadLineById }%</strong></span>
+					<span class="q_list rec_text">답변채택률 <strong>${selectPercent }%</strong></span>
 				</dd>
 				<dt>받은추천</dt>
 				<dd>
-					<span class="q_list">좋아요 <strong>6</strong></span>
+					<span class="q_list">좋아요 <strong>${recommendById }</strong></span>
 				</dd>
 
 				</dl>
@@ -131,7 +131,7 @@
 					        <div class="content_area">
 					            <em class="tit">도움을 준 사람 수 <a href="#" class="_helperLayerOpenBtn" onclick="nhn.Kin.Utility.nClicks('prf.helptip', '', '', event);"><img src="https://ssl.pstatic.net/static/kin/09renewal/ico_help.png" width="16" height="16" alt="도움말"></a></em>
 					            <div class="count">
-					                <span class="num">27</span>
+					                <span class="num">${countHelpUserById }</span>
 					            </div>
 					        </div>
 					    </div>

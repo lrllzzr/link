@@ -16,6 +16,7 @@ public class Jisikin {
 	private Integer mentalPoint;
 	private Integer recommend;
 	private String userId;
+	private Integer viewCnt;
 	
 	private Integer countAnswer;
 	
@@ -26,6 +27,18 @@ public class Jisikin {
 
 	
 	
+	public Integer getViewCnt() {
+		return viewCnt;
+	}
+
+
+
+	public void setViewCnt(Integer viewCnt) {
+		this.viewCnt = viewCnt;
+	}
+
+
+
 	public List<JisikinTag> getTags() {
 		return tags;
 	}

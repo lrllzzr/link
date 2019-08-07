@@ -1,5 +1,6 @@
 package kr.co.link.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
@@ -36,6 +37,16 @@ public class JisikinServiceImpl implements JisikinService {
 	@Override
 	public int countTodayJisikin() {
 		return jisikinDao.countTodayJisikin();
+	}
+	
+	@Override
+	public int countTodayAnswer() {
+		return jisikinDao.countTodayAnswer();
+	}
+	
+	@Override
+	public int countAnswer() {
+		return jisikinDao.countAnswer();
 	}
 	
 	@Override
@@ -85,18 +96,34 @@ public class JisikinServiceImpl implements JisikinService {
 	
 	// 추천
 	@Override
-	public void updateJisikinByNo(int jisikinNo) {
+	public void updateJisikinRecommendByNo(int jisikinNo) {
 
 		// 추천수 +1
 		Jisikin jisikin = getJisikinByNo(jisikinNo);
-		System.out.println(jisikin);
 		int recommend = jisikin.getRecommend();
-		System.out.println(recommend);
 		recommend = recommend + 1;
 		jisikin.setRecommend(recommend);
 		
 		jisikinDao.updateJisikinByNo(jisikin);
 	}
+	
+	// 조회
+	public void updateJisikinViewCntByNo(int jisikinNo) {
+
+		// 추천수 +1
+		Jisikin jisikin = getJisikinByNo(jisikinNo);
+		int viewCnt = jisikin.getViewCnt();
+		viewCnt = viewCnt + 1;
+		jisikin.setViewCnt(viewCnt);
+		
+		jisikinDao.updateJisikinByNo(jisikin);
+	}
+	
+	// 조회순 질문리스트
+	public List<Jisikin> getJisikinByView(){
+		return jisikinDao.getJisikinByView();
+	}
+	
 	
 	// 성지글
 	@Override
@@ -114,5 +141,39 @@ public class JisikinServiceImpl implements JisikinService {
 	@Override
 	public List<JisikinAnswer> getMyAnswer(String userId){
 		return jisikinDao.getMyAnswer(userId);
+	}
+	
+	@Override
+	public Map<String, Object> getMyProfile(String userId) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		result.put("countAllAnswerById", jisikinDao.countAllAnswerById(userId));
+		result.put("countSelectById", jisikinDao.countSelectById(userId));
+		result.put("rankMentalPointById", jisikinDao.rankMentalPointById(userId));
+		result.put("countAllJisikinById", jisikinDao.countAllJisikinById(userId));
+		result.put("countJisikinSelectById", jisikinDao.countJisikinSelectById(userId));
+		result.put("deadLineById", jisikinDao.deadLineById(userId));
+		result.put("recommendById", jisikinDao.recommendById(userId));
+		result.put("countHelpUserById", jisikinDao.countHelpUserById(userId));
+		result.put("firstAnswerById", jisikinDao.firstAnswerById(userId));
+
+		return result;
+	}
+	
+	// 메인화면
+	// 오늘의 질문
+	@Override
+	public List<Jisikin> todayJisikin3(){
+		return jisikinDao.todayJisikin3();
+	}
+	
+	// 오늘 성별 답변수
+	@Override
+	public Map<String, Integer> getGenderToday(){
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		 map.put("female", jisikinDao.getFemaleToday());
+		 map.put("male", jisikinDao.getMaleToday());
+		
+		 return map;
 	}
 }

@@ -1,5 +1,6 @@
 package kr.co.link.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,14 +50,35 @@ public class JisikinController {
 	@RequestMapping("/main.do")
 	public String main(Model model) {
 		
-		// 오늘의 질문
+		// 오늘의 질문, 답변, 누적 답변수
 		int countToday = jisikinService.countTodayJisikin();
+		int countTodayAnswer = jisikinService.countTodayAnswer();
 		model.addAttribute("countToday", countToday);
+		model.addAttribute("countTodayAnswer",countTodayAnswer);
+		model.addAttribute("countAnswer",jisikinService.countAnswer());
+		
+		// 오늘의 랜덤질문 3개
+		List<Jisikin> todayJisikin = jisikinService.todayJisikin3();
+		model.addAttribute("todayJisikin", todayJisikin);
+		
+		// 조회순 질문리스트
+		List<Jisikin> JisikinByView = jisikinService.getJisikinByView();
+		model.addAttribute("JisikinByView", JisikinByView);
 		
 		// 인기 태그
 		List<JisikinTag> toptag = tagService.getPopularTagTop10();
 		model.addAttribute("toptag", toptag);
 		
+		// 오늘 성별 답변
+		Map<String, Integer> map = jisikinService.getGenderToday();
+		int male = map.get("male");
+		int female = map.get("female");
+		
+		System.out.println(male);
+		System.out.println(female);
+		
+		model.addAttribute("male", male);
+		model.addAttribute("female", female);
 		
 		return "jisikin/jisikinMain";
 	}
@@ -80,8 +102,11 @@ public class JisikinController {
 		List<JisikinTag> toptag = tagService.getPopularTagTop10();
 		model.addAttribute("toptag", toptag);
 		
+		// 오늘의 질문, 답변, 누적 답변수
 		int countToday = jisikinService.countTodayJisikin();
 		model.addAttribute("countToday", countToday);
+		model.addAttribute("countTodayAnswer",jisikinService.countTodayAnswer());
+		model.addAttribute("countAnswer",jisikinService.countAnswer());
 		
 		return "jisikin/jisikinQna";
 	}
@@ -91,6 +116,9 @@ public class JisikinController {
 	@RequestMapping(value= "/questionDetail.do", method = RequestMethod.GET)
 	public String questionDetail(@RequestParam(value= "jisikinNo")int jisikinNo, Model model) {
 		Jisikin jisikin = jisikinService.getJisikinByNo(jisikinNo);
+		
+		// 조회수 증가
+		jisikinService.updateJisikinViewCntByNo(jisikinNo);
 		
 		// 태그들 지식인에 담기
 		List<JisikinTag> tags = tagService.getTagByJisikin(jisikinNo);
@@ -209,9 +237,11 @@ public class JisikinController {
 		List<JisikinTag> toptag = tagService.getPopularTagTop10();
 		model.addAttribute("toptag", toptag);
 		
-		// 오늘의 질문
+		// 오늘의 질문, 답변, 누적 답변수
 		int countToday = jisikinService.countTodayJisikin();
 		model.addAttribute("countToday", countToday);
+		model.addAttribute("countTodayAnswer",jisikinService.countTodayAnswer());
+		model.addAttribute("countAnswer",jisikinService.countAnswer());
 		
 		
 		return "jisikin/jisikinAnswer";
@@ -234,6 +264,27 @@ public class JisikinController {
 		model.addAttribute("myAnswerQuestion", myAnswerQuestion);
 		model.addAttribute("myJisikin", myJisikin);
 		model.addAttribute("myAnswer", myAnswer);
+		
+		Map<String, Object> result = jisikinService.getMyProfile(userId);
+		
+		// 프로필 수치
+		// 채택률 계산
+		Double countAllAnswer = Double.parseDouble(result.get("countAllAnswerById").toString());
+		Double countSelectById = Double.parseDouble(result.get("countSelectById").toString());
+		
+		Double selectPercent = (countSelectById / countAllAnswer);
+		
+		
+		model.addAttribute("countAllAnswerById", result.get("countAllAnswerById"));
+		model.addAttribute("countSelectById", result.get("countSelectById"));
+		model.addAttribute("selectPercent", selectPercent);
+		model.addAttribute("rankMentalPointById", result.get("rankMentalPointById"));
+		model.addAttribute("countAllJisikinById", result.get("countAllJisikinById"));
+		model.addAttribute("countJisikinSelectById", result.get("countJisikinSelectById"));
+		model.addAttribute("deadLineById", result.get("deadLineById"));
+		model.addAttribute("recommendById", result.get("recommendById"));
+		model.addAttribute("countHelpUserById", result.get("countHelpUserById"));
+		model.addAttribute("firstAnswerById", result.get("firstAnswerById"));
 		
 		return "jisikin/jisikinProfile";
 	}
@@ -262,7 +313,7 @@ public class JisikinController {
 	public String addRecommend(@RequestParam(value= "jisikinNo")int jisikinNo) {
 		
 		// 추천
-		jisikinService.updateJisikinByNo(jisikinNo);
+		jisikinService.updateJisikinRecommendByNo(jisikinNo);
 		
 		return "redirect:/jisikin/questionDetail.do?jisikinNo="+jisikinNo+"";
 	}

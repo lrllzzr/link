@@ -140,6 +140,7 @@ ul {
     color: #555;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-height:35px;
 }
 
 .ranking-item .recommend-num {

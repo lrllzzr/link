@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinmain.css">
 	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinQna.css">
@@ -28,23 +29,32 @@
                <img src="/link/resources/images/jisikin-event1.PNG" style="height: 150px; width:100%;">
             </div>
             <div class="row" style="height: 50px;">
-                  여름이 좋은 이유는?
+                  <c:if test="${empty todayJisikin[0].title }">
+                  	<span class="_curation_question_title text-center">오늘의 질문이 없습니다!</span>
+                  </c:if> 
+                  <a href="/link/jisikin/questionDetail.do?jisikinNo=${todayJisikin[0].no}"><span class="_curation_question_title text-center">${todayJisikin[0].title }</span></a>
             </div>
        </div>
        <div class="col-sm-3 jisik-section-1">
            <div class="row">
-               <img src="/link/resources/images/jisikin-event1.PNG" style="height: 150px; width:100%;">
+               <img src="/link/resources/images/jisikin-event2.PNG" style="height: 150px; width:100%;">
             </div>
             <div class="row" style="height: 50px;">
-                  여름이 좋은 이유는?
+                  <c:if test="${empty todayJisikin[1].title }">
+                  	<span class="_curation_question_title text-center">오늘의 질문이 없습니다!</span>
+                  </c:if> 
+                  <a href="/link/jisikin/questionDetail.do?jisikinNo=${todayJisikin[1].no}"><span class="_curation_question_title text-center">${todayJisikin[1].title }</span></a>
             </div>
        </div>
        <div class="col-sm-3 jisik-section-1">
            <div class="row">
-               <img src="/link/resources/images/jisikin-event1.PNG" style="height: 150px; width:100%;">
+               <img src="/link/resources/images/jisikin-event3.PNG" style="height: 150px; width:100%;">
             </div>
             <div class="row" style="height: 50px;">
-                  여름이 좋은 이유는?
+                  <c:if test="${empty todayJisikin[2].title }">
+				  	<span class="_curation_question_title text-center">오늘의 질문이 없습니다!</span>
+                  </c:if> 
+                  <a href="/link/jisikin/questionDetail.do?jisikinNo=${todayJisikin[2].no}"><span class="_curation_question_title text-center">${todayJisikin[2].title }</span></a>
             </div>
        </div>
        <div class="col-sm-3">
@@ -100,67 +110,56 @@
 <!-- 두번째 섹션-->
     <div class="row">
         <div class="col-sm-9">
-            <div class="row">
-                <div class="col-sm-6 well">
-                    <strong>지식iN 통계 답변자</strong>
-                    <nav class="text-center answer_cate">
-                        <ul class="pagination">
-                            <li>
-                              <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                              </a>
-                            </li>
-                            <li><a href="#">교육,학문</a></li>
-                            <li><a href="#">게임</a></li>
-                            <li><a href="#">생활</a></li>
-                            <li><a href="#">사회,정치</a></li>
-                            <li><a href="#">경제</a></li>
-                            <li>
-                              <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                              </a>
-                            </li>
-                          </ul>
-                    </nav>
-                    <img src="/link/resources/images/jisikin-test-chart.PNG" alt="">
+            <div class="row"> 
+                <div class="col-sm-4 well text-center">
+                    <h4>&lt;지식iN 통계 답변자></h4><br/>
+                    <c:set var="today" value="<%=new java.util.Date()%>" />
+                    <p class="text-center">"<strong style="color:#649dfa;"><fmt:formatDate value="${today }" pattern="MM월dd일"/>
+                    Link 지식 IN</strong>에서는<br/> <strong style="color:#649dfa;">${countTodayAnswer }</strong>명의 지식IN들이 답변하셨습니다."</strong></p>
+                    <div id="donutchart" style="width: 389px; height: 264px; margin-left:-40px; margin-top :14px; margin-bottom:-20px;"></div>   
                 </div>
-                <div class="col-sm-6 well">
-                    <a href="#" class="jisikin-section-2-qna">많이 본 Q&A</a>
-                    <span class="title_bar"></span>
+                <div class="col-sm-8 well">
+                	<div class="row">
+                		<div class="col-sm-6">
                     <a href="#" class="jisikin-section-2-qna">많이 한 질문 키워드</a>
+                		</div>
+                		<div class="col-sm-6" style="border-left:1px solid #DDD; max-height:332px;">
+                    <a href="#" class="jisikin-section-2-qna">많이 본 Q&A</a>
                     <div class="ranking-section-area">
                         <ul class="ranking-section">
                             <li class="ranking-item">
                                 <span class="no">1</span>
-                                <a href="#" class="ranking-title">현아 이 사진 고화질좀 주세요 ㅠ</a>
-                                <a href="#" class="text">현아 이 사진 고화질좀 주세요..</a>
-                                <span class="recommend-num">조회수 5008</span>
-                                <span class="reply-num">답변수 1</span>
+                                <a href="/link/jisikin/questionDetail.do?jisikinNo=${JisikinByView[0].no}" class="ranking-title">${JisikinByView[0].title }</a>
+                                <a href="/link/jisikin/questionDetail.do?jisikinNo=${JisikinByView[0].no}" class="text">${JisikinByView[0].contents }</a>
+                                <span class="recommend-num">조회수 ${JisikinByView[0].viewCnt }</span>
+                                <span class="reply-num">답변수 ${JisikinByView[0].countAnswer }</span>
                             </li>
                             <li class="ranking-item">
                                 <span class="no">2</span>
-                                <a href="#" class="ranking-title">현아 이 사진 고화질좀 주세요 ㅠ</a>
-                                <a href="#" class="text">현아 이 사진 고화질좀 주세요..</a>
-                                <span class="recommend-num">조회수 5008</span>
-                                <span class="reply-num">답변수 1</span>
+                                <a href="/link/jisikin/questionDetail.do?jisikinNo=${JisikinByView[1].no}" class="ranking-title">${JisikinByView[1].title }</a>
+                                <a href="/link/jisikin/questionDetail.do?jisikinNo=${JisikinByView[1].no}" class="text">${JisikinByView[1].contents }</a>
+                                <span class="recommend-num">조회수 ${JisikinByView[1].viewCnt }</span>
+                                <span class="reply-num">답변수 ${JisikinByView[1].countAnswer }</span>
                             </li>
                             <li class="ranking-item">
                                 <span class="no">3</span>
-                                <a href="#" class="ranking-title">현아 이 사진 고화질좀 주세요 ㅠ</a>
-                                <a href="#" class="text">현아 이 사진 고화질좀 주세요..</a>
-                                <span class="recommend-num">조회수 5008</span>
-                                <span class="reply-num">답변수 1</span>
+                                <a href="/link/jisikin/questionDetail.do?jisikinNo=${JisikinByView[2].no}" class="ranking-title">${JisikinByView[2].title }</a>
+                                <a href="/link/jisikin/questionDetail.do?jisikinNo=${JisikinByView[2].no}" class="text">${JisikinByView[2].contents }</a>
+                                <span class="recommend-num">조회수 ${JisikinByView[2].viewCnt }</span>
+                                <span class="reply-num">답변수 ${JisikinByView[2].countAnswer }</span>
                             </li>
                         </ul>
+                		</div>
+                	</div>
                     </div>
                 </div>
-            </div>
+            </div>  
             <div class="answer-wrab row well">
                 <div id="noanswer_tab" class="title_area">
                     <ul style="width: 100%;" class="text-center">
-                        <li style="width: 40%;" class="tc-tab text-center"><a href="#" class="title on" onclick="" id="contentsOfMain">답변을 기다리는 질문</a></li>
-                        <li style="width: 18%;" class="tc-tab"><span class="bar2"></span></li>
-                        <li style="width: 40%;" class="tc-tab text-center"><a href="#" class="title" onclick="">답변을 기다리는 관심질문</a></li>
+                        <li style="width: 80%;" class="tc-tab text-center"><a href="#" class="title on" onclick="" id="contentsOfMain">답변을 기다리는 질문</a></li>
+                        <li style="width: 10%;" class="tc-tab"><span class="bar2"></span></li>
+                        <li style="width: 10%;" class="tc-tab text-center"><a href="#" class="title" onclick="">정렬</a></li>
                     </ul>
                 </div>
                 <div class="row" style="padding-top: 40px;">
@@ -360,7 +359,7 @@
 						NAVER <em>로그인</em> 영역
 					</h2>
 					<div class="my_wrap">
-						<a href="/myinfo/index.nhn">
+						<a href="/link/jisikin/profile.do?userId=${LOGIN_USER.id}">
 							<div class="my_photo">
 								<img
 									src="https://ssl.pstatic.net/static/kin/09renewal/avatar/200x200_m/4.png"
@@ -368,9 +367,10 @@
 							</div>
 							<div class="my_service">
 								<p class="user_id ellipsis">${LOGIN_USER.id }</p>
-								<p class="user_mykin">
-									프로필 바로가기 <span>&gt;</span>
-								</p>
+								<p class="user_mykin" onclick="location.href='/link/jisikin/profile.do?userId=${LOGIN_USER.id }'">
+								접속중
+								</p>   
+								<a href="/link/jisikin/profile.do?userId=${LOGIN_USER.id}">프로필 바로가기&gt;</a>
 							</div>
 						</a> <span class="btn_login_area"> <a
 							href="/link/logout.do"
@@ -423,23 +423,41 @@
                 <div class="aside aside_statistics well">
                     <h4>오늘의 질문과 답변</h4>
                     <div class="stats stats_today">
-                        <span class="blind">질문</span><strong class="num">${countToday }</strong><em class="slash sp_common">/</em><span class="blind">답변</span><strong class="num">28,849</strong>
+                        <span class="blind">질문</span><strong class="num">${countToday }</strong><em class="slash sp_common">/</em><span class="blind">답변</span><strong class="num">${countTodayAnswer }</strong>
                         <c:set var="now" value="<%=new java.util.Date()%>" />
                         <p class="date_info"><fmt:formatDate value="${now }" pattern="yyyy.MM.dd"/></p>
                     </div>
                     <h4>누적 답변수</h4>
                     <div class="stats stats_accum">
-                        <strong class="num">329,673,356</strong>
+                        <strong class="num">${countAnswer }</strong>
                         <p class="date_info">since 2019</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-   
 </div>
-
 <script>
+	// 구글 차트
+     google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        	['성별', '비율'],
+            ['남성',      ${male}],
+            ['여성',  ${female}]
+        ]);
+
+        var options = {
+          title: '오늘의 남성/여성 답변비율',
+          pieHole: 0.4,
+          backgroundColor: { fill:'transparent' }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+
     $(document).ready(function(){
          
         $('.dropdown,.dropdown-menu').hover(function(){

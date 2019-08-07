@@ -69,7 +69,7 @@
                     <dt class="itm">오늘의 새 질문</dt>
                     <dd id="todayQuestion">${countToday }</dd>
                     <dt class="itm3" style="background-position:0 -24px;">오늘의 답변</dt>
-                    <dd id="todayAnswer">49,690</dd>
+                    <dd id="todayAnswer">${countTodayAnswer }</dd>
                     </dl>
                 </div>
             </div>
@@ -235,9 +235,10 @@
 							</div>
 							<div class="my_service">
 								<p class="user_id ellipsis">${LOGIN_USER.id }</p>
-								<p class="user_mykin">
-									프로필 바로가기 <span>&gt;</span>
-								</p>
+								<p class="user_mykin" onclick="location.href='/link/jisikin/profile.do?userId=${LOGIN_USER.id }'">
+								접속중
+								</p>   
+								<a href="/link/jisikin/profile.do?userId=${LOGIN_USER.id}">프로필 바로가기&gt;</a>
 							</div>
 						</a> <span class="btn_login_area"> <a
 							href="/link/logout.do"
@@ -296,14 +297,14 @@
                 <div class="aside aside_statistics well">
                     <h4>오늘의 질문과 답변</h4>
                     <div class="stats stats_today">
-                        <span class="blind">질문</span><strong class="num">${countToday }</strong><em class="slash sp_common">/</em><span class="blind">답변</span><strong class="num">28,849</strong>
+                        <span class="blind">질문</span><strong class="num">${countToday }</strong><em class="slash sp_common">/</em><span class="blind">답변</span><strong class="num">${countTodayAnswer }</strong>
                         <!--  오늘날짜 뿌리기 -->
                         <c:set var="now" value="<%=new java.util.Date()%>" />
                         <p class="date_info"><fmt:formatDate value="${now }" pattern="yyyy.MM.dd"/></p>
                     </div>
                     <h4>누적 답변수</h4>
                     <div class="stats stats_accum">
-                        <strong class="num">329,673,356</strong>
+                        <strong class="num">${countAnswer }</strong>
                         <p class="date_info">since 2019</p>
                     </div>
                 </div>

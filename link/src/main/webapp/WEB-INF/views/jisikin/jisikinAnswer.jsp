@@ -78,7 +78,7 @@
 				
 					
 						<li dirid="0" class="on"><a href="/link/jisikin/answer.do">전체<span class="blind _selected">질문 목록 선택됨</span></a></li>						
-						<li dirid="1" class="${param.categoryNo eq 1 ? 'on' : '' }"><a href="/link/jisikin/answer.do?categoryNo=1" data-value="1">교육, 학문</a></li>						
+						<li dirid="1"><a href="/link/jisikin/answer.do?categoryNo=1" data-value="1">교육, 학문</a></li>						
 						<li dirid="2"><a href="/link/jisikin/answer.do?categoryNo=2">컴퓨터통신</a></li>						
 						<li dirid="3"><a href="/link/jisikin/answer.do?categoryNo=3">게임</a></li>						
 						<li dirid="4"><a href="/link/jisikin/answer.do?categoryNo=4">엔터테인먼트, 예술</a></li>						
@@ -252,9 +252,10 @@
 							</div>
 							<div class="my_service">
 								<p class="user_id ellipsis">${LOGIN_USER.id }</p>
-								<p class="user_mykin">
-									프로필 바로가기 <span>&gt;</span>
-								</p>
+								<p class="user_mykin" onclick="location.href='/link/jisikin/profile.do?userId=${LOGIN_USER.id }'">
+								접속중
+								</p>   
+								<a href="/link/jisikin/profile.do?userId=${LOGIN_USER.id}">프로필 바로가기&gt;</a>
 							</div>
 						</a> <span class="btn_login_area"> <a
 							href="/link/logout.do"
@@ -313,14 +314,14 @@
                 <div class="aside aside_statistics well">
                     <h4>오늘의 질문과 답변</h4>
                     <div class="stats stats_today">
-                        <span class="blind">질문</span><strong class="num">${countToday }</strong><em class="slash sp_common">/</em><span class="blind">답변</span><strong class="num">28,849</strong>
+                        <span class="blind">질문</span><strong class="num">${countToday }</strong><em class="slash sp_common">/</em><span class="blind">답변</span><strong class="num">${countTodayAnswer }</strong>
                         <!--  오늘날짜 뿌리기 -->
                         <c:set var="now" value="<%=new java.util.Date()%>" />
                         <p class="date_info"><fmt:formatDate value="${now }" pattern="yyyy.MM.dd"/></p>
                     </div>
                     <h4>누적 답변수</h4>
                     <div class="stats stats_accum">
-                        <strong class="num">329,673,356</strong>
+                        <strong class="num">${countAnswer }</strong>
                         <p class="date_info">since 2019</p>
                     </div>
                 </div>
