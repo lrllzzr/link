@@ -358,5 +358,36 @@ public class BlogBeautyController {
 		return "redirect:eachNeighbor.do";
 	}
 	
+	@RequestMapping(value="manageNeighbor.do", method = RequestMethod.GET)
+	public String manageNeighbor(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		// 내 블로그 얻어오기
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		List<Map<String, Object>> blogNeighbors = blogNeighborService.getNeighborIAdd(blog.getNo());
+		model.addAttribute("blogNeighbors",blogNeighbors);
+		// 이웃 관리 파랗게
+		model.addAttribute("left","manageNeighbor");
+		// 기본 설정을 파랗게
+		model.addAttribute("column","updateProfile");
+		
+		return "blog/beautify/manageNeighbor";
+	}
+	
+	@RequestMapping(value="manageNeighbor.do", method = RequestMethod.POST)
+	public String manageNeighborApply(HttpSession session, Model model,
+			String neighborBlogNo) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		// 블로그 얻어오기
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		String[] neighborBlogNums = neighborBlogNo.split(",");
+		for(int i=0; i<neighborBlogNums.length; i++) {
+			int neighborBlogNum = Integer.parseInt(neighborBlogNums[i]);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("myBlogNo", blog.getNo());
+			map.put("neighborBlogNo", neighborBlogNum);
+			blogNeighborService.deleteNeighborByMyBlogNoNeighborBlogNo(map);
+		}
+		return "redirect:manageNeighbor.do";
+	}
 	
 }

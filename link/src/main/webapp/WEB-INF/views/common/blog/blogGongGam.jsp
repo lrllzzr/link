@@ -14,10 +14,12 @@
 			<span class="glyphicon glyphicon-menu-down down1"></span>
 		</span>
 	</div>
-	<div class="col-sm-3 blog_board_comment_box1 text-right">
-		<button id="blog_board_update_btn" class="btn btn-default btn-sm">수정</button>
-		<button id="blog_board_delete_btn" class="btn btn-default btn-sm">삭제</button>
-	</div>
+	<c:if test="${param.blogNo eq myblog.no }">
+		<div class="col-sm-3 blog_board_comment_box1 text-right">
+			<button id="blog_board_update_btn" class="btn btn-default btn-sm">수정</button>
+			<button id="blog_board_delete_btn" class="btn btn-default btn-sm">삭제</button>
+		</div>
+	</c:if>
 	<div class="col-sm-12">
 		<div class="col-sm-12 blog_likes_box1" style="border: 1px solid lightgray; padding: 15px;">
 			<div class="row" style="margin-bottom: 20px;">
@@ -37,6 +39,7 @@
 				<c:forEach var="like" items="${blogBoardLikes }">
 					<div class="col-sm-6" style="margin-bottom: 20px;">
 						<div class="row">
+						<a href="detail.do?blogNo=${like.BLOGNO }">
 							<div class="col-sm-2">
 								<img class="blog-row-2-profile-img" src="/link/resources/images/${like.MAINIMG }" alt="" />
 								<span></span>
@@ -46,21 +49,31 @@
 									<div class="col-sm-12">${like.BLOGTITLE }</div>
 								</div>
 								<div class="row">
-									<div class="col-sm-12" style="height:40px; overflow: hidden;">${like.BLOGDESCRIPTION }</div>
+									<div class="col-sm-12" style="height: 40px; overflow: hidden;">${like.BLOGDESCRIPTION }</div>
 								</div>
 							</div>
+						</a>
 							<c:choose>
-								<c:when test="${myblogNo eq like.BLOGNO }">
-								
+								<c:when test="${myBlog.no eq like.BLOGNO }">
+									<div class="col-sm-4 text-center">
+										<div style="border: 1px solid lightgray; padding: 5px; position: relative; top: 10px; width: 76.27px; height: 28px;">
+											<span style="">나</span>
+										</div>
+									</div>
+								</c:when>
+								<c:when test="${like.isNeighbor eq 'Y' }">
+									<div class="col-sm-4 text-center">
+										<div style="border: 1px solid lightgray; padding: 5px; position: relative; top: 10px; width: 76.27px; height: 28px;">
+											<span style="">이웃</span>
+										</div>
+									</div>
 								</c:when>
 								<c:otherwise>
-								<div class="col-sm-4 text-center">
-								myBlogNO : ${myBlogNo}
-								likeBLOGNO : ${like.BLOGNO}
-									<span style="border: 1px solid lightgray; padding: 5px; position: relative; top: 10px;">
-										<span data-blogNo ="${like.BLOGNO }" class="blog_addNeighbor_a" href="">+이웃추가</span>
-									</span>
-								</div>
+									<div class="col-sm-4 text-center">
+										<span style="border: 1px solid lightgray; padding: 5px; position: relative; top: 10px;">
+											<span data-blogNo="${like.BLOGNO }" class="blog_addNeighbor_a">+이웃추가</span>
+										</span>
+									</div>
 								</c:otherwise>
 							</c:choose>
 						</div>

@@ -19,16 +19,22 @@
 			<div class="col-sm-12">
 				<div class="row">
 					<div class="col-sm-12">
-						<span class="glyphicon glyphicon-menu-right blog_usernickNameGlyphycon"></span> <span class="blog_usernickName">${user.nickName }</span><span
-							class="blog_nickNameBlog">님의 블로그</span>
+						<span class="glyphicon glyphicon-menu-right blog_usernickNameGlyphycon"></span>
+						<span class="blog_usernickName">${user.nickName }</span>
+						<span class="blog_nickNameBlog">님의 블로그</span>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12 blog_detail_right_row1 blog_detail_right_row1_1">
-				<span style="color:gray">${blog.description }</span>
+			<div class="col-sm-12 ">
+				<div class="blog_detail_right_row1 blog_detail_right_row1_1">
+						<div class="col-sm-12">
+							<span style="color: gray">${blog.description }</span>
+						</div>
+				</div>
 			</div>
-			<div class="col-sm-12" style="margin-bottom:5px;">
-				<span style="font-size:13px; color: #ccc;" class="glyphicon glyphicon-menu-right"></span><span style="font-weight: bold;">기본정보</span>
+			<div class="col-sm-12" style="margin-bottom: 5px;">
+				<span style="font-size: 13px; color: #ccc;" class="glyphicon glyphicon-menu-right"></span>
+				<span style="font-weight: bold;">기본정보</span>
 			</div>
 			<div class="col-sm-12">
 				<table class="table table-bordered">
@@ -43,7 +49,7 @@
 									<td>비공개</td>
 								</c:otherwise>
 							</c:choose>
-							
+
 							<th>성별</th>
 							<c:choose>
 								<c:when test="${user.genderVisibility eq 'Y' }">
@@ -57,7 +63,8 @@
 						<tr>
 							<th>별명</th>
 							<td>${user.nickName }</td>
-							<th></th><td></td>
+							<th></th>
+							<td></td>
 						</tr>
 					</tbody>
 				</table>

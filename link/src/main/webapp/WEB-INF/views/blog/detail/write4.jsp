@@ -9,7 +9,7 @@
 			<!--  헤더 시작         -->
 			<%@include file="../../common/blog/blogheader.jsp"%>
 			<!--  헤더 끝     -->
-
+			<%@include file="../../common/blog/blogLeftFor3and4.jsp"%>
 			<!--                    우측 게시판 시작-->
 			<%@include file="../../common/blog/blogLayout.jsp"%>
 				<!-- 우측 게시판 글쓰기 시작-->
@@ -61,7 +61,7 @@
 			<!--좌측 nav 끝-->
 			</div>
 			<!--                    우측 게시판 끝-->
-			<%@include file="../../common/blog/blogLeftFor3and4.jsp"%>
+			
 		</div>
 	</div>
 	<script type="text/javascript">

@@ -91,8 +91,8 @@
 												</div>
 												<!--  -->
 												<div class="col-sm-3">
-													<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}"> <img
-														style="max-width: 100%;" class="blog-neighbor-img " src="/link/resources/images/userblogimgs/${blog.BOARDMAINIMG }" alt=""
+													<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}"> <img style="max-width: 100%;" class="blog-neighbor-img "
+														src="/link/resources/images/userblogimgs/${blog.BOARDMAINIMG }" alt=""
 													>
 													</a>
 												</div>
@@ -176,11 +176,20 @@
 												<div class="col-sm-12">2시간전</div>
 											</div>
 										</div>
-										<c:if test="${isHaveBlog eq 'yes' }">
+										<c:if test="${blog3.isNeighbor eq 'Y' }">
 											<div class="col-sm-2 col-sm-offset-7">
-												<span class="blog-addneighbor"><a href="addNeighbor.do?blogNo=${blog3.NO }">+이웃추가</a></span>
+												<div class="blog-addneighbordiv text-center">이웃</div>
 											</div>
 										</c:if>
+
+										<c:if test="${blog3.isNeighbor eq 'N' }">
+											<div class="col-sm-2 col-sm-offset-7">
+												<span class="blog-addneighbor">
+													<a href="addNeighbor.do?blogNo=${blog3.NO }">+이웃추가</a>
+												</span>
+											</div>
+										</c:if>
+
 									</div>
 									<div class="row blog-neighbor-box">
 										<a href="board.do?blogNo=${blog3.NO }&categoryNo=${blog3.CATEGORYNO}&boardNo=${blog3.BOARDNO}">
@@ -194,9 +203,7 @@
 									</div>
 								</div>
 								<div class="col-sm-3">
-									<a href="board.do?blogNo=${blog3.NO }&categoryNo=${blog3.CATEGORYNO}&boardNo=${blog3.BOARDNO}"><img class="blog-neighbor-img "
-										src="/link/resources/images/userblogimgs/${blog3.BOARDMAINIMG }" alt=""
-									></a>
+									<a href="board.do?blogNo=${blog3.NO }&categoryNo=${blog3.CATEGORYNO}&boardNo=${blog3.BOARDNO}"><img class="blog-neighbor-img " src="/link/resources/images/userblogimgs/${blog3.BOARDMAINIMG }" alt=""></a>
 								</div>
 							</div>
 							<div class="blog-hrdiv">
@@ -218,10 +225,14 @@
 						<div class="col-sm-7 blog-right-col-1">
 							<div class="row" style="margin-bottom: 40px;">
 								<div class="col-sm-6">
-									<span><a style="font-size: 15px; position: relative; top: 5px;" href="">${LOGIN_USER.id }</a></span>
+									<span>
+										<a style="font-size: 15px; position: relative; top: 5px;" href="">${LOGIN_USER.id }</a>
+									</span>
 								</div>
 								<div class="col-sm-6 text-right">
-									<span style="position: relative; top: 5px;" class="blog-rigbt-col-logout"><a href="/link/logout.do">로그아웃</a></span>
+									<span style="position: relative; top: 5px;" class="blog-rigbt-col-logout">
+										<a href="/link/logout.do">로그아웃</a>
+									</span>
 								</div>
 
 							</div>
@@ -251,28 +262,25 @@
 									<div class="col-sm-6 text-center">내 블로그</div>
 								</a> <a id="writeBlogBoard" href="mywrite.do">
 									<div class="col-sm-6 text-center">
-										<span class="glyphicon glyphicon-pencil"></span> 글쓰기
+										<span class="glyphicon glyphicon-pencil"></span>
+										글쓰기
 									</div>
 								</a>
 							</div>
 							<div class="row blog-col-5 text-center">
-								<a href="">
-									<div class="col-sm-4 blog-col-5-selected">내 소식</div>
-								</a> <a href="">
-									<div class="col-sm-4">내가 남긴 글</div>
-								</a> <a href="">
-									<div class="col-sm-4">이웃 목록</div>
-								</a>
+								<div class="col-sm-4 blog-col-5-selected"><a href="main.do">내 소식</a></div>
+								<div class="col-sm-4">내가 남긴 글</div>
+								<div class="col-sm-4" id="neighborLists">이웃 목록</div>
+
 							</div>
 
-							<div class="row blog-col-6 text-center">
+							<div class="row blog-col-6 text-center" id="myInfoform">
 								<div class="col-sm-12">
 									<c:if test="${not empty requestList }">
 										<c:forEach var="request" items="${requestList}">
 											<div class="row blog-alarm">
 												<div class="col-sm-10">
-													<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="eachNeighbor.do">${request.NICKNAME }님이
-														서로이웃을 신청했습니다.</a>
+													<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="eachNeighbor.do">${request.NICKNAME }님이 서로이웃을 신청했습니다.</a>
 												</div>
 												<div class="col-sm-1">
 													<a href=""><span class="glyphicon glyphicon-remove"></span></a>
@@ -314,12 +322,34 @@
 			<!--오른쪽 네브 끝-->
 		</div>
 	</div>
-			<%@ include file="../common/bottom.jsp" %>
+	<%@ include file="../common/bottom.jsp"%>
 	<script>
 		$(function() {
 			$('.blog-neighbor-contents3 img').hide();
 			$('.blog-neighbor-contents img').hide();
+			// 이웃목록 ajax
+			$('#neighborLists').click(function() {
+				$(this).addClass('blog-col-5-selected').siblings().removeClass('blog-col-5-selected');
+				$.ajax({
+					type : "GET",
+					url : "getNeighborsMain.do",
+					success : function(result) {
+						$('#myInfoform').empty();
+						$.each(result, function(index, neighBor) {
+							var row = '';
+							row += '<div class="col-sm-6" style="padding:5px;">';
+							row += '	<div class="text-left">';
+							row += '		<img class="blog-row-33-profile-img" src="/link/resources/images/'+neighBor.MAINIMG+'" alt="">';
+							row += '			<a href="">' + neighBor.NICKNAME + '</a>';
+							row += '	</div>';
+							row += '</div>';
+							$('#myInfoform').append(row);
+						})
+					}
+				})
+			});
 
+			// 토픽별 ajax
 			$('.blog_topics span').click(
 					function() {
 						$(this).addClass('blog_topic_selected').siblings().removeClass('blog_topic_selected');
@@ -335,9 +365,7 @@
 							},
 							dataType : "json",
 							success : function(result) {
-								console.log(result);
 								$('.blog3topic').empty();
-
 								$.each(result, function(index, blog) {
 									var row = "";
 									row += '<div class="row blog-main-col-2-1">';
@@ -363,7 +391,7 @@
 									row += '		<div class="row blog-neighbor-box">';
 									row += '			<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
 									row += '		<div class="col-sm-12">';
-									row += '<p class="blog-neighbor-title">'+blog.TITLE+'</p>';
+									row += '<p class="blog-neighbor-title">' + blog.TITLE + '</p>';
 									row += '</div>';
 									row += '<div class="col-sm-12">';
 									row += '<div class="blog-neighbor-contents ">' + blog.CONTENTS + '</div>';
@@ -383,7 +411,6 @@
 									$('.blog3topic').append(row);
 									$('.blog-neighbor-contents3 img').hide();
 									$('.blog-neighbor-contents img').hide();
-									console.log('dddddddddddddddddddddddddddddddddddddddd')
 								})
 							}
 						})

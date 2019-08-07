@@ -8,8 +8,8 @@
 			<!--  헤더 시작         -->
 			<%@include file="../../common/blog/blogheader.jsp"%>
 			<!--  헤더 끝     -->
+			<%@include file="../../common/blog/blogLeftFor3and4.jsp"%>
 			<%@include file="../../common/blog/blogLayout.jsp"%>
-			
 				<!--                    우측 게시판 두번째 nav 시작-->
 				<div class="col-sm-12 blog_detail_right_row1">
 					<!--  우측 게시판 글 하나 시작-->
@@ -38,7 +38,6 @@
 			<%@include file="../../common/blog/blogrightForLayout4.jsp"%>
 			<!--좌측 nav 끝-->
 			</div>
-			<%@include file="../../common/blog/blogLeftFor3and4.jsp"%>
 			
 		</div>
 

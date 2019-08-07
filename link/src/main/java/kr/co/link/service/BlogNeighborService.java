@@ -20,4 +20,7 @@ public interface BlogNeighborService {
 	void updateBlogNeighbor(BlogNeighbor blogNeighbor);
 	BlogNeighbor getNeighborByMyBlogNo(Map<String, Object> map);
 	Integer getNeighborCountsByBlogNo(Integer blogNo);
+	List<BlogNeighbor> getNeighborsByMyBlogNo(Integer blogNo);
+	List<Map<String, Object>> getNeighborIAdd(Integer myBlogNo);
+	void deleteNeighborByMyBlogNoNeighborBlogNo(Map<String, Object> map);
 }

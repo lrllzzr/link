@@ -7,6 +7,9 @@
 			<%@include file="../../common/blog/blogheader.jsp"%>
 			<!--  헤더 끝     -->
 			<!--우측 게시판 시작-->
+			<!--좌측 nav 시작-->
+			<%@include file="../../common/blog/blogLeftForLayout3and4.jsp"%>
+			<!--좌측 nav 끝-->
 			<!-- col-sm-9 대신 시작  -->
 			<%@include file="../../common/blog/blogLayout.jsp"%>
 			<!-- col-sm-9 대신 끝  -->
@@ -27,9 +30,7 @@
 				<!--  우측 공통부분 헤더 끝-->
 			</div>
 			<!--우측 게시판 끝-->
-			<!--좌측 nav 시작-->
-			<%@include file="../../common/blog/blogLeftForLayout3and4.jsp"%>
-			<!--좌측 nav 끝-->
+			
 		</div>
 	</div>
 	<script>

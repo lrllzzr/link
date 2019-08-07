@@ -37,6 +37,7 @@
 	and 
 		b.neighborhood_type = #{type}
 </select>
+<!-- 나를 추가한 이웃 가져오기 -->
 <select id="getNeighborNoByBlogNo" parameterType="map" resultType="map">
 		select
 			NEIGHBORHOOD_NO no,
@@ -64,6 +65,29 @@
 				a.NEIGHBOR_STATUS = #{status}
 		</if>
 </select>
+<!-- 내가 추가한 이웃 가져오기  -->
+<select id="getNeighborIAdd" parameterType="int" resultType="map">
+		select
+			NEIGHBORHOOD_NO no,
+			a.BLOG_NO blogNo,
+			NEIGHBORHOOD_TYPE type,
+			NEIGHBOR_STATUS status,
+            c.user_id userId,
+            c.user_nickname nickName,
+            b.blog_title title,
+            b.blog_main_img mainImg,
+            a.NEIGHBOR_MESSAGE message,
+            a.neighbor_create_date createDate
+		from
+			blog_neighbor a, blog b, users c
+        where
+            a.blog_no = #{myBlogNo}
+        and
+            a.neighborhood_no = b.blog_no
+        and
+            b.user_id = c.user_id
+</select>
+
 <insert id="addNewNeighborRequest" parameterType="blogNeighbor">
 	insert into blog_neighbor
 		(NEIGHBORHOOD_NO,
@@ -169,6 +193,19 @@ from
 			blog_no = #{neighborBlogNo}
 	</if>
 </select>
+<select id="getNeighborsByMyBlogNo" parameterType="int" resultType="blogNeighbor">
+	select
+		NEIGHBORHOOD_NO no,
+		BLOG_NO blogNo,
+		NEIGHBORHOOD_TYPE type,
+		NEIGHBOR_STATUS status,
+		NEIGHBOR_MESSAGE message,
+		NEIGHBOR_CREATE_DATE createDate
+	from
+		blog_neighbor
+	where
+		BLOG_NO = #{myBlogNo}
+</select>
 <select id="getNeighborCountsByBlogNo" parameterType="int" resultType="int">
 	select
 		count(*)
@@ -177,5 +214,12 @@ from
 	where
 		blog_no = #{value}
 </select>
-
+<delete id="deleteNeighborByMyBlogNoNeighborBlogNo" parameterType="map">
+	delete from
+		blog_neighbor
+	where
+		blog_no = #{myBlogNo}
+	and
+		neighborhood_no = #{neighborBlogNo}
+</delete>
 </mapper>
