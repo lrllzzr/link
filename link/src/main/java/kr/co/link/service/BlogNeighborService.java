@@ -23,4 +23,6 @@ public interface BlogNeighborService {
 	List<BlogNeighbor> getNeighborsByMyBlogNo(Integer blogNo);
 	List<Map<String, Object>> getNeighborIAdd(Integer myBlogNo);
 	void deleteNeighborByMyBlogNoNeighborBlogNo(Map<String, Object> map);
+	List<Map<String, Object>>getPaginationByMap(Map<String, Object> map);
+	Integer getPaginationByMapRows(Integer myBlogNo);
 }

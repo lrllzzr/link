@@ -37,6 +37,7 @@ import kr.co.link.vo.BlogBoardLikes;
 import kr.co.link.vo.BlogCategory;
 import kr.co.link.vo.BlogNeighbor;
 import kr.co.link.vo.BlogSubCategory;
+import kr.co.link.vo.Pagination;
 import kr.co.link.vo.User;
 
 @Controller
@@ -200,7 +201,9 @@ public class BlogDetailController {
 	@RequestMapping("/main.do")
 	public String main(Model model, HttpSession session,
 					   @RequestParam(value="pno", required = false, defaultValue = "1") Integer pno,
-					   @RequestParam(value="blogType", required = false, defaultValue = "all") String blogType) {
+					   @RequestParam(value="blogType", required = false, defaultValue = "all") String blogType,
+					   @RequestParam(value="pno", required=false, defaultValue="1") int pageNo) {
+		
 		User user = (User) session.getAttribute("LOGIN_USER");
 		List<Blog> blogs = blogService.get3BlogByVisits();
 		List<Blog> allBlogs = blogService.getAllblogs();
@@ -249,18 +252,33 @@ public class BlogDetailController {
 					}
 					
 				}
-				// 이웃 블로그 전해주기
+				// 이웃 블로그 페이지네이션 시작
+				Map<String, Object> param = new HashMap<String, Object>();
+				int howManyRows = 3;
+				param.put("myBlogNo",myBlogNo);
+				param.put("beginIndex", (pageNo - 1)*howManyRows + 1);
+				param.put("endIndex", pageNo*howManyRows);
+				List<Map<String, Object>> blogLists = blogNeighborService.getPaginationByMap(param);
+				int records = blogNeighborService.getPaginationByMapRows(myBlogNo);
+				Pagination pagination = new Pagination(pageNo, howManyRows, records);
 				
-				List<Map<String, Object>> blogLists = blogNeighborService.getNeighborBlogMap(myBlogNo);
+				model.addAttribute("blogList",blogLists);
+				model.addAttribute("pagination", pagination);
+				// 끝
 				
-				model.addAttribute("blogList", blogLists);
+				// 이웃 블로그 원래 있던 코드
+//				List<Map<String, Object>> blogLists = blogNeighborService.getNeighborBlogMap(myBlogNo);
+//				model.addAttribute("blogList", blogLists);
 				model.addAttribute("isHaveBlog", "yes");
+				// 끝
 				
+				// 이웃 요청 리스트 전해주기
 				Map<String, Object> map3 = new HashMap<String, Object>();
 				map3.put("myBlogNo", myBlogNo);
 				map3.put("status", "applying");
 				List<Map<String, Object>> blogNeighbors = blogNeighborService.getNeighborRequest(map3);
 				model.addAttribute("requestList",blogNeighbors);
+				// 끝
 			}
 		}
 		model.addAttribute("blogsByVisit", blogs);
