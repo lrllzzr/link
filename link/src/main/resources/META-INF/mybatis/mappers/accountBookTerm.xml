@@ -155,7 +155,7 @@
 						(select category_no, nvl(sum(term_cash), 0) + nvl(sum(term_card), 0) total
 				      	from accountbook_term
 				     	where term_gubun='지출'
-				     	and user_id = #{value}       
+				     	and user_id = #{value}      
 				   		group by category_no) A, accountBook_category B 
 				WHERE 
 						A.category_no(+) = B.category_no
@@ -213,8 +213,7 @@
 							to_char(sysdate, 'yyyymm')
 						</otherwise>
 					</choose>
-					) income,
-					
+					) income
 			from dual
 	 	</select>
 	 	  
@@ -265,26 +264,42 @@
 	 	</select>
 	 	
 		<!-- 카테고리별 월간 총 지출 -->
-		<select id="getMonthlyExpenseCategorybydate" parameterType="String" resultType="accountBookCategory" >
-			SELECT B.category_name, nvl(total, 0) total
+		<select id="getMonthlyExpenseCategorybydate" parameterType="map" resultType="accountBookCategory" >
+			SELECT B.category_name categoryName, nvl(total, 0) total
 			FROM (select category_no, nvl(sum(term_cash), 0) + nvl(sum(term_card), 0) total
 				  from accountbook_term
 				  where term_gubun='지출'
-				  and user_id = #{value}
-				  and to_char(term_date, 'yyyymm') = #{value} 
+				  and user_id = #{userId}
+				  and to_char(term_date, 'yyyymm') = 
+					<choose>
+						<when test="date != null">
+							#{date}
+						</when>
+						<otherwise>
+							to_char(sysdate, 'yyyymm')
+						</otherwise>
+					</choose>
 				  group by category_no) A, accountBook_category B 
 			WHERE A.category_no(+) = B.category_no
 			and B.category_no &lt;= 10
 	 	</select>
 		 	
 		<!-- 카테고리별 연간 총 지출 -->
-		<select id="getAnnualExpenseCategorybydate" parameterType="String" resultType="accountBookCategory" >
-			SELECT B.category_name, nvl(total, 0) total
+		<select id="getAnnualExpenseCategorybydate" parameterType="map" resultType="accountBookCategory" >
+			SELECT B.category_name categoryName, nvl(total, 0) total
 			FROM (select category_no, nvl(sum(term_cash), 0) + nvl(sum(term_card), 0) total
 				  from accountbook_term
 				  where term_gubun='지출'
-				  and user_id = #{value}
-				  and to_char(term_date, 'yyyy') = #{value} 
+				  and user_id = #{userId}
+				  and to_char(term_date, 'yyyy') = 
+					<choose>
+						<when test="date != null">
+							#{date}
+						</when>
+						<otherwise>
+							to_char(sysdate, 'yyyy')
+						</otherwise>
+					</choose>
 				  group by category_no) A, accountBook_category B 
 			WHERE A.category_no(+) = B.category_no
 			and B.category_no &lt;=10

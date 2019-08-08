@@ -3,14 +3,18 @@
 <link href="/link/resources/css/accountBookcalendar/iCalendar.css" rel="stylesheet">
 <script src="/link/resources/js/accountBookcalendar/iCalendar.js"></script>
 <script src="/link/resources/js/accountBookcalendar/iCalendar.es5.js"></script>
-
+<style>
+	input{
+	 width:50px;
+	}
+</style>
 
 
 
  		<button type="button" class="btn-button btn" data-toggle="modal" data-target="#open-writing-account">
                       <strong>빠른 쓰기</strong>
         </button>
-        
+        <form  action="modal.do" method="post"></form>
         <div id="open-writing-account" class="modal" role="dialog">
         <div class="modal-dialog  modal-lg">
             <div class="modal-content">
@@ -31,6 +35,14 @@
                            <!-- 지출탭 -->
                            <div id="expense">
 	                            <table class="table table-bordered">
+	                            <colgroup>
+	                            	<col width="10%">
+	                            	<col width="18%">
+	                            	<col width="18%">
+	                            	<col width="18%">
+	                            	<col width="18%">
+	                            	<col width="18%">
+	                            </colgroup>
 	                            <thead>
 	                                <tr>
 	                                   <th><input type="checkbox"/></th>
@@ -44,12 +56,23 @@
 	                            <tbody>
 	                               <tr>
 	                                   <td><input type="checkbox"/></td>
-	                                   <td>국수</td>
-	                                   <td class="text-right">0</td>
-	                                   <td class="text-right">6900</td>
-	                                   <td>식비>주식</td>
-	                                   <td>미정국수</td>
-	                               </tr>
+	                                   <td><input class="form-control input-sm" type="text" value="국수"></td>
+	                                   <td class="text-right"><input class="form-control input-sm" type="text" value="0"></td>
+	                                   <td class="text-right"><input class="form-control input-sm" type="text" value="6900"></td>
+	                				   <td>
+											<select id="cat"  class="form-control">
+												<option value="">카테고리 선택</option>
+												<c:forEach var="category" items="${expenseCategory }">
+													<option 
+													value="${category.categoryNo }" 
+													${expense.category.categoryNo eq category.categoryNo ? 'selected' :'' }> 
+													${category.categoryName }
+													</option>
+												</c:forEach>
+											</select>
+									   </td>
+									   <td><input class="form-control" type="text" value="${expense.tag.tagName  }"></td>
+				 				 </tr>
 	                            </tbody>
 	                            <tfoot>
 	                                <tr>
@@ -67,6 +90,13 @@
                         <!-- 수입탭 -->
                          <div id="income" style="display:none;">
                             <table class="table table-bordered">
+                             <colgroup>
+	                            	<col width="10%">
+	                            	<col width="23%">
+	                            	<col width="23%">
+	                            	<col width="23%">
+	                            	<col width="23%">
+	                            </colgroup>
                             <thead>
                                 <tr>
                                    <th><input type="checkbox"/></th>
@@ -79,10 +109,10 @@
                             <tbody>
                                <tr>
                                    <td><input type="checkbox"/></td>
-                                   <td>국수</td>
-                                   <td class="text-right">6900</td>
-                                   <td>식비>주식</td>
-                                   <td>미정국수</td>
+                                   <td><input class="form-control input-sm" type="text" value="국수"></td>
+                                   <td class="text-right"><input class="form-control input-sm" type="text" value="6900"></td>
+                                   <td><input class="form-control input-sm" type="text" value="식비>주식" ></td>
+                                   <td><input class="form-control input-sm" type="text" value="미정국수"></td>
                                </tr>
                             </tbody>
                             <tfoot>
@@ -123,12 +153,13 @@
                     </div>
                 </div>
                 <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-default"><strong>저장</strong></button>
+                    <button type="submit" class="btn btn-default"><strong>저장</strong></button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                 </div>
             </div>
         </div>
     </div>
+    
 <script>
 	var iCal = new iCalendar('calendar');
 	iCal.render();

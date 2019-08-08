@@ -25,9 +25,10 @@ public interface AccountBookDao {
 	List<HashMap<String, Object>> getCategoryAndExpenseByCategoryNo(String userId); /*카테고리별 지출총금액 조회*/
 	List<HashMap<String, Object>> getCategoryAndIncomeByCategoryNo(String userId);	/*카테고리별 수입총금액 조회*/
 	/*보고서*/
-	AccountBookTerm getMonthlyTotalTermByDate(Map<String, Object> param); /*월간 지출 수입 총금액*/
+	AccountBookTerm getMonthlyTotalTermByDate(Map<String, Object> param); 	/*월간 지출 수입 총금액*/
 	AccountBookTerm getAnnualTotalTermByDate(Map<String, Object> param);	/*연간 지출 수입 총금액*/
-	AccountBookTerm getTotalTerm();							/*전체 수입 총금액*/
-	
+	AccountBookTerm getTotalTerm();											/*전체 수입 총금액*/
+	List<AccountBookTerm> getMonthlyExpenseCategorybydate (Map<String, Object> monthlyCategory);	/*카테고리별 월간 총 지출*/
+	List<AccountBookTerm> getAnnualExpenseCategorybydate (Map<String, Object> annualCategory);		/*카테고리별 연간 총 지출*/
 	
 }

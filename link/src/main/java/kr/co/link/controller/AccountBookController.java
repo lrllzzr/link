@@ -34,10 +34,60 @@ public class AccountBookController {
 
 	/***** 가계부 *****/
 
+		/*** 모달 ***/
+		@RequestMapping(value = "/modal.do", method = RequestMethod.POST)
+		public String addTerm(HttpSession session, Model model,AccountBookExpenseForm form ) {
+			
+			User user = (User) session.getAttribute("LOGIN_USER");
+
+			//지출
+			AccountBookTerm expense = new AccountBookTerm();
 	
+			expense.setCard(form.getCard());
+			expense.setCash(form.getCash());
+	
+			AccountBookCategory accountBookCategory = new AccountBookCategory();
+			accountBookCategory.setCategoryNo(form.getCategory());
+			expense.setCategory(accountBookCategory);
+	
+			AccountBookTag accountBookTag = new AccountBookTag();
+			accountBookTag.setTagName(form.getTag());
+	
+			expense.setDate(form.getDate());
+			expense.setDetail(form.getDetail());
+			expense.setGubun("지출");
+	
+			expense.setId(user.getId());
+	
+			accountbookService.addexpense(expense, accountBookTag);
+	
+			//수입
+			AccountBookTerm income = new AccountBookTerm();
+			income.setCash(form.getCash());
+	
+			AccountBookCategory category = new AccountBookCategory();
+			category.setCategoryNo(form.getCategory());
+			income.setCategory(category);
+	
+			income.setDate(form.getDate());
+			income.setDetail(form.getDetail());
+			income.setGubun("수입");
+	
+			AccountBookTag tag = new AccountBookTag();
+			tag.setTagName(form.getTag());
+			income.setTag(tag);
+	
+			income.setId(user.getId());
+	
+			accountbookService.addIncome(income, tag);
+			
+			//조회하기
+			return "redirect:modal.do";
+		}
+		
 		/*** 지출 내역 추가 ***/
 		@RequestMapping(value = "/expense.do", method = RequestMethod.POST) 				
-		public String addTerm(HttpSession session, Model model, AccountBookExpenseForm form) {
+		public String addExpense(HttpSession session, Model model, AccountBookExpenseForm form) {
 	
 			User user = (User) session.getAttribute("LOGIN_USER");
 	
@@ -201,43 +251,69 @@ public class AccountBookController {
 	/***** 보고서 *****/
 	
 		@RequestMapping(value = "/monthly.do") /* 월보고서 */
-		public String monthlyReport(@RequestParam(value="month", required = false, defaultValue="")String userId, String month, Model model, HttpSession session) {
-			User user = (User) session.getAttribute("LOGIN_USER");
-			userId = user.getId();
+		public String monthlyReport(@RequestParam(value="month", required = false, defaultValue="")String month,
+									Model model, 
+									HttpSession session,
+									String userId) {
 			
+			User user = (User) session.getAttribute("LOGIN_USER");
+
+			/*월간 지출 수입 총금액*/
 			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("userId", user.getId());
 			if (!month.isEmpty()) {
 				param.put("date", month);
-				param.put("userId",userId);
 			}
-			
+
 			AccountBookTerm monthlyTerm=accountbookService.getMonthlyTotalTermByDate(param);
 			model.addAttribute("monthlyTerm", monthlyTerm);
+			
+			/*해당월의 카테고리별 총 지출금액*/
+			if(!month.isEmpty()) {
+				param.put("date",month);
+			}
+			List<AccountBookTerm> totalExpenseCategory =accountbookService.getMonthlyExpenseCategorybydate(param);
+			model.addAttribute("totalExpenseCategory",totalExpenseCategory);
 			
 			return "accountbook/b/report_monthly";
 		}
 	
 		@RequestMapping(value = "/annual.do") /* 연보고서 */
-		public String annualReport(@RequestParam(value="year",required =false, defaultValue="")String userId, String year, Model model, HttpSession session) {
+		public String annualReport(@RequestParam(value="year",required =false, defaultValue="")String year, 
+									Model model, 
+									HttpSession session,
+									String userId) {
+			
+			
 			User user = (User) session.getAttribute("LOGIN_USER");
-			userId = user.getId();
 
+			/*연간 지출 수입 총금액*/
 			Map<String, Object> param= new HashMap<String, Object>();
+			param.put("userId", user.getId());
 			if (!year.isEmpty()) {
 				param.put("date",year);
-				param.put("userId",userId);
 			}
 			
 			AccountBookTerm annualTerm=accountbookService.getAnnualTotalTermByDate(param);
 			model.addAttribute("annualTerm",annualTerm);
+			
+			/*해당 연도 카테고리별 총 지출*/
+			if(!year.isEmpty()) {
+				param.put("date",year);
+			}
+			List<AccountBookTerm>totalExpenseCategory=accountbookService.getAnnualExpenseCategorybydate(param);
+			model.addAttribute("totalExpenseCategory", totalExpenseCategory);
 			
 			return "accountbook/b/report_annual";
 		}
 	
 		@RequestMapping(value = "/analysis.do") /* 지출분석 */
 		public String analysis(String userId, Model model, HttpSession session) {
+			
+			
 			User user = (User) session.getAttribute("LOGIN_USER");
 			userId = user.getId();
+
 			AccountBookTerm totalTerm=accountbookService.getTotalTerm();
 			
 			model.addAttribute("totalTerm",totalTerm);

@@ -41,7 +41,7 @@
     </style>
     
     <script type="text/javascript">
-        /*원형 그래프*/
+        <!--원형 그래프-->
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -61,46 +61,38 @@
 
         chart.draw(data, options);
       }
+      <!--막대그래프-->
+	      google.charts.load('current', {packages: ['corechart', 'bar']});
+	      google.charts.setOnLoadCallback(drawBasic);
+	
+	      function drawBasic() {
+	      
+	     var data = new google.visualization.DataTable();
+	      data.addColumn('string','카레고리');
+	      data.addColumn('number','금액');	      
+	      
+		  data.addRows([
+			<c:forEach var="monthlyExpense" items="${totalExpenseCategory}">
+	       ['${monthlyExpense.categoryName}', parseInt('${monthlyExpense.total}') ],
+	       </c:forEach>
+	    	]);
+	
+	    var options = {
+	      width: 1250,
+	      height: 400,
+	      legend: { position: 'top', maxLines: 3 },
+	      bar: { groupWidth: '50%' },
+	      isStacked: true,
+	    };
+	
+	      
+	      var chart = new google.visualization.ColumnChart(
+	      document.getElementById('chart_div1'));
+	
+	      chart.draw(data, options);
+	      }
     </script>
-    
-    <!--막대그래프-->
-    <script>
-        google.charts.load('current', {packages: ['corechart', 'bar']});
-        google.charts.setOnLoadCallback(drawBasic);
 
-        function drawBasic() {
-            
-            var data = google.visualization.arrayToDataTable([
-         ['분류', '금액', { role: 'style' }],
-         ['식비', 1000000, '#395fbf'],            
-         ['주거통신', 2000000, '#395fbf'],            
-         ['생활용품', 5000000, '#395fbf'],
-         ['의복', 200000, '#395fbf' ],
-         ['건강', 200000, '#395fbf' ],
-         ['교육', 200000, '#395fbf' ],
-         ['용돈', 1000000, '#395fbf'],            
-         ['기타', 2000000, '#395fbf'],            
-         ['기타', 5000000, '#395fbf'],
-         ['기타', 200000, '#395fbf' ],
-         ['기타', 200000, '#395fbf' ],
-         ['기타', 200000, '#395fbf' ],
-      ]);
-
-      var options = {
-        width: 1250,
-        height: 400,
-        legend: { position: 'top', maxLines: 3 },
-        bar: { groupWidth: '50%' },
-        isStacked: true,
-      };
-
-        
-        var chart = new google.visualization.ColumnChart(
-        document.getElementById('chart_div1'));
-
-        chart.draw(data, options);
-        }
-    </script>
 </head>
 <body>
      <%@include file="../../common/nav.jsp"%>

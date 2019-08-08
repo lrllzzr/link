@@ -4,15 +4,15 @@
 <html lang="ko">
 <head>
     <title>Link : </title>
-	<link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
-     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<link rel="stylesheet" href="/link/resources/css/accountBook/expensive.css">
 	<link rel="stylesheet" href="/link/resources/css/blog/blog.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	
 	<style>
         div {
@@ -37,47 +37,9 @@
         
         #strong-pading{padding-top: 50px; padding-bottom: 8px;}
     </style>
-     <!--막대그래프-->
-    <script>
-        google.charts.load('current', {packages: ['corechart', 'bar']});
-        google.charts.setOnLoadCallback(drawBasic);
-
-        function drawBasic() {
-            
-            var data = google.visualization.arrayToDataTable([
-         ['달', '지출 합계 금액', { role: 'style' }],
-         ['1월', 1000000, '#395fbf'],            
-         ['2월', 2000000, '#395fbf'],            
-         ['3월', 5000000, '#395fbf'],
-         ['4월', 200000, '#395fbf' ],
-         ['5월', 200000, '#395fbf' ],
-         ['6월', 200000, '#395fbf' ],
-         ['7월', 1000000, '#395fbf'],            
-         ['8월', 2000000, '#395fbf'],            
-         ['9월', 5000000, '#395fbf'],
-         ['10월', 200000, '#395fbf' ],
-         ['11월', 200000, '#395fbf' ],
-         ['12월', 200000, '#395fbf' ],
-      ]);
-
-      var options = {
-        width: 1500,
-        height: 500,
-        legend: { position: 'top', maxLines: 3 },
-        bar: { groupWidth: '50%' },
-        isStacked: true,
-      };
-
-        
-        var chart = new google.visualization.ColumnChart(
-        document.getElementById('chart_div1'));
-
-        chart.draw(data, options);
-        }
-    </script>
      
-    <script type="text/javascript">
-        /*원형 그래프*/
+       <script type="text/javascript">
+        <!--원형 그래프-->
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -97,7 +59,42 @@
 
         chart.draw(data, options);
       }
+      
+      
+      <!--막대그래프-->
+       google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawBasic);
+
+        function drawBasic() {			
+            
+        var data = new google.visualization.DataTable();
+          data.addColumn('string','카테고리');  
+          data.addColumn('number','금액');        
+ 			
+   
+            data.addRows([
+ 			<c:forEach var="annualExpense" items="${annualExpenseCategory}">
+ 			['${annualExpense.categoryName}', parseInt('${annualExpense.total}')],
+ 			</c:forEach>
+      		]);
+
+      var options = {
+        width: 1500,
+        height: 500,
+        legend: { position: 'top', maxLines: 3 },
+        bar: { groupWidth: '50%' },
+        isStacked: true,
+      };
+
+        
+        var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_div1'));
+
+        chart.draw(data, options);
+        }
     </script>
+     
+
 </head>
 <body>
 <%@include file="../../common/nav.jsp"%>

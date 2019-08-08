@@ -37,46 +37,9 @@
         
         .btn-button{float: right;padding: 1px 7px; font-size: 13px;}
     </style>
-    <!--막대그래프-->
-    <script>
-        google.charts.load('current', {packages: ['corechart', 'bar']});
-        google.charts.setOnLoadCallback(drawBasic);
 
-        function drawBasic() {
-            
-            var data = google.visualization.arrayToDataTable([
-         ['분류', '지출 금액', { role: 'style' }],
-         ['식비', 1000000, '#'],            
-         ['주거통신', 2000000, '#'],            
-         ['생활용품', 5000000, '#'],
-         ['의복', 200000, '#' ],
-         ['건강', 200000, '#' ],
-         ['교육', 200000, '#' ],
-         ['용돈', 1000000, '#'],            
-         ['기타', 2000000, '#'],            
-         ['기타', 5000000, '#'],
-         ['기타', 200000, '#' ],
-         ['기타', 200000, '#' ],
-         ['기타', 200000, '#' ],
-      ]);
-
-      var options = {
-        width: 1200,
-        height: 300,
-        legend: { position: '', maxLines: 0 },
-        bar: { groupWidth: '50%' },
-        isStacked: true,
-      };
-
-        
-        var chart = new google.visualization.ColumnChart(
-        document.getElementById('chart_div1'));
-
-        chart.draw(data, options);
-        }
-    </script>
     <script type="text/javascript">
-        /*원형 그래프*/
+        <!--원형 그래프-->
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -95,6 +58,40 @@
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
         chart.draw(data, options);
+      }
+      
+      <!--막대그래프-->
+          
+      google.charts.load('current', {packages: ['corechart', 'bar']});
+      google.charts.setOnLoadCallback(drawBasic);
+
+      function drawBasic() {
+          
+       var data = google.visualization.arrayToDataTable([
+    	  data addColnumn('string','카레고리');
+ 	      data addColnumn('number','금액');
+ 		  data addColnumn('style','속성')	      
+ 	      
+ 		  data.addRows([
+ 			<c:forEach var="totalTerm" items="${totalTerm}">
+ 	       ['${totalTerm.categoryName}', parseInt('${totalTerm.total}'), '#395fbf' ],
+ 		 	 console.log(${monthlyExpense.total});
+ 	       </c:forEach>
+ 	    	]);
+ 		  
+    var options = {
+      width: 1200,
+      height: 300,
+      legend: { position: '', maxLines: 0 },
+      bar: { groupWidth: '50%' },
+      isStacked: true,
+    };
+
+      
+      var chart = new google.visualization.ColumnChart(
+      document.getElementById('chart_div1'));
+
+      chart.draw(data, options);
       }
     </script>
 </head>
@@ -240,13 +237,11 @@
                 </div>
                         <div class="row">
                               <div class="col-sm-2">
-                                  
                               </div>
                               <div class="col-sm-10">
                                <div id="chart_div1" style="width: 800; height: 300;"></div> 
                                 </div>
-                                 
-                           </div>
+                         </div>
             </div>
         </div>
     </div>
