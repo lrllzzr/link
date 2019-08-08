@@ -10,10 +10,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="/link/resources/js/jquery.timeago.js"></script>
+    <script src="/link/resources/js/jquery.timeago.ko.js"></script>
     <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinmain.css">
 	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinQna.css">
 	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinQuestion.css">
+	<script type="text/javascript" src="/link/resources/js/jisikin_se2/js/HuskyEZCreator.js"></script>
 </head>
 <body>
     <%@ include file="../common/nav.jsp" %>
@@ -38,29 +41,24 @@
                     <div class="c-heading__title">
                         <div class="c-heading__title-inner">
                                 <div class="c-heading__icons-front">
-                                    <span class="grade-point grade-point__large"><span class="blind">내공</span>50</span>
+                                    <span class="grade-point grade-point__large"><span class="blind">내공</span>${jisikin.mentalPoint }</span>
                                 </div>
 
                             <div class="title">	
-                                        예비고1 문제집 추천 좀요
+                                        ${jisikin.title }
                             </div>
                         </div>
                     </div>
                     <div class="c-heading__content">
-                        현 중3입니다. 아직 고등학교 내용은 한 번도 본 적 없고 이번이 처음입니다. 예비고1 문제집, 특히 영어 문제집을 좀 추천해주셨으면 좋겠습니다. 타과목들도 괜찮다 싶은 문제집 소개해 주면 감사하겠는데 수학은 필요 없어요.<br> 제가 초6 때부터 영어 학원을 안 다니고 혼자서 공부를 하고 있는데 중학교 영어는 따라가는데 큰 문제가 없었지만 고등학교는 좀 불안해서요. 고등학교 문제집 말고도 중학교 3년 간 배운 영문법을 총정리하는 문제집있다면 추천해주셨음 합니다.
+                    					${jisikin.contents }
                     </div>
                 </div>
 
                 <div class="tag-list tag-list--end-title" role="region" aria-label="관련태그 목록" data-select="type-a">
-                    <a href="#" class="tag-list__item tag-list__item--category" target="_blank"><span class="blind">태그 디렉터리</span>Ξ 고등학교교육</a>
 
-                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>공부</a>
-
-                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>문제집추천</a>
-
-                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>예비고1</a>
-
-                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>영어</a>
+				<c:forEach var="tag" items="${jisikin.tags}">
+                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>${tag.tagName }</a>
+                	</c:forEach> 
 
                 </div>
 
@@ -80,9 +78,11 @@
                                     </ul>
                                 </div>
                             </div>
-                                    <span class="c-userinfo__author"><span class="blind">닉네임</span>비공개</span>
+                                    <span class="c-userinfo__author" style="margin-left:20px;"><span class="blind">닉네임</span>
+                                    ${jisikin.secretYn eq 'Y' ? jisikin.userId : '비공개'}
+                                    </span>
                         </div>
-                        <span class="c-userinfo__date"><span class="blind">작성일</span>26분 전</span>
+                        <span class="c-userinfo__date tg">${jisikin.createTime }</span>
                     </div>
 
                     <div class="c-userinfo__right" role="listbox">
@@ -90,7 +90,10 @@
 
                             <a href="#" id="questionMenuBtn" class="button_compose _questionMenuLayerButton is_active" onclick="naver.kin.pc.common.nClicks('end*q.more', '', '', event);" role="option" aria-selected="true" aria-haspopup="true" aria-expanded="true"><i class="icon icon_compose_setting _questionMenuLayerButton" aria-hidden="true"></i><span class="blind">더보기</span></a>
                             <div class="c-userinfo__list-setting _questionMenuLayer _popupLayer" role="listbox" aria-hidden="true">
-                                <a href="#" id="opt_2" class="_ros c-userinfo__setting-item _questionMenuButton"><span class="glyphicon glyphicon-bell" style="color: red;"></span>신고</a>
+                                <a href="/link/jisikin/addRecommend.do?jisikinNo=${jisikin.no }" id="opt_2" class="_ros c-userinfo__setting-item _questionMenuButton">
+                                <span class="glyphicon glyphicon-thumbs-up" style="font-size:19px; width:23px;color: blue;"></span>추천</a>${jisikin.recommend }
+                                <a href="#" id="opt_2" class="_ros c-userinfo__setting-item _questionMenuButton">
+                                <span class="glyphicon glyphicon-bell" style="color: red;"></span>신고</a>
                             </div>
                         </div>
                     </div>
@@ -115,128 +118,276 @@
                 </div>
             </div>
        </div>
-   </div>
-   <div class="row">
-       <div class="answer-content_inner text-center">
-           <div class="c-classify__title-part">
-    		  <h3 class="c-classify__title"><i class="icon icon_common_a" aria-hidden="true"></i><span class="blind">답변</span><em class="_answerCount num">1</em>개</h3>
-	       </div>
-	       <div class="c-classify__sorting-part">
-	           <div class="c-sorting">
-	               <select class="selectBox01">
-	                   <option value="" name="">채택순</option>
-	                   <option value="" name="">최신순</option>
-	                   <option value="" name="">추천순</option>
-	               </select>
-	           </div>
-	       </div>
-       </div>
-   </div>
-   <div class="row well">
-       <div class="answer-content__item">
-           <div class="answer-content-header">
-               <div class="profile-default">
-					<a href="#" target="_blank" class="profile-default--inner">
-						<span class="profile-default__thumbnail" style="background-image: url('https://kin-phinf.pstatic.net/20190323_276/1553332370886E2suf_JPEG/KakaoTalk_20190213_094319724.jpg');"><span class="blind">박수진님 프로필 이미지</span></span>
-					</a>
+       <div class="answer-form well" style="display:none;">
+       		<form id="answer-form" action="questionDetail.do" method="POST">
+       			<input type="hidden" name="jisikinNo" value="${jisikin.no }"/>
+	       		<div>
+		        		<textarea rows="10" class="form-control" name="contents" id="answer_contents"></textarea>
+		        </div>
+       			<span class="first">아이디 
+                <!-- 공개 설정 레이어 --> 
+                   <select id="secretYN" name="secretYn">
+                   	<option value="N">비공개</option>
+                   	<option value="Y">공개</option>
+                   </select>
+                </span>
+                <!-- 등록 -->
+				<div class="text-center">
+					<div class="btn_c2" style="float:center;">
+						<button type="submit" id="submit-answer"
+							class="btn btn-primary _register _clickcode:sbm.ok">답변등록</button>
+					</div>
+					<div class="btn_r" style="float:right; margin-top : -34px;">
+						<button type="button"
+							class="btn btn-default answer-cancel">작성취소</button>
+					</div>
 				</div>
-                <div class="profile-info">
-                    <h3 class="answer-author">박수진 님 답변</h3>
-                    <h4 class="answer-author-num">채택답변수 <em>114</em></h4>
-                </div>
-           </div>
+				</form>
        </div>
-       <div class="answer-contents">
-           <p class="main-contents">유니티 2D 게임 만들기에 대해서 궁금하신 질문자님 반갑습니다.
-            일단 게임프로그래머 직군으로 따지면 거의 대부분 두 가지중에서 생각을 많이 하시는데요.<br/>
-            <br/>
-            클라이언트와 서버프로그래머 중에서 게임쪽이라고 하면 클라이언트 과정을 진행해야
-            한다고 생각하시면 되요.<br/>
-            또 C로부터 진행되는 클라이언트 과정과 C#에서 진행되는 유니티 과정을 어느정도 이해해야해요.<br/>
-            프로그래밍 언어로는 C언어를 중심으로 하여 C++, C#, API, JAVA 등 여러 객체지향 언어가 있는데
-            말씀하신 유니티게임엔진은 C#을 사용해요.<br/><br/>
-            고등학생이 무슨 게임개발이냐 라는 생각들도 많이들 하시지만 요즘은 중학생들도 빠르게 준비중이고
-            실제 게임개발을 위해서 영재교육 및 전문 교육기관들이 늘어나고 있는 추세에요.<br/><br/>
-            게임프로그래밍은 솔직히 쉽지만은 않아요.<br/> 일단 영타로 작업이 실시되고 더불어서 수학지식도
-            어느정돈 갖추어져야하는 부분이 필요하거든요.<br/>
-            기초와 기본기가 없다면 학원을 다니시는 걸 추천드리는데요.<br/>
-            C#공부를 하면 C#스크립트를 한 달 동안 배우게 되요. 근데 이게 외국어라고 생각하시면 되는데
-            솔직히 영어 공부하는것보단 조금 재미있다고 생각하면 되요.
-            저는 전문가가 아니라 이정도의 지식이 한계네여... 링크 남겨드리니 참고하시고 
-            유니티 2d 게임 만들기 학원은 전국 강남,신촌,대구,부산,대전,인천,광주,수원 등에 위치해있으니 참고하세요.<br/><br/>
-            좋은 정보 얻으셨으면 좋겠네요. 행복한 하루되세요^^<br/><br/><br/>
-            http://sbsgame-school.net/renewal2016/customer/online.asp?subM=0701</p>
-            
-            <div class="answer-content-date">
-                <p>12분 전</p>
-            </div>
-            <div class="row">
-                <div class="answer-bottom">
-                    <div class="answer-bottom-left">
-                        <button type="button" id="comment-show">
-                            <i class="icon icon_compose_opinion" aria-hidden="true"><span class="glyphicon glyphicon-comment"></span><span class="answer-comment">댓글</span></i> 
-                        </button>
-                    </div>
-                    <div class="answer-bottom-right">
-                        <button type="button">
-                            <span class="glyphicon glyphicon-bell" style="color: red;"></span>신고
-                        </button>
-                    </div>
-            </div>
-            <div class="row comment-area comment-area-none" style="padding-top: 30px;">
-                    <!-- 댓글창 -->
-                <div class="c-opinion _commentListArea" data-answer-no="1" data-thanks-message="" style="" id="p156395222136665351400">
-	<h2 class="blind">댓글영역</h2>
-	<div class="c-opinion__write">
-		
-		<fieldset>
-			<legend>댓글 입력</legend>
-			<div class="c-opinion__write-form">
+   </div>
+   
+   <c:choose>
+   	<c:when test="${empty answers }">
+   		<div class="row">
+   			<div class="answer-content-inner text-center">
+   				<h3>현재 등록된 답변이 없습니다! 답변해주세요!!</h3>
+   			</div>
+   		</div>
+   	</c:when>
+   	<c:otherwise>
+	   <div class="row">
+	       <div class="answer-content_inner text-center">
+	           <div class="c-classify__title-part">
+	    		  <h3 class="c-classify__title"><i class="icon icon_common_a" aria-hidden="true"></i><span class="blind">답변</span><em class="_answerCount num">1</em>개</h3>
+		       </div>
+		       <div class="c-classify__sorting-part">
+		           <div class="c-sorting">
+		               <select class="selectBox01">
+		                   <option value="" name="">채택순</option>
+		                   <option value="" name="">최신순</option>
+		                   <option value="" name="">추천순</option>
+		               </select>
+		           </div>
+		       </div>
+	       </div>
+	   </div>
+	   
+	   <!--  답변 리스트 -->
+	   
+	   <c:forEach var="answer" items="${answers }">
+		   <div class="row well">
+		       <div class="answer-content__item">
+		           <div class="answer-content-header">
+		               <div class="profile-default">
+							<a href="#" target="_blank" class="profile-default--inner">
+								<span class="profile-default__thumbnail" style="background-image: url('https://kin-phinf.pstatic.net/20190323_276/1553332370886E2suf_JPEG/KakaoTalk_20190213_094319724.jpg');"><span class="blind">박수진님 프로필 이미지</span></span>
+							</a>
+						</div>
+		                <div class="profile-info">
+		                    <h3 class="answer-author">${answer.secretYn eq 'Y' ? answer.userId : '비공개' } 님 답변</h3>
+		                    <h4 class="answer-author-num">채택답변수 <em>114</em></h4>
+		                </div>
+		           </div>
+		       </div>
+		       <div class="answer-contents" style="overflow-y:hidden; overflow-x:scroll">
+		           <p class="main-contents">
+		           ${answer.contents }
+		           </p>
+		            <div class="answer-content-date">
+		                <p class="tg">${answer.createTime }</p>
+		            </div>
+		            <div class="row">
+		                <div class="answer-bottom">
+		                    <div class="answer-bottom-left">
+		                        <button type="button" id="comment-show">
+		                            <i class="icon icon_compose_opinion" aria-hidden="true"><span class="glyphicon glyphicon-comment"></span><span class="answer-comment">댓글</span></i> 
+		                        </button>
+		                    </div>
+		                    <div class="answer-bottom-right">
+		                        <button type="button">
+		                            <span class="glyphicon glyphicon-bell" style="color: red;"></span>신고
+		                        </button>
+		                    </div>
+		            </div>
+		            <div class="row comment-area comment-area-none" style="padding-top: 30px;">
+		                    <!-- 댓글창 -->
+		                <div class="c-opinion _commentListArea" data-answer-no="1" data-thanks-message="" style="" id="p156395222136665351400">
+			<h2 class="blind">댓글영역</h2>
+			<div class="c-opinion__write">
 				
-				<textarea class="c-opinion__write-textarea placeholder" maxlength="1000" title="댓글 입력">개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.</textarea>
+				<fieldset>
+					<legend>댓글 입력</legend>
+					<div class="c-opinion__write-form">
+						
+						<textarea class="c-opinion__write-textarea placeholder" maxlength="1000" title="댓글 입력">개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.</textarea>
+					</div>
+					<div class="c-opinion__write-upload">
+						<div class="c-opinion__write-count">
+							<span class="blind">현재 입력한 글자수</span>
+							<span class="c-opinion__write-count__num _currentCharCount">0</span>
+							/
+							<span class="blind">전체 입력 가능한 글자수 </span>
+							<span class="c-opinion__write-count__total">1000</span>
+						</div>
+						<button type="submit" class="button_register _registerCommentBtn">등록</button>
+					</div>
+				</fieldset>
+				
 			</div>
-			<div class="c-opinion__write-upload">
-				<div class="c-opinion__write-count">
-					<span class="blind">현재 입력한 글자수</span>
-					<span class="c-opinion__write-count__num _currentCharCount">0</span>
-					/
-					<span class="blind">전체 입력 가능한 글자수 </span>
-					<span class="c-opinion__write-count__total">1000</span>
-				</div>
-				<button type="submit" class="button_register _registerCommentBtn">등록</button>
-			</div>
-		</fieldset>
+			<!-- 댓글 리스트 -->
+			<div class="c-opinion__list _commentList">
+		        <div class="c-opinion__item">
+		            <p class="c-opinion__list-nick">
+		                <strong><a href="#">allm****</a></strong>
+		            </p>
+		            <div class="c-opinion__list-text">
+		                <p>잘보고갑니다</p>
+		            </div>
+		            <p class="c-opinion__list-date">2019.07.24. 16:38:30</p>
+		            <div class="button_more">
 		
-	</div>
-	<!-- 댓글 리스트 -->
-	<div class="c-opinion__list _commentList">
-        <div class="c-opinion__item">
-            <p class="c-opinion__list-nick">
-                <strong><a href="#">allm****</a></strong>
-            </p>
-            <div class="c-opinion__list-text">
-                <p>잘보고갑니다</p>
-            </div>
-            <p class="c-opinion__list-date">2019.07.24. 16:38:30</p>
-            <div class="button_more">
-
-                <a href="#" class="_deleteBtn" data-comment-no="-1" data-page="1"><img height="9" width="9" alt="삭제" src="https://ssl.pstatic.net/static/kin/09renewal/btn_delete_list2.gif" class="del"></a>
-            </div>
-        </div>
-
-    </div>
-	<!-- -->
-	<div class="paginator paginator--number _pagingArea" style="display: none;"></div>
-</div>
-               <!-- -->
-            </div>
-            </div>
-       </div>
-   </div>
+		                <a href="#" class="_deleteBtn" data-comment-no="-1" data-page="1"><img height="9" width="9" alt="삭제" src="https://ssl.pstatic.net/static/kin/09renewal/btn_delete_list2.gif" class="del"></a>
+		            </div>
+		        </div>
+		
+		    </div>
+			<!-- -->
+			<div class="paginator paginator--number _pagingArea" style="display: none;"></div>
+		</div>
+		               <!-- -->
+		            </div>
+		            </div>
+		       </div>
+		   </div>
+	   </c:forEach>
+   	</c:otherwise>
+   </c:choose>
 </div>
 
 <script>
+
+   	/* 스마트에디터 */
+   	var oEditors = [];
+
+   	/* 스마트에디터 사진 */
+   	function pasteHTML(filepath){
+   		setTimeout(function() {
+   	    	var sHTML = '<img src="/link/resources/js/jisikin_se2/photo_uploader/upload/'+filepath+'">';
+   	    	oEditors.getById['answer_contents'].exec("PASTE_HTML", [sHTML]);
+   		}, 5000);
+   	}
+   	
+ 
+   	
     $(document).ready(function(){
+    	$("#opt_2").click(function(){
+    		if('${LOGIN_USER}'== ""){
+				var result = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+				var host = location.host;
+				var returnUrl = location.pathname;
+				var queryString = location.search.substr(1).replace(/&/g, ',');
+				
+				if(result){
+					location.href = '/link/loginform.do?returnUrl='+returnUrl+'&queryString='+queryString;
+					return false;
+				}
+				return false;
+			}
+    	})
+    	
+    	
+		$("#answerWriteButton").click(function(){
+			if('${LOGIN_USER}'== ""){
+				var result = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+				var host = location.host;
+				var returnUrl = location.pathname;
+				var queryString = location.search.substr(1).replace(/&/g, ',');
+				
+				if(result){
+					location.href = '/link/loginform.do?returnUrl='+returnUrl+'&queryString='+queryString;
+					return false;
+				}
+				return false;
+			}
+			
+			$(".answer-form").css("display", "block");
+			
+			$('iframe').remove();
+			console.log(oEditors);
+			// 에디터 창
+	    	nhn.husky.EZCreator.createInIFrame({
+	    		oAppRef: oEditors,
+	    			elPlaceHolder: "answer_contents",
+	    			sSkinURI: "/link/resources/js/jisikin_se2/SmartEditor2Skin.html",
+	    			fCreator: "createSEditor2",
+	    			htParams : {
+	    				fOnBeforeUnload : function() {
+	    				}
+	    			}
+	    		// 이페이지 나오기 alert 삭제
+	    		});
+			
+			
+	    	 // 등록 버튼
+	    	$("#submit-answer").click(function(){
+	    		submitContents();
+	    	})
+	    		
+	    		
+	    		//‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
+	    		function submitContents(elClickedObj) {
+	    			// 에디터의 내용이 textarea에 적용된다.
+	    			oEditors.getById["answer_content"].exec("UPDATE_CONTENTS_FIELD",
+	    					[]);
+
+	    			// 에디터의 내용에 대한 값 검증은 이곳에서
+	    			// document.getElementById("textAreaContent").value를 이용해서 처리한다.
+	    			console.log(document.getElementById("answer_content").value);
+	    			try {
+	    				$("#answer-form").submit();
+	    			} catch (e) {
+
+	    			}
+	    		}
+	    	 
+	    	 
+			return false;
+			
+			
+			
+			// 등록 버튼
+			$("#submit-answer").click(function(){
+				submitContents();
+			})
+				
+				
+				//‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
+				function submitContents(elClickedObj) {
+					// 에디터의 내용이 textarea에 적용된다.
+					oEditors.getById["answer_contents"].exec("UPDATE_CONTENTS_FIELD",
+							[]);
+
+					// 에디터의 내용에 대한 값 검증은 이곳에서
+					// document.getElementById("textAreaContent").value를 이용해서 처리한다.
+					console.log(document.getElementById("answer_contents").value);
+					try {
+						$("#answer-form").submit();
+					} catch (e) {
+
+					}
+				}
+			
+		})
+		
+		
+
+		
+		$(".answer-cancel").click(function(){
+			$(".answer-form").css("display", "none");
+		})
+    	
+    	
+    	
          
         $('.dropdown,.dropdown-menu').hover(function(){
 
@@ -251,7 +402,14 @@
             return false;
           }
         })
-          
+        
+        
+     // timeAgo
+        $(".tg").each(function(){
+           var timeago_t = jQuery.timeago( new Date(parseInt($(this).text())));
+           console.log(timeago_t);
+           $(this).text(timeago_t);
+        });
       })
 
     $(".c-userinfo__left").hover(function(){

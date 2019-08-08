@@ -11,11 +11,46 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="/link/resources/js/jquery.timeago.js"></script>
+    <script src="/link/resources/js/jquery.timeago.ko.js"></script>
     <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
-	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinmain.css">
-	<link rel="stylesheet" href="/link/resources/css//jisikin/jisikinQna.css">
+	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinmain.css">
+	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinQna.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script>
+	
+		var app = angular.module('myApp', []);
+		
+		app.controller('categoryCtrl', function($scope, $http){
+            // $scope에 boxoffice라는 이름으로 빈 배열을 저장한다.
+            $scope.categories = [];
+            
+            $scope.searchCategories = function(categoryNo){
+                
+                var url = "byCategory.do?categoryNo="+categoryNo;
+                
+                $http.get(url)
+                    .then(function(response){
+                    	$(".list2").empty();
+                    	
+                        var data = response.data;   // 응답데이터 조회
+                        console.log(data);
+                        $scope.jisikinByCategory = data;
+                }, function(){
+                    alert("조회 중 오류가 발생하였습니다.");
+                })
+            }
+            
+        })
+        
+        app.filter("timeago", function() {
+        	return function(time) {
+        		return jQuery.timeago( new Date(time));
+        	}
+        })
+	</script>
 </head>
-<body>
+<body  ng-app="myApp" ng-controller="categoryCtrl">
     <%@ include file="../common/nav.jsp" %>
 <div class="container">
    <%@include file="jisikin-nav.jsp" %>
@@ -32,71 +67,20 @@
                 <div class="ques_cnt">
                     <dl>
                     <dt class="itm">오늘의 새 질문</dt>
-                    <dd id="todayQuestion">26,132</dd>
-                    <dt class="itm2">모바일 질문</dt>
-                    <dd id="todayMobileQuestion">19,500</dd>
-                    <dt class="itm3">오늘의 답변</dt>
-                    <dd id="todayAnswer">49,690</dd>
+                    <dd id="todayQuestion">${countToday }</dd>
+                    <dt class="itm3" style="background-position:0 -24px;">오늘의 답변</dt>
+                    <dd id="todayAnswer">${countTodayAnswer }</dd>
                     </dl>
                 </div>
             </div>
                     <div class="s_body">
                         <div class="spot_directory">
-                            <ul>
-                                        <li>
-                                            <a href="/qna/list.nhn?dirId=11" id="subMenuOfQna">교육, 학문</a>
-                                            <span>36,993</span>
-                                        </li>
-                                        <li>
-                                            <a href="/qna/list.nhn?dirId=1">컴퓨터통신</a>
-                                            <span>26,723</span>	
-                                        </li>
-                                        <li>
-                                            <a href="/qna/list.nhn?dirId=2">게임</a>
-                                            <span>18,142</span>
-                                        </li>
-                                        <li>
-                                            <a href="/qna/list.nhn?dirId=3">엔터테인먼트, 예술</a>
-                                            <span>22,703</span>
-                                        </li>
-                                        <li>
-                                            <a href="/qna/list.nhn?dirId=8">생활</a>
-                                            <span>28,913</span>
-                                        </li>
-                                        <li>
-                                            <a href="/qna/list.nhn?dirId=7">건강</a>
-                                            <span>18,976</span>	
-                                        </li>
-                                        <li>
-                                            <a href="/qna/list.nhn?dirId=6">사회, 정치</a>
-                                            <span>15,888,033</span>
-                                        </li>
-                                        <li>
-                                            <a href="/qna/list.nhn?dirId=4">경제</a>
-                                            <span>13,770,306</span>
-                                        </li>
-                                        <li>		
-                                            <a href="/qna/list.nhn?dirId=9">여행</a>
-                                            <span>4,249,461</span>
-                                        </li>
-                                        <li>
-                                            <a href="/qna/list.nhn?dirId=10">스포츠, 레저</a>
-                                            <span>3,454,822</span>
-                                        </li>
-                                        <li>
-                                            <a href="/qna/list.nhn?dirId=5">쇼핑</a>
-                                            <span>15,973,714</span>
-                                        </li>
-                                        <li>		
-                                            <a href="/qna/list.nhn?dirId=13">쥬니버Q&amp;A</a>	
-                                        </li>
-                                        <li>	
-                                            <a href="/qna/list.nhn?dirId=12">지역&amp;플레이스</a>	
-                                        </li>
-                                        <li>						
-                                            <a href="/qna/list.nhn?dirId=20">고민Q&amp;A</a>			
-                                        </li>
-                                <li><a href="/opendic/index.nhn">오픈사전</a></li>
+                            <ul style="padding-left:50px;">
+                            	<c:forEach var="c" items="${categoriesParent }">
+                            		<li style="list-style:square !important;">
+                            			<a class="a-category" href="#" data-value="${c.no }" ng-click="searchCategories('${c.no}')" >${c.name }</a>
+                            		</li>
+                            	</c:forEach>
                             </ul>
                         </div>
                         <!-- 인기(지역) 시작-->	
@@ -122,370 +106,41 @@
 
                     <thead>
                     <tr>
-                    <th scope="col" class="title "><a href="/qna/list.nhn?sort=betPoint&amp;queryTime=2019-07-23%2013%3A57%3A47" class="option_grade _nclicks:kls_new.bybest">내공<img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="12" height="12" alt="정렬"></a>제목</th>
+                    <th scope="col" class="title "><a href="#" class="option_grade _nclicks:kls_new.bybest">내공<img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="12" height="12" alt="정렬"></a>제목</th>
                     <th scope="col">분야</th>
-                    <th scope="col" class="" id="listAnswerField"><a href="/qna/list.nhn?sort=answerCnt&amp;queryTime=2019-07-23%2013%3A57%3A47" class="_nclicks:kls_new.byanswer">답변<img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="12" height="12" alt="정렬"></a></th>
-                    <th scope="col" class="on"><a href="/qna/list.nhn?sort=writeTime&amp;queryTime=2019-07-23%2013%3A57%3A47" class="_nclicks:kls_new.bydate">작성<img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="12" height="12" alt="정렬"></a></th>
+                    <th scope="col" class="" id="listAnswerField"><a href="#" class="_nclicks:kls_new.byanswer">답변<img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="12" height="12" alt="정렬"></a></th>
+                    <th scope="col" class="on"><a href="#" class="_nclicks:kls_new.bydate">작성<img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="12" height="12" alt="정렬"></a></th>
                     </tr>
                     </thead>
 
                     <tbody id="au_board_list">
 
-                        <tr>
-                            <td class="title">
-                                <a href="#" rel="KIN" target="_blank" class="">베스트슬립 m5 관리</a>
-                            </td>
-                            <td class="field"><a href="#" class="">가구, 인테리어소<span class="ls0">...</span></a></td>
-                            <td class="t_num">0</td>
-                            <td class="t_num">방금</td>
-                        </tr>
-                        <tr>
-                        <td class="title">
-                            <a href="#" rel="KIN" target="_blank" class="">아기 이름 평가 부탁드립니다.( _ _ )</a>
-                        </td>
-                        <td class="field"><a href="#" class="">작명, 이름풀이</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">방금</td>
-                        </tr>
-                        
-                        <tr>
-                        <td class="title">
-
-
-
-                            <a href="/qna/detail.nhn?d1id=11&amp;dirId=1118&amp;docId=331867747" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:3,i:1118_331867747">전자기학이라 회로 이론 공부하려는데 배경지식 없이 가능한...</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=1118" class="_nclicks:kls_new.dir,r:2,i:1118_331867747">전기, 전자 공학</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">방금</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-                                <span class="power_grade type_small"><span class="blind">내공</span>100</span>
-
-
-
-                            <a href="/qna/detail.nhn?d1id=8&amp;dirId=80101&amp;docId=331867746" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:4,i:80101_331867746">영등포구청에서 한티가는거</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=80101" class="_nclicks:kls_new.dir,r:3,i:80101_331867746">연애, 결혼</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">방금</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-
-
-                            <a href="/qna/detail.nhn?d1id=4&amp;dirId=401030201&amp;docId=331867745" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:5,i:401030201_331867745">메리츠걱정없는암보험 저렴한가요?</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=401030201" class="_nclicks:kls_new.dir,r:4,i:401030201_331867745">의료, 상해 보험</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">방금</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-                                <span class="power_grade type_small"><span class="blind">내공</span>10</span>
-
-
-
-                            <a href="/qna/detail.nhn?d1id=1&amp;dirId=1020301&amp;docId=331867744" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:6,i:1020301_331867744">포토샵 CC 체험판은 몇번 깔 수 있나요?</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=1020301" class="_nclicks:kls_new.dir,r:5,i:1020301_331867744">포토샵</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">방금</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-
-
-                            <a href="/qna/detail.nhn?d1id=1&amp;dirId=1010301&amp;docId=331867743" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:7,i:1010301_331867743">에즈락 b450m pr4 드라이버 설치..</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=1010301" class="_nclicks:kls_new.dir,r:6,i:1010301_331867743">LAN카드</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">방금</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-
-
-                            <a href="/qna/detail.nhn?d1id=7&amp;dirId=70109&amp;docId=331867742" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:8,i:70109_331867742">노인망상장애 추측</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=70109" class="_nclicks:kls_new.dir,r:7,i:70109_331867742">정신건강의학과</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">방금</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-
-
-                            <a href="/qna/detail.nhn?d1id=1&amp;dirId=10102&amp;docId=331867741" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:9,i:10102_331867741">알콜솜으로 노트북 닦으면</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=10102" class="_nclicks:kls_new.dir,r:8,i:10102_331867741">노트북</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">방금</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-
-
-                            <a href="/qna/detail.nhn?d1id=11&amp;dirId=11080404&amp;docId=331867740" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:10,i:11080404_331867740">히타치 안마의자 수리</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=11080404" class="_nclicks:kls_new.dir,r:9,i:11080404_331867740">일본어 독해, 읽<span class="ls0">...</span></a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">방금</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-
-
-                            <a href="/qna/detail.nhn?d1id=8&amp;dirId=816&amp;docId=331867737" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:11,i:816_331867737">일본 담배</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=816" class="_nclicks:kls_new.dir,r:10,i:816_331867737">외국인 한국생활</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">1분 전</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-
-
-                            <a href="/qna/detail.nhn?d1id=8&amp;dirId=81302&amp;docId=331867736" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:12,i:81302_331867736">한진택배507174864420...</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=81302" class="_nclicks:kls_new.dir,r:11,i:81302_331867736">택배</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">1분 전</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-                                <span class="power_grade type_small"><span class="blind">내공</span>100</span>
-
-
-
-                            <a href="/qna/detail.nhn?d1id=11&amp;dirId=11080303&amp;docId=331867735" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:13,i:11080303_331867735">영작부탁드립니다.</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=11080303" class="_nclicks:kls_new.dir,r:12,i:11080303_331867735">영어작문</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">1분 전</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-                                <span class="power_grade type_small"><span class="blind">내공</span>20</span>
-
-
-
-                            <a href="/qna/detail.nhn?d1id=11&amp;dirId=11080201&amp;docId=331867734" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:14,i:11080201_331867734">한자 뜻풀이 부탁드립니다.</a>
-
-
-                                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=11080201" class="_nclicks:kls_new.dir,r:13,i:11080201_331867734">한문 해석, 문법</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">1분 전</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-                                <span class="power_grade type_small"><span class="blind">내공</span>100</span>
-
-
-
-                            <a href="/qna/detail.nhn?d1id=11&amp;dirId=1113&amp;docId=331867731" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:15,i:1113_331867731">수학 틀린 이유</a>
-
-
-                                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=1113" class="_nclicks:kls_new.dir,r:14,i:1113_331867731">수학</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">1분 전</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-
-
-                            <a href="/qna/detail.nhn?d1id=9&amp;dirId=9020101&amp;docId=331867730" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:16,i:9020101_331867730">벳부 렌터카</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=9020101" class="_nclicks:kls_new.dir,r:15,i:9020101_331867730">일본</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">1분 전</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-                                <span class="power_grade type_small"><span class="blind">내공</span>100</span>
-
-
-
-                            <a href="/qna/detail.nhn?d1id=5&amp;dirId=5020305&amp;docId=331867729" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:17,i:5020305_331867729">jackpot 케이스 hdd 장착법</a>
-
-
-                                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=5020305" class="_nclicks:kls_new.dir,r:16,i:5020305_331867729">하드디스크</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">1분 전</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-
-
-                            <a href="/qna/detail.nhn?d1id=3&amp;dirId=31501&amp;docId=331867726" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:18,i:31501_331867726">사주 풀어주세요</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=31501" class="_nclicks:kls_new.dir,r:17,i:31501_331867726">사주, 궁합</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">1분 전</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-                                <span class="power_grade type_small"><span class="blind">내공</span>100</span>
-
-
-
-                            <a href="/qna/detail.nhn?d1id=8&amp;dirId=8040301&amp;docId=331867724" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:19,i:8040301_331867724">귀를 둟었는데</a>
-
-
-                                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=8040301" class="_nclicks:kls_new.dir,r:18,i:8040301_331867724">귀걸이, 피어싱</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">1분 전</td>
-                        </tr>
-
-                        <tr>
-                        <td class="title">
-
-                                <span class="power_grade type_small"><span class="blind">내공</span>100</span>
-
-
-
-                            <a href="/qna/detail.nhn?d1id=6&amp;dirId=60214&amp;docId=331867725" rel="KIN" target="_blank" class="_nclicks:kls_new.list,r:20,i:60214_331867725">사회적협동조합 설립시 이사장과 임원 결격사유 질문입니다.</a>
-
-
-
-
-                        </td>
-                        <td class="field"><a href="/qna/list.nhn?dirId=60214" class="_nclicks:kls_new.dir,r:19,i:60214_331867725">형벌, 형집행</a></td>
-                        <td class="t_num">0</td>
-                        <td class="t_num">1분 전</td>
-                        </tr>
-
-
+						<tr ng-repeat="question in jisikinByCategory">
+							<td class="title">
+	                                <a href="/link/jisikin/questionDetail.do?jisikinNo={{question.no}}" rel="KIN" class="">{{question.title}}</a>
+	                            </td>
+	                            <td class="field"><a href="#" class="">{{question.category.name}}</a></td>
+	                            <td class="t_num">{{question.countAnswer}}</td>
+	                            <td class="t_num tg">{{question.createTime | timeago}}</td>
+	                        </tr>
+	                 </tbody>
+	                        
+	                 <tbody id="au_board_list" class="list2">
+
+						<c:forEach var="all" items="${allJisikin }">
+	                        <tr>
+	                            <td class="title">
+	                                <a href="/link/jisikin/questionDetail.do?jisikinNo=${all.no}" rel="KIN" class="">${all.title }</a>
+	                            </td>
+	                            <td class="field"><a href="#" class="">${all.category.name }</a></td>
+	                            <td class="t_num">${all.countAnswer }</td>
+	                            <td class="t_num tg">${all.createTime }</td>
+	                        </tr>
+						</c:forEach>
 
                     </tbody>
                     </table>	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    
 
         <ww:if test="false">
 
@@ -496,71 +151,24 @@
 
 
 
-
-
-
-
-
-
         <div class="paging space _tag_pager" style="display: none;">
             <div class="nav" style="display:block;"> <p class="btn"><a href="#" class="pr-prev _pre"><img src="https://ssl.pstatic.net/static/kin/09renewal/btn_nav3_prev.gif" width="23" height="23" alt="이전" title="이전"></a><a href="#" class="pr-next _next"><img src="https://ssl.pstatic.net/static/kin/09renewal/btn_nav3_next.gif" width="22" height="23" alt="다음" title="다음"></a></p></div>
         </div>
         <div class="paginate _default_pager">
 
-
-
-
-
-                        <a href="/qna/list.nhn?queryTime=2019-07-23%2013%3A57%3A47&amp;page=1" class="on" title="선택됨" onclick="nhn.Kin.Utility.nClicks('kls_new.page','','1',event);">1</a>	
-
-
-
-                        <a href="/qna/list.nhn?queryTime=2019-07-23%2013%3A57%3A47&amp;page=2" onclick="nhn.Kin.Utility.nClicks('kls_new.page','','2',event);">2</a>	
-
-
-
-                        <a href="/qna/list.nhn?queryTime=2019-07-23%2013%3A57%3A47&amp;page=3" onclick="nhn.Kin.Utility.nClicks('kls_new.page','','3',event);">3</a>	
-
-
-
-                        <a href="/qna/list.nhn?queryTime=2019-07-23%2013%3A57%3A47&amp;page=4" onclick="nhn.Kin.Utility.nClicks('kls_new.page','','4',event);">4</a>	
-
-
-
-                        <a href="/qna/list.nhn?queryTime=2019-07-23%2013%3A57%3A47&amp;page=5" onclick="nhn.Kin.Utility.nClicks('kls_new.page','','5',event);">5</a>	
-
-
-
-                        <a href="/qna/list.nhn?queryTime=2019-07-23%2013%3A57%3A47&amp;page=6" onclick="nhn.Kin.Utility.nClicks('kls_new.page','','6',event);">6</a>	
-
-
-
-                        <a href="/qna/list.nhn?queryTime=2019-07-23%2013%3A57%3A47&amp;page=7" onclick="nhn.Kin.Utility.nClicks('kls_new.page','','7',event);">7</a>	
-
-
-
-                        <a href="/qna/list.nhn?queryTime=2019-07-23%2013%3A57%3A47&amp;page=8" onclick="nhn.Kin.Utility.nClicks('kls_new.page','','8',event);">8</a>	
-
-
-
-                        <a href="/qna/list.nhn?queryTime=2019-07-23%2013%3A57%3A47&amp;page=9" onclick="nhn.Kin.Utility.nClicks('kls_new.page','','9',event);">9</a>	
-
-
-
-                        <a href="/qna/list.nhn?queryTime=2019-07-23%2013%3A57%3A47&amp;page=10" onclick="nhn.Kin.Utility.nClicks('kls_new.page','','10',event);">10</a>	
-
-
-
-
-                    <a href="/qna/list.nhn?queryTime=2019-07-23%2013%3A57%3A47&amp;page=11" class="next ">다음페이지</a>
-
-
+                        <a href="#" class="on" title="선택됨">1</a>	
+                        <a href="#">2</a>	
+                        <a href="#">3</a>	
+                        <a href="#">4</a>	
+                        <a href="#">5</a>	
+                        <a href="#">6</a>	
+                        <a href="#">7</a>	
+                        <a href="#">8</a>	
+                        <a href="#">9</a>	
+                        <a href="#">10</a>	
+                    <a href="#" class="next ">다음페이지</a>
 
         </div>
-
-
-
-
 
         <div class="search">
             <form name="bottom_search" id="bottom_search" method="get">
@@ -586,15 +194,17 @@
             </fieldset>
             </form>
         </div>
-        <script type="text/javascript" src="https://ssl.pstatic.net/static.kin/static/pc/20190710_5/js/min/nhn.Kin.QnaEnd.InputQuery.js"></script>
             </div>
         </div>  
        </div>
    </div>
        <div class="col-sm-3 aside-content">
-            <div class="aside-login" style="display: none;">
+       
+       <c:choose>
+       	<c:when test="${empty LOGIN_USER}">
+            <div class="aside-login">
                <p class="top_text">질문과 답변을 하고 싶다면,</p>
-                <button type="text" class="btn btn-default">
+                <button type="text" class="btn btn-default" onclick ="location.href = '/link/loginform.do'">
                     <img src="/link/resources/images/link_logo.PNG" alt="" style="width: 50%;"><strong>로그인</strong>
                 </button>
                 <div class="row sign_area">
@@ -608,79 +218,93 @@
                         <a href="#">회원가입</a>
                     </div>
 			    </div>
-            </div>
-            <div class="aside-login" style="background-color: #f8f8f8; border: 1px solid #e3e3e3;">
-                <div id="aside_login" class="aside_myinfo">
-	<h2 class="blind">NAVER <em>로그인</em> 영역</h2>
-	
-		<div class="my_wrap">
-			<a href="/myinfo/index.nhn" onclick="nhn.Kin.Utility.nClicks('kmy_lgd.id','','',event);">
-				<div class="my_photo">
-					<img src="https://ssl.pstatic.net/static/kin/09renewal/avatar/200x200_m/4.png" alt="프로필이미지" class="img" width="50" height="50">
-				</div>
-				<div class="my_service">
-					<p class="user_id ellipsis">allman956</p>
-					<p class="user_mykin">프로필 바로가기 <span>&gt;</span></p>
-				</div>
-			</a>
-			<span class="btn_login_area">
-				<a href="https://nid.naver.com/nidlogin.logout?retrul=https%3A%2F%2Fkin.naver.com%2Fqna%2Flist.nhn" onclick="nhn.Kin.Utility.nClicks('kmy_lgd.out', '', '', event);" class="btn_login">로그아웃</a>
-			</span>
-		<div class="mykin_wrap _tab_myarea">
-					<div class="mykin_tab_content tc-panel tc-selected"><h4 class="blind">나의 지식iN</h4><div class="scroll_area _panel"><div class="gradeup_info">
-		<div class="lv_area grd_lv4">
-			<div class="mylv">
-				<div class="gauge" id="level_guage">
-					<div class="grd_wrap">
-						
-						<div class="inner" style="width: 14%;">
-							<div class="grd_bar"><span class="grd_action"></span></div>
+           </div>
+       	</c:when>
+       	<c:otherwise>
+			<div class="aside-login" style="background-color: #f8f8f8; border: 1px solid #e3e3e3;">
+				<div id="aside_login" class="aside_myinfo">
+					<h2 class="blind">
+						NAVER <em>로그인</em> 영역
+					</h2>
+					<div class="my_wrap">
+						<a href="/myinfo/index.nhn">
+							<div class="my_photo">
+								<img
+									src="https://ssl.pstatic.net/static/kin/09renewal/avatar/200x200_m/4.png"
+									alt="프로필이미지" class="img" width="50" height="50">
+							</div>
+							<div class="my_service">
+								<p class="user_id ellipsis">${LOGIN_USER.id }</p>
+								<p class="user_mykin" onclick="location.href='/link/jisikin/profile.do?userId=${LOGIN_USER.id }'">
+								접속중
+								</p>   
+								<a href="/link/jisikin/profile.do?userId=${LOGIN_USER.id}">프로필 바로가기&gt;</a>
+							</div>
+						</a> <span class="btn_login_area"> <a
+							href="/link/logout.do"
+							class="btn_login">로그아웃</a>
+						</span>
+						<div class="mykin_wrap _tab_myarea">
+							<div class="mykin_tab_content tc-panel tc-selected">
+								<h4 class="blind">나의 지식iN</h4>
+								<div class="scroll_area _panel">
+									<div class="gradeup_info">
+										<div class="lv_area grd_lv4">
+											<div class="mylv">
+												<div class="gauge" id="level_guage">
+													<div class="grd_wrap">
+
+														<div class="inner" style="width: 14%;">
+															<div class="grd_bar">
+																<span class="grd_action"></span>
+															</div>
+														</div>
+													</div>
+													<div class="my_level_num" style="padding-top: 40px;">
+														<strong style="display: block;">내공:</strong> <strong
+															style="display: block;">${LOGIN_USER.mentalPoint }</strong>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
 						</div>
-					</div>
-					<div class="my_level_num"  style="padding-top: 40px;">
-					    <strong style="display: block;">내공:</strong> <strong style="display:block;">1,704</strong>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div></div></div>
-			
-		</div>
-		</div>
-	
-	
-	
-			
-	
-	<!-- 관심키워드 추가 레이어 -->
+       	</c:otherwise>
+       </c:choose>
 
-</div>
-            </div>
+
+
+
+
+
+			<!-- 관심키워드 추가 레이어 -->
+
             <div style="margin-top: 5px;">
                 <div class="aside aside_tag well">
                     <h4>지식iN 인기태그</h4>
                     <div class="tag_wrap">
-                            <a href="#" class="tag">#안병민</a>
-                            <a href="#" class="tag">#블라디보스톡</a>
-                            <a href="#" class="tag">#중앙HTA</a>
-                            <a href="#" class="tag">#모텔</a>
-                            <a href="#" class="tag">#메인보드</a>
-                            <a href="#" class="tag">#필터</a>
-                            <a href="#" class="tag">#사주풀이</a>
-                            <a href="#" class="tag">#식품공학과</a>
-                            <a href="#" class="tag">#디포유</a>
-                            <a href="#" class="tag">#네이버지도</a>
+                            <c:forEach var="tag" items="${toptag }">
+	                            <a href="#" class="tag">#${tag.tagName }</a>
+                    		</c:forEach>
                     </div>
                 </div>
                 <div class="aside aside_statistics well">
                     <h4>오늘의 질문과 답변</h4>
                     <div class="stats stats_today">
-                        <span class="blind">질문</span><strong class="num">15,781</strong><em class="slash sp_common">/</em><span class="blind">답변</span><strong class="num">28,849</strong>
-                        <p class="date_info">2019.07.23.</p>
+                        <span class="blind">질문</span><strong class="num">${countToday }</strong><em class="slash sp_common">/</em><span class="blind">답변</span><strong class="num">${countTodayAnswer }</strong>
+                        <!--  오늘날짜 뿌리기 -->
+                        <c:set var="now" value="<%=new java.util.Date()%>" />
+                        <p class="date_info"><fmt:formatDate value="${now }" pattern="yyyy.MM.dd"/></p>
                     </div>
                     <h4>누적 답변수</h4>
                     <div class="stats stats_accum">
-                        <strong class="num">329,673,356</strong>
+                        <strong class="num">${countAnswer }</strong>
                         <p class="date_info">since 2019</p>
                     </div>
                 </div>
@@ -690,24 +314,50 @@
 </div>
 
 <script>
-    $(document).ready(function(){
+	/*
+	$(".a-category").click(function(){
+		var categoryNo = $(this).attr("data-value");
+		console.log(categoryNo);
+		
+		    $.ajax({
+			url:"byCategory.do",
+			data:{categoryNo:categoryNo},
+			dateType:"JSON",
+			success:function(result){
+
+			}
+		})
+		
+		return false; 
+	})
+	*/
+	
+
+     $(document).ready(function(){
          
         $('.dropdown,.dropdown-menu').hover(function(){
 
           if($(window).width()>=768){
-            $(this).addClass('open').trigger('shown.bs.dropdown', relatedTarget)
+            $(this).addClass('open')
             return false;
           }
           
         },function(){
           if($(window).width()>=768){
-            $(this).removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
+            $(this).removeClass('open')
             return false;
           }
         })
-          
-      })
+        
+        // timeAgo
+         $(".tg").each(function(){
+            var timeago_t = jQuery.timeago( new Date(parseInt($(this).text())));
+            console.log(timeago_t);
+            $(this).text(timeago_t);
+         });
+         
 
+     });
 
 </script>
 </body>

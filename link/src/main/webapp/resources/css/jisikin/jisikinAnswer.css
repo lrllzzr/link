@@ -110,7 +110,7 @@ body, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, for
 
 .section_answer .heading_area>.tit {
     display: inline-block;
-    max-width: 170px;
+    max-width: 200px;
     height: 22px;
     padding: 8px 0 8px;
     font-size: 22px;
