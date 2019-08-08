@@ -34,7 +34,7 @@
 								<li style="margin-left: 10px;"><a href="/link/blog/beautifyblog.do">내 블로그 관리</a></li>
 							</c:if>
 							<li class="divider"></li>
-							<li><a href="#">밴드</a></li>
+							<li><a href="/link/band/main.do">밴드</a></li>
 							<li><a href="#">가계부 </a></li>
 							<li><a href="#">지식인</a></li>
 							<li><a href="#">시리즈</a></li>
@@ -84,9 +84,9 @@
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
-					<a href="">BAND</a>
+					<a href="/link/band/main.do">BAND</a>
 				</div>
-				<a href=""><img src="resources/images/band.png" alt=""></a>
+				<a href="/link/band/main.do"><img src="resources/images/band.png" alt=""></a>
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
