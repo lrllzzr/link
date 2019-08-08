@@ -31,7 +31,7 @@
            <tbody>
                <tr>
                    <td rowspan="2"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
-                   <td rowspan="2"><img src="../no_images.jpg" width="80px"; height="90px";></td>
+                   <td rowspan="2"><img src="http://placehold.it/80X90"></td>
                    <td>호텔 델루나 | 방영중</td>
                    <td rowspan="2">${관심.createDate}</td>
 
@@ -42,7 +42,7 @@
 
                <tr>
                    <td rowspan="2"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
-                   <td rowspan="2"><img src="../no_images.jpg" width="80px"; height="90px";></td>
+                   <td rowspan="2"><img src="http://placehold.it/80X90"></td>
                    <td>호텔 델루나 | 방영중</td>
                    <td rowspan="2">${관심.createDate}</td>
 

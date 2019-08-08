@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.link.dao.SeriesLikeDao">		<!-- Dao경로설정 -->
+	
+	<select id="getCountLikesByVodNo" parameterType="int" resultType="int">	<!-- 좋아요 수 -->
+		select count(*)
+		from series_likes
+		where vod_no = #{value}
+	</select>
+	
+	<insert id="addLike" parameterType="seriesLike">	<!-- 좋아요 추가 -->
+		insert into series_likes
+			(LIKE_NO,	VOD_NO,	USER_ID,	LIKE_CREATE_DATE)
+		values
+			(series_like_seq.nextval,	#{vod.no},	#{user.id},	sysdate)
+	</insert>
+	
+	<delete id="deleteLike" parameterType="seriesLike">	<!-- 좋아요 삭제 -->
+		delete from series_likes where vod_no = #{vod.no} and user_id = #{user.id}
+	</delete>
+	
+	<select id="getCountabc" parameterType="seriesLike" resultType="int">
+		select count(*) from series_likes where user_id = #{user.id} and vod_no = #{vod.no}
+	</select>
+	
+	
+	
+	
+</mapper>

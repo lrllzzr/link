@@ -3,7 +3,7 @@ package kr.co.link.vo;
 public class SeriesCategory {
 
 	private Integer no;
-	private Integer name;
+	private String name;
 
 	public SeriesCategory() {
 	}
@@ -16,11 +16,11 @@ public class SeriesCategory {
 		this.no = no;
 	}
 
-	public Integer getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(Integer name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	

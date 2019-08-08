@@ -1,11 +1,15 @@
 package kr.co.link.vo;
 
+import java.util.Date;
+
 public class SeriesLike {
 
 	private Integer no;
 	private SeriesVod vod;
 	private User user;
+	private Date createDate;
 
+	
 	public SeriesLike() {
 	}
 
@@ -31,6 +35,14 @@ public class SeriesLike {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 	
 	

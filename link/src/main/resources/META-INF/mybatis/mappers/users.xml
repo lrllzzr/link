@@ -12,10 +12,24 @@
 			user_nickname nickName,
 			user_phone phone,
 			user_point point,
-			user_mental_point mentalPoint
+			user_mental_point mentalPoint,
+			USER_ISHAVEBLOG isHaveBlog
 		from
 			users
 		where
 			user_id = #{value}
 	</select>
+	<update id="updateUser" parameterType="user">
+		update users
+		set
+			user_name =  #{name},
+			user_password =  #{password},
+			user_nickname = #{nickName},
+			user_phone = #{phone},
+			user_point = #{point},
+			user_mental_point = #{mentalPoint},
+			USER_ISHAVEBLOG = #{isHaveBlog}
+		where
+			user_id = #{id}
+	</update>
 </mapper>

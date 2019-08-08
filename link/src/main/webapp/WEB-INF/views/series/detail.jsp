@@ -1,66 +1,47 @@
-<!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>네이버 시리즈</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<style type="text/css">
-/*    div {border: 1px dotted red}*/
-</style>
+	<title>Link : 시리즈</title>
+	<link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<style type="text/css">
+	.bold{font-weight: bold;}
+	.unhearted{color:black;}
+	.hearted{color: red;}
+	
+	</style>
 </head>
 <body>
-<div class="container">
+<%@ include file="common/jstl.jsp" %>
+<%@ include file="common/nav.jsp" %>
+<div class="container" style="margin-top: 15px;">
+
     <div class="col-sm-3">
-        <div  style="text-align: center"><img src="../no_images.jpg" width="150" height="250"></div>
-        <div class="row" style="">
-        <div class="col-sm-12">
-             방송 TOP 5
-        </div>
-        </div>
-        <div>
-           <ol>
-               <li>
-                    <strong><a href="#">원펀맨 2기(한일 동시 방영)</a></strong>
-                    <p>사이타마(후루카와 마코토), 탱크탑 마스터(코니시 카츠유키), 아토믹 사무라이(츠다 켄지로우), 가로우(미도리카와 히카루), 제노스(이시카와 카이토)</p>
-                </li>
-                <li>
-                    <strong><a href="#">원펀맨 2기(한일 동시 방영)</a></strong>
-                    <p>사이타마(후루카와 마코토), 탱크탑 마스터(코니시 카츠유키), 아토믹 사무라이(츠다 켄지로우), 가로우(미도리카와 히카루), 제노스(이시카와 카이토)</p>
-                </li>
-                <li>
-                    <strong><a href="#">원펀맨 2기(한일 동시 방영)</a></strong>
-                    <p>사이타마(후루카와 마코토), 탱크탑 마스터(코니시 카츠유키), 아토믹 사무라이(츠다 켄지로우), 가로우(미도리카와 히카루), 제노스(이시카와 카이토)</p>
-                </li>
-                <li>
-                    <strong><a href="#">원펀맨 2기(한일 동시 방영)</a></strong>
-                    <p>사이타마(후루카와 마코토), 탱크탑 마스터(코니시 카츠유키), 아토믹 사무라이(츠다 켄지로우), 가로우(미도리카와 히카루), 제노스(이시카와 카이토)</p>
-                </li>
-                <li>
-                    <strong><a href="#">원펀맨 2기(한일 동시 방영)</a></strong>
-                    <p>사이타마(후루카와 마코토), 탱크탑 마스터(코니시 카츠유키), 아토믹 사무라이(츠다 켄지로우), 가로우(미도리카와 히카루), 제노스(이시카와 카이토)</p>
-                </li>
-            </ol>
-        </div>
-        <div class="text-right"><a href="#">더 보기 ></a></div>
+        <div  style="text-align: center"><img src="/link/resources/images/series/vods/${seriesVod.img}" width="150" height="250"></div>
+        
     </div>
     <div class="col-sm-9">
-        <div><strong>제목</strong> - 총 14회</div>        
-        <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 관심
+        <h2>${seriesVod.title }(총 ${countEpisodes }회)</h2>        
+        <button id="heart"  type="button" class="btn btn-default" style="margin: 0px 0px 5px 0px;">
+          <span class="glyphicon glyphicon-heart-empty ${abc > 0 ? 'hearted' : 'unhearted'}" aria-hidden="true">${countLikes }</span>
         </button>
 
         <div>
-            기본정보 {대한민국, 70분} | 방송일 {2019.06.05 ~ 방영중} | 등급 15세관람가 | 장르 한국드라마
-            주연 임수정, 장기용, 이다희, 전혜진, ...
+            <span class="bold">기본정보</span> ${seriesVod.runningTime }분<br/>
+            <span class="bold">방송일</span> <fmt:formatDate value="${seriesVod.airStartDate }"/> ~ <fmt:formatDate value="${seriesVod.airFinishedDate }"/> <br/>
+            <span class="bold">등급</span> ${seriesVod.grade }<br/>
+            <span class="bold">장르</span> ${category.name }<br/>
+            <span class="bold">주연</span> ${seriesVod.actor }<br/><br/>
         </div>
-        <div>{디테일}</div>
+        <p>${seriesVod.descriptrion }</p>
         <div>
-           <div class="text-right">총 14화 중 0화 선택
-               <button type="button" class="btn btn-default">
+           <div class="text-right">총 <span class="total">${countEpisodes }</span>화 중 <span class="checked">0</span>화 선택
+               <button type="button" id="btn-add-cart" class="btn btn-default">
                   <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 담기
                 </button>
           </div>
@@ -68,95 +49,104 @@
            <table class="table table-condensed">
                <colgroup>
                   <col width="7%">
-                   <col width="20%">
+                   <col width="10%">
                    <col width="*">
-                   <col width="20%">
+                   <col width="10%">
                </colgroup>
                <thead>
                    <tr>
-                       <th class="text-center"><input type="checkbox" name="episode" value="14">선택</th>
+                       <th class="text-center"><input id="checkall" type="checkbox" name="episode" value="14">전체</th>
                        <th>회차</th>
                        <th>줄거리</th>
-                       <th>대여</th>
+                       <th>가격</th>
                    </tr>
                </thead>
                <tbody>
-                   <tr>
-                       <td rowspan="2" class="text-center" style="vertical-align: middle;"><input type="checkbox" name="episode" value="14"></td>
-                       <td style="vertical-align: bottom;">14회</td>
-                       <td rowspan="2" style="vertical-align: middle;">드디어 바로의 탑 화면 개편 카운트다운이 시작된다 가경은 유니콘 대표가 되었지만 여전히 희은의 권력 앞에 무력함을 느끼고... 예상치 못한 일로 실검에 가경의 이름이 오르는데... 한편, 타미는 의외의 장소에서 모건을 목격하고 결국 그 자리를 피해버린다...</td>
-                       <td rowspan="2" style="vertical-align: middle;">1,650원</td>
-                   </tr>
-                   <tr>
-                       <td style="border-top: 0; vertical-align: top;">2019.07.18(목)</td>
-                   </tr>
-                   <tr>
-                       <td rowspan="2" class="text-center" style="vertical-align: middle;"><input type="checkbox" name="episode" value="14"></td>
-                       <td style="vertical-align: bottom;">14회</td>
-                       <td rowspan="2" style="vertical-align: middle;">드디어 바로의 탑 화면 개편 카운트다운이 시작된다 가경은 유니콘 대표가 되었지만 여전히 희은의 권력 앞에 무력함을 느끼고... 예상치 못한 일로 실검에 가경의 이름이 오르는데... 한편, 타미는 의외의 장소에서 모건을 목격하고 결국 그 자리를 피해버린다...</td>
-                       <td rowspan="2" style="vertical-align: middle;">1,650원</td>
-                   </tr>
-                   <tr>
-                       <td style="border-top: 0; vertical-align: top;">2019.07.18(목)</td>
-                   </tr>
-                   <tr>
-                       <td rowspan="2" class="text-center" style="vertical-align: middle;"><input type="checkbox" name="episode" value="14"></td>
-                       <td style="vertical-align: bottom;">14회</td>
-                       <td rowspan="2" style="vertical-align: middle;">드디어 바로의 탑 화면 개편 카운트다운이 시작된다 가경은 유니콘 대표가 되었지만 여전히 희은의 권력 앞에 무력함을 느끼고... 예상치 못한 일로 실검에 가경의 이름이 오르는데... 한편, 타미는 의외의 장소에서 모건을 목격하고 결국 그 자리를 피해버린다...</td>
-                       <td rowspan="2" style="vertical-align: middle;">1,650원</td>
-                   </tr>
-                   <tr>
-                       <td style="border-top: 0; vertical-align: top;">2019.07.18(목)</td>
-                   </tr>
-                   <tr>
-                       <td rowspan="2" class="text-center" style="vertical-align: middle;"><input type="checkbox" name="episode" value="14"></td>
-                       <td style="vertical-align: bottom;">14회</td>
-                       <td rowspan="2" style="vertical-align: middle;">드디어 바로의 탑 화면 개편 카운트다운이 시작된다 가경은 유니콘 대표가 되었지만 여전히 희은의 권력 앞에 무력함을 느끼고... 예상치 못한 일로 실검에 가경의 이름이 오르는데... 한편, 타미는 의외의 장소에서 모건을 목격하고 결국 그 자리를 피해버린다...</td>
-                       <td rowspan="2" style="vertical-align: middle;">1,650원</td>
-                   </tr>
-                   <tr>
-                       <td style="border-top: 0; vertical-align: top;">2019.07.18(목)</td>
-                   </tr>
-                   <tr>
-                       <td rowspan="2" class="text-center" style="vertical-align: middle;"><input type="checkbox" name="episode" value="14"></td>
-                       <td style="vertical-align: bottom;">14회</td>
-                       <td rowspan="2" style="vertical-align: middle;">드디어 바로의 탑 화면 개편 카운트다운이 시작된다 가경은 유니콘 대표가 되었지만 여전히 희은의 권력 앞에 무력함을 느끼고... 예상치 못한 일로 실검에 가경의 이름이 오르는데... 한편, 타미는 의외의 장소에서 모건을 목격하고 결국 그 자리를 피해버린다...</td>
-                       <td rowspan="2" style="vertical-align: middle;">1,650원</td>
-                   </tr>
-                   <tr>
-                       <td style="border-top: 0; vertical-align: top;">2019.07.18(목)</td>
-                   </tr>
-                
+               	<form id="cart-form" >
+               		<c:forEach var="episode" items="${episodes }">
+	                   <tr>
+	                       <td rowspan="2" class="text-center" style="vertical-align: middle;"><input type="checkbox" name="chk" value="${episode.no }"></td>
+	                       <td style="vertical-align: bottom;">${episode.title }</td>
+	                       <td rowspan="2" style="vertical-align: middle;">${episode.summary }</td>
+	                       <td rowspan="2" style="vertical-align: middle;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${episode.price }"></fmt:formatNumber>원</td>
+	                   </tr>
+	                   <tr>
+	                       <td style="border-top: 0; vertical-align: top;"><fmt:formatDate value="${episode.createDate }"/></td>
+	                   </tr>
+                    </c:forEach>
+                  </form>
                </tbody>
            </table>
         </div>
         <div class="review">
-            <div><strong>리뷰 (N)</strong></div>
-            <form class="form-horizontal">
-            <div class="form-group">
-                <div class="col-sm-12" style="margin-right: -15px;">
-                      <div style="float: left; display: inline-block; width:709px;"><textarea class="form-control" rows="5" style="resize: none;"></textarea></div>
-                      <div style="height:116px; float: left; display: inline-block; position: relative; bottom: 1px;"><button class=" btn btn-default btn-block" style="height:116px; width: 116px;">등록</button></div>
-                </div>
-                
-            </div>
-               
+            <div><strong>리뷰 (${countReviews })</strong></div>
+            <form class="form-horizontal" action="addReview.do" method="post">
+	            <div class="form-group">
+	                <div class="col-sm-12" style="margin-right: -15px;">
+	                <input type="hidden" name="vodno" value="${seriesVod.no }">
+	                      <div  style="float: left; display: inline-block; width:709px;"><textarea id="reviewform" class="form-control" name="contents" rows="5" style="resize: none;"></textarea></div>
+	                      <div style="height:116px; float: left; display: inline-block; position: relative; bottom: 1px;"><button class=" btn btn-default btn-block" style="height:116px; width: 116px;">등록</button></div>
+	                </div>
+	            </div>
             </form>
             <ul class="list-group">
-                <li class="list-group-item">
-                    <span>닉네임 (아이디****) 2019-07-21 07:56</span><span class="pull-right">공감: 0 비공감 : 0</span>
-                    <p>영상이 왜 이리 흐린 느낌이지</p>
-                </li>
-                <li class="list-group-item">
-                    <span>닉네임 (아이디****) 2019-07-21 07:56</span><span class="pull-right">공감: 0 비공감 : 0</span>
-                    <p>영상이 왜 이리 흐린 느낌이지</p>
-                </li>
-                <li class="list-group-item">
-                    <span>닉네임 (아이디****) 2019-07-21 07:56</span><span class="pull-right">공감: 0 비공감 : 0</span>
-                    <p>영상이 왜 이리 흐린 느낌이지</p>
-                </li>
+            	<c:forEach var="review" items="${reviews }">
+	                <li class="list-group-item">
+	                    <span>${review.user.nickName } (${fn:substring(review.user.id,0,3)}*****) <fmt:formatDate value="${review.createDate }"/></span><span class="pull-right">공감: 0 ${countrepuLike } 비공감 : 0 ${countrepuDislike }</span>
+	                    <p>${review.contents }</p>
+	                </li>
+	            </c:forEach>
             </ul>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#checkall").click(function(){
+	        if($("#checkall").prop("checked")){
+	            $("input[name=chk]").prop("checked",true);
+	        }else{
+	            $("input[name=chk]").prop("checked",false);
+	        }
+		    var checked = $("input:checkbox[name=chk]:checked").length;
+		    $(".checked").text(checked);
+	    });
+
+	    $("input[name=chk]").change(function(){
+	    	var checked = $("input:checkbox[name=chk]:checked").length;
+		    $(".checked").text(checked);
+	    });
+	    
+	    
+    	$('#reviewform').on('keyup', function() {
+        	if($(this).val().length > 100) {
+            	$(this).val($(this).val().substring(0, 100));
+				window.alert("100자 이내로 작성해주세요");
+        	}
+    	});
+    	
+    	$('#btn-add-cart').click(function(){
+    		$.ajax({
+    			url:'addcart.do',
+    			data:$('#cart-form').serialize(),
+    			dataType:"json",
+    			success:function(data){	// {result:success}
+    				alert("완료");
+    			}
+    		})
+    	});
+    	
+    	$("#heart").click(function(){
+    		if ($(this).find('span').hasClass('unhearted')){
+	    		$(this).find('span').addClass('hearted').removeClass('unhearted');
+	    		location.href="likeedit.do?vodno=${param.vodno}&gubun=plus"
+    		} else if ($(this).find('span').hasClass('hearted')){
+	    		$(this).find('span').addClass('unhearted').removeClass('hearted');
+    			location.href="likeedit.do?vodno=${param.vodno}&gubun=minus"
+    		}
+    		
+    	});
+    	
+	});
+</script>
 </body>

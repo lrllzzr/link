@@ -9,7 +9,16 @@ public class User {
 	private String phone;
 	private Integer point;
 	private Integer mentalPoint;
+	private String isHaveBlog;
 	
+	public String getIsHaveBlog() {
+		return isHaveBlog;
+	}
+
+	public void setIsHaveBlog(String isHaveBlog) {
+		this.isHaveBlog = isHaveBlog;
+	}
+
 	public User() {}
 
 	public String getId() {

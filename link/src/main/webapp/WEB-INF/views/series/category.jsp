@@ -1,102 +1,94 @@
-<!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>네이버 시리즈</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<style type="text/css">
+	<title>Link : 시리즈</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<style type="text/css">
+	/* * {font: NanumGothic;} */
+	
+	/* a {color: black !important;} */
+        
     .series-menu{
-        padding:15px;
-        border:0.5px solid lightgray;
+        padding:5px;
+        /*border:0.5px solid lightgray;*/
     }
     
-    .series-menu div{
-        padding: 3px 3px 3px 5px;
-        
+    .series-menu div{padding: 5px;}
+    
+    .text-right-align{
+        display: inline-block;
+        float: right;
+        text-align: right;
+        margin: 0px 20px 20px 0px;
     }
     
-    .series-menu span{
-        margin-bottom: 15px;
-    }
-</style>
+    .price{color: #649dfa;}
+    
+    .font-emphasize {font-weight: bold;}
+	</style>
 </head>
-<body>
-<div class="container">
-    <div class="col-sm-2">
-        <div class="row">
-            <div class="col-sm-12" style="padding:5px; font-weight: bold;">방송</div>
-        </div>
-        
-        <div class="row">
-            <div class="series-menu">
-                <span><strong>추천&최신</strong></span>
-            <div>추천 방송</div>
-            <div>최신 방송</div>
-            </div>
-            
-            <div class="series-menu">
-                <strong>특별관</strong>            
-                <div>무료 방송관</div>
-                <div>할인 방송관</div>
-                <div>영어 방송관</div>
-            </div>
-            
-            <div class="series-menu">
-                <strong>장르별</strong>
-                <div>전체</div>
-                <div>한국드라마[방영중]</div>
-                <div>한국드라마[종영]</div>
-                <div>외국드라마</div>
-                <div>영미권 드라마</div>
-                <div>중화권 드라마</div>
-                <div>일본 드라마</div>
-                <div>예능</div>
-                <div>애니메이션</div>
-                <div>교양/다큐멘터리</div>
-                <div>KIDS</div>
-                <div>공연실황</div>
-            </div>
-        </div>
-        
-    </div>
-    <div class="col-sm-10">
-        <div class="row"><strong>최신방송</strong></div>
-        <div class="row">
-            <div>총 N개 작품</div>
-            <div class="text-right">입고순 판매순 가격순</div>
-        </div>
-        <div class="text-center">
-           <div class="col-sm-2"><img src="../no_images.jpg" width="100px" height="200px"></div>
-           <div class="col-sm-2"><img src="../no_images.jpg" width="100px" height="200px"></div>
-           <div class="col-sm-2"><img src="../no_images.jpg" width="100px" height="200px"></div>
-           <div class="col-sm-2"><img src="../no_images.jpg" width="100px" height="200px"></div>
-           <div class="col-sm-2"><img src="../no_images.jpg" width="100px" height="200px"></div>
-           <div class="col-sm-2"><img src="../no_images.jpg" width="100px" height="200px"></div>
-        </div>
-        <div class="text-center">
-           <div class="col-sm-2"><img src="../no_images.jpg" width="100px" height="200px"></div>
-           <div class="col-sm-2"><img src="../no_images.jpg" width="100px" height="200px"></div>
-           <div class="col-sm-2"><img src="../no_images.jpg" width="100px" height="200px"></div>
-           <div class="col-sm-2"><img src="../no_images.jpg" width="100px" height="200px"></div>
-           <div class="col-sm-2"><img src="../no_images.jpg" width="100px" height="200px"></div>
-           <div class="col-sm-2"><img src="../no_images.jpg" width="100px" height="200px"></div>
-        </div>
-        
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <ul class="pagination">
-                  <li><a href="#">1</a></li>
-                  <li class="active"><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                </ul>
-            </div>            
-        </div>
-    </div>
-</div>
+<body style="background-color: #ddd;">
+<c:set var="menu" value="category"></c:set>
+<%@ include file="common/jstl.jsp" %>
+<%@ include file="common/nav.jsp" %>
+	
+	<div class="container">
+		<div class="row" style="margin-top: 15px;">
+		    <div class="col-sm-2" style="background-color: white; margin: 15px;">
+		      <div class="row">
+			      	<ul class="nav nav-pills nav-stacked">
+	                      <li role="presentation" class=" ${(param.cat eq '0') || (empty param.cat) ? 'active' : '' }"><a href="category.do?cat=0">전체</a></li>
+	                      <li role="presentation" class="${(param.cat eq '31') && (param.ing eq 'Yes')? 'active' : '' }"><a href="category.do?cat=31&ing=Yes">한국드라마[방영중]</a></li>
+	                      <li role="presentation" class="${(param.cat eq '31') && (param.ing eq 'No')? 'active' : '' }"><a href="category.do?cat=31&ing=No">한국드라마[종영]</a></li>
+	                      <li role="presentation" class="${param.cat eq '32' ? 'active' : '' }"><a href="category.do?cat=32">영미권 드라마</a></li>
+	                      <li role="presentation" class="${param.cat eq '33' ? 'active' : '' }"><a href="category.do?cat=33">중화권 드라마</a></li>
+	                      <li role="presentation" class="${param.cat eq '34' ? 'active' : '' }"><a href="category.do?cat=34">일본 드라마</a></li>
+	                      <li role="presentation" class="${param.cat eq '35' ? 'active' : '' }"><a href="category.do?cat=35">예능</a></li>
+	                      <li role="presentation" class="${param.cat eq '36' ? 'active' : '' }"><a href="category.do?cat=36">애니메이션</a></li>
+	                      <li role="presentation" class="${param.cat eq '37' ? 'active' : '' }"><a href="category.do?cat=37">교양/다큐멘터리</a></li>
+	                      <li role="presentation" class="${param.cat eq '38' ? 'active' : '' }"><a href="category.do?cat=38">KIDS</a></li>
+	                </ul>
+	          </div>
+		    </div>
+		    
+		    <div class="col-sm-9" style="background-color: white; margin: 15px;">
+              <div class="row">
+                  <h4>전체</h4>
+                  <p>총 ${length }개 작품</p>
+                  <%-- [${param.sort }] --%>
+                  <a href="category.do?cat=${param.cat }&ing=${param.ing}&sort=price"><span class="text-right-align ${param.sort eq 'price' ? 'font-emphasize' : '' }" >가격순</span></a>
+                  
+                  <a href="category.do?cat=${param.cat }&ing=${param.ing}&sort=date"><span class="text-right-align ${param.sort eq 'date' ? 'font-emphasize' : '' }">최신순</span></a>
+		      </div>
+		      <div class="row">
+					<c:forEach var="vod" items="${vods }">
+					    <div class="col-sm-3">
+					             <div style="text-align: center">
+					              <a href="detail.do?vodno=${vod.no }"><img src="/link/resources/images/series/vods/${vod.img }"></a>
+					        <p><strong>
+									<c:choose>
+							           <c:when test="${fn:length(vod.title) > 13}">
+							           		<a href="detail.do?vodno=${vod.no }"><c:out value="${fn:substring(vod.title,0,12)}"/>…</a>
+							           </c:when>
+							        	<c:otherwise>
+							           		<a href="detail.do?vodno=${vod.no }"><c:out value="${vod.title}"/></a>
+							           </c:otherwise> 
+							       </c:choose>
+					          </strong></p>
+					        <p class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vod.price }"></fmt:formatNumber>원</p>
+					        </div>
+					    </div>
+					</c:forEach>
+              </div>
+		    </div>
+		    
+	    </div>
+	</div>
+
 </body>

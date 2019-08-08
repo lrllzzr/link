@@ -9,7 +9,14 @@ public class ColorForm {
 	private String bodyColor;
 	private String pageNumColor;
 	private String pageNumBackgroundColor;
+	private String pageNumBorderColor;
 	
+	public String getPageNumBorderColor() {
+		return pageNumBorderColor;
+	}
+	public void setPageNumBorderColor(String pageNumBorderColor) {
+		this.pageNumBorderColor = pageNumBorderColor;
+	}
 	public String getPageNumColor() {
 		return pageNumColor;
 	}

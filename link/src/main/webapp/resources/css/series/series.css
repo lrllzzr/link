@@ -109,3 +109,24 @@
              right: 6px;
              font-size: 20px
          }
+         
+         .seriesmain_login_li{
+			color:white;
+			background-color:#649dfa;
+		}
+
+		.seriesmain_login{
+			color:white;
+		}
+		
+		.series-profile-img {
+		    width: 24px !important
+		}
+		
+		.series-navbar-id {
+		    color: white;
+		    position: relative;
+		    font-size: 13px;
+		    font-weight: bold;
+		    cursor: pointer;
+		}

@@ -2,19 +2,23 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>LINK 시리즈</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="blog.css" type="text/css" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/link/resources/js/se2/js/HuskyEZCreator.js"></script>
-<style type="text/css">
-    /*div {border: 1px dotted red}*/
-</style>
+	<title>Link : 시리즈</title>
+	<link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="blog.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/link/resources/js/se2/js/HuskyEZCreator.js"></script>
+	<style type="text/css">
+	    /*div {border: 1px dotted red}*/
+	</style>
 </head>
 <body>
+<c:set var="menu" value="noticelist"></c:set>
+<%@ include file="common/jstl.jsp" %>
+<%@ include file="common/nav.jsp" %>
 <div class="container">
     <div class="page-header">
         <h1>새 글쓰기</h1>
@@ -50,7 +54,7 @@
 	      fOnBeforeUnload : function() {
 	      }
 	   }
-	// 이페이지 나오기 alert 삭제
+	// 이 페이지 나오기 alert 삭제
 	});
 	/* var oEditors = [];
 	nhn.husky.EZCreator.createInIFrame({

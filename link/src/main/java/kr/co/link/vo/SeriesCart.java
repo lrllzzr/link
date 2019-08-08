@@ -1,10 +1,21 @@
 package kr.co.link.vo;
 
+import java.util.Date;
+
 public class SeriesCart {
 
 	private Integer no;
 	private SeriesEpisode episode;
 	private User user;
+	private Date createDate;
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
 	public SeriesCart() {
 	}

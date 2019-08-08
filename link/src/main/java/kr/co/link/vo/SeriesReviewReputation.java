@@ -1,12 +1,15 @@
 package kr.co.link.vo;
 
+import java.util.Date;
+
 public class SeriesReviewReputation {
 
 	private Integer no;
 	private SeriesReview review;
-	private Integer like;
-	private Integer dislike;
+	private String like;
+	private String dislike;
 	private User user;
+	private Date createDate;
 
 	public SeriesReviewReputation() {
 	}
@@ -27,19 +30,19 @@ public class SeriesReviewReputation {
 		this.review = review;
 	}
 
-	public Integer getLike() {
+	public String getLike() {
 		return like;
 	}
 
-	public void setLike(Integer like) {
+	public void setLike(String like) {
 		this.like = like;
 	}
 
-	public Integer getDislike() {
+	public String getDislike() {
 		return dislike;
 	}
 
-	public void setDislike(Integer dislike) {
+	public void setDislike(String dislike) {
 		this.dislike = dislike;
 	}
 
@@ -49,6 +52,14 @@ public class SeriesReviewReputation {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 	
 	

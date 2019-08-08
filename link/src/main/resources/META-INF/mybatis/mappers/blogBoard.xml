@@ -9,7 +9,7 @@
 		BOARD_NO no,
 		BOARD_TITLE title,
 		BOARD_CONTENTS contents,
-		BOARD_CREATE_DATE createDate,
+		to_char(BOARD_CREATE_DATE,'yyyy-mm-dd') createDate,
 		CATEGORY_NO categoryNo,
 		BOARD_MAIN_IMG mainImg
 	from
@@ -23,7 +23,7 @@
 		BOARD_NO no,
 		BOARD_TITLE title,
 		BOARD_CONTENTS contents,
-		BOARD_CREATE_DATE createDate,
+		to_char(BOARD_CREATE_DATE,'yyyy-mm-dd') createDate,
 		CATEGORY_NO categoryNo,
 		BOARD_MAIN_IMG mainImg
 	from
@@ -31,6 +31,34 @@
 	where
 		board_no = #{value}
 	order by BOARD_CREATE_DATE desc
+</select>
+<select id="getBoardsByRange" parameterType="map" resultType="blogboard">
+	select
+		row_no rowNo, no, title, contents, createDate, categoryNo, mainImg
+	from(
+		select row_number() OVER(order by board_create_Date desc) row_no,
+		        BOARD_NO no,
+				BOARD_TITLE title,
+				BOARD_CONTENTS contents,
+				to_char(BOARD_CREATE_DATE,'yyyy-mm-dd') createDate,
+				CATEGORY_NO categoryNo,
+				BOARD_MAIN_IMG mainImg
+		from blog_boards
+		)
+		where
+		    row_no &lt;= #{end}
+		and
+		    row_no >=#{begin}
+		and
+    		categoryNo = #{categoryNo}
+</select>
+<select id="getBoardsCountByCategoryNo" parameterType="int" resultType="int">
+	select
+		count(*)
+	from
+		blog_boards
+	where
+		category_no = #{value}
 </select>
 <insert id="addBoard" parameterType="blogboard">
 	insert into blog_boards
