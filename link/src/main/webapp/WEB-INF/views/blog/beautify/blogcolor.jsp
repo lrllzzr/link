@@ -129,6 +129,16 @@
 									</div>
 								</div>
 							</div>
+							<div class="col-sm-12 blog_color_col12">
+								<div class="row">
+									<div class="col-sm-12">
+										<h5>페이지 번호 테두리 색상</h5>
+									</div>
+									<div class="col-sm-8">
+										<input style="" type="color" name="pageNumBorderColor" value="${blog.pageNumBorderColor }" />
+									</div>
+								</div>
+							</div>
 
 							<div class="col-sm-12 blog_color_col12">
 								<div class="row">
@@ -157,7 +167,7 @@
 						</div>
 						<div class="col-sm-10 blog_color_col9" style="">
 							<div class="row">
-								<iframe src="/link/blog/colordetail${blog.layout }.do" width="1285.41px;" height="1500px;"></iframe>
+								<iframe src="/link/blog/colordetail.do" width="1285.41px;" height="1500px;"></iframe>
 							</div>
 						</div>
 					</div>

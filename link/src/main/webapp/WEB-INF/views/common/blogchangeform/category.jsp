@@ -12,7 +12,7 @@
 		<span class="glyphicon glyphicon-list-alt"></span> <span class="blog-detail-showall">${subCat.title }</span>
 		<c:forEach var="cat" items="${subCat.blogCategory}">
 			<div class="col-sm-12">
-				<a href="detail.do?blogNo=${blog.no }&categoryNo=${cat.no}"><span class="blog-detail-showall">&nbsp;┗ ${cat.title }</span></a>
+				<a href="detail.do?blogNo=${blog.no }&categoryNo=${cat.no}"><span class="blog-detail-showall">&nbsp;┗ <span class="${param.categoryNo eq cat.no ? 'blog_board_selected' : ''}">${cat.title }</span></span></a>
 			</div>
 		</c:forEach>
 	</div>

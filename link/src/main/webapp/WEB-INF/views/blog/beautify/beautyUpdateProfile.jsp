@@ -34,19 +34,19 @@
                         <hr class="blog_manage_hr1" />
                     </div>
                 </div>
-                <form action="">
+                <form action="updateProfile.do" method="post">
                 <div class="row blog_manage_right_row2">
                     <div class="col-sm-2">
                         <strong>이름</strong>
                     </div>
                     <div class="col-sm-8">
-                    	<span>안병민</span>
+                    	<span>${user.name } </span>
                     </div>
                     <div class="col-sm-2">
-                    	<select class="form-control" name="" id="">
-                    		<option value="">비공개</option>
-                    		<option value="">전체공개</option>
-                    		<option value="">이웃공개</option>
+                    	<select class="form-control" name="nameVisibility" id="">
+                    		<option value="N" ${user.nameVisibility eq 'N' ? 'selected' : '' }>비공개</option>
+                    		<option value="Y" ${user.nameVisibility eq 'Y' ? 'selected' : '' }>전체공개</option>
+                    		<option value="L" ${user.nameVisibility eq 'L' ? 'selected' : '' }>이웃공개</option>
                     	</select>
                     </div>
                     <div class="col-sm-12">
@@ -58,13 +58,13 @@
                         <strong>성별</strong>
                     </div>
                     <div class="col-sm-8">
-                    	<span>남자</span>
+                    	<span>${user.gender }</span>
                     </div>
                     <div class="col-sm-2">
-                    	<select class="form-control" name="" id="">
-                    		<option value="">비공개</option>
-                    		<option value="">전체공개</option>
-                    		<option value="">이웃공개</option>
+                    	<select class="form-control" name="genderVisibility" id="">
+                    		<option value="N" ${user.genderVisibility eq 'N' ? 'selected' : '' }>비공개</option>
+                    		<option value="Y" ${user.genderVisibility eq 'Y' ? 'selected' : '' }>전체공개</option>
+                    		<option value="L" ${user.genderVisibility eq 'L' ? 'selected' : '' }>이웃공개</option>
                     	</select>
                     </div>
                     <div class="col-sm-12">
@@ -79,7 +79,7 @@
                         <hr class="blog_beauty_boldhr">
                     </div>
 	                <div class="col-sm-12 text-center blog_beauty_bottombtndiv">
-		                <button type="submit" class="btn blog_beuaty_submit_button">확인</button>
+		                <button type="submit" class="btn btn-default">확인</button>
 	                </div>
                 </div>
             </form>

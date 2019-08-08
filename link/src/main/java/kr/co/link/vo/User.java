@@ -9,7 +9,44 @@ public class User {
 	private String phone;
 	private Integer point;
 	private Integer mentalPoint;
+	private String isHaveBlog;
+	private String nameVisibility;
+	private String gender;
+	private String genderVisibility;
 	
+	
+	public String getNameVisibility() {
+		return nameVisibility;
+	}
+
+	public void setNameVisibility(String nameVisibility) {
+		this.nameVisibility = nameVisibility;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getGenderVisibility() {
+		return genderVisibility;
+	}
+
+	public void setGenderVisibility(String genderVisibility) {
+		this.genderVisibility = genderVisibility;
+	}
+
+	public String getIsHaveBlog() {
+		return isHaveBlog;
+	}
+
+	public void setIsHaveBlog(String isHaveBlog) {
+		this.isHaveBlog = isHaveBlog;
+	}
+
 	public User() {}
 
 	public String getId() {
