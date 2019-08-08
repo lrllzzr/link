@@ -35,7 +35,7 @@
 							<li><a href="#">가계부 </a></li>
 							<li><a href="#">지식인</a></li>
 							<li><a href="#">시리즈</a></li>
-							<li><a href="#">TV</a></li>
+							<li><a href="/link/tv/home.do">TV</a></li>
 
 							<li class="divider"></li>
 							<li><a href="/link/logout.do">로그아웃</a></li>
@@ -99,9 +99,9 @@
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
-					<a href="">TV</a>
+					<a href="/link/tv/home.do">TV</a>
 				</div>
-				<a href=""><img style="position: relative;" src="resources/images/tv.png" alt=""></a>
+				<a href="/link/tv/home.do""><img style="position: relative;" src="resources/images/tv.png"  alt=""></a>
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
