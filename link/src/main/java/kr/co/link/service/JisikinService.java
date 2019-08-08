@@ -45,4 +45,7 @@ public interface JisikinService {
 	
 	// 오늘 성별 답변수
 	public Map<String, Integer> getGenderToday();
+	
+	// 카테고리별 정렬 답변리스트
+	public List<Jisikin> getSortByCategory(Map<String, Object> map);
 }

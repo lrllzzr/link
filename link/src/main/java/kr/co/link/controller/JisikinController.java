@@ -48,7 +48,19 @@ public class JisikinController {
 	
 	// 지식인 메인
 	@RequestMapping("/main.do")
-	public String main(Model model) {
+	public String main(@RequestParam(required = false, value = "sort", defaultValue = "1")int sort, 
+					   @RequestParam(required = false, value = "categoryNo", defaultValue ="0")Integer categoryNo,
+					   Model model) {
+		// 카테고리별 정렬 답변리스트
+		Map<String, Object> sortMap = new HashMap<String, Object>();
+		if(categoryNo == 0) {
+			categoryNo = null;
+		}
+		sortMap.put("sort", sort);
+		sortMap.put("categoryNo", categoryNo);
+		
+		List<Jisikin> sortJisikin = jisikinService.getSortByCategory(sortMap);
+		model.addAttribute("sortJisikin", sortJisikin);
 		
 		// 오늘의 질문, 답변, 누적 답변수
 		int countToday = jisikinService.countTodayJisikin();

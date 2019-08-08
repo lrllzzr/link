@@ -11,6 +11,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/link/resources/js/jquery.timeago.js"></script>
+    <script src="/link/resources/js/jquery.timeago.ko.js"></script>
     <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinmain.css">
 	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinQna.css">
@@ -121,7 +123,60 @@
                 <div class="col-sm-8 well">
                 	<div class="row">
                 		<div class="col-sm-6">
-                    <a href="#" class="jisikin-section-2-qna">많이 한 질문 키워드</a>
+                    		<a href="#" class="jisikin-section-2-qna">많이 한 질문 키워드</a>
+                    		<div class="ranking_keyword_list_area" id="keywordRankChart" style="display:block;">
+                    		<ul class="ranking_list" id="keywordRankList">
+					
+						<li class="ranking_item">
+							<span class="no">1</span>
+							<a href="#" class="ranking_keyword_link_area" target="_blank">
+								<strong class="ranking_title">${toptag[0].tagName }</strong>
+								<span class="keyword_num_text"><em class="num">${toptag[0].countTag }</em><span class="text">개의 질문 &gt;</span></span>
+							</a>
+						</li>
+					
+						<li class="ranking_item">
+							<span class="no">2</span>
+							<a href="#" class="ranking_keyword_link_area" target="_blank">
+								<strong class="ranking_title">${toptag[1].tagName }</strong>
+								<span class="keyword_num_text"><em class="num">${toptag[1].countTag }</em><span class="text">개의 질문 &gt;</span></span>
+							</a>
+						</li>
+					   
+						<li class="ranking_item">
+							<span class="no">3</span>
+							<a href="#" class="ranking_keyword_link_area" target="_blank">
+								<strong class="ranking_title">${toptag[2].tagName }</strong>
+								<span class="keyword_num_text"><em class="num">${toptag[2].countTag }</em><span class="text">개의 질문 &gt;</span></span>
+							</a>
+						</li>
+					
+						<li class="ranking_item">
+							<span class="no">4</span>
+							<a href="#" class="ranking_keyword_link_area" target="_blank">
+								<strong class="ranking_title">${toptag[3].tagName }</strong>
+								<span class="keyword_num_text"><em class="num">${toptag[3].countTag }</em><span class="text">개의 질문 &gt;</span></span>
+							</a>
+						</li>
+					
+						<li class="ranking_item">
+							<span class="no">5</span>
+							<a href="#" class="ranking_keyword_link_area" target="_blank">
+								<strong class="ranking_title">${toptag[4].tagName }</strong>
+								<span class="keyword_num_text"><em class="num">${toptag[4].countTag }</em><span class="text">개의 질문 &gt;</span></span>
+							</a>
+						</li>
+					   
+						<li class="ranking_item">
+							<span class="no">6</span>
+							<a href="#" class="ranking_keyword_link_area" target="_blank">
+								<strong class="ranking_title">${toptag[5].tagName }</strong>
+								<span class="keyword_num_text"><em class="num">${toptag[5].countTag }</em><span class="text">개의 질문 &gt;</span></span>
+							</a>
+						</li>
+					
+				</ul>
+				</div>
                 		</div>
                 		<div class="col-sm-6" style="border-left:1px solid #DDD; max-height:332px;">
                     <a href="#" class="jisikin-section-2-qna">많이 본 Q&A</a>
@@ -167,22 +222,22 @@
                         <div class="directory_area _qna_menu">
                             <div class="directory_box _list_area">
                                 <ul class="directory_list _qna_list">
-                                    <li><a href="#">전체</a></li>
-                                    <li><a href="#">교육,학문</a></li>
-                                    <li><a href="#">컴퓨터통신</a></li>
-                                    <li><a href="#">게임</a></li>
-                                    <li><a href="#">엔터테인먼트,예술</a></li>
-                                    <li><a href="#">생활</a></li>
-                                    <li><a href="#">건강</a></li>
-                                    <li><a href="#">사회,정치</a></li>
-                                    <li><a href="#">경제</a></li>
-                                    <li><a href="#">여행</a></li>
-                                    <li><a href="#">스포츠,레저</a></li>
-                                    <li><a href="#">쇼핑</a></li>
-                                    <li><a href="#">쥬니버Q&A</a></li>
-                                    <li><a href="#">지역&플레이스</a></li>
-                                    <li><a href="#">고민Q&A</a></li>
-                                    <li><a href="#">오픈사전</a></li>
+                                    <li><a class="${param.categoryNo == 0 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=0">전체</a></li>
+                                    <li><a class="${param.categoryNo == 1 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=1">교육,학문</a></li>
+                                    <li><a class="${param.categoryNo == 2 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=2">컴퓨터통신</a></li>
+                                    <li><a class="${param.categoryNo == 3 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=3">게임</a></li>
+                                    <li><a class="${param.categoryNo == 4 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=4">엔터테인먼트,예술</a></li>
+                                    <li><a class="${param.categoryNo == 5 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=5">생활</a></li>
+                                    <li><a class="${param.categoryNo == 6 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=6">건강</a></li>
+                                    <li><a class="${param.categoryNo == 7 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=7">사회,정치</a></li>
+                                    <li><a class="${param.categoryNo == 8 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=8">경제</a></li>
+                                    <li><a class="${param.categoryNo == 9 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=9">여행</a></li>
+                                    <li><a class="${param.categoryNo == 10 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=10">스포츠,레저</a></li>
+                                    <li><a class="${param.categoryNo == 11 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=11">쇼핑</a></li>
+                                    <li><a class="${param.categoryNo == 12 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=12">쥬니버Q&A</a></li>
+                                    <li><a class="${param.categoryNo == 13 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=13">지역&플레이스</a></li>
+                                    <li><a class="${param.categoryNo == 14 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=14">고민Q&A</a></li>
+                                    <li><a class="${param.categoryNo == 15 ? 'light_on' : ''}" href="/link/jisikin/main.do?categoryNo=15">오픈사전</a></li>
                                 </ul> 
                             </div>
                         </div>
@@ -197,134 +252,48 @@
                                 </div>-->
                                 <div class="sort_list_group_right">
                                    <h5 class="tit ellipsis">
-                                     <a href="#"><strong>전체</strong></a></h5>
+                                     <a href="#"><strong>
+                                     ${param.categoryNo == 0 ? '전체' : ''}
+                                     ${param.categoryNo == 1 ? '교육, 학문' : ''}
+                                     ${param.categoryNo == 2 ? '컴퓨터통신' : ''}
+                                     ${param.categoryNo == 3 ? '게임' : ''}
+                                     ${param.categoryNo == 4 ? '엔터테인먼트, 예술' : ''}
+                                     ${param.categoryNo == 5 ? '생활' : ''}
+                                     ${param.categoryNo == 6 ? '건강' : ''}
+                                     ${param.categoryNo == 7 ? '사회, 정치' : ''}
+                                     ${param.categoryNo == 8 ? '경제' : ''}
+                                     ${param.categoryNo == 9 ? '여행' : ''}
+                                     ${param.categoryNo == 10 ? '스포츠, 레저' : ''}
+                                     ${param.categoryNo == 11 ? '쇼핑' : ''}
+                                     ${param.categoryNo == 12 ? '쥬니버Q&A' : ''}
+                                     ${param.categoryNo == 13 ? '지역&플레이스' : ''}
+                                     ${param.categoryNo == 14 ? '고민Q&A' : ''}
+                                     ${param.categoryNo == 15 ? '오픈사전' : ''}
+                                     </strong></a></h5>
                                     <ul class="sort_list_module _sortOptionList">
-                                        <li class="is_active _answer"><a href="#" role="button" class="_sort_option _param('answer')"><i class="ico_sort _sort_option _param('answer')"></i>답변적은순</a></li>
-                                        <li class="_recent"><a href="#" role="button" class="_sort_option _param('recent')"><i class="ico_sort _sort_option _param('recent')"></i>최신순</a></li>
-                                        <li class="_betPoint"><a href="#" role="button" class="_sort_option _param('betPoint')"><i class="ico_sort _sort_option _param('betPoint')"></i>내공높은순</a></li>
+                                        <li class="${param.sort == 1 ? 'is_active' : ''} _answer"><a href="/link/jisikin/main.do?sort=1&categoryNo=${not empty param.categoryNo ? param.categoryNo : 0}" role="button" class="_sort_option _param('answer')"><i class="ico_sort _sort_option _param('answer')"></i>답변적은순</a></li>
+                                        <li class="${param.sort == 2 ? 'is_active' : ''} _recent"><a href="/link/jisikin/main.do?sort=2&categoryNo=${not empty param.categoryNo ? param.categoryNo : 0}" role="button" class="_sort_option _param('recent')"><i class="ico_sort _sort_option _param('recent')"></i>최신순</a></li>
+                                        <li class="${param.sort == 3 ? 'is_active' : ''} _betPoint"><a href="/link/jisikin/main.do?sort=3&categoryNo=${not empty param.categoryNo ? param.categoryNo : 0}" role="button" class="_sort_option _param('betPoint')"><i class="ico_sort _sort_option _param('betPoint')"></i>내공높은순</a></li>
                                     </ul>
 				                </div>
                             </div>
                             <div class="answer_list" style="padding-top: 40px; display: block;">
-                                <div class="answer_box">
-                                    <div class="tit_wrap ">
-                                        <a href="#" rel="KIN" target="_blank">
-                                                <span class="power_grade"><span class="blind">내공</span>100</span>
-                                            <span class="tit_txt">일본노래인데 영어로 번역해서 누가불렀는데</span>
-
-                                        </a>
-                                    </div>
-                                    <div class="update_info">
-                                        <span class="num_answer">답변 <em>0</em></span>
-                                        <span class="info"><a href="#">번역, 통역</a></span>
-                                        <span class="info">방금</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="answer_box">
-                                    <div class="tit_wrap">
-                                        <a href="#" rel="KIN" target="_blank">
-                                                <span class="power_grade"><span class="blind">내공</span>50</span>
-
-                                            <span class="tit_txt">이제 그만 디자인하고싶다 직워 죽을 것 같아요!!</span>
-                                        </a>
-                                    </div>
-                                    <div class="update_info">
-                                        <span class="num_answer">답변 <em>0</em></span>
-                                        <span class="info"><a href="#">번역, 통역</a></span>
-                                        <span class="info">2분전</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="answer_box">
-                                    <div class="tit_wrap">
-                                        <a href="#" rel="KIN" target="_blank">
-                                                <span class="power_grade"><span class="blind">내공</span>50</span>
-
-                                            <span class="tit_txt">이제 그만 디자인하고싶다 직워 죽을 것 같아요!!</span>
-                                        </a>
-                                    </div>
-                                    <div class="update_info">
-                                        <span class="num_answer">답변 <em>0</em></span>
-                                        <span class="info"><a href="#">번역, 통역</a></span>
-                                        <span class="info">2분전</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="answer_box">
-                                    <div class="tit_wrap">
-                                        <a href="#" rel="KIN" target="_blank">
-                                                <span class="power_grade"><span class="blind">내공</span>50</span>
-
-                                            <span class="tit_txt">이제 그만 디자인하고싶다 직워 죽을 것 같아요!!</span>
-                                        </a>
-                                    </div>
-                                    <div class="update_info">
-                                        <span class="num_answer">답변 <em>0</em></span>
-                                        <span class="info"><a href="#">번역, 통역</a></span>
-                                        <span class="info">2분전</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="answer_box">
-                                    <div class="tit_wrap">
-                                        <a href="#" rel="KIN" target="_blank">
-                                                <span class="power_grade"><span class="blind">내공</span>50</span>
-
-                                            <span class="tit_txt">이제 그만 디자인하고싶다 직워 죽을 것 같아요!!</span>
-                                        </a>
-                                    </div>
-                                    <div class="update_info">
-                                        <span class="num_answer">답변 <em>0</em></span>
-                                        <span class="info"><a href="#">번역, 통역</a></span>
-                                        <span class="info">2분전</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="answer_box">
-                                    <div class="tit_wrap">
-                                        <a href="#" rel="KIN" target="_blank">
-                                                <span class="power_grade"><span class="blind">내공</span>50</span>
-
-                                            <span class="tit_txt">이제 그만 디자인하고싶다 직워 죽을 것 같아요!!</span>
-                                        </a>
-                                    </div>
-                                    <div class="update_info">
-                                        <span class="num_answer">답변 <em>0</em></span>
-                                        <span class="info"><a href="#">번역, 통역</a></span>
-                                        <span class="info">2분전</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="answer_box">
-                                    <div class="tit_wrap">
-                                        <a href="#" rel="KIN" target="_blank">
-                                                <span class="power_grade"><span class="blind">내공</span>50</span>
-
-                                            <span class="tit_txt">이제 그만 디자인하고싶다 직워 죽을 것 같아요!!</span>
-                                        </a>
-                                    </div>
-                                    <div class="update_info">
-                                        <span class="num_answer">답변 <em>0</em></span>
-                                        <span class="info"><a href="#">번역, 통역</a></span>
-                                        <span class="info">2분전</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="answer_box">
-                                    <div class="tit_wrap">
-                                        <a href="#" rel="KIN" target="_blank">
-                                                <span class="power_grade"><span class="blind">내공</span>50</span>
-
-                                            <span class="tit_txt">이제 그만 디자인하고싶다 직워 죽을 것 같아요!!</span>
-                                        </a>
-                                    </div>
-                                    <div class="update_info">
-                                        <span class="num_answer">답변 <em>0</em></span>
-                                        <span class="info"><a href="#">번역, 통역</a></span>
-                                        <span class="info">2분전</span>
-                                    </div>
-                                </div>
+                            	<c:forEach var="sort" items="${sortJisikin }" begin="0" end="6">
+	                                <div class="answer_box">
+	                                    <div class="tit_wrap ">
+	                                        <a href="/link/jisikin/questionDetail.do?jisikinNo=${sort.no}" rel="KIN" target="_blank">
+	                                                <span class="power_grade"><span class="blind">내공</span>${sort.mentalPoint }</span>
+	                                            <span class="tit_txt">${sort.title }</span>
+	
+	                                        </a>
+	                                    </div>
+	                                    <div class="update_info">
+	                                        <span class="num_answer">답변 <em>${sort.countAnswer }</em></span>
+	                                        <span class="info"><a href="#">${sort.category.name }</a></span>
+	                                        <span class="info tg">${sort.createTime }</span>
+	                                    </div>
+	                                </div>
+                            	</c:forEach>
                             </div>                           
                         </div>
                     </div>
@@ -459,6 +428,12 @@
       }
 
     $(document).ready(function(){
+    	// timeAgo
+        $(".tg").each(function(){
+           var timeago_t = jQuery.timeago( new Date(parseInt($(this).text())));
+           console.log(timeago_t);
+           $(this).text(timeago_t);
+        });
          
         $('.dropdown,.dropdown-menu').hover(function(){
 

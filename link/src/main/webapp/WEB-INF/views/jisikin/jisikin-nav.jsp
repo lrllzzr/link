@@ -5,7 +5,7 @@
           <div class="container-fluid">
            
             <div class="navbar-header">
-              <a class="navbar-brand menu-home" href="/link/jisikin/main.do">홈</a>
+              <a class="navbar-brand menu-home" href="/link/jisikin/main.do?sort=1&categoryNo=0">홈</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

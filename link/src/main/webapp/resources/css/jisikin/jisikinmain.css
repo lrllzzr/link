@@ -532,7 +532,7 @@ ul {
     text-align: right;
 }
 .answer_box .update_info .num_answer+.info {
-    margin-left: 1px;
+    margin-left: -8px;
 }
 .answer_box .update_info .info {
     display: inline-block;
@@ -598,4 +598,85 @@ ul {
 
 .sort_list_module {
     float: right;
+}
+    
+
+/* 많이 한 질문 키워드 */
+.ranking_keyword_list_area {
+    border-top: 1px solid #f2f2f2;
+}
+
+.ranking_keyword_list_area .ranking_item {
+    margin-top: 8px;
+    padding-bottom: 10px;
+}
+.ranking_item {
+    position: relative;
+    padding: 4px 0 16px 18px;
+    border-bottom: 1px solid #f2f2f2;
+    background: 0;
+    font-size: 12px;
+    line-height: 1.6;
+    letter-spacing: -0.5px;
+}
+
+.ranking_item .no {
+    position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 7px;
+    text-align: center;
+    font-size: 15px;
+    font-family: Helvetica;
+    font-weight: bold;
+    color: #26b049;
+}
+
+.ranking_keyword_link_area {
+    position: relative;
+    display: block;
+    padding-right: 100px;
+}
+
+.ranking_title {
+    display: block;
+    overflow: hidden;
+    margin-bottom: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.keyword_num_text {
+    position: absolute;
+    top: 0px;
+    right: 0;
+    font-size: 13px;
+    color: #5885ce;
+    width:80px;
+}
+
+.keyword_num_text .text {
+    display: inline;
+    margin: 0;
+    color: inherit;
+}
+
+.ranking_item .text {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    margin: 0 0 4px -18px;
+    color: #555;
+}
+
+.keyword_num_text .num {
+	float:left;
+}
+
+.light_on{
+	color: #649dfa;
+	font-size : 15px;
 }

@@ -176,4 +176,9 @@ public class JisikinServiceImpl implements JisikinService {
 		
 		 return map;
 	}
+	
+	// 카테고리별 정렬 답변리스트
+	public List<Jisikin> getSortByCategory(Map<String, Object> map) {
+		return jisikinDao.getSortByCategory(map);
+	}
 }
