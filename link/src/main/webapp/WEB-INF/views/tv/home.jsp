@@ -268,10 +268,10 @@
                <ul class="tv-side-menubar">
                    <li class="tv-side-menu" onclick="location.href='home.do'">홈</li>
                    <li class="tv-side-menu" onclick="location.href='rank.do?category=best'">인기</li>
-                   <li class="tv-side-menu" onclick="location.href='history.do?sort=recent'">최근 본 동영상</li>
-                   <li class="tv-side-menu" onclick="location.href='history.do?sort=later'">나중에 볼 동영상</li>
-                   <li class="tv-side-menu" onclick="location.href='history.do?sort=like'">좋아요 한 동영상</li>
-                   <li class="tv-side-menu" onclick="location.href='mychannel.do'">내 채널 가기</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="history.do?sort=recent">최근 본 동영상</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="history.do?sort=later">나중에 볼 동영상</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="history.do?sort=like">좋아요 한 동영상</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="mychannel.do">내 채널 가기</li>
                </ul>
             </div>
          
@@ -322,7 +322,7 @@
 	                       		</span>
 	                      
 								<video class="video-preview" id="myVideo" preload="metadata" muted="muted" disablePictureInPicture controlsList="nodownload">
-                                	<source src="/link/resources/images/tvdb/video/${tv.videoName }.mp4" type="video/mp4"></video><span class="glyphicon glyphicon-time tv-btn-later" data-vno='${tv.no }'></span>
+                                	<source src="/link/resources/images/tvdb/video/${tv.videoName }.mp4" type="video/mp4"></video><span class="glyphicon glyphicon-time tv-btn-later" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-vno='${tv.no }'></span>
                                         
 	                       </a>
 	                       	
@@ -377,7 +377,7 @@
 	                       		</span>
 	                       		
 								<video class="video-preview" id="myVideo" preload="metadata" muted="muted" disablePictureInPicture controlsList="nodownload">
-                                	<source src="/link/resources/images/tvdb/video/${like.videoName }.mp4" type="video/mp4"></video><span class="glyphicon glyphicon-time tv-btn-later"  data-vno='${like.no }'></span>
+                                	<source src="/link/resources/images/tvdb/video/${like.videoName }.mp4" type="video/mp4"></video><span class="glyphicon glyphicon-time tv-btn-later" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }"  data-vno='${like.no }'></span>
 	                       </a>
 	                            <p class="tv-content-title" onclick="location.href='detail.do?vno=${like.no}'">${like.title }</p>
 	                            <div><a href="" class="pull-left">${like.tvPlaylist.tvChannel.title }</a></div>
@@ -426,7 +426,7 @@
 	                       		</span>
 								<video class="video-preview" id="myVideo" preload="metadata" muted="muted" disablePictureInPicture controlsList="nodownload">
                                 	<source src="/link/resources/images/tvdb/video/${recent.videoName }.mp4" type="video/mp4"></video>
-                                	<span class="glyphicon glyphicon-time tv-btn-later"  data-vno='${recent.no }'></span>
+                                	<span class="glyphicon glyphicon-time tv-btn-later" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }"  data-vno='${recent.no }'></span>
                                 	
 	                       </a>
 	                            <p class="tv-content-title" onclick="location.href='detail.do?vno=${recent.no}'">${recent.title }</p>
@@ -499,6 +499,7 @@
         $(".tv-btn-later").on("mouseenter", function(){
             $(this).css("opacity", 1);
         })
+        
         $(".tv-btn-later").on("mouseout", function(){
             $(this).css("opacity", 0);
         })
@@ -532,34 +533,62 @@
  
  /* ----------------------------------------------- */
  
+ 
+ //나중에 보기 할때 로그인 체크하깅
   $(".tv-btn-later").on("click", function(event) {
 	
 	  var vno = $(this).attr("data-vno");
-		console.log(vno);
-	 $.ajax({
-		type:"POST",
-		url:"addLater.do",
-		data:{"vno":vno},
-		dataType:"text",
-		success:function(result){
-			console.log(result);
-			if(result =='fail'){
-				/* alert('이미 나중에 보기 한 영상입니다.'); */
-				$("#modalFail").modal({
-					backdrop: true
-				});
+	  var login = $(this).attr("data-login");
+	  
+	  if(login == 'N'){
+		  var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+		  if(YN){
+			  location.href="/link/loginform.do?returnUrl=tv/home.do";
+		  }
+	  }
+	  if(login == 'Y'){
+		  $.ajax({
+			type:"POST",
+			url:"addLater.do",
+			data:{"vno":vno},
+			dataType:"text",
+			success:function(result){
+				if(result =='fail'){
+					/* alert('이미 나중에 보기 한 영상입니다.'); */
+					$("#modalFail").modal({
+						backdrop: true
+					});
+				}
+				if(result =='success'){
+					/* alert('나중에 보기에 영상을 담았습니다.'); */
+					$("#modalSuccess").modal({
+						backdrop: true
+					});
+				}
+			
 			}
-			if(result =='success'){
-				/* alert('나중에 보기에 영상을 담았습니다.'); */
-				$("#modalSuccess").modal({
-					backdrop: true
-				});
-			}
-		
-		}
-	}) 
-	return false;
-})
+		}) 
+	  }
+		return false;
+
+});
+ 
+ 
+ $(".chk-user").on("click", function () {
+	 
+	 var url = $(this).attr('data-url');
+	 var login = $(this).attr('data-login');
+	 
+	 if (login == 'Y') {
+		 location.href = url;
+	 } else {
+		 var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?")
+		 	if(YN){
+				 location.href = url;
+		 	}
+	 }
+	});
+
  
     </script>
 </body>

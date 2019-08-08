@@ -223,10 +223,10 @@
 				to_char(create_date,'YYYYMMDD') > to_char((sysdate-30) ,'YYYYMMDD')
 			</when>
 			<when test="opt == 'best'">
-				tv_views > 20
+				tv_views > 1
 			</when>
 			<when test="opt == 'suggest'">
-				likes > 10
+				likes > 1
 			</when>
 		</choose>
 	</where>

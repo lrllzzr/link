@@ -327,15 +327,11 @@ ul, li {
 			<div>
 				<ul class="tv-side-menubar">
 					<li class="tv-side-menu" onclick="location.href='home.do'">홈</li>
-					<li class="tv-side-menu"
-						onclick="location.href='rank.do?category=best'">인기</li>
-					<li class="tv-side-menu"
-						onclick="location.href='history.do?sort=recent'">최근 본 동영상</li>
-					<li class="tv-side-menu"
-						onclick="location.href='history.do?sort=later'">나중에 볼 동영상</li>
-					<li class="tv-side-menu"
-						onclick="location.href='history.do?sort=like'">좋아요 한 동영상</li>
-					<li class="tv-side-menu" onclick="location.href='mychannel.do'">내채널 가기</li>
+                   <li class="tv-side-menu" onclick="location.href='rank.do?category=best'">인기</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="history.do?sort=recent">최근 본 동영상</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="history.do?sort=later">나중에 볼 동영상</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="history.do?sort=like">좋아요 한 동영상</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="mychannel.do">내 채널 가기</li>
 				</ul>
 			</div>
 
@@ -386,7 +382,7 @@ ul, li {
                         <div class="col-sm-12">
                             <form action="addComment.do?vno=${param.vno} " class="form-group">
                                 <label>댓글</label>
-                                <textarea class="form-control comment-textarea" style="resize: none;" id="" rows="5"></textarea>
+                                <textarea class="form-control comment-textarea" data-login="${not empty LOGIN_USER ? 'Y' : 'N'}" style="resize: none;" id="" rows="5"></textarea>
                                 <div><span class="word-check">0</span>/200</div>
                                 <button class="btn btn-info pull-right btn-comment-insert" type="submit">등록</button>
                             </form>
@@ -521,6 +517,20 @@ ul, li {
 				}
 			})
 			
+			//댓글창 클릭시 로그인 체크
+			$(".comment-textarea").on("focus", function () {
+				var login = $(this).attr("data-login");
+				
+				if(login == 'N'){
+					var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+					if(YN) {
+						$(".comment-textarea").blur();
+						location.href="/link/loginform.do?returnUrl=tv/detail.do?vno=${param.vno}";
+					}else{
+						$(".comment-textarea").blur();
+					}
+				}
+			})
 			
 			// 나중에 보기 AJAX
 	$(".btn-detail-later").on("click", function(event) {
@@ -535,16 +545,10 @@ ul, li {
 			success:function(result){
 				console.log(result);
 				if(result =='fail'){
-					/* alert('이미 나중에 보기 한 영상입니다.'); */
-					$("#modalFail").modal({
-						backdrop: true
-					});
+					
 				}
 				if(result =='success'){
-					/* alert('나중에 보기에 영상을 담았습니다.'); */
-					$("#modalSuccess").modal({
-						backdrop: true
-					});
+					
 				}
 			
 			}
@@ -553,6 +557,23 @@ ul, li {
 })
 		
 		
+		
+	$(".chk-user").on("click", function () {
+		 
+		var url = $(this).attr('data-url');
+		var login = $(this).attr('data-login');
+		 
+		if (login == 'Y') {
+			location.href = url;
+		} else {
+			var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?")
+			if(YN){
+				location.href = url;
+			}
+		}
+	});
+		
+	
 		/*var x = $("#myVideo");
 		
 		 $(document).ready(function(){
