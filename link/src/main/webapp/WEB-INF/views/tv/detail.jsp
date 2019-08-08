@@ -520,6 +520,37 @@ ul, li {
 					$(".btn-comment-insert").attr("disabled", false);
 				}
 			})
+			
+			
+			// 나중에 보기 AJAX
+	$(".btn-detail-later").on("click", function(event) {
+	
+		var vno = $(this).attr("data-vno");
+		console.log(vno);
+		 $.ajax({
+			type:"POST",
+			url:"addLater.do",
+			data:{"vno":vno},
+			dataType:"text",
+			success:function(result){
+				console.log(result);
+				if(result =='fail'){
+					/* alert('이미 나중에 보기 한 영상입니다.'); */
+					$("#modalFail").modal({
+						backdrop: true
+					});
+				}
+				if(result =='success'){
+					/* alert('나중에 보기에 영상을 담았습니다.'); */
+					$("#modalSuccess").modal({
+						backdrop: true
+					});
+				}
+			
+			}
+		}) 
+		return false;
+})
 		
 		
 		/*var x = $("#myVideo");
