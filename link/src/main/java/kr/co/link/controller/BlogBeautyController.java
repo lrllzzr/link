@@ -2,12 +2,10 @@ package kr.co.link.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
@@ -21,21 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.link.dao.UserDao;
-import kr.co.link.form.BlogBoardForm;
-import kr.co.link.form.BlogForm;
 import kr.co.link.form.BlogUpdateForm;
 import kr.co.link.form.ColorForm;
-import kr.co.link.service.BlogBoardService;
-import kr.co.link.service.BlogCategoryService;
 import kr.co.link.service.BlogNeighborService;
 import kr.co.link.service.BlogService;
-import kr.co.link.service.BlogSubCategoryService;
 import kr.co.link.service.BlogThemeService;
 import kr.co.link.service.UserService;
 import kr.co.link.vo.Blog;
-import kr.co.link.vo.BlogBoard;
-import kr.co.link.vo.BlogCategory;
 import kr.co.link.vo.BlogNeighbor;
 import kr.co.link.vo.BlogSubCategory;
 import kr.co.link.vo.BlogTheme;
@@ -47,12 +37,6 @@ public class BlogBeautyController {
 	
 	@Autowired
 	private BlogService blogservice;
-	@Autowired
-	private BlogSubCategoryService blogSubCategoryService;
-	@Autowired
-	private BlogCategoryService blogCategoryService;
-	@Autowired
-	private BlogBoardService blogBoardService;
 	@Autowired
 	private BlogThemeService blogThemeService;
 	@Autowired

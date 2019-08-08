@@ -11,6 +11,28 @@
 <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 <link rel="stylesheet" href="/link/resources/css/main.css">
 <link href="https://fonts.googleapis.com/css?family=Jura|Marck+Script|Russo+One|Sacramento&display=swap" rel="stylesheet">
+<style>
+	.pagination > li > a,
+	.pagination > li > span {
+	  position: relative;
+	  float: left;
+	  padding: 6px 12px;
+	  margin-left: -1px;
+	  line-height: 1.42857143;
+	  color: black;
+	  text-decoration: none;
+	  background-color: #fff;
+	  border: 0.5px solid lightgray;
+	}
+	.pagination > li > a:hover,
+	.pagination > li > span:hover,
+	.pagination > li > a:focus,
+	.pagination > li > span:focus {
+	  z-index: 2;
+	  color: black;
+	  background-color: #fff;
+	  border-color: lightgray;
+</style>
 </head>
 
 <body>
@@ -146,7 +168,7 @@
 					</div>
 					<div class="row blog-hr-row">
 						<div class="col-sm-12 blog_topics">
-							<span id="all" class="blog_topic_selected">전체</span>
+							<span data-topic="all" id="all" class="blog_topic_selected">전체</span>
 							<span data-topic="movie" class="">영화</span>
 							<span data-topic="literature" class="">문학</span>
 							<span data-topic="travel" class="">여행</span>
@@ -160,7 +182,7 @@
 					</div>
 
 					<div class="blog3topic">
-						<c:forEach var="blog3" items="${blogsByType }">
+						<c:forEach var="blog3" items="${blogsList }">
 							<!--                  추천 새글 시작  -->
 							<div class="row blog-main-col-2-1">
 								<div class="col-sm-9">
@@ -212,7 +234,27 @@
 							<!--                  추천 새글 끝  -->
 						</c:forEach>
 					</div>
-
+					<div class="blog3topic-2">
+						<div class="row">
+							<div class="col-sm-12 text-center">
+								<nav>
+									<ul class="pagination">
+										<li>
+											<a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+										</li>
+										<c:forEach begin="1" end="${totalBlocks }" var="status">
+											<li>
+												<a id="${status }" class="blog_pagenation_num ${status eq pno? 'blog_detail_page_1_selected' : '' }" href="">${status }</a>
+											</li>
+										</c:forEach>
+										<li>
+											<a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!--오른쪽 네브 시작-->
@@ -268,7 +310,9 @@
 								</a>
 							</div>
 							<div class="row blog-col-5 text-center">
-								<div class="col-sm-4 blog-col-5-selected"><a href="main.do">내 소식</a></div>
+								<div class="col-sm-4 blog-col-5-selected">
+									<a href="main.do">내 소식</a>
+								</div>
 								<div class="col-sm-4">내가 남긴 글</div>
 								<div class="col-sm-4" id="neighborLists">이웃 목록</div>
 
@@ -327,6 +371,74 @@
 		$(function() {
 			$('.blog-neighbor-contents3 img').hide();
 			$('.blog-neighbor-contents img').hide();
+			$('#1').addClass('blog_detail_page_1_selected');
+			
+			// 추천이웃 페이지네이션
+			$('body').on('click','.blog_pagenation_num',function(){
+				var blogType = $('.blog_topic_selected').attr('data-topic');
+				var pno = $(this).text();
+				$(this).addClass('blog_detail_page_1_selected').parent().siblings().find('a').removeClass('blog_detail_page_1_selected');
+				$.ajax({
+					type:"GET",
+					url:"topicAjax.do",
+					data: {
+						blogType : blogType,
+						pno : pno
+					},
+					success:function(result){
+						$('.blog3topic').empty();
+						$.each(result.blogsList, function(index,blog){
+							var row = "";
+							row += '<div class="row blog-main-col-2-1">';
+							row += '	<div class="col-sm-9">';
+							row += '		<div class="row">';
+							row += '			<div class="col-sm-1 blog-neighbor-col1">';
+							row += '				<img class="blog-row-2-profile-img" src="/link/resources/images/'+blog.BLOGMAINIMG+'" alt="">';
+							row += '			</div>';
+							row += '			<div class="col-sm-2 blog-neighbor-col2">';
+							row += '				<div class="row">';
+							row += '					<div class="col-sm-12">';
+							row += '						<a href="">' + blog.NICKNAME + '</a>';
+							row += '					</div>';
+							row += '					<div class="col-sm-12">2시간전</div>';
+							row += '				</div>';
+							row += '			</div>';
+							row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
+							row += '				<div class="col-sm-2 col-sm-offset-7">';
+							row += '					<span class="blog-addneighbor"><a href="">+이웃추가</a></span>';
+							row += '				</div>';
+							row += '			</c:if>';
+							row += '		</div>';
+							row += '		<div class="row blog-neighbor-box">';
+							row += '			<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
+							row += '		<div class="col-sm-12">';
+							row += '<p class="blog-neighbor-title">' + blog.TITLE + '</p>';
+							row += '</div>';
+							row += '<div class="col-sm-12">';
+							row += '<div class="blog-neighbor-contents ">' + blog.CONTENTS + '</div>';
+							row += '</div>';
+							row += '</a>';
+							row += '</div>';
+							row += '</div>';
+							row += '<div class="col-sm-3">';
+							row += '<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO
+									+ '"><img class="blog-neighbor-img" src="/link/resources/images/userblogimgs/'+blog.BOARDMAINIMG+'" alt=""></a>';
+							row += '</div>';
+							row += '</div>';
+							row += '<div class="blog-hrdiv">';
+							row += '<hr class="blog-row-hr-2" />';
+							row += '</div>';
+							
+							$('.blog3topic').append(row);
+							$('.blog-neighbor-contents3 img').hide();
+							$('.blog-neighbor-contents img').hide();
+							
+						});
+					}
+				})
+				return false;
+			});
+			
 			// 이웃목록 ajax
 			$('#neighborLists').click(function() {
 				$(this).addClass('blog-col-5-selected').siblings().removeClass('blog-col-5-selected');
@@ -350,23 +462,21 @@
 			});
 
 			// 토픽별 ajax
-			$('.blog_topics span').click(
-					function() {
+			$('.blog_topics span').click(function() {
 						$(this).addClass('blog_topic_selected').siblings().removeClass('blog_topic_selected');
 						var blogType = $(this).attr('data-topic');
-						if (blogType == '전체') {
-							blogType = "";
-						}
 						$.ajax({
 							type : "GET",
 							url : "topicAjax.do",
 							data : {
-								blogType : blogType
+								blogType : blogType,
+								pno : 1
 							},
 							dataType : "json",
-							success : function(result) {
+							success : function(data) {
 								$('.blog3topic').empty();
-								$.each(result, function(index, blog) {
+								$('.blog3topic-2').empty();
+								$.each(data.blogsList, function(index, blog) {
 									var row = "";
 									row += '<div class="row blog-main-col-2-1">';
 									row += '	<div class="col-sm-9">';
@@ -411,7 +521,34 @@
 									$('.blog3topic').append(row);
 									$('.blog-neighbor-contents3 img').hide();
 									$('.blog-neighbor-contents img').hide();
-								})
+									
+								});
+								
+								var totalBlocks = data.totalBlocks;
+								
+								console.log('totalBlocks:'+totalBlocks);
+								console.log('pno:'+data.pno);
+								
+								var row2 = '';
+								row2 += '<div class="row">';
+								row2 += '	<div class="col-sm-12 text-center">';
+								row2 += '		<nav>';
+								row2 += '			<ul class="pagination">';
+								row2 += '				<li><a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>';
+								for(var i = 1; i<=totalBlocks; i++){
+									if(i == data.pno){
+										row2 += '<li><a href="" id="'+i+'" class="blog_pagenation_num blog_detail_page_1_selected">'+i+'</a></li>';
+									} else {
+										row2 += '<li><a href="" id="'+i+'" class="blog_pagenation_num">'+i+'</a></li>';
+									}
+								}
+								row2 += '				<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>';
+								row2 += '			</ul>';
+								row2 += '		</nav>';
+								row2 += '	</div>';
+								row2 += '</div>';
+								
+								$('.blog3topic-2').append(row2);
 							}
 						})
 					})

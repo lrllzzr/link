@@ -508,3 +508,7 @@ a {
 	padding-top:20px;
 	padding-bottom:20px;
 }
+.pagination li a.blog_detail_page_1_selected {
+    font-weight: bold;
+    color: black !important;
+}

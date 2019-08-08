@@ -4806,19 +4806,19 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   padding: 6px 12px;
   margin-left: -1px;
   line-height: 1.42857143;
-  color: #337ab7;
+  color: black;
   text-decoration: none;
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 0.5px solid lightgray;
 }
 .pagination > li > a:hover,
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
   z-index: 2;
-  color: #23527c;
-  background-color: #eeeeee;
-  border-color: #ddd;
+  color: black;
+  background-color: #fff;
+  border-color: lightgray;
 }
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {

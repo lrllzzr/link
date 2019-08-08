@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +11,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.codec.language.bm.Rule.RPattern;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -201,20 +198,33 @@ public class BlogDetailController {
 	}
 
 	@RequestMapping("/main.do")
-	public String main(Model model, HttpSession session) {
+	public String main(Model model, HttpSession session,
+					   @RequestParam(value="pno", required = false, defaultValue = "1") Integer pno,
+					   @RequestParam(value="blogType", required = false, defaultValue = "all") String blogType) {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		List<Blog> blogs = blogService.get3BlogByVisits();
 		List<Blog> allBlogs = blogService.getAllblogs();
 		
-		
-		// 전체 topic 블로그 출력
-		String blogType = "";
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("blogType", blogType);
-		if(user !=null) {
-			map.put("userId", user.getId());
+		Map<String, Object> topicMap = new HashMap<String, Object>();
+		if(user != null) {
+			topicMap.put("userId", user.getId());
 		}
-		List<Map<String, Object>> blogsByType = blogService.getAllBlogsByType(map);
+		topicMap.put("blogType", blogType);
+		
+		// 페이지네이션 시작
+		int howMany = 4;
+		int begin = (pno - 1) * howMany + 1;
+		int end = pno * howMany;
+		topicMap.put("begin", begin);
+		topicMap.put("end", end);
+		Integer totalPages = blogService.getBlogsCountByType(topicMap);
+		int totalBlocks = (int) Math.ceil((double) totalPages / howMany);
+		model.addAttribute("totalBlocks",totalBlocks);
+		
+		List<Map<String, Object>> blogsList = blogService.getAllBlogsByType(topicMap);
+		
+		model.addAttribute("blogsList", blogsList);
+		model.addAttribute("pno", pno);
 		
 		if (user != null) {
 			Blog blog = blogService.getBlogByUserId(user.getId());
@@ -225,7 +235,7 @@ public class BlogDetailController {
 				int myBlogNo = blog.getNo();
 				
 				// 블로그 이웃인지
-				for(Map<String, Object> blogByType : blogsByType) {
+				for(Map<String, Object> blogByType : blogsList) {
 					int neighborBlogNo = ((BigDecimal)blogByType.get("NO")).intValue();
 					Map<String, Object> isNeighborMap = new HashMap<String, Object>();
 					isNeighborMap.put("myBlogNo", blog.getNo());
@@ -246,29 +256,45 @@ public class BlogDetailController {
 				model.addAttribute("blogList", blogLists);
 				model.addAttribute("isHaveBlog", "yes");
 				
-				Map<String, Object> map2 = new HashMap<String, Object>();
-				map.put("myBlogNo", myBlogNo);
-				map.put("status", "applying");
-				List<Map<String, Object>> blogNeighbors = blogNeighborService.getNeighborRequest(map2);
+				Map<String, Object> map3 = new HashMap<String, Object>();
+				map3.put("myBlogNo", myBlogNo);
+				map3.put("status", "applying");
+				List<Map<String, Object>> blogNeighbors = blogNeighborService.getNeighborRequest(map3);
 				model.addAttribute("requestList",blogNeighbors);
 			}
 		}
 		model.addAttribute("blogsByVisit", blogs);
 		model.addAttribute("allBlogs", allBlogs);
-		model.addAttribute("blogsByType", blogsByType);
+		
 		
 		return "blog/main";
 	}
 	
 	@RequestMapping("topicAjax.do")
-	public @ResponseBody List<Map<String, Object>> topicAjax(HttpSession session, String blogType){
+	public @ResponseBody Map<String, Object> topicAjax(HttpSession session, String blogType, Integer pno){
 		Map<String, Object> topicMap = new HashMap<String, Object>();
 		User user = (User) session.getAttribute("LOGIN_USER");
 		if(user != null) {
 			topicMap.put("userId", user.getId());
 		}
 		topicMap.put("blogType", blogType);
-		List<Map<String, Object>> map = blogService.getAllBlogsByType(topicMap);
+		
+		// 페이지네이션 시작
+		int howMany = 4;
+		int begin = (pno - 1) * howMany + 1;
+		int end = pno * howMany;
+		topicMap.put("begin", begin);
+		topicMap.put("end", end);
+		Integer totalPages = blogService.getBlogsCountByType(topicMap);
+		
+		int totalBlocks = (int) Math.ceil((double) totalPages / howMany);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> blogsList = blogService.getAllBlogsByType(topicMap);
+		
+		map.put("blogsList", blogsList);
+		map.put("totalBlocks", totalBlocks);
+		map.put("pno", pno);
 		return map;
 	}
 	
