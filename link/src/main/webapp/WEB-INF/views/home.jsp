@@ -13,7 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
-</style>
+</style>  
 </head>
 
 <body>
@@ -33,12 +33,12 @@
 								<li style="margin-left: 10px;"><a href="/link/blog/beauty.do">내 블로그 관리</a></li>
 							</c:if>
 							<li class="divider"></li>
-							<li><a href="#">밴드</a></li>
-							<li><a href="#">가계부 </a></li>
-							<li><a href="/link/jisikin/main.do">지식인</a></li>
-							<li><a href="#">시리즈</a></li>
-							<li><a href="#">TV</a></li>
 
+							<li><a href="/link/band/main.do">밴드</a></li>
+							<li><a href="/link/jisikin/main.do">지식인</a></li>
+							<li><a href="/link/accountbook/expense.do">가계부 </a></li>
+							<li><a href="/link/series/home.do">시리즈</a></li>
+							<li><a href="/link/tv/home.do">TV</a></li>
 							<li class="divider"></li>
 							<li><a href="/link/logout.do">로그아웃</a></li>
 						</ul></li>
@@ -84,9 +84,9 @@
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
-					<a href="">BAND</a>
+					<a href="/link/band/main.do">BAND</a>
 				</div>
-				<a href=""><img src="resources/images/band.png" alt=""></a>
+				<a href="/link/band/main.do"><img src="resources/images/band.png" alt=""></a>
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
@@ -96,21 +96,21 @@
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
-					<a href="">시리즈</a>
+					<a href="/link/series/home.do">시리즈</a>
 				</div>
 				<a href=""><img style="position: relative;" src="resources/images/video.png" alt=""></a>
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
-					<a href="">TV</a>
+					<a href="/link/tv/home.do">TV</a>
 				</div>
-				<a href=""><img style="position: relative;" src="resources/images/tv.png" alt=""></a>
+				<a href="/link/tv/home.do""><img style="position: relative;" src="resources/images/tv.png"  alt=""></a>
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
-					<a href="">가계부</a>
+					<a href="/link/accountbook/expense.do">가계부</a>
 				</div>
-				<a href=""><img src="resources/images/gage.png" alt=""></a>
+				<a href="/link/accountbook/expense.do"><img src="resources/images/gage.png" alt=""></a>
 			</div>
 		</div>
 

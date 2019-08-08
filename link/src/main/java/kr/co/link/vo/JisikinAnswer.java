@@ -5,15 +5,28 @@ import java.util.Date;
 public class JisikinAnswer {
 
 	private Integer no;
-	private String writer;
 	private Date createDate;
+	private String contents;
 	private String selectedYn;
 	private String secretYn;
 	private Integer jisikinNo;
-	private Integer recommend;
 	private String userId;
 	
 	public JisikinAnswer() {}
+
+	
+	
+	public String getContents() {
+		return contents;
+	}
+
+
+
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
+
+
 
 	public Integer getNo() {
 		return no;
@@ -21,14 +34,6 @@ public class JisikinAnswer {
 
 	public void setNo(Integer no) {
 		this.no = no;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 
 	public Date getCreateDate() {
@@ -63,13 +68,6 @@ public class JisikinAnswer {
 		this.jisikinNo = jisikinNo;
 	}
 
-	public Integer getRecommend() {
-		return recommend;
-	}
-
-	public void setRecommend(Integer recommend) {
-		this.recommend = recommend;
-	}
 
 	public String getUserId() {
 		return userId;
@@ -79,5 +77,8 @@ public class JisikinAnswer {
 		this.userId = userId;
 	}
 	
+	
+	// timeago
+	public long getCreateTime() { return createDate.getTime(); }
 	
 }

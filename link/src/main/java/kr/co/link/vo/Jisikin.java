@@ -1,21 +1,67 @@
 package kr.co.link.vo;
 
 import java.util.Date;
+import java.util.List;
+
 
 public class Jisikin {
 
 	private Integer no;
 	private String title;
 	private String contents;
-	private Integer categoryNo;
+	private JisikinCategory category;
 	private String deadLineYn;
 	private String secretYn;
 	private Date createDate;
 	private Integer mentalPoint;
 	private Integer recommend;
 	private String userId;
+	private Integer viewCnt;
+	
+	private Integer countAnswer;
+	
+	private List<JisikinTag> tags;
+	
 	
 	public Jisikin() {}
+
+	
+	
+	public Integer getViewCnt() {
+		return viewCnt;
+	}
+
+
+
+	public void setViewCnt(Integer viewCnt) {
+		this.viewCnt = viewCnt;
+	}
+
+
+
+	public List<JisikinTag> getTags() {
+		return tags;
+	}
+
+
+
+	public void setTags(List<JisikinTag> tags) {
+		this.tags = tags;
+	}
+
+
+
+	public Integer getCountAnswer() {
+		return countAnswer;
+	}
+
+
+
+	public void setCountAnswer(Integer countAnswer) {
+		this.countAnswer = countAnswer;
+	}
+
+
 
 	public Integer getNo() {
 		return no;
@@ -41,12 +87,12 @@ public class Jisikin {
 		this.contents = contents;
 	}
 
-	public Integer getCategoryNo() {
-		return categoryNo;
+	public JisikinCategory getCategory() {
+		return category;
 	}
 
-	public void setCategoryNo(Integer categoryNo) {
-		this.categoryNo = categoryNo;
+	public void setCategory(JisikinCategory category) {
+		this.category = category;
 	}
 
 	public String getDeadLineYn() {
@@ -96,6 +142,8 @@ public class Jisikin {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 	
-	
+	// timeago
+	public long getCreateTime() { return createDate.getTime(); }
 }

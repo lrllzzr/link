@@ -327,5 +327,4 @@ public class BlogMyController {
 		model.addAttribute("subCategories", blogSubCategories);
 		return "blog/detail/write";
 	}
-
 }

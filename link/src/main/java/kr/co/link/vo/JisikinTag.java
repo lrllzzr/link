@@ -5,8 +5,23 @@ public class JisikinTag {
 	private Integer no;
 	private String tagName;
 	private Integer jisikinNo;
+	private Integer countTag;
 	
 	public JisikinTag() {}
+
+	
+	
+	public Integer getCountTag() {
+		return countTag;
+	}
+
+
+
+	public void setCountTag(Integer countTag) {
+		this.countTag = countTag;
+	}
+
+
 
 	public Integer getNo() {
 		return no;

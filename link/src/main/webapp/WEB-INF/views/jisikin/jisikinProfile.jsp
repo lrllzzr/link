@@ -66,7 +66,7 @@
 				
 				
 				
-					<a href="#" onclick="nhn.Kin.Utility.nClicks('prf.imgedit', '', '', event);nhn.Kin.checkRosAndGoUrl(event, '/myinfo/namecardProfileForm.nhn?openProfilePopup=Y', '');return false;" class="edit_photo _ros" target="_blank">
+					<a href="#" class="edit_photo _ros" target="_blank">
 						<span class="photo_edit_button">
 							<span class="blind">프로필 사진 변경</span>
 						</span>
@@ -76,14 +76,14 @@
 			</div>
 			<div class="profile_info">
 				<div class="profile_name">
-					<strong class="profile_user">allman956</strong>
+					<strong class="profile_user">${param.userId }</strong>
 					
 				</div>
 				
 				
 				
 				
-					<div class="profile_answer_date">최초답변일 <span>2008.04.07.</span></div>
+					<div class="profile_answer_date">최초답변일 <span>${firstAnswerById }</span></div>
 				
 				
 			</div>
@@ -96,27 +96,27 @@
 				<div class="lv_area grd_lv4">
 				
 					<ul class="lv_cnt">
-					<li><em class="tit">전체답변</em><p class="num" id="total_answer">27</p></li>
-					<li><em class="tit">채택답변</em><p class="num" id="total_best">6</p></li>
-					<li><em class="tit">답변채택률</em><p class="num" id="best_rate">37.5%</p></li>
+					<li><em class="tit">전체답변</em><p class="num" id="total_answer">${countAllAnswerById }</p></li>
+					<li><em class="tit">채택답변</em><p class="num" id="total_best">${countSelectById }</p></li>
+					<li><em class="tit">답변채택률</em><p class="num" id="best_rate">${selectPercent }%</p></li>
 					</ul>
 				</div>
 				
 				<dl class="my_spec">
 				
 					<dt>내공순위</dt>
-					<dd><strong>11,838,056</strong>위</dd>
+					<dd><strong>${rankMentalPointById }</strong>위</dd>
 				
 				<dt>질문</dt>
 				<dd>
-					<span class="q_list">전체질문 <strong>126건</strong></span>
-					<span class="q_list rec_text">답변 받은 질문 <strong>84건</strong></span>
-					<span class="q_list">전체마감률 <strong>95.2%</strong></span>
-					<span class="q_list rec_text">답변채택률 <strong>94%</strong></span>
+					<span class="q_list">전체질문 <strong>${countAllJisikinById }건</strong></span>
+					<span class="q_list rec_text">답변 받은 질문 <strong>${countJisikinSelectById }건</strong></span>
+					<span class="q_list">전체마감률 <strong>${deadLineById }%</strong></span>
+					<span class="q_list rec_text">답변채택률 <strong>${selectPercent }%</strong></span>
 				</dd>
 				<dt>받은추천</dt>
 				<dd>
-					<span class="q_list">좋아요 <strong>6</strong></span>
+					<span class="q_list">좋아요 <strong>${recommendById }</strong></span>
 				</dd>
 
 				</dl>
@@ -131,7 +131,7 @@
 					        <div class="content_area">
 					            <em class="tit">도움을 준 사람 수 <a href="#" class="_helperLayerOpenBtn" onclick="nhn.Kin.Utility.nClicks('prf.helptip', '', '', event);"><img src="https://ssl.pstatic.net/static/kin/09renewal/ico_help.png" width="16" height="16" alt="도움말"></a></em>
 					            <div class="count">
-					                <span class="num">27</span>
+					                <span class="num">${countHelpUserById }</span>
 					            </div>
 					        </div>
 					    </div>
@@ -150,26 +150,20 @@
 	<h2 class="snb_title blind">프로필</h2>
 	<ul class="snb_list">
         <li>
-			<a href="#" class="" id="subMenuOfMykin">    홈</a>
+			<a href="/link/jisikin/profile.do?userId=${LOGIN_USER.id }" class="" id="subMenuOfMykin">    홈</a>
 			
 			
 		</li>
         
 		<li>
-			<a href="#" class="my-answer" id="subMenuOfMykin">나의 답변 <span class="num">(27)</span></a>
+			<a href="#" class="my-answer" id="subMenuOfMykin">나의 답변 <span class="num">(${myAnswer.size() })</span></a>
 			
 			
 		</li>
-		<li><a href="#" class="my-q">나의 질문 <span class="num">(126)</span></a></li>
-			<ul class="sub">
-				<li><a href="#">받은 질문 <span class="num">(0)</span></a></li>
-				<li><a href="#">보낸 질문 <span class="num">(4)</span></a></li>
-			</ul>
+		<li><a href="#" class="my-q">나의 질문 <span class="num">(${myJisikin.size() })</span></a></li>
 		<li class="">
-			<a href="/myinfo/namecardProfileForm.nhn">관리</a>
 			<ul class="sub">
-				<li><a href="/myinfo/namecardProfileForm.nhn">기본정보</a></li>
-				<li><a href="/myinfo/pointHistory.nhn">내공<span class="num">(1,700)</span></a></li>
+				<li><a href="/myinfo/pointHistory.nhn">내공<span class="num">(${LOGIN_USER.mentalPoint })</span></a></li>
 			</ul>
 		</li>
 	</ul>
@@ -187,7 +181,7 @@
     <h4 class="h_my_title ">
 
             <img src="/link/resources/images/my-answer.PNG" width="64" height="22" alt="나의 답변">
-            <span class="eng">(27)</span>
+            <span class="eng">(${myAnswer.size() })</span>
     </h4>
         <table cellspacing="0" class="boardtype2 th_border my_table" width="100%">
         <caption><span class="blind">나의 답변 목록으로 제목, 디렉토리, 채택, 표정, 작성</span></caption>
@@ -203,7 +197,6 @@
         <th scope="col" class="title">제목</th>	
         <th scope="col">디렉토리</th>
         <th scope="col">채택</th>  
-        <th scope="col">추천</th>
         <th scope="col" class="title">작성</th>
         </tr>
         <tr>
@@ -212,339 +205,61 @@
         </thead>
         <tbody>
 
-
+	<c:forEach var="ma" items="${myAnswer }" begin="0" end="2" varStatus="status">
         <tr>
         <td class="qna">
             <dl class="dlist_qna">
             <dt>
                 <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
-                <a href="/qna/mydetail.nhn?dirId=110207&amp;docId=32615805&amp;answerNo=3" onclick="nhn.Kin.Utility.nClicks('myh.', '110207_32615805', '1', event);">미로찾기좀도와주세요</a>
+                <a href="/link/jisikin/questionDetail.do?jisikinNo=${myAnswerQuestion[status.index].no }">${myAnswerQuestion[status.index].title }</a>
 
             </dt>
             <dd>
-                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>HYO~ FINISH~!
-    겨우 끝냈어요~!
-
-    근데 내가 볼때만 해도 아무도 없엇는데 위에 다른분들이 ㅡ.ㅜ....
-    흑흑..
+                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>${ma.contents }
             </dd>
             </dl>
         </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=110207">학교생활</a></td>
+        <td class="field"><a href="/qna/list.nhn?dirId=110207">${myAnswerQuestion[status.index].category.name }</a></td>
         <td class="field">
 
 
 
-                <em>완료</em>
+                <em>${ma.selectedYn }</em>
 
         </td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2009.06.06.</td>
+        <td class="t_num tc"><fmt:formatDate value="${ma.createDate }" pattern="yyyy.MM.dd"/></td>
         </tr>
 
-
-
-
-        <tr>
-        <td class="qna">
-            <dl class="dlist_qna">
-            <dt>
-                <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
-                <a href="/qna/mydetail.nhn?dirId=50101&amp;docId=27203419&amp;answerNo=4" onclick="nhn.Kin.Utility.nClicks('myh.', '50101_27203419', '2', event);">제일싼 터치폰</a>
-
-            </dt>
-            <dd>
-                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>안녕하세요
-
-    제일싼터치폰이라면 뷰티폰이죠.. 가격은 20~30만원대이고요
-    그치만 단종됫을수도,..
-    풀터치가 아니라면 비키니폰도 괜찮 인건...
-            </dd>
-            </dl>
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=50101">휴대전화</a></td>
-        <td class="field">
-
-
-
-        </td>
-        <td class="t_num"><span class="recomm">2</span></td>
-        <td class="t_num tc">2009.04.05.</td>
-        </tr>
-
-
-
-
-        <tr>
-        <td class="qna">
-            <dl class="dlist_qna">
-            <dt>
-                <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
-                <a href="/qna/mydetail.nhn?dirId=110307&amp;docId=32761011&amp;answerNo=3" onclick="nhn.Kin.Utility.nClicks('myh.', '110307_32761011', '3', event);">좋아하는남자애가있는데요ㅠㅇㅠ</a>
-
-            </dt>
-            <dd>
-                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>만나시면 복도에서 쿨하게 안녕,잘지내냐? 등 말해보고
-    아직도 맘이 있으심 잘 사귀고 있냐고 물어봐요
-            </dd>
-            </dl>
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=110307">학교생활</a></td>
-        <td class="field">
-
-
-
-        </td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2009.03.29.</td>
-        </tr>
-
-
-
-
-        <tr>
-        <td class="qna">
-            <dl class="dlist_qna">
-            <dt>
-                <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
-                <a href="/qna/mydetail.nhn?dirId=110307&amp;docId=33566903&amp;answerNo=2" onclick="nhn.Kin.Utility.nClicks('myh.', '110307_33566903', '4', event);">여자친구를사귀고싶은데..</a>
-
-            </dt>
-            <dd>
-                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>무지 뭘 하고싶다는건지....ㅎㅎ;
-
-    자신감을 갖고 그냥 고백해봐요!
-            </dd>
-            </dl>
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=110307">학교생활</a></td>
-        <td class="field">
-
-
-                <em>마감</em>
-
-
-        </td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2009.03.29.</td>
-        </tr>
-
-
-
-
-        <tr>
-        <td class="qna">
-            <dl class="dlist_qna">
-            <dt>
-                <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
-                <a href="/qna/mydetail.nhn?dirId=110307&amp;docId=32763073&amp;answerNo=3" onclick="nhn.Kin.Utility.nClicks('myh.', '110307_32763073', '5', event);">성적에 관해서 내공50겁니다</a>
-
-            </dt>
-            <dd>
-                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>안녕하세요~! 저도 공부에 매달려서 살려고하는 중2학생입니다.
-    저도뭐 공부를 썩 잘하진 않지만 저희 학교에서 전교 5등입니다.
-    자기소개...
-            </dd>
-            </dl>
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=110307">학교생활</a></td>
-        <td class="field">
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="16" height="20" class="medal_1" title="질문자 채택" alt="질문자 채택">
-
-
-
-        </td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2009.03.28.</td>
-        </tr>
-        
-        
+	</c:forEach>
+              
         <!-- 더보기 -->
+	<c:forEach var="ma" items="${myAnswer }" begin="3" varStatus="status">
         <tr class="more-answer" style="display: none;">
         <td class="qna">
             <dl class="dlist_qna">
             <dt>
                 <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
-                <a href="/qna/mydetail.nhn?dirId=110307&amp;docId=32763073&amp;answerNo=3" onclick="nhn.Kin.Utility.nClicks('myh.', '110307_32763073', '5', event);">성적에 관해서 내공50겁니다</a>
+                <a href="/link/jisikin/questionDetail.do?jisikinNo=${myAnswerQuestion[status.index].no }">${myAnswerQuestion[status.index].title }</a>
 
             </dt>
             <dd>
-                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>안녕하세요~! 저도 공부에 매달려서 살려고하는 중2학생입니다.
-    저도뭐 공부를 썩 잘하진 않지만 저희 학교에서 전교 5등입니다.
-    자기소개...
+                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>${ma.contents }
             </dd>
             </dl>
         </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=110307">학교생활</a></td>
+        <td class="field"><a href="/qna/list.nhn?dirId=110207">${myAnswerQuestion[status.index].category.name }</a></td>
         <td class="field">
 
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="16" height="20" class="medal_1" title="질문자 채택" alt="질문자 채택">
 
 
+                <em>${ma.selectedYn }</em>
 
         </td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2009.03.28.</td>
+        <td class="t_num tc"><fmt:formatDate value="${ma.createDate }" pattern="yyyy.MM.dd"/></td>
         </tr>
-        <tr class="more-answer" style="display: none;">
-        <td class="qna">
-            <dl class="dlist_qna">
-            <dt>
-                <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
-                <a href="/qna/mydetail.nhn?dirId=110307&amp;docId=32763073&amp;answerNo=3" onclick="nhn.Kin.Utility.nClicks('myh.', '110307_32763073', '5', event);">성적에 관해서 내공50겁니다</a>
 
-            </dt>
-            <dd>
-                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>안녕하세요~! 저도 공부에 매달려서 살려고하는 중2학생입니다.
-    저도뭐 공부를 썩 잘하진 않지만 저희 학교에서 전교 5등입니다.
-    자기소개...
-            </dd>
-            </dl>
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=110307">학교생활</a></td>
-        <td class="field">
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="16" height="20" class="medal_1" title="질문자 채택" alt="질문자 채택">
-
-
-
-        </td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2009.03.28.</td>
-        </tr>
-        <tr class="more-answer" style="display: none;">
-        <td class="qna">
-            <dl class="dlist_qna">
-            <dt>
-                <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
-                <a href="/qna/mydetail.nhn?dirId=110307&amp;docId=32763073&amp;answerNo=3" onclick="nhn.Kin.Utility.nClicks('myh.', '110307_32763073', '5', event);">성적에 관해서 내공50겁니다</a>
-
-            </dt>
-            <dd>
-                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>안녕하세요~! 저도 공부에 매달려서 살려고하는 중2학생입니다.
-    저도뭐 공부를 썩 잘하진 않지만 저희 학교에서 전교 5등입니다.
-    자기소개...
-            </dd>
-            </dl>
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=110307">학교생활</a></td>
-        <td class="field">
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="16" height="20" class="medal_1" title="질문자 채택" alt="질문자 채택">
-
-
-
-        </td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2009.03.28.</td>
-        </tr>
-        <tr class="more-answer" style="display: none;">
-        <td class="qna">
-            <dl class="dlist_qna">
-            <dt>
-                <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
-                <a href="/qna/mydetail.nhn?dirId=110307&amp;docId=32763073&amp;answerNo=3" onclick="nhn.Kin.Utility.nClicks('myh.', '110307_32763073', '5', event);">성적에 관해서 내공50겁니다</a>
-
-            </dt>
-            <dd>
-                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>안녕하세요~! 저도 공부에 매달려서 살려고하는 중2학생입니다.
-    저도뭐 공부를 썩 잘하진 않지만 저희 학교에서 전교 5등입니다.
-    자기소개...
-            </dd>
-            </dl>
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=110307">학교생활</a></td>
-        <td class="field">
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="16" height="20" class="medal_1" title="질문자 채택" alt="질문자 채택">
-
-
-
-        </td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2009.03.28.</td>
-        </tr>
-        <tr class="more-answer" style="display: none;">
-        <td class="qna">
-            <dl class="dlist_qna">
-            <dt>
-                <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
-                <a href="/qna/mydetail.nhn?dirId=110307&amp;docId=32763073&amp;answerNo=3" onclick="nhn.Kin.Utility.nClicks('myh.', '110307_32763073', '5', event);">성적에 관해서 내공50겁니다</a>
-
-            </dt>
-            <dd>
-                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>안녕하세요~! 저도 공부에 매달려서 살려고하는 중2학생입니다.
-    저도뭐 공부를 썩 잘하진 않지만 저희 학교에서 전교 5등입니다.
-    자기소개...
-            </dd>
-            </dl>
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=110307">학교생활</a></td>
-        <td class="field">
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="16" height="20" class="medal_1" title="질문자 채택" alt="질문자 채택">
-
-
-
-        </td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2009.03.28.</td>
-        </tr>
-        <tr class="more-answer" style="display: none;">
-        <td class="qna">
-            <dl class="dlist_qna">
-            <dt>
-                <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
-                <a href="/qna/mydetail.nhn?dirId=110307&amp;docId=32763073&amp;answerNo=3" onclick="nhn.Kin.Utility.nClicks('myh.', '110307_32763073', '5', event);">성적에 관해서 내공50겁니다</a>
-
-            </dt>
-            <dd>
-                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>안녕하세요~! 저도 공부에 매달려서 살려고하는 중2학생입니다.
-    저도뭐 공부를 썩 잘하진 않지만 저희 학교에서 전교 5등입니다.
-    자기소개...
-            </dd>
-            </dl>
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=110307">학교생활</a></td>
-        <td class="field">
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="16" height="20" class="medal_1" title="질문자 채택" alt="질문자 채택">
-
-
-
-        </td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2009.03.28.</td>
-        </tr>
-        <tr class="more-answer" style="display: none;">
-        <td class="qna">
-            <dl class="dlist_qna">
-            <dt>
-                <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
-                <a href="/qna/mydetail.nhn?dirId=110307&amp;docId=32763073&amp;answerNo=3" onclick="nhn.Kin.Utility.nClicks('myh.', '110307_32763073', '5', event);">성적에 관해서 내공50겁니다</a>
-
-            </dt>
-            <dd>
-                <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>안녕하세요~! 저도 공부에 매달려서 살려고하는 중2학생입니다.
-    저도뭐 공부를 썩 잘하진 않지만 저희 학교에서 전교 5등입니다.
-    자기소개...
-            </dd>
-            </dl>
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=110307">학교생활</a></td>
-        <td class="field">
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="16" height="20" class="medal_1" title="질문자 채택" alt="질문자 채택">
-
-
-
-        </td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2009.03.28.</td>
-        </tr>
-        <!-- 더보기 -->
-
+	</c:forEach>
+        <!-- 더보기 --> 
         </tbody>
         </table>
 </div>
@@ -555,7 +270,7 @@
 <div class="profile-question">
     <h4 class="h_my_title">
         <img src="/link/resources/images/my-question.PNG"  width="64" height="22" alt="나의 질문">
-        <span class="eng">(126)</span>
+        <span class="eng">(${myJisikin.size() })</span>
 
         <span class="highlight">답변채택을 기다리는 질문이 <strong>4</strong>개 있습니다.</span>
     </h4>
@@ -584,261 +299,38 @@
         </thead>
         <tbody id="au_board_list_1">
 
+	<c:forEach var="mj" items="${myJisikin }" begin="0" end="3">
         <tr>
         <td class="title">
-
-
-            <a href="/qna/detail.nhn?d1id=1&amp;dirId=1040205&amp;docId=240366662" rel="KIN" onclick="nhn.Kin.Utility.nClicks('myh.qlist', '1040205_240366662', '1', event);">html 소스 관련 질문드립니다.</a>
-
-
+            <a href="/link/jisikin/questionDetail.do?jisikinNo=${mj.no}" rel="KIN">${mj.title }</a>
                 <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
         </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=1040205">HTML</a></td>
+        <td class="field"><a href="/qna/list.nhn?dirId=1040205">${mj.category.name }</a></td>
         <td class="field">
-
-
+        ${mj.deadLineYn }
         </td>
-        <td class="t_num">2</td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2015.12.10.</td>
+        <td class="t_num">${mj.countAnswer }</td>
+        <td class="t_num"><span class="recomm">${mj.recommend }</span></td>
+        <td class="t_num tc"><fmt:formatDate value="${mj.createDate }" pattern="yyyy.MM.dd"/></td>
         </tr>
+	</c:forEach>
 
-        <tr>
-        <td class="title">
-
-
-            <a href="/qna/detail.nhn?d1id=1&amp;dirId=1040205&amp;docId=239629275" rel="KIN" onclick="nhn.Kin.Utility.nClicks('myh.qlist', '1040205_239629275', '2', event);">html 홈페이지 소스 질문입니다!</a>
-
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=1040205">HTML</a></td>
-        <td class="field">
-
-
-        </td>
-        <td class="t_num">2</td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2015.11.30.</td>
-        </tr>
-
-        <tr>
-        <td class="title">
-
-
-            <a href="/qna/detail.nhn?d1id=11&amp;dirId=110503&amp;docId=238738739" rel="KIN" onclick="nhn.Kin.Utility.nClicks('myh.qlist', '110503_238738739', '3', event);">국가장학금에 대해 궁금한게있는데요..</a>
-
-
-
-
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=110503">학사 행정, 제도</a></td>
-        <td class="field">
-
-
-        </td>
-        <td class="t_num">1</td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2015.11.17.</td>
-        </tr>
-
-        <tr>
-        <td class="title">
-
-
-            <a href="/qna/detail.nhn?d1id=6&amp;dirId=60302&amp;docId=235424093" rel="KIN" onclick="nhn.Kin.Utility.nClicks('myh.qlist', '60302_235424093', '4', event);">동반입대 문의</a>
-
-
-
-
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=60302">입영 신청, 연기</a></td>
-        <td class="field">
-
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="16" height="20" class="medal_1" title="질문자 채택" alt="질문자 채택">
-
-        </td>
-        <td class="t_num">1</td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2015.09.30.</td>
-        </tr>
-
-        <tr>
-        <td class="title">
-
-
-            <a href="/qna/detail.nhn?d1id=6&amp;dirId=6030204&amp;docId=233156741" rel="KIN" onclick="nhn.Kin.Utility.nClicks('myh.qlist', '6030204_233156741', '5', event);">의경 지원 가능 여부에 대해...</a>
-
-
-
-
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=6030204">전경, 의경</a></td>
-        <td class="field">
-
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="16" height="20" class="medal_1" title="질문자 채택" alt="질문자 채택">
-
-        </td>
-        <td class="t_num">1</td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2015.08.29.</td>
-        </tr>
         <!-- 더보기 -->
+	<c:forEach var="mj2" items="${myJisikin }" begin="4">
         <tr class="more-question" style="display: none;">
-        <td class="title">
-
-
-            <a href="/qna/detail.nhn?d1id=1&amp;dirId=1040205&amp;docId=239629275" rel="KIN" onclick="nhn.Kin.Utility.nClicks('myh.qlist', '1040205_239629275', '2', event);">html 홈페이지 소스 질문입니다!</a>
-
-
+          <td class="title">
+            <a href="/link/jisikin/questionDetail.do?jisikinNo=${mj2.no}" rel="KIN">${mj2.title }</a>
                 <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
         </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=1040205">HTML</a></td>
+        <td class="field"><a href="/qna/list.nhn?dirId=1040205">${mj2.category.name }</a></td>
         <td class="field">
-
-
+        ${mj.deadLineYn }
         </td>
-        <td class="t_num">2</td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2015.11.30.</td>
+        <td class="t_num">${mj2.countAnswer }</td>
+        <td class="t_num"><span class="recomm">${mj2.recommend }</span></td>
+        <td class="t_num tc"><fmt:formatDate value="${mj2.createDate }" pattern="yyyy.MM.dd"/></td>
         </tr>
-        <tr class="more-question" style="display: none;">
-        <td class="title">
-
-
-            <a href="/qna/detail.nhn?d1id=1&amp;dirId=1040205&amp;docId=239629275" rel="KIN" onclick="nhn.Kin.Utility.nClicks('myh.qlist', '1040205_239629275', '2', event);">html 홈페이지 소스 질문입니다!</a>
-
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=1040205">HTML</a></td>
-        <td class="field">
-
-
-        </td>
-        <td class="t_num">2</td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2015.11.30.</td>
-        </tr>
-        <tr class="more-question" style="display: none;">
-        <td class="title">
-
-
-            <a href="/qna/detail.nhn?d1id=1&amp;dirId=1040205&amp;docId=239629275" rel="KIN" onclick="nhn.Kin.Utility.nClicks('myh.qlist', '1040205_239629275', '2', event);">html 홈페이지 소스 질문입니다!</a>
-
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=1040205">HTML</a></td>
-        <td class="field">
-
-
-        </td>
-        <td class="t_num">2</td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2015.11.30.</td>
-        </tr>
-        <tr class="more-question" style="display: none;">
-        <td class="title">
-
-
-            <a href="/qna/detail.nhn?d1id=1&amp;dirId=1040205&amp;docId=239629275" rel="KIN" onclick="nhn.Kin.Utility.nClicks('myh.qlist', '1040205_239629275', '2', event);">html 홈페이지 소스 질문입니다!</a>
-
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=1040205">HTML</a></td>
-        <td class="field">
-
-
-        </td>
-        <td class="t_num">2</td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2015.11.30.</td>
-        </tr>
-        <tr class="more-question" style="display: none;">
-        <td class="title">
-
-
-            <a href="/qna/detail.nhn?d1id=1&amp;dirId=1040205&amp;docId=239629275" rel="KIN" onclick="nhn.Kin.Utility.nClicks('myh.qlist', '1040205_239629275', '2', event);">html 홈페이지 소스 질문입니다!</a>
-
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=1040205">HTML</a></td>
-        <td class="field">
-
-
-        </td>
-        <td class="t_num">2</td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2015.11.30.</td>
-        </tr>
-        <tr class="more-question" style="display: none;">
-        <td class="title">
-
-
-            <a href="/qna/detail.nhn?d1id=1&amp;dirId=1040205&amp;docId=239629275" rel="KIN" onclick="nhn.Kin.Utility.nClicks('myh.qlist', '1040205_239629275', '2', event);">html 홈페이지 소스 질문입니다!</a>
-
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=1040205">HTML</a></td>
-        <td class="field">
-
-
-        </td>
-        <td class="t_num">2</td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2015.11.30.</td>
-        </tr>
-        <tr class="more-question" style="display: none;">
-        <td class="title">
-
-
-            <a href="/qna/detail.nhn?d1id=1&amp;dirId=1040205&amp;docId=239629275" rel="KIN" onclick="nhn.Kin.Utility.nClicks('myh.qlist', '1040205_239629275', '2', event);">html 홈페이지 소스 질문입니다!</a>
-
-
-                <img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="13" height="14" alt="이미지첨부" class="pic2 is_img">
-
-
-
-        </td>
-        <td class="field"><a href="/qna/list.nhn?dirId=1040205">HTML</a></td>
-        <td class="field">
-
-
-        </td>
-        <td class="t_num">2</td>
-        <td class="t_num"><span class="recomm">0</span></td>
-        <td class="t_num tc">2015.11.30.</td>
-        </tr>
+	</c:forEach>
         <!-- 더보기 -->
 
         </tbody>
