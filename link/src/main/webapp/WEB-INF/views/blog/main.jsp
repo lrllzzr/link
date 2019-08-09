@@ -81,6 +81,7 @@
 							<c:choose>
 								<c:when test="${isHaveBlog eq 'yes' }">
 									<c:if test="${not empty blogList}">
+									<div class="blog_neighbor_list_main_1">
 										<c:forEach var="blog" items="${blogList}">
 											<div class="blog-hrdiv">
 												<hr class="blog-row-hr-2" />
@@ -121,7 +122,8 @@
 
 											</div>
 										</c:forEach>
-										<div class="row">
+										</div>
+										<div class="row blog_pagination_row">
 											<div class="col-sm-12 text-center">
 												<ul class="pagination" id="pagination-box">
 													<c:choose>
@@ -402,6 +404,97 @@
 			$('.blog-neighbor-contents img').hide();
 			$('#1').addClass('blog_detail_page_1_selected');
 
+			// 나의이웃 페이지네이션
+			$("body").on('click','#pagination-box a', function(event) {
+				event.preventDefault();
+				$(this).addClass('blog_detail_page_1_selected').parent().siblings().find('a').removeClass('blog_detail_page_1_selected');
+				
+				var pageNo = $(this).attr("data-pno");
+				
+				$.ajax({
+					type:"GET",
+					url:"neighborAjax.do",
+					data:{
+						pageNo : pageNo
+					},
+					success:function(result){
+						$('.blog_neighbor_list_main_1').empty();
+						$('.blog_pagination_row').empty();
+						
+						$.each(result.blogLists,function(index,blog){
+							var row = ' <div class="blog-hrdiv">';
+							row += '		<hr class="blog-row-hr-2" />';
+							row += '	</div>';
+							row += '	<div class="row blog-main-col-2-1 blog-main-col-2-1-1">';
+							row += '		<div class="col-sm-9">';
+							row += '			<div class="row">';
+							row += '				<div class="col-sm-1 blog-neighbor-col1">';
+							row += '					<img class="blog-row-2-profile-img" src="/link/resources/images/'+blog.BLOGMAINIMG+'" alt="">';
+							row += '				</div>';
+							row += '				<div class="col-sm-2 blog-neighbor-col2">';
+							row += '					<div class="row">';
+							row += '						<div class="col-sm-12">';
+							row += '							<a href="">'+blog.NICKNAME+'</a>';
+							row += '						</div>';
+							row += '						<div class="col-sm-12">2시간전</div>';
+							row += '					</div>';
+							row += '				</div>';
+							row += '			</div>';
+							row += '			<a href="/link/blog/board.do?blogNo='+blog.NO+'&categoryNo='+blog.CATEGORYNO+'&boardNo='+blog.BOARDNO+'">';
+							row += '				<div class="row blog-neighbor-box">';
+							row += '					<div class="col-sm-12">';
+							row += '						<p class="blog-neighbor-title">'+blog.TITLE+'</p>';
+							row += '					</div>';
+							row += '					<div class="col-sm-12 blog-neighbor-contents3">';
+							row += '						<div class="blog-neighbor-contents">'+blog.CONTENTS+'</div>';
+							row += '					</div>';
+							row += '				</div>';
+							row += '			</a>';
+							row += '		</div>';
+							row += '	<div class="col-sm-3">';
+							row += '		<a href="/link/blog/board.do?blogNo='+blog.BLOGNO+'&categoryNo='+blog.CATEGORYNO+'&boardNo='+blog.BOARDNO+'"> <img style="max-width: 100%;" class="blog-neighbor-img" src="/link/resources/images/userblogimgs/'+blog.BOARDMAINIMG+'">';
+							row += '		</a>';
+							row += '	</div>';
+							row += '</div>';
+							
+							$('.blog_neighbor_list_main_1').append(row);
+							$('.blog-neighbor-contents3 img').hide();
+							$('.blog-neighbor-contents img').hide();	
+						});
+						
+						var pagination = result.pagination;
+						
+						var row2 = '';
+						row2 += '<div class="col-sm-12 text-center">';
+						row2 += '	<ul class="pagination" id="pagination-box">';
+						
+						if(pagination.first){
+							row2 += '<li class="disabled"><span>&laquo;</span></li>';
+						} else{
+							row2 += '<li><a href="" data-pno="'+(pagination.page-1)+'"><span>&laquo;</span></a></li>';
+						}
+						for(var i = pagination.begin; i<=pagination.end; i++){
+							if(pagination.page == i){
+								row2 += '<li><a class="blog_detail_page_1_selected" data-pno="'+i+'">'+i+'</a></li>';
+							} else{
+								row2 += '<li><a href="#" data-pno="'+i+'">'+i+'</a></li>';
+							}
+						}
+						if(pagination.last){
+							row2 += '<li class="disabled"><span>&raquo;</span></li>';
+						} else{
+							row2 += '<li><a href="" data-pno="'+(pagination.page+1)+'"><span>&raquo;</span></a></li>';
+						}
+						row2 += '</ul>';
+						row2 += '</div>';
+						
+						$('.blog_pagination_row').append(row2);
+						
+					}
+				});
+			});
+				
+			
 			// 추천이웃 페이지네이션
 			$('body').on(
 					'click',

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -252,6 +253,7 @@ public class BlogDetailController {
 					}
 					
 				}
+				
 				// 이웃 블로그 페이지네이션 시작
 				Map<String, Object> param = new HashMap<String, Object>();
 				int howManyRows = 3;
@@ -287,7 +289,27 @@ public class BlogDetailController {
 		
 		return "blog/main";
 	}
-	
+	@RequestMapping("neighborAjax.do")
+	public @ResponseBody Map<String,Object> neighborAjax(HttpSession session, Integer pageNo){
+		Map<String, Object> neighborMap = new HashMap<String, Object>();
+		User user = (User) session.getAttribute("LOGIN_USER");
+		Blog blog = blogService.getBlogByUserId(user.getId());
+		int myBlogNo = blog.getNo();
+		
+		// 표시할 줄 갯수
+		int howManyRows = 3;
+		neighborMap.put("myBlogNo",myBlogNo);
+		neighborMap.put("beginIndex", (pageNo - 1)*howManyRows + 1);
+		neighborMap.put("endIndex", pageNo*howManyRows);
+		List<Map<String, Object>> blogLists = blogNeighborService.getPaginationByMap(neighborMap);
+		int records = blogNeighborService.getPaginationByMapRows(myBlogNo);
+		Pagination pagination = new Pagination(pageNo, howManyRows, records);
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("pagination", pagination);
+		param.put("blogLists", blogLists);
+		return param;
+	}
 	@RequestMapping("topicAjax.do")
 	public @ResponseBody Map<String, Object> topicAjax(HttpSession session, String blogType, Integer pno){
 		Map<String, Object> topicMap = new HashMap<String, Object>();
@@ -656,19 +678,8 @@ public class BlogDetailController {
 			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10) {
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo, pno, pno10);
 		model.addAttribute("blogSubCategories",blogSubCategories);
+		return "blog/detail/profile";
 		
-		Blog blog = blogService.getBlogByBlogNo(blogNo);
-		if (blog.getLayout() == 1) {
-			return "blog/detail/profile";
-		}
-		if (blog.getLayout() == 2) {
-			return "blog/detail/profile2";
-		}
-		if (blog.getLayout() == 3) {
-			return "blog/detail/profile3";
-		} else {
-			return "blog/detail/profile4";
-		}
 	}
 	@RequestMapping(value="/addNeighbor.do", method = RequestMethod.GET)
 	public String addNeighbor(Model model, HttpSession session, Integer blogNo) {

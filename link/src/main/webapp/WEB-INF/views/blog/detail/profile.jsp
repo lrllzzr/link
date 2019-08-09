@@ -6,15 +6,8 @@
 	<!-- 네비게이션 끝  -->
 	<div class="container blog_detail_con">
 		<div class="row">
-			<!--  헤더 시작         -->
-			<%@include file="../../common/blog/blogheader.jsp"%>
-			<!--  헤더 끝     -->
-			<!--좌측 nav 시작-->
-			<%@include file="../../common/blog/blogleft.jsp"%>
-			<!--좌측 nav 끝-->
-			<!-- col-sm-9 대신 시작  -->
-			<%@include file="../../common/blog/blogLayout.jsp"%>
-			<!-- col-sm-9 대신 끝  -->
+		<div class="col-sm-12">
+			<div class="col-sm-10 col-sm-offset-1">
 			<!-- 우측 프로필 시작-->
 			<div class="col-sm-12">
 				<div class="row">
@@ -69,6 +62,8 @@
 					</tbody>
 				</table>
 			</div>
+			</div>
+		</div>
 		</div>
 	</div>
 	</div>
