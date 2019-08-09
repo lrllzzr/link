@@ -223,28 +223,28 @@ ul, li {
 	cursor: pointer;
 }
 
-.btn-detail-like:hover {
+.likeOn {
 	color: red;
 }
 
 .btn-detail-comment {
 	font-size: 30px;
-	color: skyblue;
+	color: blue;
 	cursor: pointer;
 }
 
 .btn-detail-comment:hover {
-	color: blue;
+	color: #1D05D8;
 }
 
 .btn-detail-later {
 	font-size: 30px;
-	color: #CECECE;
+	color: black;
 	cursor: pointer;
 }
 
 .btn-detail-later:hover {
-	color: black;
+	color: #141414;
 }
 
 .tv-clip-list {
@@ -341,7 +341,7 @@ ul, li {
 
 
 
-			<div>
+<div>
     <div class="tv-detail-content">
         <div class="row">
             <div class="col-sm-10">
@@ -358,9 +358,9 @@ ul, li {
                             <div>
                                 <h2 class="tv-detail-title">${video.title}</h2>
                                 <div class="pull-right">
-                                    <span class="glyphicon glyphicon-heart btn-detail-like"></span><strong>${video.likes }</strong>
-                                    <span class="glyphicon glyphicon-comment btn-detail-comment"></span><strong>${video.comments }</strong>
-                                    <span class="glyphicon glyphicon-time btn-detail-later" data-vno=${video.no }></span>
+                                    <span class="glyphicon glyphicon-heart btn-detail-like ${status eq 'Like' ? 'likeOn' : '' }" data-likeStatus="${status eq 'Like' ? 'Y' : 'N' }" data-vno=${video.no } data-login="${not empty LOGIN_USER ? 'Y' : 'N' }"></span><span><strong class="like-count">${video.likes }</strong></span>
+                                    <span class="glyphicon glyphicon-comment btn-detail-comment"></span><span><strong>${video.comments }</strong></span>
+                                    <span class="glyphicon glyphicon-time btn-detail-later" data-vno=${video.no } data-login="${not empty LOGIN_USER ? 'Y' : 'N' }"></span>
                                 </div>
                             </div>
                             <div style="color: gray">
@@ -380,10 +380,10 @@ ul, li {
 
                     <div class="row" style="margin-top: 100px;">
                         <div class="col-sm-12">
-                            <form action="addComment.do?vno=${param.vno} " class="form-group">
+                            <form action="addComment.do" class="form-group">
                                 <label>댓글</label>
                                 <textarea class="form-control comment-textarea" data-login="${not empty LOGIN_USER ? 'Y' : 'N'}" style="resize: none;" id="" rows="5"></textarea>
-                                <div><span class="word-check">0</span>/200</div>
+                                <div><strong><span class="word-check">0</span>/200</div></strong>
                                 <button class="btn btn-info pull-right btn-comment-insert" type="submit">등록</button>
                             </form>
                         </div>
@@ -456,6 +456,27 @@ ul, li {
     </div>
 </div>
 
+		<div id="modalFail" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+		    	<span></span>
+		    	<div style="border:2px solid indigo; padding: 15px; font-size: 15px; font-weight: bold;">
+		      	이미 나중에 보기 한 영상입니다.
+		    	</div>	
+		    </div>
+		  </div>
+		</div>
+		
+		<div id="modalSuccess" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+		    	<div style="border:2px solid indigo; padding: 15px; font-size: 15px; font-weight: bold;">
+		      		나중에 보기에 영상을 담았습니다.
+		    	</div>
+		    </div>
+		  </div>
+		</div>
+
 </div>
 </div>
 
@@ -504,74 +525,123 @@ ul, li {
 				
 			// 댓글 글자수 체크
 			
+		
+		$(".comment-textarea").on("keyup", function () {
+			var words = $(this).val().length;
+			$(".word-check").text(words);
 			
-			$(".comment-textarea").on("keyup", function () {
-				var words = $(this).val().length;
-				$(".word-check").text(words);
+			if(words == 0 || words > 200){
+				$(".btn-comment-insert").attr("disabled", true);
+			} else{
 				
-				if(words == 0 || words > 200){
-					$(".btn-comment-insert").attr("disabled", true);
-				} else{
-					
-					$(".btn-comment-insert").attr("disabled", false);
-				}
-			})
+				$(".btn-comment-insert").attr("disabled", false);
+			}
+		})
 			
 			//댓글창 클릭시 로그인 체크
-			$(".comment-textarea").on("focus", function () {
-				var login = $(this).attr("data-login");
-				
-				if(login == 'N'){
-					var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
-					if(YN) {
-						$(".comment-textarea").blur();
-						location.href="/link/loginform.do?returnUrl=tv/detail.do?vno=${param.vno}";
-					}else{
-						$(".comment-textarea").blur();
-					}
-				}
-			})
+		$(".comment-textarea").on("focus", function () {
+			var login = $(this).attr("data-login");
 			
-			// 나중에 보기 AJAX
-	$(".btn-detail-later").on("click", function(event) {
-	
-		var vno = $(this).attr("data-vno");
-		console.log(vno);
-		 $.ajax({
-			type:"POST",
-			url:"addLater.do",
-			data:{"vno":vno},
-			dataType:"text",
-			success:function(result){
-				console.log(result);
-				if(result =='fail'){
-					
+			if(login == 'N'){
+				var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+				if(YN) {
+					$(".comment-textarea").blur();
+					location.href="/link/loginform.do?returnUrl=tv/detail.do?vno=${param.vno}";
+				}else{
+					$(".comment-textarea").blur();
 				}
-				if(result =='success'){
-					
-				}
-			
 			}
-		}) 
-		return false;
-})
+		})
 		
 		
-		
-	$(".chk-user").on("click", function () {
-		 
-		var url = $(this).attr('data-url');
-		var login = $(this).attr('data-login');
-		 
-		if (login == 'Y') {
-			location.href = url;
-		} else {
-			var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?")
-			if(YN){
+		$(".chk-user").on("click", function () {
+			 
+			var url = $(this).attr('data-url');
+			var login = $(this).attr('data-login');
+			 
+			if (login == 'Y') {
 				location.href = url;
+			} else {
+				var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?")
+				if(YN){
+					location.href = url;
+				}
+			}
+		});
+	
+		// 나중에보기 ajax
+	 $(".btn-detail-later").on("click", function(event) {
+			
+		  var vno = $(this).attr("data-vno");
+		  var login = $(this).attr("data-login");
+		  
+		  if(login == 'N'){
+			  var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+			  if(YN){
+				  location.href="/link/loginform.do?returnUrl=tv/detail.do?vno=${param.vno}";
+			  }
+		  }
+		  if(login == 'Y'){
+			  $.ajax({
+				type:"POST",
+				url:"addLater.do",
+				data:{"vno":vno},
+				dataType:"text",
+				success:function(result){
+					if(result =='fail'){
+						$("#modalFail").modal({
+							backdrop: true
+						});
+					}
+					if(result =='success'){
+						$("#modalSuccess").modal({
+							backdrop: true
+						});
+						
+					}
+				
+				}
+			}) 
+		  }
+			return false;
+
+	});
+	
+	 // 좋아요 버튼 ajax (좋아요 취소)
+	$(".btn-detail-like").on("click", function () {
+		var vno = $(this).attr("data-vno");
+		var login = $(this).attr("data-login");
+		var status = $(this).attr("data-likeStatus");
+		 
+		if($(this).hasClass("likeOn")){
+			$(this).removeClass("linkOn");
+		} else{
+			$(this).addClass("linkOn");
+		}
+		
+		if(login == 'N'){
+			var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+			if(YN){
+				location.href="/link/loginform.do?returnUrl=tv/detail.do?vno=${param.vno}";
 			}
 		}
+		if(login == 'Y'){
+			$.ajax({
+				type:"POST",
+				url:"addLike.do",
+				data:{"vno":vno, "status":status},
+				dataType:"text",
+				success:function(result){
+					
+				
+				}
+			}) 
+		}
+		return false;
 	});
+		
+		
+		
 		
 	
 		/*var x = $("#myVideo");

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.link.dao.TvDao;
 import kr.co.link.service.TvLaterService;
+import kr.co.link.service.TvLikeService;
 import kr.co.link.service.TvService;
 import kr.co.link.vo.Tv;
 import kr.co.link.vo.TvLater;
@@ -29,6 +30,9 @@ public class TvhomeController {
 	
 	@Autowired
 	private TvLaterService tvLaterService;
+	
+	@Autowired
+	private TvLikeService tvLikeService;
 	
 	
 	// TV홈 
@@ -177,12 +181,19 @@ public class TvhomeController {
 		tvService.updateVideo(video);
 		
 		List<Tv> playlist =  tvService.getPlaylistByNo(vno);
-		
-		
+		User user = (User)session.getAttribute("LOGIN_USER");
+		if (user != null) {
+			Map<String, Object> info = new HashMap<String, Object>();
+			info.put("userId", user.getId());
+			info.put("vno", vno);
+			int count = tvLikeService.getCountLikeById(info);
+			if (count > 0) {
+				model.addAttribute("status", "Like");
+			}
+		}
 		
 		model.addAttribute("playlist",playlist);
 		model.addAttribute("video",video);
-		
 			
 		return "tv/detail";
 	}
@@ -193,5 +204,20 @@ public class TvhomeController {
 		
 		return "tv/detail";
 	}
+	
+	
+	
+	  // 좋아요 싫어오 ajax
+	@RequestMapping("/addLike.do")
+	@ResponseBody 
+	public int addLike(HttpSession session, int vno, String status) {
+		
+		int count = tvLikeService.getCountByLike(vno);
+		
+		
+		return count;
+	}
+	 
+
 	
 }
