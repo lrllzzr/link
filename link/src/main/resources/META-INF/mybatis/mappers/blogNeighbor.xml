@@ -112,7 +112,6 @@
 		BLOG_NO = #{blogNo}
 </update>
 <select id="getNeighborBlogMap" parameterType="int" resultType="map">
-	
 select row_no, id, nickName, title, categoryNo, boardNo, contents, no, boardMainImg, blogMainImg
 from
     (   select ROW_number() over(partition by a.blog_no order by d.board_create_date) row_no,
@@ -145,7 +144,74 @@ from
     where
         row_no &lt;= 2
 </select>
-
+<select id="getPaginationByMap" parameterType="map" resultType="map">
+select row_no, id, nickName, title, categoryNo, boardNo, contents, no, boardMainImg, blogMainImg
+from
+    (   select ROW_number() over(order by d.board_create_date) row_no,
+            c.user_id id,
+            c.user_nickname nickName,
+            d.board_title title,
+            e.category_no categoryNo,
+            d.board_no boardNo,
+            d.board_contents contents,
+            a.BLOG_NO no,
+            d.board_main_Img boardMainImg,
+            a.blog_main_Img blogMainImg
+        from
+            blog a, blog_neighbor b, users c, blog_boards d, blog_category e, blog_subcategory f
+        where
+            b.blog_no = #{myBlogNo}
+        and
+            a.blog_no = b.neighborhood_no
+        and
+            a.user_id = c.user_id
+        and
+            f.blog_no = a.blog_no
+        and
+            f.subcategory_no = e.subcategory_no
+        and
+            e.category_no = d.category_no
+        and
+            b.neighborhood_type = 'All'
+        )
+    where
+        row_no &lt;= #{endIndex}
+    and
+    	row_no >= #{beginIndex}
+    	
+</select>
+<select id="getPaginationByMapRows" parameterType="int" resultType="int">
+select
+	count(*)
+from
+    (   select ROW_number() over(order by d.board_create_date) row_no,
+            c.user_id id,
+            c.user_nickname nickName,
+            d.board_title title,
+            e.category_no categoryNo,
+            d.board_no boardNo,
+            d.board_contents contents,
+            a.BLOG_NO no,
+            d.board_main_Img boardMainImg,
+            a.blog_main_Img blogMainImg
+        from
+            blog a, blog_neighbor b, users c, blog_boards d, blog_category e, blog_subcategory f
+        where
+            b.blog_no = #{value}
+        and
+            a.blog_no = b.neighborhood_no
+        and
+            a.user_id = c.user_id
+        and
+            f.blog_no = a.blog_no
+        and
+            f.subcategory_no = e.subcategory_no
+        and
+            e.category_no = d.category_no
+        and
+            b.neighborhood_type = 'All'
+        )
+</select>
 <select id="isNeighbor" parameterType="map" resultType="int">
 	select 
 		b.neighborhood_no

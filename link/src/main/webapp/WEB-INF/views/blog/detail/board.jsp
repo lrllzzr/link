@@ -16,7 +16,7 @@
 			<%@include file="../../common/blog/blogright.jsp"%>
 			<!--  우측 공통부분 헤더 끝-->
 			<!--                    우측 게시판 두번째 nav 시작-->
-			<div class="col-sm-12 blog_detail_right_row1">
+			<div class="col-sm-12 blog_detail_right_row1" style="margin-top: 0px;">
 				<!--  우측 게시판 글 하나 시작-->
 				<div class="col-sm-12">
 					<div class="row">

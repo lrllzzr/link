@@ -14,7 +14,7 @@
 			<span class="glyphicon glyphicon-menu-down down1"></span>
 		</span>
 	</div>
-	<c:if test="${param.blogNo eq myblog.no }">
+	<c:if test="${param.blogNo eq myBlog.no }">
 		<div class="col-sm-3 blog_board_comment_box1 text-right">
 			<button id="blog_board_update_btn" class="btn btn-default btn-sm">수정</button>
 			<button id="blog_board_delete_btn" class="btn btn-default btn-sm">삭제</button>
@@ -88,7 +88,7 @@
 				<div class="blog_board_comment_box2" style="padding: 15px;">
 					<div class="row">
 						<div class="col-sm-12">
-							<span id="blog_comment_write">댓글쓰기</span>
+							<span id="blog_comment_write" style="border:0.5px solid lightgray; padding:5px;">댓글쓰기</span>
 						</div>
 						<div class="col-sm-12">
 							<hr style="border: 0.5px solid lightgray;" />

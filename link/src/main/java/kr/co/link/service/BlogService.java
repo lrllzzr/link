@@ -18,4 +18,5 @@ public interface BlogService {
 	void setBasicBlog(Blog blog, User user, String filename);
 	List<Blog> getAllblogs();
 	List<Map<String, Object>> getAllBlogsByType(Map<String, Object> map);
+	Integer getBlogsCountByType(Map<String, Object> map);
 }

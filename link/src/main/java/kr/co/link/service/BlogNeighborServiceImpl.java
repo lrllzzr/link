@@ -74,5 +74,13 @@ public class BlogNeighborServiceImpl implements BlogNeighborService{
 	public void deleteNeighborByMyBlogNoNeighborBlogNo(Map<String, Object> map) {
 		blogNeighborDao.deleteNeighborByMyBlogNoNeighborBlogNo(map);
 	}
+	@Override
+	public List<Map<String, Object>> getPaginationByMap(Map<String, Object> map) {
+		return blogNeighborDao.getPaginationByMap(map);
+	}
+	@Override
+	public Integer getPaginationByMapRows(Integer myBlogNo) {
+		return blogNeighborDao.getPaginationByMapRows(myBlogNo);
+	}
 	
 }

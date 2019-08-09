@@ -5,7 +5,7 @@
 	</h5>
 </div>
 <div class="col-sm-12 blog-detail-showlist">
-	<span class="glyphicon glyphicon-list-alt"></span> <span class="blog-detail-showall">전체보기(403)</span>
+	<span class="glyphicon glyphicon-list-alt"></span> <span class="blog-detail-showall">전체보기</span>
 </div>
 <c:forEach var="subCat" items="${subCategories }">
 	<div class="col-sm-12 blog-detail-showlist">

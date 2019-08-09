@@ -28,10 +28,11 @@
 			<div class="row">
 				<div class="col-sm-12 blog_detail_right_row_1">
 					<div class="col-sm-9">
-						<span id="" style="" class="${board.no eq param.boardNo? 'blog_board_selected' : '' }"><a id="blog_board_list5" href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}&pno=${pno}">${board.title }</a></span>
+						<span id="" style="" class="${board.no eq param.boardNo? 'blog_board_selected' : '' }">
+						<a id="blog_board_list5" href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}&pno=${pno}">${board.title }</a></span>
 					</div>
 					<div class="col-sm-3 text-right">
-						<span class="blog_detail_board_create">2019.07.07</span>
+						<span class="blog_detail_board_create">${board.createDate }</span>
 					</div>
 					<div class="col-sm-12 blog_detail-hr-div">
 						<hr class="blog_detail_hr_2" />
@@ -83,9 +84,10 @@
 			$.ajax({
 				type:"GET",
 				url:"paginationAjax.do",
+				dataType: 'json',
 				data :{pno: page, categoryNo: categoryNo},
 				success: function(result){
-					console.log(result.pno);
+					console.log(result);
 					$('#'+result.pno).addClass('blog_detail_page_1_selected').parent().siblings().find('a').removeClass('blog_detail_page_1_selected');
 					$('#blog_board_title1').empty();
 					$.each(result.blogboardsByRange, function(index,board){

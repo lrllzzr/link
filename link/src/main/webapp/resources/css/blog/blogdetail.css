@@ -126,6 +126,7 @@ font-weight:bold;
     padding-top: 20px;
     padding-bottom : 20px;
 }
+
 .blog_detail_right_row1{
     font-size: 14px;
     color:#383b3b;
@@ -142,9 +143,7 @@ font-weight:bold;
 .blog_detail_right_row_1{
     color:#383b3b;
 }
-.blog_detail_right_row_2{
-	
-}
+
 .blog_detail_board_create{
     color:gray;
 }
