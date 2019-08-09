@@ -109,21 +109,16 @@ iframe{
 }
 
 .layout_row9 {
-	float: left;
-	width: 50%;
+	width: 100%;
 	margin-top: 3px;
-	height: 112px;
-	margin-left: 5%;
+	height: 64.17px;
 	border: 1px solid gray;
 	background-color: white;
 }
-
 .layout_row10 {
-	float: left;
-	width: 25%;
+	width: 100%;
 	margin-top: 3px;
-	margin-left: 5%;
-	height: 112px;
+	height: 22.83px;
 	border: 1px solid gray;
 	background-color: white;
 }
@@ -142,7 +137,7 @@ iframe{
 
 .blog_beauty_col1 {
 	background-color: #8b9094;
-	height: 900px;
+	height: 800px;
 	margin-bottom: 20px;
 }
 
@@ -177,7 +172,7 @@ iframe{
 	margin: 5px 0px;
 	padding: 50px;
 	text-align: center;
-	height: 600px;
+	height: 500px;
 }
 
 .beautify_menu2 {

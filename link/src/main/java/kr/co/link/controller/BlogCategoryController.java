@@ -1,11 +1,9 @@
 package kr.co.link.controller;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Locale.Category;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,7 +18,6 @@ import kr.co.link.service.BlogBoardService;
 import kr.co.link.service.BlogCategoryService;
 import kr.co.link.service.BlogService;
 import kr.co.link.service.BlogSubCategoryService;
-import kr.co.link.service.BlogThemeService;
 import kr.co.link.service.UserService;
 import kr.co.link.vo.Blog;
 import kr.co.link.vo.BlogBoard;
@@ -39,8 +36,6 @@ public class BlogCategoryController {
 	private BlogCategoryService blogCategoryService;
 	@Autowired
 	private BlogBoardService blogBoardService;
-	@Autowired
-	private BlogThemeService blogThemeService;
 	@Autowired
 	private UserService userService;
 

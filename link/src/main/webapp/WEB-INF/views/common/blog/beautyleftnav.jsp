@@ -13,14 +13,14 @@
 		</div>
 		<div class="col-sm-12 blog-manage-bigbox">
 			<span class="blog-manage-title"><a href="">열린이웃</a></span>
-			<div class="col-sm-12 blog-manage-smallbox">
-				<span><a href="">이웃,그룹 관리</a></span>
+			<div class="col-sm-12 blog-manage-smallbox ${left eq 'manageNeighbor' ? 'blog_beauty_selected' : '' }">
+				<span ><a href="manageNeighbor.do">이웃 관리</a></span>
 			</div>
 			<div class="col-sm-12 blog-manage-smallbox">
 				<span><a href="">나를 추가한 이웃</a></span>
 			</div>
-			<div class="col-sm-12 blog-manage-smallbox">
-				<span><a href="">서로이웃 맺기</a></span>
+			<div class="col-sm-12 blog-manage-smallbox ${left eq 'eachneighbor' ? 'blog_beauty_selected' : '' }">
+				<span ><a href="eachNeighbor.do">서로이웃 맺기</a></span>
 			</div>
 		</div>
 

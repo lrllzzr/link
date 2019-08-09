@@ -10,6 +10,30 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 <link rel="stylesheet" href="/link/resources/css/main.css">
+<link href="https://fonts.googleapis.com/css?family=Jura|Marck+Script|Russo+One|Sacramento&display=swap" rel="stylesheet">
+<style>
+.pagination>li>a, .pagination>li>span {
+	position: relative;
+	float: left;
+	padding: 6px 12px;
+	margin-left: -1px;
+	line-height: 1.42857143;
+	color: black !important;
+	text-decoration: none;
+	background-color: #fff !important;
+	border: 0.5px solid lightgray !important;
+}
+
+.pagination>li>a:hover,
+.pagination>li>span:hover,
+.pagination>li>a:focus,
+.pagination>li>span:focus {
+	z-index: 2;
+	color: black !important;
+	background-color: #fff !important;
+	border-color: lightgray !important;
+}
+</style>
 </head>
 
 <body>
@@ -21,7 +45,7 @@
 					<div class="col-sm-12">
 						<span class="blog-hot-topic">Hot topics</span>
 					</div>
-					<c:forEach var="blog" items="${blogs }">
+					<c:forEach var="blog" items="${blogsByVisit }">
 						<a href="detail.do?blogNo=${blog.no }">
 							<div class="col-sm-4 blog-row-2 text-center">
 								<img src="/link/resources/images/${blog.mainImg }" alt="">
@@ -34,94 +58,143 @@
 
 				</div>
 				<div class="row blog-main-row-2">
-					<div class="col-sm-12">
-						<div class="row">
-							<div class="col-sm-9 blog-neighbor-col">
-								<span class="blog-neighbor">이웃새글</span>
-							</div>
-							<div class="col-sm-3">
-								<div class="form-group">
-									<select class="form-control" name="" id="">
-										<option value=""selected;>전체이웃</option>
-										<option value="">새 그룹</option>
-									</select>
+					<c:if test="${not empty LOGIN_USER }">
+						<div class="col-sm-12">
+							<div class="row">
+								<div class="col-sm-9 blog-neighbor-col">
+									<span class="blog-neighbor">이웃새글</span>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<select class="form-control" name="" id="">
+											<option value=""selected;>전체이웃</option>
+											<option value="">새 그룹</option>
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</c:if>
 					<div class="blog-neighbor-div">
 						<!--     이웃 새글 시작    -->
-						<div class="blog-hrdiv">
-							<hr class="blog-row-hr-2" />
-						</div>
-						<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
-							<div class="col-sm-9">
-								<div class="row">
-									<div class="col-sm-1 blog-neighbor-col1">
-										<img class="blog-row-2-profile-img" src="/link/resources/images/blog.png" alt="">
-									</div>
-									<div class="col-sm-2 blog-neighbor-col2">
-										<div class="row">
-											<div class="col-sm-12">
-												<a href="">이웃맘</a>
+						<c:if test="${not empty LOGIN_USER }">
+							<c:choose>
+								<c:when test="${isHaveBlog eq 'yes' }">
+									<c:if test="${not empty blogList}">
+										<c:forEach var="blog" items="${blogList}">
+											<div class="blog-hrdiv">
+												<hr class="blog-row-hr-2" />
 											</div>
-											<div class="col-sm-12">2시간전</div>
-										</div>
-									</div>
-								</div>
-								<div class="row blog-neighbor-box">
-									<a href="">
-										<div class="col-sm-12">
-											<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
-										</div>
-										<div class="col-sm-12">
-											<p class="blog-neighbor-contents">이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~</p>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="col-sm-3">
-								<a href=""><img class="blog-neighbor-img " src="/link/resources/images/smooth.jfif" alt=""></a>
-							</div>
-						</div>
+											<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
+												<div class="col-sm-9">
+													<div class="row">
+														<div class="col-sm-1 blog-neighbor-col1">
+															<img class="blog-row-2-profile-img" src="/link/resources/images/${blog.BLOGMAINIMG }" alt="">
+														</div>
+														<div class="col-sm-2 blog-neighbor-col2">
+															<div class="row">
+																<div class="col-sm-12">
+																	<a href="">${blog.NICKNAME }</a>
+																</div>
+																<div class="col-sm-12">2시간전</div>
+															</div>
+														</div>
+													</div>
+													<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}">
+														<div class="row blog-neighbor-box">
+															<div class="col-sm-12">
+																<p class="blog-neighbor-title">${blog.TITLE }</p>
+															</div>
+															<div class="col-sm-12 blog-neighbor-contents3">
+																<div class="blog-neighbor-contents">${blog.CONTENTS }</div>
+															</div>
+														</div>
+													</a>
+												</div>
+												<!--  -->
+												<div class="col-sm-3">
+													<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}"> <img style="max-width: 100%;" class="blog-neighbor-img "
+														src="/link/resources/images/userblogimgs/${blog.BOARDMAINIMG }" alt=""
+													>
+													</a>
+												</div>
 
-						<!--     이웃 새글 끝     -->
-
-						<!--     이웃 새글 시작    -->
-						<div class="blog-hrdiv">
-							<hr class="blog-row-hr-2" />
-						</div>
-						<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
-							<div class="col-sm-9">
-								<div class="row">
-									<div class="col-sm-1 blog-neighbor-col1">
-										<img class="blog-row-2-profile-img" src="/link/resources/images/blog.png" alt="">
-									</div>
-									<div class="col-sm-2 blog-neighbor-col2">
-										<div class="row">
-											<div class="col-sm-12">
-												<a href="">이웃맘</a>
 											</div>
-											<div class="col-sm-12">2시간전</div>
+										</c:forEach>
+										<div class="row">
+											<div class="col-sm-12 text-center">
+												<ul class="pagination" id="pagination-box">
+													<c:choose>
+														<c:when test="${pagination.first }">
+															<li class="disabled"><span>&laquo;</span></li>
+														</c:when>
+														<c:otherwise>
+															<li><a href="" data-pno="${pagination.page-1 }"><span>&laquo;</span></a></li>
+														</c:otherwise>
+													</c:choose>
+
+													<c:forEach var="num" begin="${pagination.begin }" end="${pagination.end }">
+														<c:choose>
+															<c:when test="${num eq pagination.page }">
+																<li><a class="blog_detail_page_1_selected" data-pno="${num }">${num }</a></li>
+															</c:when>
+															<c:otherwise>
+																<li><a href="#" data-pno="${num }">${num }</a></li>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+
+													<c:choose>
+														<c:when test="${pagination.last }">
+															<li class="disabled"><span>&raquo;</span></li>
+														</c:when>
+														<c:otherwise>
+															<li><a href="" data-pno="${pagination.page+1 }"><span>&raquo;</span></a></li>
+														</c:otherwise>
+													</c:choose>
+												</ul>
+											</div>
+										</div>
+									</c:if>
+
+									<c:if test="${empty blogList }">
+										<div class="blog-hrdiv">
+											<hr class="blog-row-hr-2" />
+										</div>
+										<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
+											<div class="col-sm-12 text-center">
+												<p>업데이트된 이웃의 새 글이 없습니다.</p>
+												<p>아래 주제별 블로거 추천을 통해 관심 주제의 블로그 이웃을 만들어보세요.</p>
+											</div>
+										</div>
+									</c:if>
+								</c:when>
+								<c:otherwise>
+									<!--     이웃 새글 끝     -->
+									<div class="blog-hrdiv">
+										<hr class="blog-row-hr-2" />
+									</div>
+									<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
+										<div class="col-sm-12 text-center">
+											<p>아직 블로그가 생성되지 않았습니다.</p>
+											<p>블로그를 생성해보세요!</p>
 										</div>
 									</div>
-								</div>
-								<div class="row blog-neighbor-box">
-									<a href="">
-										<div class="col-sm-12">
-											<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
-										</div>
-										<div class="col-sm-12">
-											<p class="blog-neighbor-contents">이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~이웃 새글 스타트~~</p>
-										</div>
-									</a>
+									<!--     이웃 새글 끝  -->
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+						<c:if test="${empty LOGIN_USER }">
+							<div class="blog-hrdiv">
+								<hr class="blog-row-hr-2" />
+							</div>
+							<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
+								<div class="col-sm-12 text-center">
+									<p>로그아웃 상태입니다.</p>
+									<p>로그인하여 이웃 새글을 확인해보세요.</p>
 								</div>
 							</div>
-							<div class="col-sm-3">
-								<a href=""><img class="blog-neighbor-img " src="/link/resources/images/smooth.jfif" alt=""></a>
-							</div>
-						</div>
-
+						</c:if>
 						<!--     이웃 새글 끝     -->
 					</div>
 
@@ -129,132 +202,88 @@
 						<hr class="blog-row-hr-3" />
 					</div>
 					<div class="row blog-hr-row">
-						<div class="col-sm-12">
-							<span>전체</span> <span>방송</span> <span>인테리어</span> <span>문학</span>
+						<div class="col-sm-12 blog_topics">
+							<span data-topic="all" id="all" class="blog_topic_selected">전체</span>
+							<span data-topic="movie" class="">영화</span>
+							<span data-topic="literature" class="">문학</span>
+							<span data-topic="travel" class="">여행</span>
+							<span data-topic="game" class="">게임</span>
+							<span data-topic="programming" class="">프로그래밍</span>
+							<span data-topic="streamming" class="">스트리밍</span>
 						</div>
 					</div>
 					<div class="blog-hrdiv">
 						<hr class="blog-row-hr-4" />
 					</div>
 
-					<!--                  추천 새글 시작  -->
-					<div class="row blog-main-col-2-1">
-						<div class="col-sm-9">
-							<div class="row">
-								<div class="col-sm-1 blog-neighbor-col1">
-									<img class="blog-row-2-profile-img" src="/link/resources/images/band.png" alt="">
-								</div>
-								<div class="col-sm-2 blog-neighbor-col2">
+					<div class="blog3topic">
+						<c:forEach var="blog3" items="${blogsList }">
+							<!--                  추천 새글 시작  -->
+							<div class="row blog-main-col-2-1">
+								<div class="col-sm-9">
 									<div class="row">
-										<div class="col-sm-12">
-											<a href="">웅이맘</a>
+										<div class="col-sm-1 blog-neighbor-col1">
+											<img class="blog-row-2-profile-img" src="/link/resources/images/${blog3.BLOGMAINIMG }" alt="">
 										</div>
-										<div class="col-sm-12">2시간전</div>
-									</div>
-								</div>
-								<div class="col-sm-2 col-sm-offset-7">
-									<span class="blog-addneighbor"><a href="">+이웃추가</a></span>
-								</div>
-							</div>
-							<div class="row blog-neighbor-box">
-								<a href="">
-									<div class="col-sm-12">
-										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
-									</div>
-									<div class="col-sm-12">
-										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, officiis.</p>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<a href=""><img class="blog-neighbor-img " src="/link/resources/images/goguma.jfif" alt=""></a>
-						</div>
-					</div>
-					<div class="blog-hrdiv">
-						<hr class="blog-row-hr-2" />
-					</div>
-
-
-					<!--                  추천 새글 끝  -->
-					<!--                  추천 새글 시작  -->
-					<div class="row blog-main-col-2-1">
-						<div class="col-sm-9">
-							<div class="row">
-								<div class="col-sm-1 blog-neighbor-col1">
-									<img class="blog-row-2-profile-img" src="/link/resources/images/band.png" alt="">
-								</div>
-								<div class="col-sm-2 blog-neighbor-col2">
-									<div class="row">
-										<div class="col-sm-12">
-											<a href="">추천맘</a>
+										<div class="col-sm-2 blog-neighbor-col2">
+											<div class="row">
+												<div class="col-sm-12">
+													<a href="board.do?blogNo=${blog3.NO }&categoryNo=${blog3.CATEGORYNO}&boardNo=${blog3.BOARDNO}">${blog3.NICKNAME }</a>
+												</div>
+												<div class="col-sm-12">2시간전</div>
+											</div>
 										</div>
-										<div class="col-sm-12">2시간전</div>
-									</div>
-								</div>
-								<div class="col-sm-2 col-sm-offset-7">
-									<span class="blog-addneighbor"><a href="">+이웃추가</a></span>
-								</div>
-							</div>
-							<div class="row blog-neighbor-box">
-								<a href="">
-									<div class="col-sm-12">
-										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
-									</div>
-									<div class="col-sm-12">
-										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, officiis.</p>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<a href=""><img class="blog-neighbor-img " src="/link/resources/images/goguma.jfif" alt=""></a>
-						</div>
-					</div>
-					<div class="blog-hrdiv">
-						<hr class="blog-row-hr-2" />
-					</div>
-					<!--                  추천 새글 끝  -->
-					<!--                  추천 새글 시작  -->
-					<div class="row blog-main-col-2-1">
-						<div class="col-sm-9">
-							<div class="row">
-								<div class="col-sm-1 blog-neighbor-col1">
-									<img class="blog-row-2-profile-img" src="/link/resources/images/band.png" alt="">
-								</div>
-								<div class="col-sm-2 blog-neighbor-col2">
-									<div class="row">
-										<div class="col-sm-12">
-											<a href="">웅이맘</a>
-										</div>
-										<div class="col-sm-12">2시간전</div>
-									</div>
-								</div>
-								<div class="col-sm-2 col-sm-offset-7">
-									<span class="blog-addneighbor"><a href="">+이웃추가</a></span>
-								</div>
-							</div>
-							<div class="row blog-neighbor-box">
-								<a href="">
-									<div class="col-sm-12">
-										<p class="blog-neighbor-title">간헐적 단식 스타트~! 저탄고지식단으로 고구마아몬드스무디 만들기</p>
-									</div>
-									<div class="col-sm-12">
-										<p class="blog-neighbor-contents">간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~!간헐적단식 스타트~! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, officiis.</p>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<a href=""><img class="blog-neighbor-img " src="/link/resources/images/goguma.jfif" alt=""></a>
-						</div>
-					</div>
-					<div class="blog-hrdiv">
-						<hr class="blog-row-hr-2" />
-					</div>
-					<!--                  추천 새글 끝  -->
+										<c:if test="${blog3.isNeighbor eq 'Y' }">
+											<div class="col-sm-2 col-sm-offset-7">
+												<div class="blog-addneighbordiv text-center">이웃</div>
+											</div>
+										</c:if>
 
+										<c:if test="${blog3.isNeighbor eq 'N' }">
+											<div class="col-sm-2 col-sm-offset-7">
+												<span class="blog-addneighbor">
+													<a href="addNeighbor.do?blogNo=${blog3.NO }">+이웃추가</a>
+												</span>
+											</div>
+										</c:if>
 
+									</div>
+									<div class="row blog-neighbor-box">
+										<a href="board.do?blogNo=${blog3.NO }&categoryNo=${blog3.CATEGORYNO}&boardNo=${blog3.BOARDNO}">
+											<div class="col-sm-12">
+												<p class="blog-neighbor-title">${blog3.TITLE }</p>
+											</div>
+											<div class="col-sm-12">
+												<div class="blog-neighbor-contents ">${blog3.CONTENTS }</div>
+											</div>
+										</a>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<a href="board.do?blogNo=${blog3.NO }&categoryNo=${blog3.CATEGORYNO}&boardNo=${blog3.BOARDNO}"><img class="blog-neighbor-img " src="/link/resources/images/userblogimgs/${blog3.BOARDMAINIMG }" alt=""></a>
+								</div>
+							</div>
+							<div class="blog-hrdiv">
+								<hr class="blog-row-hr-2" />
+							</div>
+							<!--                  추천 새글 끝  -->
+						</c:forEach>
+					</div>
+					<div class="blog3topic-2">
+						<div class="row">
+							<div class="col-sm-12 text-center">
+								<nav>
+									<ul class="pagination">
+										<li><a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
+										<c:forEach begin="1" end="${totalBlocks }" var="status">
+											<li><a id="${status }" class="blog_pagenation_num ${status eq pno? 'blog_detail_page_1_selected' : '' }" href="">${status }</a></li>
+										</c:forEach>
+										<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!--오른쪽 네브 시작-->
@@ -267,16 +296,20 @@
 						<div class="col-sm-7 blog-right-col-1">
 							<div class="row" style="margin-bottom: 40px;">
 								<div class="col-sm-6">
-									<span><a style="font-size: 15px; position: relative; top: 5px;" href="">${LOGIN_USER.id }</a></span>
+									<span>
+										<a style="font-size: 15px; position: relative; top: 5px;" href="">${LOGIN_USER.id }</a>
+									</span>
 								</div>
 								<div class="col-sm-6 text-right">
-									<span style="position: relative; top: 5px;" class="blog-rigbt-col-logout"><a href="/link/logout.do">로그아웃</a></span>
+									<span style="position: relative; top: 5px;" class="blog-rigbt-col-logout">
+										<a href="/link/logout.do">로그아웃</a>
+									</span>
 								</div>
 
 							</div>
 							<c:if test="${isHaveBlog eq 'yes' }">
 								<div class="row">
-									<span class="blog-right-col-info">오늘 0명 방문</span>
+									<span class="blog-right-col-info">총 ${myblog.visits }명 방문</span>
 								</div>
 							</c:if>
 						</div>
@@ -290,7 +323,7 @@
 							</div>
 							<a id="makeBlogButton" href="/link/blog/makeblog.do">
 								<div class="row blog-col-4" style="padding: 20px !important;">
-									<div style="font-size:15px; font-weight: bold; color:white;" class="col-sm-12 text-center">블로그 생성하러 가기</div>
+									<div style="font-size: 15px; font-weight: bold; color: white;" class="col-sm-12 text-center">블로그 생성하러 가기</div>
 								</div>
 							</a>
 						</c:when>
@@ -300,49 +333,40 @@
 									<div class="col-sm-6 text-center">내 블로그</div>
 								</a> <a id="writeBlogBoard" href="mywrite.do">
 									<div class="col-sm-6 text-center">
-										<span class="glyphicon glyphicon-pencil"></span> 글쓰기
+										<span class="glyphicon glyphicon-pencil"></span>
+										글쓰기
 									</div>
 								</a>
 							</div>
 							<div class="row blog-col-5 text-center">
-								<a href="">
-									<div class="col-sm-4 blog-col-5-selected">내 소식</div>
-								</a> <a href="">
-									<div class="col-sm-4">내가 남긴 글</div>
-								</a> <a href="">
-									<div class="col-sm-4">이웃 목록</div>
-								</a>
+								<div class="col-sm-4 blog-col-5-selected">
+									<a href="main.do">내 소식</a>
+								</div>
+								<div class="col-sm-4">내가 남긴 글</div>
+								<div class="col-sm-4" id="neighborLists">이웃 목록</div>
+
 							</div>
 
-							<div class="row blog-col-6 text-center">
+							<div class="row blog-col-6 text-center" id="myInfoform">
 								<div class="col-sm-12">
-									<div class="row blog-alarm">
-										<div class="col-sm-10">
-											<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="">호야님이 서로이웃을 신청했습니다.</a>
+									<c:if test="${not empty requestList }">
+										<c:forEach var="request" items="${requestList}">
+											<div class="row blog-alarm">
+												<div class="col-sm-10">
+													<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="eachNeighbor.do">${request.NICKNAME }님이 서로이웃을 신청했습니다.</a>
+												</div>
+												<div class="col-sm-1">
+													<a href=""><span class="glyphicon glyphicon-remove"></span></a>
+												</div>
+											</div>
+										</c:forEach>
+									</c:if>
+									<c:if test="${empty requestList }">
+										<div class="row blog-alarm" style="margin-top: 10px;">
+											<div class="col-sm-12">새로운 소식이 없습니다.</div>
 										</div>
-										<div class="col-sm-1">
-											<a href=""><span class="glyphicon glyphicon-remove"></span></a>
-										</div>
-									</div>
-									<div class="row blog-alarm">
-										<div class="col-sm-10">
-											<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="">호야님이 서로이웃을 신청했습니다.</a>
-										</div>
-										<div class="col-sm-1">
-											<a href=""><span class="glyphicon glyphicon-remove"></span></a>
-										</div>
-									</div>
-									<div class="row blog-alarm">
-										<div class="col-sm-10">
-											<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="">호야님이 서로이웃을 신청했습니다.</a>
-										</div>
-										<div class="col-sm-1">
-											<a href=""><span class="glyphicon glyphicon-remove"></span></a>
-										</div>
-									</div>
+									</c:if>
 								</div>
-
-
 							</div>
 							<div class="row blog-col-7">
 								<div class="col-sm-12">
@@ -352,7 +376,6 @@
 
 						</c:otherwise>
 					</c:choose>
-
 				</div>
 			</c:if>
 			<c:if test="${empty LOGIN_USER }">
@@ -372,8 +395,197 @@
 			<!--오른쪽 네브 끝-->
 		</div>
 	</div>
+	<%@ include file="../common/bottom.jsp"%>
 	<script>
-		
+		$(function() {
+			$('.blog-neighbor-contents3 img').hide();
+			$('.blog-neighbor-contents img').hide();
+			$('#1').addClass('blog_detail_page_1_selected');
+
+			// 추천이웃 페이지네이션
+			$('body').on(
+					'click',
+					'.blog_pagenation_num',
+					function() {
+						var blogType = $('.blog_topic_selected').attr('data-topic');
+						var pno = $(this).text();
+						$(this).addClass('blog_detail_page_1_selected').parent().siblings().find('a').removeClass('blog_detail_page_1_selected');
+						$.ajax({
+							type : "GET",
+							url : "topicAjax.do",
+							data : {
+								blogType : blogType,
+								pno : pno
+							},
+							success : function(result) {
+								$('.blog3topic').empty();
+								$.each(result.blogsList, function(index, blog) {
+									var row = "";
+									row += '<div class="row blog-main-col-2-1">';
+									row += '	<div class="col-sm-9">';
+									row += '		<div class="row">';
+									row += '			<div class="col-sm-1 blog-neighbor-col1">';
+									row += '				<img class="blog-row-2-profile-img" src="/link/resources/images/'+blog.BLOGMAINIMG+'" alt="">';
+									row += '			</div>';
+									row += '			<div class="col-sm-2 blog-neighbor-col2">';
+									row += '				<div class="row">';
+									row += '					<div class="col-sm-12">';
+									row += '						<a href="">' + blog.NICKNAME + '</a>';
+									row += '					</div>';
+									row += '					<div class="col-sm-12">2시간전</div>';
+									row += '				</div>';
+									row += '			</div>';
+									row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
+									row += '				<div class="col-sm-2 col-sm-offset-7">';
+									row += '					<span class="blog-addneighbor"><a href="">+이웃추가</a></span>';
+									row += '				</div>';
+									row += '			</c:if>';
+									row += '		</div>';
+									row += '		<div class="row blog-neighbor-box">';
+									row += '			<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
+									row += '		<div class="col-sm-12">';
+									row += '<p class="blog-neighbor-title">' + blog.TITLE + '</p>';
+									row += '</div>';
+									row += '<div class="col-sm-12">';
+									row += '<div class="blog-neighbor-contents ">' + blog.CONTENTS + '</div>';
+									row += '</div>';
+									row += '</a>';
+									row += '</div>';
+									row += '</div>';
+									row += '<div class="col-sm-3">';
+									row += '<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO
+											+ '"><img class="blog-neighbor-img" src="/link/resources/images/userblogimgs/'+blog.BOARDMAINIMG+'" alt=""></a>';
+									row += '</div>';
+									row += '</div>';
+									row += '<div class="blog-hrdiv">';
+									row += '<hr class="blog-row-hr-2" />';
+									row += '</div>';
+
+									$('.blog3topic').append(row);
+									$('.blog-neighbor-contents3 img').hide();
+									$('.blog-neighbor-contents img').hide();
+
+								});
+							}
+						})
+						return false;
+					});
+
+			// 이웃목록 ajax
+			$('#neighborLists').click(function() {
+				$(this).addClass('blog-col-5-selected').siblings().removeClass('blog-col-5-selected');
+				$.ajax({
+					type : "GET",
+					url : "getNeighborsMain.do",
+					success : function(result) {
+						$('#myInfoform').empty();
+						$.each(result, function(index, neighBor) {
+							var row = '';
+							row += '<div class="col-sm-6" style="padding:5px;">';
+							row += '	<div class="text-left">';
+							row += '		<img class="blog-row-33-profile-img" src="/link/resources/images/'+neighBor.MAINIMG+'" alt="">';
+							row += '			<a href="">' + neighBor.NICKNAME + '</a>';
+							row += '	</div>';
+							row += '</div>';
+							$('#myInfoform').append(row);
+						})
+					}
+				})
+			});
+
+			// 토픽별 ajax
+			$('.blog_topics span').click(
+					function() {
+						$(this).addClass('blog_topic_selected').siblings().removeClass('blog_topic_selected');
+						var blogType = $(this).attr('data-topic');
+						$.ajax({
+							type : "GET",
+							url : "topicAjax.do",
+							data : {
+								blogType : blogType,
+								pno : 1
+							},
+							dataType : "json",
+							success : function(data) {
+								$('.blog3topic').empty();
+								$('.blog3topic-2').empty();
+								$.each(data.blogsList, function(index, blog) {
+									var row = "";
+									row += '<div class="row blog-main-col-2-1">';
+									row += '	<div class="col-sm-9">';
+									row += '		<div class="row">';
+									row += '			<div class="col-sm-1 blog-neighbor-col1">';
+									row += '				<img class="blog-row-2-profile-img" src="/link/resources/images/'+blog.BLOGMAINIMG+'" alt="">';
+									row += '			</div>';
+									row += '			<div class="col-sm-2 blog-neighbor-col2">';
+									row += '				<div class="row">';
+									row += '					<div class="col-sm-12">';
+									row += '						<a href="">' + blog.NICKNAME + '</a>';
+									row += '					</div>';
+									row += '					<div class="col-sm-12">2시간전</div>';
+									row += '				</div>';
+									row += '			</div>';
+									row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
+									row += '				<div class="col-sm-2 col-sm-offset-7">';
+									row += '					<span class="blog-addneighbor"><a href="">+이웃추가</a></span>';
+									row += '				</div>';
+									row += '			</c:if>';
+									row += '		</div>';
+									row += '		<div class="row blog-neighbor-box">';
+									row += '			<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
+									row += '		<div class="col-sm-12">';
+									row += '<p class="blog-neighbor-title">' + blog.TITLE + '</p>';
+									row += '</div>';
+									row += '<div class="col-sm-12">';
+									row += '<div class="blog-neighbor-contents ">' + blog.CONTENTS + '</div>';
+									row += '</div>';
+									row += '</a>';
+									row += '</div>';
+									row += '</div>';
+									row += '<div class="col-sm-3">';
+									row += '<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO
+											+ '"><img class="blog-neighbor-img" src="/link/resources/images/userblogimgs/'+blog.BOARDMAINIMG+'" alt=""></a>';
+									row += '</div>';
+									row += '</div>';
+									row += '<div class="blog-hrdiv">';
+									row += '<hr class="blog-row-hr-2" />';
+									row += '</div>';
+
+									$('.blog3topic').append(row);
+									$('.blog-neighbor-contents3 img').hide();
+									$('.blog-neighbor-contents img').hide();
+
+								});
+
+								var totalBlocks = data.totalBlocks;
+
+								console.log('totalBlocks:' + totalBlocks);
+								console.log('pno:' + data.pno);
+
+								var row2 = '';
+								row2 += '<div class="row">';
+								row2 += '	<div class="col-sm-12 text-center">';
+								row2 += '		<nav>';
+								row2 += '			<ul class="pagination">';
+								row2 += '				<li><a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>';
+								for (var i = 1; i <= totalBlocks; i++) {
+									if (i == data.pno) {
+										row2 += '<li><a href="" id="'+i+'" class="blog_pagenation_num blog_detail_page_1_selected">' + i + '</a></li>';
+									} else {
+										row2 += '<li><a href="" id="'+i+'" class="blog_pagenation_num">' + i + '</a></li>';
+									}
+								}
+								row2 += '				<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>';
+								row2 += '			</ul>';
+								row2 += '		</nav>';
+								row2 += '	</div>';
+								row2 += '</div>';
+
+								$('.blog3topic-2').append(row2);
+							}
+						})
+					})
+		})
 	</script>
 </body>
 </html>

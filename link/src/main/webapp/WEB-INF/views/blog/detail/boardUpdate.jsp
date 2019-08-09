@@ -21,7 +21,6 @@
 							<input type="hidden" name="blogNo" value="${blog.no }"></input>
 							 <input type="hidden" name="categoryNo" value="${category.no }"></input>
 							 <input type="hidden" name="boardNo" value="${param.boardNo }"></input>
-							 
 							<div class="col-sm-12">
 								<div class="form-group">
 									<div class="page-header">

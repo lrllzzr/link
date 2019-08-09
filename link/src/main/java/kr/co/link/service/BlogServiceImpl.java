@@ -1,6 +1,7 @@
 package kr.co.link.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +61,18 @@ public class BlogServiceImpl implements BlogService{
 		blog.setThirdCol("bloginfo");
 		blog.setLayout(1);
 		blog.setPageNumBorderColor("#f2f2f2");
+	}
+	@Override
+	public List<Blog> getAllblogs() {
+		return blogDao.getAllblogs();
+	}
+	@Override
+	public List<Map<String, Object>> getAllBlogsByType(Map<String, Object> map) {
+		return blogDao.getAllBlogsByType(map);
+	}
+	@Override
+	public Integer getBlogsCountByType(Map<String, Object> map) {
+		return blogDao.getBlogsCountByType(map);
 	}
 
 }

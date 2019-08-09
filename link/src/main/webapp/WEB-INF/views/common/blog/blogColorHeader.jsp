@@ -12,51 +12,262 @@
 <script type="text/javascript" src="/link/resources/js/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script>
+	$(function() {
+		$('.blog_page_bum2').click(event, function() {
+			event.preventDefault();
+			var page = $(this).text();
+			var blogNo = $('#blog_board_title1').attr('data-blogNo');
+			var categoryNo = $('#blog_board_title1').attr('data-categoryNo');
+
+			$.ajax({
+				type : "GET",
+				url : "paginationAjax10.do",
+				data : {
+					pno10 : page,
+					categoryNo : categoryNo
+				},
+				success : function(result) {
+					console.log(result.pno10);
+					$('#' + result.pno10 + "_2").addClass('blog_detail_page_1_selected').parent().siblings().find('a').removeClass('blog_detail_page_1_selected');
+					$('#blog_board_imgs').empty();
+					$.each(result.blogboardsByRange10, function(index, board) {
+						var row = '<div class="col-sm-3 blog_detail_right_col4">';
+						row += '		<div class="row">';
+						row += '			<div class="col-sm-12">';
+						row += '				<a href="/link/blog/board.do?boardNo=' + board.no + '&blogNo=' + blogNo + '&categoryNo=' + categoryNo + '"> <img';
+						row += '				style="width: 100%; height: 173.88px;" src="/link/resources/images/userblogimgs/' + board.mainImg + '" alt=""></a>';
+						row += '			</div>';
+						row += '		</div>';
+						row += '		<div class="row blog_detail_board_title_row">';
+						row += '			<div class="col-sm-12">';
+						row += '				<span class="blog_detail_board_title">' + board.title + '</span>';
+						row += '			</div>';
+						row += '		</div>';
+						row += '		<div class="row">';
+						row += '			<div class="col-sm-12 blog_detail_full">';
+						row += '				<a href=""> <span class="blog_detail_board_date">' + board.createDate + '</span>';
+						row += '				</a> <a href=""> <span class="glyphicon glyphicon-tag blog_detail_tag"></span> <span class="blog_detail_comments">댓글 4</span>';
+						row += '				</a>';
+						row += '			</div>';
+						row += '		</div>';
+						row += '</div>';
+
+						$('#blog_board_imgs').append(row);
+					})
+				}
+			})
+			return false;
+		});
+		
+		$('.blog_likes_box1').hide();
+		$('.blog_comment_textarea_box').hide();
+		$('.blog_comment_textarea').hide();
+		
+		$('#blog_menu_down1').click(function() {
+			$('.blog_likes_box1').toggle();
+			$('.blog_board_comment_box2').hide();
+		})
+		$('#blog_addBoardLike').click(function() {
+			if ('${LOGIN_USER}' == "") {
+				var result = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+				var host = location.host;
+				var returnUrl = location.pathname;
+				var queryString = location.search.substr(1).replace(/&/g, ',');
+
+				if (result) {
+					location.href = '/link/loginform.do?returnUrl=' + returnUrl + '&queryString=' + queryString;
+					return false;
+				}
+				return false;
+			}
+			var boardNo = $(this).attr('data-boardNo');
+			var categoryNo = $(this).attr('data-categoryNo');
+			var blogNo = $(this).attr('data-blogNo');
+			var isLiked = $(this).attr('data-isLiked');
+
+			if (isLiked == 'Y') {
+				var result = confirm('공감을 취소하시겠습니까?');
+				if (result) {
+					location.href = 'addNewBlogLike.do?boardNo=' + boardNo + '&categoryNo=' + categoryNo + '&blogNo=' + blogNo + '&action=cancel';
+					return false;
+				}
+			} else {
+				var result = confirm("공감하시겠습니까?");
+				if (result) {
+					location.href = 'addNewBlogLike.do?boardNo=' + boardNo + '&categoryNo=' + categoryNo + '&blogNo=' + blogNo + '&action=add';
+					return false;
+				}
+			}
+		})
+		$('.blog_board_comment2').click(function(){
+			$('.blog_likes_box1').hide();
+			$('.blog_board_comment_box2').toggle();
+		});
+		
+		$('#blog_comment_write').click(function(){
+			if ('${LOGIN_USER}' == "") {
+				var result = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+				var host = location.host;
+				var returnUrl = location.pathname;
+				var queryString = location.search.substr(1).replace(/&/g, ',');
+
+				if (result) {
+					location.href = '/link/loginform.do?returnUrl=' + returnUrl + '&queryString=' + queryString;
+					return false;
+				}
+				return false;
+			}
+			$('.blog_comment_textarea_box').toggle();
+		});
+		
+		$('.blog-cmt-replybtn').click(function(){
+			var status = $(this).attr('data-status');
+			if ('${LOGIN_USER}' == "") {
+				var result = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+				var host = location.host;
+				var returnUrl = location.pathname;
+				var queryString = location.search.substr(1).replace(/&/g, ',');
+
+				if (result) {
+					location.href = '/link/loginform.do?returnUrl=' + returnUrl + '&queryString=' + queryString;
+					return false;
+				}
+				return false;
+			}
+			$('.blog_comment_textarea_box_'+status).show();
+		});
+		
+		$('.blog_addNeighbor_a').click(function(){
+			var blogNo = $(this).attr('data-blogNo');
+			if ('${LOGIN_USER}' == "") {
+				var result = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+				var host = location.host;
+				var returnUrl = location.pathname;
+				var queryString = location.search.substr(1).replace(/&/g, ',');
+
+				if (result) {
+					location.href = '/link/loginform.do?returnUrl=' + returnUrl + '&queryString=' + queryString;
+					return false;
+				}
+				return false;
+			}
+			location.href = 'addNeighbor.do?blogNo='+blogNo;
+			return false;
+		});
+		
+		$('#blog_comment_btn').click(function(){
+			var contents = $('.blog_txt_1_1').val();
+			if(contents == ""){
+				alert('내용을 작성해 주세요');
+				return false;
+			}
+			var result = confirm('댓글을 등록하시겠습니까?');
+			if(result){
+				$('#commentForm').submit();
+			}
+		});
+		
+		$('.blog_comment_btn2').click(function(){
+			var status = $(this).attr('data-status');
+			var contents = $('.blog_txt_'+status).val();
+			
+			if(contents == ""){
+				alert('내용을 작성해 주세요');
+				return false;
+			}
+			var result = confirm('댓글을 등록하시겠습니까?');
+			if(result){
+				$('.commentReplyForm_'+status).submit();
+			}
+		});
+		$('#blog_board_update_btn').click(function(){
+			var boardNo = $('#blog_addBoardLike').attr('data-boardNo');
+			var categoryNo = $('#blog_addBoardLike').attr('data-categoryNo');
+			var blogNo = $('#blog_addBoardLike').attr('data-blogNo');
+			var pno = '${param.pno}';
+			
+			location.href ='boardUpdate.do?boardNo='+boardNo+'&categoryNo='+categoryNo+'&blogNo='+blogNo+'&pno='+pno;
+		});
+		
+	})
+</script>
 <style>
-a{
-	color:${blog.atagColor};
+@charset "UTF-8";
+#blog_comment_write,
+.blog_board_comment3,
+.blog_addNeighbor_a{
+	cursor: pointer;
 }
-a:hover{
+a {
+	color: ${blog.atagColor};
+}
+a:hover {
 	text-decoration: none;
 }
-body{
+
+#blog_board_list5:hover {
+	text-decoration: none;
+}
+
+body {
 	background-color: ${blog.bodyColor};
 }
-.pagination li a{
-	color:${blog.pageNumColor} !important;
-	background-color: ${blog.pageNumBackgroundColor} !important;
-	border-color : ${blog.pageNumColor};
+.pagination li a {
+	color: ${blog.pageNumColor};
+	background-color: ${blog .pageNumBackgroundColor} !important;	
+	border-color: ${blog .pageNumBorderColor};
 }
-hr{
-	border-color:${blog.hrColor};
+.pagination li a.blog_detail_page_1_selected {
+	font-weight: bold;
+	color: black !important;
+}
+
+.pagination li a:hover, .pagination li a:focus {
+	color: ${blog.pageNumColor};
+	background-color:${blog.pageNumBackgroundColor}!important;
+	border-color:${blog.pageNumBorderColor};
+}
+hr {
+	border-color: ${blog.hrColor};
 }
 .blog_detail_neighborplus {
 	border: 1px solid gray;
 }
-.blog-detail-subtitle{
-    color: ${blog.atagColor};
+
+.blog-detail-subtitle {
+	color: ${blog.atagColor};
 }
 .blog_detail_con {
-	background: no-repeat center/100% 100%
-		url("/link/resources/images/blogthemes/${blog.theme}");
+	background: no-repeat center/100% 100% url("/link/resources/images/blogthemes/${blog.theme}");
 	min-height: 1500px;
+	padding-bottom: 100px;
 }
 
 .blog_main_left_row {
 	border: 1px solid #ccc;
 	padding-bottom: 100px;
-	background-color: rgba(${blog.backgroundColor},${blog.opacity});
+	background-color: rgba(${ blog.backgroundColor},${blog.opacity});
 	color:${blog.fontColor};
 }
-
-.blog_detail_right_row {
-	background-color: rgba(${blog.backgroundColor},${blog.opacity});
+.blog_main_left_row_bottom {
+	border: 1px solid #ccc;
+	padding-bottom: 30px;
+	background-color: rgba(${ blog.backgroundColor},${blog.opacity});
 	color:${blog.fontColor};
 }
-
-.blog_detail_right_row1 {
-	background-color: rgba(${blog.backgroundColor},${blog.opacity});
+.blog_detail_right_row, .blog_detail_right_row1, .blog_board_comment1, .blog_board_comment2, .blog_likes_box1, .blog_board_comment_box2,
+.blog_board_comment3 {
+	background-color: rgba(${ blog.backgroundColor},${blog.opacity});
 	color:${blog.fontColor};
+}
+.blog_board_selected {
+	font-weight: bold;
+	text-decoration: underline;
+}
+.blog_board_comment2{
+	cursor: pointer;
 }
 </style>
+
 </head>

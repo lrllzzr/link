@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import kr.co.link.vo.BlogBoard;
+import kr.co.link.vo.BlogBoardComment;
+import kr.co.link.vo.BlogBoardLikes;
 
 @Repository
 public interface BlogBoardDao {
@@ -15,4 +17,14 @@ public interface BlogBoardDao {
 	public Integer countBoardsByCategoryId(Integer categoryNo);
 	List<BlogBoard> getBoardsByRange(Map<String, Object> rangeMap);
 	Integer getBoardsCountByCategoryNo(Integer catNo);
+	List<Map<String, Object>> getBlogsWhoLikeBoard(Integer boardNo);
+	void addNewBlogLikes(BlogBoardLikes blogBoardLikes);
+	BlogBoardLikes getisLikedBoardByBloardNoMyBlogNo(Map<String, Object> map);
+	void deleteBlogLikes(Map<String, Object> map);
+	Integer getBoardLikesCount(Integer boardNo);
+	List<Map<String, Object>> getBoardCommentByBoardNoParentCno(Map<String, Object> map);
+	List<Map<String, Object>> getBoardCommentReplies(Map<String, Object> map);
+	Integer getCommentsCountByBoardNo(Integer boardNo);
+	void addNewComment(BlogBoardComment blogBoardComment);
+	void updateBoard(BlogBoard blogBoard);
 }

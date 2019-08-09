@@ -3,7 +3,6 @@
 	<div class="row">
 		<div class="col-sm-10 col-sm-offset-1 blog_main_left_row" style="">
 			<div class="row">
-
 				<!-- 첫 영역 시작  -->
 				<c:if test="${blog.firstCol eq 'profile' }">
 					<%@ include file="../blogchangeform/profile.jsp"%>

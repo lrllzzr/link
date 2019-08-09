@@ -17,20 +17,22 @@
 					<span>글 제목</span>
 				</div>
 				<div class="col-sm-9 text-right">작성일</div>
-			</div>
 			<div class="col-sm-12 blog_detail_hr_1">
 				<hr class="blog_detail_hr_1">
 			</div>
+			</div>
 		</div>
 		<!--   글 제목 시작-->
-		<c:forEach var="board" items="${blogBoards }">
+		<div id="blog_board_title1" data-blogNo = "${blog.no }" data-categoryNo = "${category.no }">
+		<c:forEach var="board" items="${blogboardsByRange }">
 			<div class="row">
 				<div class="col-sm-12 blog_detail_right_row_1">
 					<div class="col-sm-9">
-						<span><a href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}">${board.title }</a></span>
+						<span id="" style="" class="${board.no eq param.boardNo? 'blog_board_selected' : '' }">
+						<a id="blog_board_list5" href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}&pno=${pno}">${board.title }</a></span>
 					</div>
 					<div class="col-sm-3 text-right">
-						<span class="blog_detail_board_create"><fmt:formatDate value="${board.createDate }"/></span>
+						<span class="blog_detail_board_create">${board.createDate }</span>
 					</div>
 					<div class="col-sm-12 blog_detail-hr-div">
 						<hr class="blog_detail_hr_2" />
@@ -38,6 +40,7 @@
 				</div>
 			</div>
 		</c:forEach>
+		</div>
 		<!--                   글 제목 끝-->
 
 		<!--                    페이지네이션 시작-->
@@ -47,16 +50,9 @@
 					<ul class="pagination">
 						<li><a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 						</a></li>
-						<li><a class="blog_detail_page_1_selected" href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">6</a></li>
-						<li><a href="#">7</a></li>
-						<li><a href="#">8</a></li>
-						<li><a href="#">9</a></li>
-						<li><a href="#">10</a></li>
+						<c:forEach var="status" begin="1" end="${totalCount }">
+							<li ><a id="${status }" class="blog_page_bum ${status eq pno? 'blog_detail_page_1_selected' : '' }" href="">${status }</a></li>
+						</c:forEach>
 						<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 						</a></li>
 					</ul>
@@ -78,5 +74,45 @@
 				$(this).html('목록 열기');
 			}
 		})
+		// 페이지네이션 버튼 클릭시
+		$('.blog_page_bum').click(event,function(){
+			event.preventDefault();
+			var page = $(this).text();
+			var blogNo = $('#blog_board_title1').attr('data-blogNo');
+			var categoryNo = $('#blog_board_title1').attr('data-categoryNo');
+			
+			$.ajax({
+				type:"GET",
+				url:"paginationAjax.do",
+				dataType: 'json',
+				data :{pno: page, categoryNo: categoryNo},
+				success: function(result){
+					console.log(result);
+					$('#'+result.pno).addClass('blog_detail_page_1_selected').parent().siblings().find('a').removeClass('blog_detail_page_1_selected');
+					$('#blog_board_title1').empty();
+					$.each(result.blogboardsByRange, function(index,board){
+						var row = '';
+						row += '<div class="row" data-blogNo = "'+blogNo+'"  data-categoryNo = "'+categoryNo+'">';
+						row += '	<div class="col-sm-12 blog_detail_right_row_1">';
+						row += '		<div class="col-sm-9">';
+						row += '			<span><a href="/link/blog/board.do?boardNo='+board.no+'&blogNo='+blogNo+'&categoryNo='+categoryNo+'&pno='+result.pno+'">'+board.title+'</a></span>';
+						row += '		</div>';
+						row += '		<div class="col-sm-3 text-right">';
+						row += '			<span class="blog_detail_board_create">'+board.createDate+'</span>';
+						row += '		</div>';
+						row += '		<div class="col-sm-12 blog_detail-hr-div">';
+						row += '			<hr class="blog_detail_hr_2" />';
+						row += '		</div>';
+						row += '	</div>';
+						$('#blog_board_title1').append(row);
+					})
+				}
+			})
+			return false;
+		});
 	})
 </script>
+
+
+
+
