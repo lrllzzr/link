@@ -13,12 +13,20 @@ public class User {
 	private String nameVisibility;
 	private String gender;
 	private String genderVisibility;
+	private String img;
 	
-	
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
 	public String getNameVisibility() {
 		return nameVisibility;
 	}
-
+	
 	public void setNameVisibility(String nameVisibility) {
 		this.nameVisibility = nameVisibility;
 	}

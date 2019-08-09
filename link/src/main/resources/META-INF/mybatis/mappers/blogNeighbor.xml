@@ -87,6 +87,28 @@
         and
             b.user_id = c.user_id
 </select>
+<!-- 나를 추가한 이웃 가져오기  -->
+<select id="getNeighborAddMe" parameterType="int" resultType="map">
+		select
+			NEIGHBORHOOD_NO no,
+			a.BLOG_NO blogNo,
+			NEIGHBORHOOD_TYPE type,
+			NEIGHBOR_STATUS status,
+            c.user_id userId,
+            c.user_nickname nickName,
+            b.blog_title title,
+            b.blog_main_img mainImg,
+            a.NEIGHBOR_MESSAGE message,
+            a.neighbor_create_date createDate
+		from
+			blog_neighbor a, blog b, users c
+        where
+            a.neighborhood_no = #{myBlogNo}
+        and
+        	a.blog_no = b.blog_no
+        and
+            b.user_id = c.user_id
+</select>
 
 <insert id="addNewNeighborRequest" parameterType="blogNeighbor">
 	insert into blog_neighbor
@@ -225,10 +247,11 @@ from
 		b.neighborhood_no = #{neighborhoodNo}
 </select>
 <select id="getNeighborRequest" parameterType="map" resultType="map">
-	select 
+	select
 		c.user_id NEIGHBORID, 
 		c.user_nickName NICKNAME, 
-		d.blog_no NEIGHBORBLOGNO
+		d.blog_no NEIGHBORBLOGNO,
+		d.blog_Main_Img BLOGMAINIMG
 	from 
 		blog a, blog_neighbor b, users c, blog d
 	where

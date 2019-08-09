@@ -154,7 +154,7 @@ public class BlogMyController {
 			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10) {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		Blog blog = blogService.getBlogByUserId(user.getId());
-
+		
 		// 이웃 블로그수 전해주기
 		int neighborCounts = blogNeighborService.getNeighborCountsByBlogNo(blog.getNo());
 		model.addAttribute("neighborCounts", neighborCounts);
@@ -325,6 +325,17 @@ public class BlogMyController {
 		Integer categoryNo = blogCategory.getNo();
 		List<BlogSubCategory> blogSubCategories = getBlogSubCategories(session, blogNo, model, categoryNo, pno, pno10);
 		model.addAttribute("subCategories", blogSubCategories);
-		return "blog/detail/write";
+		
+		if (blog.getLayout() == 1) {
+			return "blog/detail/write";
+		}
+		if (blog.getLayout() == 2) {
+			return "blog/detail/write2";
+		}
+		if (blog.getLayout() == 3) {
+			return "blog/detail/write3";
+		} else {
+			return "blog/detail/write4";
+		}
 	}
 }

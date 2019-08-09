@@ -189,7 +189,17 @@
 			
 			location.href ='boardUpdate.do?boardNo='+boardNo+'&categoryNo='+categoryNo+'&blogNo='+blogNo+'&pno='+pno;
 		});
-		
+		$('#blog_board_delete_btn').click(function(){
+			var boardNo = $('#blog_addBoardLike').attr('data-boardNo');
+			var categoryNo = $('#blog_addBoardLike').attr('data-categoryNo');
+			var blogNo = $('#blog_addBoardLike').attr('data-blogNo');
+			var pno = '${param.pno}';
+			
+			var result = confirm('정말 삭제하시겠습니까?');
+				if(result){
+					location.href = 'deleteBoard.do?boardNo='+boardNo+'&categoryNo='+categoryNo+'&blogNo='+blogNo+'&pno='+pno;
+				}
+		});
 	})
 </script>
 <style>

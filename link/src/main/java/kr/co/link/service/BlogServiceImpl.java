@@ -28,9 +28,8 @@ public class BlogServiceImpl implements BlogService{
 	}
 
 	@Override
-	public List<Blog> get3BlogByVisits() {
-		List<Blog> blogs = blogDao.get3BlogByVisits();
-		return blogs;
+	public List<Blog> get3BlogByVisits(Map<String, Object> map) {
+		return blogDao.get3BlogByVisits(map);
 	}
 
 	@Override

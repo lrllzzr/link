@@ -24,42 +24,60 @@
 		</div>
 		<!--   글 제목 시작-->
 		<div id="blog_board_title1" data-blogNo = "${blog.no }" data-categoryNo = "${category.no }">
-		<c:forEach var="board" items="${blogboardsByRange }">
-			<div class="row">
-				<div class="col-sm-12 blog_detail_right_row_1">
-					<div class="col-sm-9">
-						<span id="" style="" class="${board.no eq param.boardNo? 'blog_board_selected' : '' }">
-						<a id="blog_board_list5" href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}&pno=${pno}">${board.title }</a></span>
-					</div>
-					<div class="col-sm-3 text-right">
-						<span class="blog_detail_board_create">${board.createDate }</span>
-					</div>
-					<div class="col-sm-12 blog_detail-hr-div">
-						<hr class="blog_detail_hr_2" />
+		<c:choose>
+			<c:when test="${empty blogboardsByRange}">
+				<div class="row">
+					<div class="col-sm-12 text-center" style="margin-top:20px;">
+						<p>아직 작성된 글이 없습니다.</p>
 					</div>
 				</div>
-			</div>
-		</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="board" items="${blogboardsByRange }">
+				<div class="row">
+					<div class="col-sm-12 blog_detail_right_row_1">
+						<div class="col-sm-9">
+							<span id="" style="" class="${board.no eq param.boardNo? 'blog_board_selected' : '' }">
+							<a id="blog_board_list5" href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}&pno=${pno}">${board.title }</a></span>
+						</div>
+						<div class="col-sm-3 text-right">
+							<span class="blog_detail_board_create">${board.createDate }</span>
+						</div>
+						<div class="col-sm-12 blog_detail-hr-div">
+							<hr class="blog_detail_hr_2" />
+						</div>
+					</div>
+				</div>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 		</div>
 		<!--                   글 제목 끝-->
 
 		<!--                    페이지네이션 시작-->
-		<div class="row">
-			<div class="col-sm-12 text-center">
-				<nav>
-					<ul class="pagination">
-						<li><a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-						</a></li>
-						<c:forEach var="status" begin="1" end="${totalCount }">
-							<li ><a id="${status }" class="blog_page_bum ${status eq pno? 'blog_detail_page_1_selected' : '' }" href="">${status }</a></li>
-						</c:forEach>
-						<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-						</a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-		<!--                    페이지네이션 끝-->
+		<c:choose>
+			<c:when test="${totalCount eq 0 }">
+			</c:when>
+			<c:otherwise>
+				<div class="row">
+					<div class="col-sm-12 text-center">
+						<nav>
+							<ul class="pagination">
+								<li><a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</a></li>
+								<c:forEach var="status" begin="1" end="${totalCount }">
+									<li ><a id="${status }" class="blog_page_bum ${status eq pno? 'blog_detail_page_1_selected' : '' }" href="">${status }</a></li>
+								</c:forEach>
+								<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+								</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</c:otherwise>
+		</c:choose>
+		<!-- 페이지네이션 끝-->
+		
 	</div>
 	</div>
 </div>
@@ -74,6 +92,7 @@
 				$(this).html('목록 열기');
 			}
 		})
+		
 		// 페이지네이션 버튼 클릭시
 		$('.blog_page_bum').click(event,function(){
 			event.preventDefault();

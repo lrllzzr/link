@@ -37,7 +37,7 @@
       row_no rowNo, no, title, contents, createDate, categoryNo, mainImg
    from(
       select row_number() OVER(order by board_create_Date desc) row_no,
-              BOARD_NO no,
+            BOARD_NO no,
             BOARD_TITLE title,
             BOARD_CONTENTS contents,
             to_char(BOARD_CREATE_DATE,'yyyy-mm-dd') createDate,
@@ -114,6 +114,13 @@
    insert into blog_board_likes
    values(blog_seq.nextval,#{boardNo},#{blogNo},sysdate)
 </insert>
+<delete id="deleteBoardByBoardNo" parameterType="int">
+	delete
+	from
+		blog_boards
+	where
+		board_no = #{value}
+</delete>
 <delete id="deleteBlogLikes" parameterType="map">
    delete
    from

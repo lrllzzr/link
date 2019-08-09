@@ -29,7 +29,7 @@
                         <c:if test="${not empty LOGIN_USER }">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <img class="blog-profile-img" src="/link/resources/images/blog.png" alt="">
+                                    <img class="blog-profile-img" style="width:30px; height:30px; border-radius: 50%;" src="/link/resources/images/${LOGIN_USER.img }" alt="">
                                     <span class="blog-navbar-id">${LOGIN_USER.nickName }</span>
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
@@ -48,7 +48,7 @@
                                     <li><a href="#">TV</a></li>
                                     
                                     <li class="divider"></li>
-                                    <li><a href="/link/logout.do">로그아웃</a></li>
+                                    <li><a class="blognav_logout_btn" href="/link/logout.do">로그아웃</a></li>
                                 </ul>
                             </li>
                             </c:if>
@@ -60,3 +60,21 @@
             </div>
         </div>
     </nav>
+    <script>
+    $('.blogmain_login').click(function(){
+			var host = location.host;
+			var returnUrl = location.pathname;
+			var queryString = location.search.substr(1).replace(/&/g, ',');
+			location.href = '/link/loginform.do?returnUrl=' + returnUrl + '&queryString=' + queryString;
+			return false;
+	});	
+    
+    $('.blognav_logout_btn').click(function(){
+			var host = location.host;
+			var returnUrl = location.pathname;
+			var queryString = location.search.substr(1).replace(/&/g, ',');
+			location.href = '/link/logout.do?returnUrl=' + returnUrl + '&queryString=' + queryString;
+			return false;
+	});
+    
+    </script>

@@ -32,12 +32,6 @@ public class UserController {
 		return "user/loginform";
 	}
 	
-	@RequestMapping("/logout.do")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:home.do";
-	}
-	
 	@RequestMapping(value="/loginform.do", method = RequestMethod.POST)
 	public String login(String userId, String password, HttpSession session) throws Exception {
 		User user = userService.login(userId, password);
@@ -48,14 +42,41 @@ public class UserController {
 		String queryString = (String) session.getAttribute("queryString");
 		session.removeAttribute("returnUrl");
 		session.removeAttribute("queryString");
+		String path ="redirect:/home.do";
+		if(returnUrl != null) {
+			if(returnUrl.equals("/blog/mydetail.do")) {
+				return path;
+			} else {
+				path = "redirect:" + returnUrl; 
+		  
+				if(queryString != null) {
+					path += "?" + queryString; 
+				}
+			}
+		}
+		return path;
+	}
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session,String password,
+			@RequestParam (value="returnUrl", required = false, defaultValue = "") String returnUrl,
+			@RequestParam (value="queryString", required = false, defaultValue = "")	String queryString) {
+		session.invalidate();
+		returnUrl = returnUrl.replace("/link", "");
+		System.out.println(returnUrl);
+		queryString = queryString.replace(",", "&");
 		
 		String path ="redirect:/home.do";
-		  if(returnUrl != null) {
-			  path = "redirect:" + returnUrl; 
-		  }
-		  if(queryString != null) {
-			  path += "?" + queryString; 
-		  }
-		  return path;
+		if(returnUrl != null) {
+			if(returnUrl.equals("/blog/mydetail.do")) {
+				return path;
+			} else {
+				path = "redirect:" + returnUrl; 
+		  
+				if(queryString != null) {
+					path += "?" + queryString; 
+				}
+			}
+		}
+		return path;
 	}
 }

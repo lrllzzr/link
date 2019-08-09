@@ -13,25 +13,22 @@
 <link href="https://fonts.googleapis.com/css?family=Jura|Marck+Script|Russo+One|Sacramento&display=swap" rel="stylesheet">
 <style>
 .pagination>li>a, .pagination>li>span {
-	position: relative;
-	float: left;
-	padding: 6px 12px;
-	margin-left: -1px;
-	line-height: 1.42857143;
-	color: black !important;
-	text-decoration: none;
-	background-color: #fff !important;
-	border: 0.5px solid lightgray !important;
+		position: relative;
+		float: left;
+		padding: 6px 12px;
+		margin-left: -1px;
+		line-height: 1.42857143;
+		color: black !important;
+		text-decoration: none;
+		background-color: #fff !important;
+		border: 0.5px solid lightgray !important;
 }
 
-.pagination>li>a:hover,
-.pagination>li>span:hover,
-.pagination>li>a:focus,
-.pagination>li>span:focus {
-	z-index: 2;
-	color: black !important;
-	background-color: #fff !important;
-	border-color: lightgray !important;
+.pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus, .pagination>li>span:focus {
+		z-index: 2;
+		color: black !important;
+		background-color: #fff !important;
+		border-color: lightgray !important;
 }
 </style>
 </head>
@@ -45,17 +42,16 @@
 					<div class="col-sm-12">
 						<span class="blog-hot-topic">Hot topics</span>
 					</div>
-					<c:forEach var="blog" items="${blogsByVisit }">
-						<a href="detail.do?blogNo=${blog.no }">
+					<c:forEach var="eblog" items="${blogsByVisit }">
+						<a href="detail.do?blogNo=${eblog.no }">
 							<div class="col-sm-4 blog-row-2 text-center">
-								<img src="/link/resources/images/${blog.mainImg }" alt="">
+								<img src="/link/resources/images/${eblog.mainImg }" alt="">
 								<div class="row text-center">
-									<div class="col-sm-6 blog-hottopic-info">${blog.title }</div>
+									<div class="col-sm-6 blog-hottopic-info" style="height: 74px;">${eblog.title }</div>
 								</div>
 							</div>
 						</a>
 					</c:forEach>
-
 				</div>
 				<div class="row blog-main-row-2">
 					<c:if test="${not empty LOGIN_USER }">
@@ -81,47 +77,47 @@
 							<c:choose>
 								<c:when test="${isHaveBlog eq 'yes' }">
 									<c:if test="${not empty blogList}">
-									<div class="blog_neighbor_list_main_1">
-										<c:forEach var="blog" items="${blogList}">
-											<div class="blog-hrdiv">
-												<hr class="blog-row-hr-2" />
-											</div>
-											<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
-												<div class="col-sm-9">
-													<div class="row">
-														<div class="col-sm-1 blog-neighbor-col1">
-															<img class="blog-row-2-profile-img" src="/link/resources/images/${blog.BLOGMAINIMG }" alt="">
-														</div>
-														<div class="col-sm-2 blog-neighbor-col2">
-															<div class="row">
-																<div class="col-sm-12">
-																	<a href="">${blog.NICKNAME }</a>
+										<div class="blog_neighbor_list_main_1">
+											<c:forEach var="blog" items="${blogList}">
+												<div class="blog-hrdiv">
+													<hr class="blog-row-hr-2" />
+												</div>
+												<div class="row blog-main-col-2-1 blog-main-col-2-1-1">
+													<div class="col-sm-9">
+														<div class="row">
+															<div class="col-sm-1 blog-neighbor-col1">
+																<img class="blog-row-2-profile-img" src="/link/resources/images/${blog.BLOGMAINIMG }" alt="">
+															</div>
+															<div class="col-sm-2 blog-neighbor-col2">
+																<div class="row">
+																	<div class="col-sm-12">
+																		<a href="">${blog.NICKNAME }</a>
+																	</div>
+																	<div class="col-sm-12">2시간전</div>
 																</div>
-																<div class="col-sm-12">2시간전</div>
 															</div>
 														</div>
+														<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}">
+															<div class="row blog-neighbor-box">
+																<div class="col-sm-12">
+																	<p class="blog-neighbor-title">${blog.TITLE }</p>
+																</div>
+																<div class="col-sm-12 blog-neighbor-contents3">
+																	<div class="blog-neighbor-contents">${blog.CONTENTS }</div>
+																</div>
+															</div>
+														</a>
 													</div>
-													<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}">
-														<div class="row blog-neighbor-box">
-															<div class="col-sm-12">
-																<p class="blog-neighbor-title">${blog.TITLE }</p>
-															</div>
-															<div class="col-sm-12 blog-neighbor-contents3">
-																<div class="blog-neighbor-contents">${blog.CONTENTS }</div>
-															</div>
-														</div>
-													</a>
-												</div>
-												<!--  -->
-												<div class="col-sm-3">
-													<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}"> <img style="max-width: 100%;" class="blog-neighbor-img "
-														src="/link/resources/images/userblogimgs/${blog.BOARDMAINIMG }" alt=""
-													>
-													</a>
-												</div>
+													<!--  -->
+													<div class="col-sm-3">
+														<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}"> <img style="max-width: 100%;" class="blog-neighbor-img "
+															src="/link/resources/images/userblogimgs/${blog.BOARDMAINIMG }" alt=""
+														>
+														</a>
+													</div>
 
-											</div>
-										</c:forEach>
+												</div>
+											</c:forEach>
 										</div>
 										<div class="row blog_pagination_row">
 											<div class="col-sm-12 text-center">
@@ -341,12 +337,10 @@
 								</a>
 							</div>
 							<div class="row blog-col-5 text-center">
-								<div class="col-sm-4 blog-col-5-selected">
+								<div class="col-sm-6 blog-col-5-selected">
 									<a href="main.do">내 소식</a>
 								</div>
-								<div class="col-sm-4">내가 남긴 글</div>
-								<div class="col-sm-4" id="neighborLists">이웃 목록</div>
-
+								<div class="col-sm-6" id="neighborLists">이웃 목록</div>
 							</div>
 
 							<div class="row blog-col-6 text-center" id="myInfoform">
@@ -355,7 +349,7 @@
 										<c:forEach var="request" items="${requestList}">
 											<div class="row blog-alarm">
 												<div class="col-sm-10">
-													<img class="blog-row-3-profile-img" src="/link/resources/images/jisik.jpg" alt=""> <a href="eachNeighbor.do">${request.NICKNAME }님이 서로이웃을 신청했습니다.</a>
+													<img class="blog-row-3-profile-img" src="/link/resources/images/${request.BLOGMAINIMG }" alt=""> <a href="eachNeighbor.do">${request.NICKNAME }님이 서로이웃을 신청했습니다.</a>
 												</div>
 												<div class="col-sm-1">
 													<a href=""><span class="glyphicon glyphicon-remove"></span></a>
@@ -404,97 +398,107 @@
 			$('.blog-neighbor-contents img').hide();
 			$('#1').addClass('blog_detail_page_1_selected');
 
+			// 캐러샐
+			$('.carousel').carousel({
+				interval : false
+			})
+
+			$('.carousel-inner .item:first').addClass('active');
+
 			// 나의이웃 페이지네이션
-			$("body").on('click','#pagination-box a', function(event) {
-				event.preventDefault();
-				$(this).addClass('blog_detail_page_1_selected').parent().siblings().find('a').removeClass('blog_detail_page_1_selected');
-				
-				var pageNo = $(this).attr("data-pno");
-				
-				$.ajax({
-					type:"GET",
-					url:"neighborAjax.do",
-					data:{
-						pageNo : pageNo
-					},
-					success:function(result){
-						$('.blog_neighbor_list_main_1').empty();
-						$('.blog_pagination_row').empty();
-						
-						$.each(result.blogLists,function(index,blog){
-							var row = ' <div class="blog-hrdiv">';
-							row += '		<hr class="blog-row-hr-2" />';
-							row += '	</div>';
-							row += '	<div class="row blog-main-col-2-1 blog-main-col-2-1-1">';
-							row += '		<div class="col-sm-9">';
-							row += '			<div class="row">';
-							row += '				<div class="col-sm-1 blog-neighbor-col1">';
-							row += '					<img class="blog-row-2-profile-img" src="/link/resources/images/'+blog.BLOGMAINIMG+'" alt="">';
-							row += '				</div>';
-							row += '				<div class="col-sm-2 blog-neighbor-col2">';
-							row += '					<div class="row">';
-							row += '						<div class="col-sm-12">';
-							row += '							<a href="">'+blog.NICKNAME+'</a>';
-							row += '						</div>';
-							row += '						<div class="col-sm-12">2시간전</div>';
-							row += '					</div>';
-							row += '				</div>';
-							row += '			</div>';
-							row += '			<a href="/link/blog/board.do?blogNo='+blog.NO+'&categoryNo='+blog.CATEGORYNO+'&boardNo='+blog.BOARDNO+'">';
-							row += '				<div class="row blog-neighbor-box">';
-							row += '					<div class="col-sm-12">';
-							row += '						<p class="blog-neighbor-title">'+blog.TITLE+'</p>';
-							row += '					</div>';
-							row += '					<div class="col-sm-12 blog-neighbor-contents3">';
-							row += '						<div class="blog-neighbor-contents">'+blog.CONTENTS+'</div>';
-							row += '					</div>';
-							row += '				</div>';
-							row += '			</a>';
-							row += '		</div>';
-							row += '	<div class="col-sm-3">';
-							row += '		<a href="/link/blog/board.do?blogNo='+blog.BLOGNO+'&categoryNo='+blog.CATEGORYNO+'&boardNo='+blog.BOARDNO+'"> <img style="max-width: 100%;" class="blog-neighbor-img" src="/link/resources/images/userblogimgs/'+blog.BOARDMAINIMG+'">';
-							row += '		</a>';
-							row += '	</div>';
-							row += '</div>';
-							
-							$('.blog_neighbor_list_main_1').append(row);
-							$('.blog-neighbor-contents3 img').hide();
-							$('.blog-neighbor-contents img').hide();	
-						});
-						
-						var pagination = result.pagination;
-						
-						var row2 = '';
-						row2 += '<div class="col-sm-12 text-center">';
-						row2 += '	<ul class="pagination" id="pagination-box">';
-						
-						if(pagination.first){
-							row2 += '<li class="disabled"><span>&laquo;</span></li>';
-						} else{
-							row2 += '<li><a href="" data-pno="'+(pagination.page-1)+'"><span>&laquo;</span></a></li>';
-						}
-						for(var i = pagination.begin; i<=pagination.end; i++){
-							if(pagination.page == i){
-								row2 += '<li><a class="blog_detail_page_1_selected" data-pno="'+i+'">'+i+'</a></li>';
-							} else{
-								row2 += '<li><a href="#" data-pno="'+i+'">'+i+'</a></li>';
+			$("body").on(
+					'click',
+					'#pagination-box a',
+					function(event) {
+						event.preventDefault();
+						$(this).addClass('blog_detail_page_1_selected').parent().siblings().find('a').removeClass('blog_detail_page_1_selected');
+
+						var pageNo = $(this).attr("data-pno");
+
+						$.ajax({
+							type : "GET",
+							url : "neighborAjax.do",
+							data : {
+								pageNo : pageNo
+							},
+							success : function(result) {
+								$('.blog_neighbor_list_main_1').empty();
+								$('.blog_pagination_row').empty();
+
+								$.each(result.blogLists, function(index, blog) {
+									var row = ' <div class="blog-hrdiv">';
+									row += '		<hr class="blog-row-hr-2" />';
+									row += '	</div>';
+									row += '	<div class="row blog-main-col-2-1 blog-main-col-2-1-1">';
+									row += '		<div class="col-sm-9">';
+									row += '			<div class="row">';
+									row += '				<div class="col-sm-1 blog-neighbor-col1">';
+									row += '					<img class="blog-row-2-profile-img" src="/link/resources/images/'+blog.BLOGMAINIMG+'" alt="">';
+									row += '				</div>';
+									row += '				<div class="col-sm-2 blog-neighbor-col2">';
+									row += '					<div class="row">';
+									row += '						<div class="col-sm-12">';
+									row += '							<a href="">' + blog.NICKNAME + '</a>';
+									row += '						</div>';
+									row += '						<div class="col-sm-12">2시간전</div>';
+									row += '					</div>';
+									row += '				</div>';
+									row += '			</div>';
+									row += '			<a href="/link/blog/board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
+									row += '				<div class="row blog-neighbor-box">';
+									row += '					<div class="col-sm-12">';
+									row += '						<p class="blog-neighbor-title">' + blog.TITLE + '</p>';
+									row += '					</div>';
+									row += '					<div class="col-sm-12 blog-neighbor-contents3">';
+									row += '						<div class="blog-neighbor-contents">' + blog.CONTENTS + '</div>';
+									row += '					</div>';
+									row += '				</div>';
+									row += '			</a>';
+									row += '		</div>';
+									row += '	<div class="col-sm-3">';
+									row += '		<a href="/link/blog/board.do?blogNo=' + blog.BLOGNO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO
+											+ '"> <img style="max-width: 100%;" class="blog-neighbor-img" src="/link/resources/images/userblogimgs/' + blog.BOARDMAINIMG + '">';
+									row += '		</a>';
+									row += '	</div>';
+									row += '</div>';
+
+									$('.blog_neighbor_list_main_1').append(row);
+									$('.blog-neighbor-contents3 img').hide();
+									$('.blog-neighbor-contents img').hide();
+								});
+
+								var pagination = result.pagination;
+
+								var row2 = '';
+								row2 += '<div class="col-sm-12 text-center">';
+								row2 += '	<ul class="pagination" id="pagination-box">';
+
+								if (pagination.first) {
+									row2 += '<li class="disabled"><span>&laquo;</span></li>';
+								} else {
+									row2 += '<li><a href="" data-pno="' + (pagination.page - 1) + '"><span>&laquo;</span></a></li>';
+								}
+								for (var i = pagination.begin; i <= pagination.end; i++) {
+									if (pagination.page == i) {
+										row2 += '<li><a class="blog_detail_page_1_selected" data-pno="'+i+'">' + i + '</a></li>';
+									} else {
+										row2 += '<li><a href="#" data-pno="'+i+'">' + i + '</a></li>';
+									}
+								}
+								if (pagination.last) {
+									row2 += '<li class="disabled"><span>&raquo;</span></li>';
+								} else {
+									row2 += '<li><a href="" data-pno="' + (pagination.page + 1) + '"><span>&raquo;</span></a></li>';
+								}
+								row2 += '</ul>';
+								row2 += '</div>';
+
+								$('.blog_pagination_row').append(row2);
+
 							}
-						}
-						if(pagination.last){
-							row2 += '<li class="disabled"><span>&raquo;</span></li>';
-						} else{
-							row2 += '<li><a href="" data-pno="'+(pagination.page+1)+'"><span>&raquo;</span></a></li>';
-						}
-						row2 += '</ul>';
-						row2 += '</div>';
-						
-						$('.blog_pagination_row').append(row2);
-						
-					}
-				});
-			});
-				
-			
+						});
+					});
+
 			// 추천이웃 페이지네이션
 			$('body').on(
 					'click',
@@ -576,8 +580,9 @@
 							var row = '';
 							row += '<div class="col-sm-6" style="padding:5px;">';
 							row += '	<div class="text-left">';
-							row += '		<img class="blog-row-33-profile-img" src="/link/resources/images/'+neighBor.MAINIMG+'" alt="">';
-							row += '			<a href="">' + neighBor.NICKNAME + '</a>';
+							row += '		<a href="detail.do?blogNo=' + neighBor.NO + '">';
+							row += '			<img class="blog-row-33-profile-img" src="/link/resources/images/'+neighBor.MAINIMG+'" alt="">' + neighBor.NICKNAME;
+							row += '		</a>';
 							row += '	</div>';
 							row += '</div>';
 							$('#myInfoform').append(row);
@@ -602,79 +607,85 @@
 							success : function(data) {
 								$('.blog3topic').empty();
 								$('.blog3topic-2').empty();
-								$.each(data.blogsList, function(index, blog) {
+								var length = data.blogsList.length;
+								console.log(length);
+								if(length == 0){
 									var row = "";
-									row += '<div class="row blog-main-col-2-1">';
-									row += '	<div class="col-sm-9">';
-									row += '		<div class="row">';
-									row += '			<div class="col-sm-1 blog-neighbor-col1">';
-									row += '				<img class="blog-row-2-profile-img" src="/link/resources/images/'+blog.BLOGMAINIMG+'" alt="">';
-									row += '			</div>';
-									row += '			<div class="col-sm-2 blog-neighbor-col2">';
-									row += '				<div class="row">';
-									row += '					<div class="col-sm-12">';
-									row += '						<a href="">' + blog.NICKNAME + '</a>';
-									row += '					</div>';
-									row += '					<div class="col-sm-12">2시간전</div>';
-									row += '				</div>';
-									row += '			</div>';
-									row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
-									row += '				<div class="col-sm-2 col-sm-offset-7">';
-									row += '					<span class="blog-addneighbor"><a href="">+이웃추가</a></span>';
-									row += '				</div>';
-									row += '			</c:if>';
-									row += '		</div>';
-									row += '		<div class="row blog-neighbor-box">';
-									row += '			<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
-									row += '		<div class="col-sm-12">';
-									row += '<p class="blog-neighbor-title">' + blog.TITLE + '</p>';
-									row += '</div>';
-									row += '<div class="col-sm-12">';
-									row += '<div class="blog-neighbor-contents ">' + blog.CONTENTS + '</div>';
-									row += '</div>';
-									row += '</a>';
-									row += '</div>';
-									row += '</div>';
-									row += '<div class="col-sm-3">';
-									row += '<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO
-											+ '"><img class="blog-neighbor-img" src="/link/resources/images/userblogimgs/'+blog.BOARDMAINIMG+'" alt=""></a>';
-									row += '</div>';
-									row += '</div>';
-									row += '<div class="blog-hrdiv">';
-									row += '<hr class="blog-row-hr-2" />';
-									row += '</div>';
-
+									row += '<div class="row"><div class="col-sm-12 text-center" style="margin-bottom:30px;"><p>등록된 글이 없습니다.</p></div></div>';
 									$('.blog3topic').append(row);
-									$('.blog-neighbor-contents3 img').hide();
-									$('.blog-neighbor-contents img').hide();
-
-								});
-
-								var totalBlocks = data.totalBlocks;
-
-								console.log('totalBlocks:' + totalBlocks);
-								console.log('pno:' + data.pno);
-
-								var row2 = '';
-								row2 += '<div class="row">';
-								row2 += '	<div class="col-sm-12 text-center">';
-								row2 += '		<nav>';
-								row2 += '			<ul class="pagination">';
-								row2 += '				<li><a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>';
-								for (var i = 1; i <= totalBlocks; i++) {
-									if (i == data.pno) {
-										row2 += '<li><a href="" id="'+i+'" class="blog_pagenation_num blog_detail_page_1_selected">' + i + '</a></li>';
-									} else {
-										row2 += '<li><a href="" id="'+i+'" class="blog_pagenation_num">' + i + '</a></li>';
+									var row2 = "";
+									$('.blog3topic-2').append(row2);
+								} else{
+									$.each(data.blogsList, function(index, blog) {
+										var row = "";
+										row += '<div class="row blog-main-col-2-1">';
+										row += '	<div class="col-sm-9">';
+										row += '		<div class="row">';
+										row += '			<div class="col-sm-1 blog-neighbor-col1">';
+										row += '				<img class="blog-row-2-profile-img" src="/link/resources/images/'+blog.BLOGMAINIMG+'" alt="">';
+										row += '			</div>';
+										row += '			<div class="col-sm-2 blog-neighbor-col2">';
+										row += '				<div class="row">';
+										row += '					<div class="col-sm-12">';
+										row += '						<a href="">' + blog.NICKNAME + '</a>';
+										row += '					</div>';
+										row += '					<div class="col-sm-12">2시간전</div>';
+										row += '				</div>';
+										row += '			</div>';
+										row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
+										row += '				<div class="col-sm-2 col-sm-offset-7">';
+										row += '					<span class="blog-addneighbor"><a href="">+이웃추가</a></span>';
+										row += '				</div>';
+										row += '			</c:if>';
+										row += '		</div>';
+										row += '		<div class="row blog-neighbor-box">';
+										row += '			<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
+										row += '		<div class="col-sm-12">';
+										row += '<p class="blog-neighbor-title">' + blog.TITLE + '</p>';
+										row += '</div>';
+										row += '<div class="col-sm-12">';
+										row += '<div class="blog-neighbor-contents ">' + blog.CONTENTS + '</div>';
+										row += '</div>';
+										row += '</a>';
+										row += '</div>';
+										row += '</div>';
+										row += '<div class="col-sm-3">';
+										row += '<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO
+												+ '"><img class="blog-neighbor-img" src="/link/resources/images/userblogimgs/'+blog.BOARDMAINIMG+'" alt=""></a>';
+										row += '</div>';
+										row += '</div>';
+										row += '<div class="blog-hrdiv">';
+										row += '<hr class="blog-row-hr-2" />';
+										row += '</div>';
+	
+										$('.blog3topic').append(row);
+										$('.blog-neighbor-contents3 img').hide();
+										$('.blog-neighbor-contents img').hide();
+	
+									});
+									var totalBlocks = data.totalBlocks;
+									
+									var row2 = '';
+									row2 += '<div class="row">';
+									row2 += '	<div class="col-sm-12 text-center">';
+									row2 += '		<nav>';
+									row2 += '			<ul class="pagination">';
+									row2 += '				<li><a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>';
+									for (var i = 1; i <= totalBlocks; i++) {
+										if (i == data.pno) {
+											row2 += '<li><a href="" id="'+i+'" class="blog_pagenation_num blog_detail_page_1_selected">' + i + '</a></li>';
+										} else {
+											row2 += '<li><a href="" id="'+i+'" class="blog_pagenation_num">' + i + '</a></li>';
+										}
 									}
-								}
-								row2 += '				<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>';
-								row2 += '			</ul>';
-								row2 += '		</nav>';
-								row2 += '	</div>';
-								row2 += '</div>';
+									row2 += '				<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>';
+									row2 += '			</ul>';
+									row2 += '		</nav>';
+									row2 += '	</div>';
+									row2 += '</div>';
 
-								$('.blog3topic-2').append(row2);
+									$('.blog3topic-2').append(row2);
+								}
 							}
 						})
 					})

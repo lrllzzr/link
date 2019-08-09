@@ -342,6 +342,20 @@ public class BlogBeautyController {
 		return "redirect:eachNeighbor.do";
 	}
 	
+	@RequestMapping(value="addMeNeighbor.do", method = RequestMethod.GET)
+	public String addMeNeighbor(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		// 내 블로그 얻어오기
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		List<Map<String, Object>> blogNeighbors = blogNeighborService.getNeighborIAdd(blog.getNo());
+		model.addAttribute("blogNeighbors",blogNeighbors);
+		// 추가한 이웃 파랗게
+		model.addAttribute("left","addMeNeighbor");
+		// 기본 설정을 파랗게
+		model.addAttribute("column","updateProfile");
+		
+		return "blog/beautify/addMeNeighbor";
+	}
 	@RequestMapping(value="manageNeighbor.do", method = RequestMethod.GET)
 	public String manageNeighbor(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("LOGIN_USER");

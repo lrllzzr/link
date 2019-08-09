@@ -16,7 +16,8 @@
 			USER_ISHAVEBLOG isHaveBlog,
 			USER_NAME_VISIBILITY nameVisibility,
 			USER_GENDER gender,
-			USER_GENDER_VISIBILITY genderVisibility
+			USER_GENDER_VISIBILITY genderVisibility,
+			user_img img
 		from
 			users
 		where

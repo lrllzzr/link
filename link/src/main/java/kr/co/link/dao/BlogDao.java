@@ -11,7 +11,7 @@ import kr.co.link.vo.Blog;
 public interface BlogDao {
 	public Blog getBlogByUserId(String userId);
 	public Blog getBlogByBlogNo(Integer blogNo);
-	public List<Blog> get3BlogByVisits();
+	public List<Blog> get3BlogByVisits(Map<String, Object> map);
 	public void updateBlogByBlogNo(Blog blog);
 	public void addNewBlog(Blog blog);
 	List<Blog> getAllblogs();

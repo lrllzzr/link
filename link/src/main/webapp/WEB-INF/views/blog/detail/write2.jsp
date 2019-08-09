@@ -22,7 +22,7 @@
 									<div class="page-header">
 										<h2>글쓰기</h2>
 									</div>
-									<label for="">제목</label><input id="blogboard_title" name="title" style="width: 723px;" type="text" class="form-control blog_write_title" />
+									<label for="">제목</label><input id="blogboard_title" name="title" style="width: 100%;" type="text" class="form-control blog_write_title" />
 								</div>
 								<div class="form-group">
 									<label for="exampleInputFile">메인 이미지 등록</label><input type="file" id="file" name="upfile">

@@ -206,7 +206,17 @@ public class BlogDetailController {
 					   @RequestParam(value="pno", required=false, defaultValue="1") int pageNo) {
 		
 		User user = (User) session.getAttribute("LOGIN_USER");
-		List<Blog> blogs = blogService.get3BlogByVisits();
+		
+		// 캐러샐 시작
+		Map<String, Object> blogMap = new HashMap<String, Object>();
+		blogMap.put("begin",1);
+		blogMap.put("end", 3);
+		
+		List<Blog> blogs = blogService.get3BlogByVisits(blogMap);
+		model.addAttribute("blogsByVisit", blogs);
+		model.addAttribute("caroselLength", blogs.size());
+		//끝
+		
 		List<Blog> allBlogs = blogService.getAllblogs();
 		
 		Map<String, Object> topicMap = new HashMap<String, Object>();
@@ -283,7 +293,7 @@ public class BlogDetailController {
 				// 끝
 			}
 		}
-		model.addAttribute("blogsByVisit", blogs);
+		
 		model.addAttribute("allBlogs", allBlogs);
 		
 		
@@ -515,6 +525,11 @@ public class BlogDetailController {
 		blogBoardService.addNewComment(blogBoardComment);
 		
 		return "redirect:board.do?boardNo="+boardNo+"&categoryNo="+categoryNo+"&blogNo="+blogNo;
+	}
+	@RequestMapping("deleteBoard.do")
+	public String deleteBoard(HttpSession session, Integer boardNo,Integer categoryNo, Integer blogNo) {
+		blogBoardService.deleteBoardByBoardNo(boardNo);
+		return "redirect:detail.do?blogNo="+blogNo+"&categoryNo="+categoryNo;
 	}
 	
 	@RequestMapping("addNewBlogLike.do")

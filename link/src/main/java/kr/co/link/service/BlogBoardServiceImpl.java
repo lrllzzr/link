@@ -91,4 +91,8 @@ public class BlogBoardServiceImpl implements BlogBoardService{
 	public void updateBoard(BlogBoard blogBoard) {
 		blogBoardDao.updateBoard(blogBoard);
 	}
+	@Override
+	public void deleteBoardByBoardNo(Integer boardNo) {
+		blogBoardDao.deleteBoardByBoardNo(boardNo);
+	}
 }

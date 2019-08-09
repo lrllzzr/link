@@ -13,8 +13,10 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<span class="glyphicon glyphicon-menu-right blog_usernickNameGlyphycon"></span>
+						<a href="detail.do?blogNo=${param.blogNo }">
 						<span class="blog_usernickName">${user.nickName }</span>
 						<span class="blog_nickNameBlog">님의 블로그</span>
+						</a>
 					</div>
 				</div>
 			</div>

@@ -63,7 +63,7 @@
 		blog_no = #{value}
 </select>
 
-<select id="get3BlogByVisits" resultType="blog">
+<select id="get3BlogByVisits" parameterType="map" resultType="blog">
 	select
 		BLOG_NO no,
 		BLOG_TITLE title,
@@ -116,7 +116,9 @@
         from
             blog
     )
-    where row_no &lt;=3
+    where row_no &lt;=#{end}
+    and
+    	row_no >= #{begin}
 </select>
 <update id="updateBlogByBlogNo" parameterType="blog">
 	update 

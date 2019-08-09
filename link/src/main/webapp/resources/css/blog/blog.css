@@ -142,6 +142,7 @@ a {
 	width: 50px;
     height:50px;
     border-radius: 50%;
+    margin-right:10px;
 }
 .blog-row-3-profile-img{
     width: 30px;
@@ -190,7 +191,7 @@ a {
     margin:0px;
     padding:10px;
 }
-.blog-col-5 .col-sm-4{
+.blog-col-5 .col-sm-6{
     border-bottom: 1px solid lightgray;
 }
 .blog-col-5 div,
@@ -203,7 +204,7 @@ a {
 .blog-col-5 div a:hover{
 	color:black;
 }
-.blog-col-5 .col-sm-4:hover{
+.blog-col-5 .col-sm-6:hover{
     border-bottom: 1px solid black;
 }
 .blog-col-5-selected{
@@ -227,7 +228,7 @@ a {
     margin:0px;
     padding:10px !important;
 }
-.blog-col-5 .col-sm-4{
+.blog-col-5 .col-sm-6{
     padding: 10px 0px;
 }
 .blog-col-4 .col-sm-6{

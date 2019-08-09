@@ -22,7 +22,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<c:if test="${not empty LOGIN_USER }">
 					<li class="dropdown"><a href="#" style="background-color: white !important;" class="dropdown-toggle" data-toggle="dropdown"
-						role="button" aria-expanded="false"> <img class="blog-profile-img" src="/link/resources/images/blog.png" alt=""> <span class="blog-navbar-id"
+						role="button" aria-expanded="false"> <img class="blog-profile-img" style="width:30px; height:30px; border-radius: 50%;" src="/link/resources/images/${LOGIN_USER.img }" alt="">> <span class="blog-navbar-id"
 							style="color: gray !important;">${LOGIN_USER.nickName }</span> <span class="caret" style="color: gray !important;"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/link/home.do">Link 홈</a></li>
@@ -44,10 +44,10 @@
 						</ul></li>
 				</c:if>
 				<c:if test="${empty LOGIN_USER }">
-					<li class=""><a class="main-login" style="color: #666666;" href="loginform.do">로그인</a></li>
+					<li class=""><a class="main-login blogmain_login" style="color: #666666;" href="loginform.do">로그인</a></li>
 				</c:if>
 				<c:if test="${not empty LOGIN_USER }">
-					<li class=""><a class="main-login" style="color: #666666;" href="logout.do">로그아웃</a></li>
+					<li class=""><a class="main-login blognav_logout_btn" style="color: #666666;" href="logout.do">로그아웃</a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -117,4 +117,21 @@
 	</div>
 
 </body>
+<script>
+	$('.blogmain_login').click(function(){
+		var host = location.host;
+		var returnUrl = location.pathname;
+		var queryString = location.search.substr(1).replace(/&/g, ',');
+		location.href = '/link/loginform.do?returnUrl=' + returnUrl + '&queryString=' + queryString;
+		return false;
+	});	
+	
+	$('.blognav_logout_btn').click(function(){
+		var host = location.host;
+		var returnUrl = location.pathname;
+		var queryString = location.search.substr(1).replace(/&/g, ',');
+		location.href = '/link/logout.do?returnUrl=' + returnUrl + '&queryString=' + queryString;
+		return false;
+	});
+</script>
 </html>
