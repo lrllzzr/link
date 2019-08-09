@@ -41,7 +41,16 @@
 							<div class="col-sm-2">${loop.count }</div>
 							<div class="col-sm-10">
 								<a href="detail.do?vodno=${vod.no }"><img src="/link/resources/images/series/vods/${vod.img }" class="img-thumbnail"></a>
-								<a href="detail.do?vodno=${vod.no }"><h4>${vod.title }</h4></a>
+								<a href="detail.do?vodno=${vod.no }">
+									<c:choose>
+										<c:when test="${fn:length(vod.title) > 6}">
+											<c:out value="${fn:substring(vod.title,0,6)}"/>…
+										</c:when>
+										<c:otherwise>
+											<c:out value="${vod.title}"/>
+										</c:otherwise> 
+									</c:choose>
+								
 								<p class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vod.price }"></fmt:formatNumber>원</p>
 							</div>
 						</div>
@@ -57,7 +66,16 @@
 							<div class="col-sm-2">${loop.count }</div>
 							<div class="col-sm-10">
 								<a href="detail.do?vodno=${vod.no }"><img src="/link/resources/images/series/vods/${vod.img }" class="img-thumbnail"></a>
-								<a href="detail.do?vodno=${vod.no }"><h4>${vod.title }</h4></a>
+								<a href="detail.do?vodno=${vod.no }">
+									<c:choose>
+										<c:when test="${fn:length(vod.title) > 6}">
+											<c:out value="${fn:substring(vod.title,0,6)}"/>…
+										</c:when>
+										<c:otherwise>
+											<c:out value="${vod.title}"/>
+										</c:otherwise> 
+									</c:choose>
+								</a>
 								<p class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vod.price }"></fmt:formatNumber>원</p>
 							</div>
 						</div>
@@ -72,7 +90,16 @@
 								<div class="col-sm-2">${loop.count }</div>
 								<div class="col-sm-10">
 									<a href="detail.do?vodno=${vod.no }"><img src="/link/resources/images/series/vods/${vod.img }" class="img-thumbnail"></a>
-									<a href="detail.do?vodno=${vod.no }"><h4>${vod.title }</h4></a>
+									<a href="detail.do?vodno=${vod.no }">
+										<c:choose>
+											<c:when test="${fn:length(vod.title) > 8}">
+												<c:out value="${fn:substring(vod.title, 0, 7)}"/>…
+											</c:when>
+											<c:otherwise>
+												<c:out value="${vod.title}"/>
+											</c:otherwise> 
+										</c:choose>
+									</a>
 									<p class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vod.price }"></fmt:formatNumber>원</p>
 								</div>
 							</div>

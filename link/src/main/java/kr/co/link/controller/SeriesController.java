@@ -62,6 +62,9 @@ public class SeriesController {
 		List<SeriesVod> brandNewVods = seriesVodService.get4BrandNewVods();
 		model.addAttribute("brandNewVods", brandNewVods);
 		 
+		List<Map<String, Object>> ranks = seriesVodService.get3DailyOrderVod();
+		model.addAttribute("ranks", ranks);
+		
 		List<SeriesNotice> notices = seriesNoticeService.get3Notices();
 		model.addAttribute("notices", notices);
 		
@@ -85,9 +88,9 @@ public class SeriesController {
 	
 	@RequestMapping("/toprank.do")
 	public String topRank(Model model) {
-		List<SeriesVod> dailyVods = seriesVodService.getDailyChart();
-		List<SeriesVod> weeklyVods = seriesVodService.getWeeklyChart();
-		List<SeriesVod> monthlyVods = seriesVodService.getMonthlyChart();
+		List<Map<String, Object>> dailyVods = seriesVodService.getDailyOrderVod();
+		List<Map<String, Object>> weeklyVods = seriesVodService.getWeeklyOrderVod();
+		List<Map<String, Object>> monthlyVods = seriesVodService.getMonthlyOrderVod();
 		
 		model.addAttribute("dailyVods", dailyVods);
 		model.addAttribute("weeklyVods", weeklyVods);
@@ -115,9 +118,9 @@ public class SeriesController {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		like.setVod(vod);
 		like.setUser(user);
-		int abc = seriesLikeService.getCountabc(like);
+		int isAlreadyHearted = seriesLikeService.getCountUserLikes(like);
 		
-		model.addAttribute("abc", abc);
+		model.addAttribute("isAlreadyHearted", isAlreadyHearted);
 		
 		
 		int countReviews = seriesReviewService.getCountReviewsByVodNo(vodno);
@@ -139,6 +142,39 @@ public class SeriesController {
 		return "series/detail";
 	}
 	
+	
+	@RequestMapping("/likeedit.do")
+	public @ResponseBody Integer likeedit(@RequestParam(value = "vodno", required = true) int vodno, 
+			@RequestParam(value = "gubun", required = true) String gubun,
+			HttpSession session) {
+		SeriesLike like = new SeriesLike();
+		SeriesVod vod = new SeriesVod();
+		vod.setNo(vodno);
+		
+		User user = (User) session.getAttribute("LOGIN_USER");
+		like.setVod(vod);
+		like.setUser(user);
+		if (gubun.equals("plus")) {
+			seriesLikeService.addLike(like);
+		} else if (gubun.equals("minus")) {
+			seriesLikeService.deleteLike(like);
+		}
+		
+		return seriesLikeService.getCountLikesByVodNo(vodno);
+	}
+	
+	@RequestMapping("/mypage/addcart.do")
+	public @ResponseBody Map<String, String> addCart (@RequestParam("chk")int[] episodeNos, HttpSession session){
+		
+		User user = (User) session.getAttribute("LOGIN_USER");
+		seriesCartService.addCart(episodeNos, user.getId());
+		
+		Map<String, String> map = new HashMap<String, String>();
+		// map.put("result", "success");
+		map.put("ririririri", "ghghghghgh");
+		return map;
+	}
+
 	@RequestMapping("/addReview.do")
 	public String addReview(@RequestParam(value = "vodno", required = true) int vodno, 
 			@RequestParam(value = "contents", required = true) String contents,
@@ -155,63 +191,28 @@ public class SeriesController {
 		return "redirect:detail.do?vodno=" + vodno;
 	}
 	
-	@RequestMapping("/likeedit.do")
-	public String likeedit(@RequestParam(value = "vodno", required = true) int vodno, 
-			@RequestParam(value = "gubun", required = true) String gubun,
-			HttpSession session) {
-		SeriesLike like = new SeriesLike();
-		SeriesVod vod = new SeriesVod();
-		
-		vod.setNo(vodno);
-		User user = (User) session.getAttribute("LOGIN_USER");
-		like.setVod(vod);
-		like.setUser(user);
-		if (gubun.equals("plus")) {
-			seriesLikeService.addLike(like);
-		} else if (gubun.equals("minus")) {
-			seriesLikeService.deleteLike(like);
-		}
-		return "redirect:detail.do?vodno=" + vodno;
-	}
-	
-	@RequestMapping("/mypage/addcart.do")
-	public @ResponseBody Map<String, String> addCart (@RequestParam("chk")List<Integer> episodeNos){
-
-		
-		/* seriesEpisodeService.addCart(episodeNos, userId); */
-		
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("result", "success");
-		
-		return map;
-	}
-	
 	@RequestMapping("/mypage/cart.do") 
 	public String cart(HttpSession session,
 			Model model) {
 		User user = (User) session.getAttribute("LOGIN_USER");
-		// List<SeriesCart> carts = seriesCartService.getCartsById(user.getId()); 필요 없는 듯
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<SeriesEpisode> episodes = seriesEpisodeService.getEpisodesInUserCarts(user.getId());
-		List<SeriesVod> vods = seriesVodService.getVodsInUserCarts(user.getId());
-		map.put("episodes", episodes);
-		map.put("vods", vods);
-		
-		// model.addAttribute("carts", carts); 필요 없는 듯
-		model.addAttribute("map", map);
-		
+		List<Map<String, Object>> carts = seriesCartService.getCartsById(user.getId());
+		model.addAttribute("carts", carts);
 		return "series/mypage/cart";
 	}
 
-	@RequestMapping("/mypage/favorite.do")
-	public String favorite(Model model) {
-		return "series/mypage/favorite";
+	@RequestMapping("/mypage/like.do")
+	public String like(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		List<Map<String, Object>> maps = seriesLikeService.getLikesById(user.getId());
+		model.addAttribute("maps", maps);
+		return "series/mypage/like";
 	}
 	
 	
 	@RequestMapping("/mypage/orderlist.do")
-	public String orderList(Model model) {
+	public String orderList(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		
 		return "series/mypage/orderlist";
 	}
 	

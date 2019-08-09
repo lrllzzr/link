@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>네이버 시리즈</title>
+<title>Link : 시리즈</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -31,14 +31,13 @@
                   <col width="10%">
                </colgroup>
                <tbody>
-               		<c:forEach var="episode" items="${map.episodes }">
-               		${episode.title }
+               		<c:forEach var="cart" items="${carts }">
 						<tr>
 							<td><input type="checkbox" name="chk" value="" style=""></td>
-							<td><img class="img-size" src="/link/resources/images/series/vods/"></td>
-							<td>VOD명</td>
-							<td>에피소드명</td>
-							<td>1,653원</td>
+							<td><img class="img-size" src="/link/resources/images/series/vods/${cart.img }"></td>
+							<td>${cart.vtitle }</td>
+							<td>${cart.etitle }</td>
+							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${cart.price }"></fmt:formatNumber>원</td>
 							<td><button class="btn">삭제</button></td>
 						</tr>
 					</c:forEach>

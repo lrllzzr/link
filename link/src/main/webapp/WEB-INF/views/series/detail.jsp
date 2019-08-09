@@ -28,7 +28,7 @@
     <div class="col-sm-9">
         <h2>${seriesVod.title }(총 ${countEpisodes }회)</h2>        
         <button id="heart"  type="button" class="btn btn-default" style="margin: 0px 0px 5px 0px;">
-          <span class="glyphicon glyphicon-heart-empty ${abc > 0 ? 'hearted' : 'unhearted'}" aria-hidden="true">${countLikes }</span>
+          <span class="glyphicon glyphicon-heart-empty ${ isAlreadyHearted > 0 ? 'hearted' : 'unhearted'}" aria-hidden="true">${countLikes }</span>
         </button>
 
         <div>
@@ -42,7 +42,8 @@
         <div>
            <div class="text-right">총 <span class="total">${countEpisodes }</span>화 중 <span class="checked">0</span>화 선택
                <button type="button" id="btn-add-cart" class="btn btn-default">
-                  <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 담기
+                  <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                  <span>담기</span>
                 </button>
           </div>
            
@@ -126,23 +127,45 @@
     	});
     	
     	$('#btn-add-cart').click(function(){
+    		var arr = $('#cart-form').serialize();
+    		
     		$.ajax({
-    			url:'addcart.do',
-    			data:$('#cart-form').serialize(),
-    			dataType:"json",
+    			type:"post",
+    			url:'mypage/addcart.do',
+    			data:arr,
+    			dataType:"text",
     			success:function(data){	// {result:success}
-    				alert("완료");
+    				$("input[name=chk]").prop("checked",false);
+    				alert("장바구니에 추가되었습니다.");
     			}
     		})
     	});
     	
     	$("#heart").click(function(){
     		if ($(this).find('span').hasClass('unhearted')){
-	    		$(this).find('span').addClass('hearted').removeClass('unhearted');
-	    		location.href="likeedit.do?vodno=${param.vodno}&gubun=plus"
+	    		$.ajax({
+	    			type:"get",
+	    			url:"likeedit.do?vodno=${param.vodno}&gubun=plus",
+	    			dataType:"text",
+	    			success:function(){
+		    			$(this).find('span').addClass('hearted').removeClass('unhearted');
+	    				
+	    			}
+	    			
+	    			// location.href="likeedit.do?vodno=${param.vodno}&gubun=plus"
+	    			// $(this).find('span').addClass('hearted').removeClass('unhearted');
+	    			
+	    		})
     		} else if ($(this).find('span').hasClass('hearted')){
-	    		$(this).find('span').addClass('unhearted').removeClass('hearted');
-    			location.href="likeedit.do?vodno=${param.vodno}&gubun=minus"
+	    		$.ajax({
+	    			type:"get",
+	    			url:"likeedit.do?vodno=${param.vodno}&gubun=minus",
+	    			dataType:"text",
+	    			success:function(){
+		    			$(this).find('span').addClass('unhearted').removeClass('hearted');
+	    				
+	    			}
+	    		})
     		}
     		
     	});

@@ -5,10 +5,19 @@
   
 <mapper namespace="kr.co.link.dao.SeriesCartDao">		<!-- Dao경로설정 -->
 	
-	<select id="getCartsById" parameterType="string" resultType="seriesCart">	<!-- 장바구니 -->
-		select cart_no "no",	episode_no "episode.no" ,	user_id "user.id",	cart_create_date "createDate" 
+	<select id="getCartsById" parameterType="string" resultType="hashmap">	<!-- 장바구니 -->
+		select v.vod_img "img", 
+			v.vod_title "vtitle", 
+			e.episode_title "etitle", 
+			e.episode_price "price"
+		from series_carts c, series_episodes e, series_vods v 
+		where user_id = #{value} 
+		and c.episode_no = e.episode_no 
+		and e.vod_no = v.vod_no
+		
+		<!-- select cart_no "no",	episode_no "episode.no" ,	user_id "user.id",	cart_create_date "createDate" 
 		from series_carts 
-		where user_id = #{value}
+		where user_id = #{value} -->
 	</select>
 	
 	<insert id="addCart" parameterType="seriesCart"> <!-- 장바구니 추가 -->

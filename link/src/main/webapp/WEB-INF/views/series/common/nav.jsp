@@ -75,17 +75,15 @@
               <a class="navbar-brand" href="home.do">Link</a>
           </div>
           <ul class="nav navbar-nav">
-              <li class="${menu eq 'home' ? 'active' : ''}"><a href="home.do">방송 홈</a></li>
-              <li class="${menu eq 'category' ? 'active' : ''}"><a href="category.do">카테고리</a></li>
-              <li class="${menu eq 'toprank' ? 'active' : ''}"><a href="toprank.do">기간별 좋아요 랭킹</a></li>
-              <li class="${menu eq 'noticelist' ? 'active' : ''}"><a href="noticelist.do">공지사항</a></li>
-              
+              <li class="${menu eq 'home' ? 'active' : ''}"><a href="/link/series/home.do">방송 홈</a></li>
+              <li class="${menu eq 'category' ? 'active' : ''}"><a href="/link/series/category.do">카테고리</a></li>
+              <li class="${menu eq 'toprank' ? 'active' : ''}"><a href="/link/series/toprank.do">인기순위 TOP 12</a></li>
+              <li class="${menu eq 'noticelist' ? 'active' : ''}"><a href="/link/series/noticelist.do">공지사항</a></li>
           </ul>
           <div style="overflow: hidden; float: right; height: 50px">
-              <a href="mypage/orderlist.do" style="line-height: 50px; padding: 15px;"><span class="glyphicon glyphicon-user" style="color: #777777"></span> 마이 페이지</a>
-              <a href="mypage/cart.do" style="line-height: 50px; padding: 15px;"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+              <a href="/link/series/mypage/orderlist.do" style="line-height: 50px; padding: 15px;"><span class="glyphicon glyphicon-user" style="color: #777777"></span> 마이 페이지</a>
+              <a href="/link/series/mypage/cart.do" style="line-height: 50px; padding: 15px;"><span class="glyphicon glyphicon-shopping-cart"></span></a>
           </div>
-          
       </div>
     </nav>
 </body>
