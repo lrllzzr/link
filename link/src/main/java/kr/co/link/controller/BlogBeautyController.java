@@ -69,9 +69,7 @@ public class BlogBeautyController {
 		BeanUtils.copyProperties(blogUpdateForm, blog);
 		user.setNickName(blogUpdateForm.getNickName());
 		MultipartFile mf = blogUpdateForm.getMainImg();
-		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images";
-//		String profileImageSaveDirectory = "C:/Users/BMAHN/git/link2/link/src/main/webapp/resources/images";
-		
+		String profileImageSaveDirectory = blogservice.profileImageSaveDirectory();
 		
 		if (!mf.isEmpty()) {
 			String filename = mf.getOriginalFilename();

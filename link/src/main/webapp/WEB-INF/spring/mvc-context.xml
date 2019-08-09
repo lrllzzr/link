@@ -27,7 +27,6 @@
 			<mvc:exclude-mapping path="/home.do"/>
 			<mvc:exclude-mapping path="/loginform.do"/>
 			<mvc:exclude-mapping path="/login.do"/>
-			<mvc:exclude-mapping path="/blog/*.do"/>
 			<mvc:exclude-mapping path="/blog/main.do"/>
 			<mvc:exclude-mapping path="/blog/detail.do"/>
 			<mvc:exclude-mapping path="/blog/profile.do"/>

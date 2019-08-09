@@ -10,6 +10,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 <link rel="stylesheet" href="/link/resources/css/main.css">
+<script src="/link/resources/js/returnUrl.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Jura|Marck+Script|Russo+One|Sacramento&display=swap" rel="stylesheet">
 <style>
 .pagination>li>a, .pagination>li>span {
@@ -300,7 +301,7 @@
 								</div>
 								<div class="col-sm-6 text-right">
 									<span style="position: relative; top: 5px;" class="blog-rigbt-col-logout">
-										<a href="/link/logout.do">로그아웃</a>
+										<a class="blognav_logout_btn" href="/link/logout.do">로그아웃</a>
 									</span>
 								</div>
 
@@ -383,7 +384,7 @@
 					</div>
 					<a style="color: white; font-size: 15px;" href="/link/loginform.do">
 						<div class="row blog-col-4 text-center" style="padding: 15px;">
-							<strong>Link</strong>로그인
+							<span class="blogmain_login"><strong>Link</strong>로그인</span>
 						</div>
 					</a>
 				</div>
@@ -397,7 +398,7 @@
 			$('.blog-neighbor-contents3 img').hide();
 			$('.blog-neighbor-contents img').hide();
 			$('#1').addClass('blog_detail_page_1_selected');
-
+			
 			// 캐러샐
 			$('.carousel').carousel({
 				interval : false

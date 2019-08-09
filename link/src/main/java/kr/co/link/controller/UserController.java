@@ -67,7 +67,7 @@ public class UserController {
 		
 		String path ="redirect:/home.do";
 		if(returnUrl != null) {
-			if(returnUrl.equals("/blog/mydetail.do")) {
+			if(returnUrl.equals("/blog/mydetail.do") || returnUrl.equals("/blog/eachNeighbor.do")) {
 				return path;
 			} else {
 				path = "redirect:" + returnUrl; 

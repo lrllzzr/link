@@ -73,5 +73,13 @@ public class BlogServiceImpl implements BlogService{
 	public Integer getBlogsCountByType(Map<String, Object> map) {
 		return blogDao.getBlogsCountByType(map);
 	}
+	
+	@Override
+	public String profileImageSaveDirectory() {
+		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images";
+		profileImageSaveDirectory = "C:/Users/BMAHN/git/link4/link/src/main/webapp/resources/images";
+		
+		return profileImageSaveDirectory;
+	}
 
 }

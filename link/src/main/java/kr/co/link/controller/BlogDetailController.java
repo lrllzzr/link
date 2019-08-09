@@ -606,8 +606,7 @@ public class BlogDetailController {
 		BlogBoard blogBoard = blogBoardService.getBoardByboardNo(boardNo);
 		BeanUtils.copyProperties(blogBoardForm, blogBoard);
 		MultipartFile mf = blogBoardForm.getUpfile();
-		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images/userblogimgs";
-//		profileImageSaveDirectory = "C:/Users/BMAHN/git/link2/link/src/main/webapp/resources/images/userblogimgs";
+		String profileImageSaveDirectory = blogService.profileImageSaveDirectory();
 		if (!mf.isEmpty()) {
 			String filename = mf.getOriginalFilename();
 			FileCopyUtils.copy(mf.getBytes(), new File(profileImageSaveDirectory, filename));
@@ -625,8 +624,8 @@ public class BlogDetailController {
 		BlogBoard blogBoard = new BlogBoard();
 		BeanUtils.copyProperties(blogBoardForm, blogBoard);
 		MultipartFile mf = blogBoardForm.getUpfile();
-		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images/userblogimgs";
-//		profileImageSaveDirectory = "C:/Users/BMAHN/git/link2/link/src/main/webapp/resources/images/userblogimgs";
+		String profileImageSaveDirectory = blogService.profileImageSaveDirectory();
+		
 		if (!mf.isEmpty()) {
 			String filename = mf.getOriginalFilename();
 			FileCopyUtils.copy(mf.getBytes(), new File(profileImageSaveDirectory, filename));
@@ -648,8 +647,8 @@ public class BlogDetailController {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		BeanUtils.copyProperties(blogForm, blog);
 		MultipartFile mf = blogForm.getMainImg();
-		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images";
-//		profileImageSaveDirectory = "C:/Users/BMAHN/git/link2/link/src/main/webapp/resources/images";
+		String profileImageSaveDirectory = blogService.profileImageSaveDirectory();
+		
 		String filename = "profile.jpg";
 
 		if (!mf.isEmpty()) {

@@ -19,4 +19,5 @@ public interface BlogService {
 	List<Blog> getAllblogs();
 	List<Map<String, Object>> getAllBlogsByType(Map<String, Object> map);
 	Integer getBlogsCountByType(Map<String, Object> map);
+	String profileImageSaveDirectory();
 }

@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css?family=Jura|Marck+Script|Russo+One|Sacramento&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/link/resources/css/main.css">
 <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
-
+<script src="/link/resources/js/returnUrl.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
@@ -117,21 +117,4 @@
 	</div>
 
 </body>
-<script>
-	$('.blogmain_login').click(function(){
-		var host = location.host;
-		var returnUrl = location.pathname;
-		var queryString = location.search.substr(1).replace(/&/g, ',');
-		location.href = '/link/loginform.do?returnUrl=' + returnUrl + '&queryString=' + queryString;
-		return false;
-	});	
-	
-	$('.blognav_logout_btn').click(function(){
-		var host = location.host;
-		var returnUrl = location.pathname;
-		var queryString = location.search.substr(1).replace(/&/g, ',');
-		location.href = '/link/logout.do?returnUrl=' + returnUrl + '&queryString=' + queryString;
-		return false;
-	});
-</script>
 </html>
