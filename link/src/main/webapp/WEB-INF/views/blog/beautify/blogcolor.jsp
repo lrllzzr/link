@@ -102,7 +102,7 @@
 							<div class="col-sm-12 blog_color_col12">
 								<div class="row">
 									<div class="col-sm-12">
-										<h5>전체 배경 색상</h5>
+										<h5>배경 주요 색상</h5>
 									</div>
 									<div class="col-sm-8">
 										<input style="" type="color" name="bodyColor" value="${blog.bodyColor }" />

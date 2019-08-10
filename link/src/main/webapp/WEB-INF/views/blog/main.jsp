@@ -94,7 +94,7 @@
 																	<div class="col-sm-12">
 																		<a href="">${blog.NICKNAME }</a>
 																	</div>
-																	<div class="col-sm-12">2시간전</div>
+																	<div class="col-sm-12">${blog.howLongDate}</div>
 																</div>
 															</div>
 														</div>
@@ -229,7 +229,7 @@
 												<div class="col-sm-12">
 													<a href="board.do?blogNo=${blog3.NO }&categoryNo=${blog3.CATEGORYNO}&boardNo=${blog3.BOARDNO}">${blog3.NICKNAME }</a>
 												</div>
-												<div class="col-sm-12">2시간전</div>
+												<div class="col-sm-12">${blog3.howLongDate }</div>
 											</div>
 										</div>
 										<c:if test="${blog3.isNeighbor eq 'Y' }">
@@ -441,7 +441,7 @@
 									row += '						<div class="col-sm-12">';
 									row += '							<a href="">' + blog.NICKNAME + '</a>';
 									row += '						</div>';
-									row += '						<div class="col-sm-12">2시간전</div>';
+									row += '						<div class="col-sm-12">'+blog.howLongDate+'</div>';
 									row += '					</div>';
 									row += '				</div>';
 									row += '			</div>';
@@ -530,7 +530,7 @@
 									row += '					<div class="col-sm-12">';
 									row += '						<a href="">' + blog.NICKNAME + '</a>';
 									row += '					</div>';
-									row += '					<div class="col-sm-12">2시간전</div>';
+									row += '					<div class="col-sm-12">'+blog.howLongDate+'</div>';
 									row += '				</div>';
 									row += '			</div>';
 									row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
@@ -630,7 +630,7 @@
 										row += '					<div class="col-sm-12">';
 										row += '						<a href="">' + blog.NICKNAME + '</a>';
 										row += '					</div>';
-										row += '					<div class="col-sm-12">2시간전</div>';
+										row += '					<div class="col-sm-12">'+blog.howLongDate+'</div>';
 										row += '				</div>';
 										row += '			</div>';
 										row += '			<c:if test="${isHaveBlog eq \'yes\' }">'

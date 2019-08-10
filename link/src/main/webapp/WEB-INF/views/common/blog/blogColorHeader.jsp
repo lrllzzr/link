@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Jura|Marck+Script|Russo+One|Sacramento&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 <link rel="stylesheet" href="/link/resources/css/blog/blogdetail.css">
 <link rel="stylesheet" href="/link/resources/css/blog/bootstrap.css">
@@ -204,6 +205,17 @@
 </script>
 <style>
 @charset "UTF-8";
+
+.blog_main_header_maintitle{
+	font-size:25px;
+    font-weight: bold;
+    font-family: 'Jura', sans-serif;
+    font-family: 'Marck Script', cursive;
+    font-family: 'Sacramento', cursive;
+    font-family: 'Russo One', sans-serif;
+}
+
+
 #blog_comment_write,
 .blog_board_comment3,
 .blog_addNeighbor_a{
@@ -221,7 +233,9 @@ a:hover {
 }
 
 body {
-	background-color: ${blog.bodyColor};
+	background: linear-gradient(145deg, #edc7be 5%, ${blog.bodyColor} 20% ,rgba(255,0,0,0) 50% ,white 90.71%),
+	            linear-gradient(10deg, #f7f6da 3%, #bff5ec 30%, #a1b8ed 55%, #f5f4e9 90.71%),
+	            linear-gradient(20deg, #bff5ec 40%, rgba(0,0,255,0) 50%,blue 70.71%);
 }
 .pagination li a {
 	color: ${blog.pageNumColor};
@@ -252,6 +266,7 @@ hr {
 	background: no-repeat center/100% 100% url("/link/resources/images/blogthemes/${blog.theme}");
 	min-height: 1500px;
 	padding-bottom: 100px;
+	border-radius: 20px;
 }
 
 .blog_main_left_row {

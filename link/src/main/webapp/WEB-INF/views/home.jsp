@@ -104,7 +104,7 @@
 				<div class="main-menu">
 					<a href="/link/tv/home.do">TV</a>
 				</div>
-				<a href="/link/tv/home.do""><img style="position: relative;" src="resources/images/tv.png"  alt=""></a>
+				<a href="/link/tv/home.do"><img style="position: relative;" src="resources/images/tv.png"  alt=""></a>
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">

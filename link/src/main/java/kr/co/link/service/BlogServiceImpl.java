@@ -1,5 +1,6 @@
 package kr.co.link.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -81,5 +82,37 @@ public class BlogServiceImpl implements BlogService{
 		
 		return profileImageSaveDirectory;
 	}
-
+	public List<Map<String, Object>> dateChange(List<Map<String, Object>> blogLists){
+		for(Map<String, Object> eachblog : blogLists) {
+			Date date = new Date();
+			Date createDate = (Date) eachblog.get("CREATEDATE");
+			
+			long diff = date.getTime()-createDate.getTime();
+			long sec = diff / 1000;
+			long minute = diff/ 60000;
+			long hour = diff/ 3600000;
+			long dates = diff / 86400000;
+			long months = diff / (86400000 * 30);
+			
+			if(sec <= 60) {
+				eachblog.put("howLongDate", sec+"초 전");
+			} else {
+				if(minute <= 60) {
+					
+					eachblog.put("howLongDate", minute+"분 전");
+				} else {
+					if(hour <= 24) {
+						eachblog.put("howLongDate", hour+ "시간 전");
+					} else {
+						if(dates <= 30) {
+							eachblog.put("howLongDate", dates+  "일 전");
+						} else {
+							eachblog.put("howLongDate", months+  "개월 전");
+						}
+					}
+				}
+			}
+		}
+		return blogLists;
+	}
 }

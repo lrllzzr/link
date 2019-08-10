@@ -4,9 +4,13 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -203,7 +207,7 @@ public class BlogDetailController {
 	public String main(Model model, HttpSession session,
 					   @RequestParam(value="pno", required = false, defaultValue = "1") Integer pno,
 					   @RequestParam(value="blogType", required = false, defaultValue = "all") String blogType,
-					   @RequestParam(value="pno", required=false, defaultValue="1") int pageNo) {
+					   @RequestParam(value="pno", required=false, defaultValue="1") int pageNo) throws ParseException {
 		
 		User user = (User) session.getAttribute("LOGIN_USER");
 		
@@ -236,6 +240,7 @@ public class BlogDetailController {
 		model.addAttribute("totalBlocks",totalBlocks);
 		
 		List<Map<String, Object>> blogsList = blogService.getAllBlogsByType(topicMap);
+		blogsList = blogService.dateChange(blogsList);
 		
 		model.addAttribute("blogsList", blogsList);
 		model.addAttribute("pno", pno);
@@ -271,6 +276,8 @@ public class BlogDetailController {
 				param.put("beginIndex", (pageNo - 1)*howManyRows + 1);
 				param.put("endIndex", pageNo*howManyRows);
 				List<Map<String, Object>> blogLists = blogNeighborService.getPaginationByMap(param);
+				blogLists = blogService.dateChange(blogLists);
+				
 				int records = blogNeighborService.getPaginationByMapRows(myBlogNo);
 				Pagination pagination = new Pagination(pageNo, howManyRows, records);
 				
@@ -312,6 +319,7 @@ public class BlogDetailController {
 		neighborMap.put("beginIndex", (pageNo - 1)*howManyRows + 1);
 		neighborMap.put("endIndex", pageNo*howManyRows);
 		List<Map<String, Object>> blogLists = blogNeighborService.getPaginationByMap(neighborMap);
+		blogLists = blogService.dateChange(blogLists);
 		int records = blogNeighborService.getPaginationByMapRows(myBlogNo);
 		Pagination pagination = new Pagination(pageNo, howManyRows, records);
 		
@@ -341,6 +349,7 @@ public class BlogDetailController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Map<String, Object>> blogsList = blogService.getAllBlogsByType(topicMap);
+		blogsList = blogService.dateChange(blogsList);
 		
 		map.put("blogsList", blogsList);
 		map.put("totalBlocks", totalBlocks);

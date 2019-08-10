@@ -182,7 +182,7 @@
 		blog
 </select>
 <select id="getAllBlogsByType" parameterType="map" resultType="map">
-	select row_no, id, nickName, title, categoryNo, boardNo, contents, no, boardMainImg, blogMainImg, topic
+	select row_no, id, nickName, title, categoryNo, boardNo, contents, no, boardMainImg, blogMainImg, topic, createDate
 	from
    		(
    		select ROW_number() over(order by d.board_create_date desc) row_no,
@@ -193,6 +193,7 @@
            d.board_no boardNo,
            d.board_contents contents,
            a.BLOG_NO no,
+           d.board_create_date createDate,
            d.board_main_Img boardMainImg,
            a.blog_main_Img blogMainImg,
            a.blog_topic topic

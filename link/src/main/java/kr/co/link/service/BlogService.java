@@ -20,4 +20,5 @@ public interface BlogService {
 	List<Map<String, Object>> getAllBlogsByType(Map<String, Object> map);
 	Integer getBlogsCountByType(Map<String, Object> map);
 	String profileImageSaveDirectory();
+	List<Map<String, Object>> dateChange(List<Map<String, Object>> blogLists);
 }

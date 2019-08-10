@@ -3,6 +3,7 @@
 <body>
 	<!-- 네비게이션 시작  -->
 	<%@include file="../../common/nav.jsp"%>
+	<%@include file="../../common/blog/blogtitle.jsp"%>
 	<!-- 네비게이션 끝  -->
 	<div class="container blog_detail_con">
 		<div class="row">
