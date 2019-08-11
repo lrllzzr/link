@@ -7,21 +7,22 @@
                     <a href="/link/home.do">
                         <span class="blog-main-javer">Link</span>
                     </a>
-                    <a href="/link/blog/main.do">
                     <c:choose>
                     <c:when test="${navMenu eq 'jisikin' }">
+                    <a href="/link/jisikin/main.do">
                         <span class="blog-main-blog">지식인</span>
                     </c:when>
                     <c:otherwise>
+                    <a href="/link/blog/main.do">
                         <span class="blog-main-blog">블로그</span>
                     </c:otherwise>
                     </c:choose>
                     </a>
                 </div>
                 <div class="col-sm-5 blog-searchbar">
-                    <form class="navbar-form navbar-left" role="search">
+                    <form class="navbar-form navbar-left" action="/link/search.do" method="GET" role="search">
                         <div class="form-group">
-                            <input style="width:300px;" type="text" class="form-control" placeholder="검색">
+                            <input style="width:300px;" name="word" type="text" class="form-control" placeholder="검색">
                         </div>
                         <button type="submit" class="btn btn-green"><span class="glyphicon glyphicon-search"></span></button>
                     </form>
