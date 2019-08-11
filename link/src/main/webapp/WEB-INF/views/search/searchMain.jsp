@@ -176,27 +176,6 @@
                                 </li>
                             </a>  
                             </c:forEach>
-                                <li>
-                                    <dl>
-                                        <dt class="title">
-                                            <img src="/link/resources/images/jisikin-Q2.png" width="15" alt="">
-                                            <a href="#" class="jisikin-list-title"><span class="keyword">MFC</span>란 무엇인가?.. 자세히 좀 알켜주세요.. 최대한 빨리요</a>
-                                            <span class="create_date">2019.07.29</span>
-                                        </dt>
-                                        <dd class="content">
-                                            c++ 인가요... <span class="keyword">MFC</span>를 작성 해서 비주얼 컴파일러로 실행 하는건가요..구체적으로 알켜주세요
-                                        </dd>
-                                        <dd class="answer">
-                                            <p class="p-answer">
-                                            <img src="/link/resources/images/jisikin-A2.png" width="15" alt=""> 
-                                            <span class="keyword">MFC</span>가 궁금하시다구요?
-                                            우선 약자그대로 뜻을본다면
-                                            Microsoft Foundation Class로서
-                                            마이크로소프트에서 개발한 기본 클래스 라이브러리입니다.</p>
-                                        </dd>
-                                        <dd class="cat">용어해설 > 컴퓨터/통신</dd>
-                                    </dl>
-                                </li>
                             </ul>
                         </div>
                         <div class="section-more">
@@ -231,22 +210,7 @@
                                     </dl>
                                 </li>                             
                             </c:forEach>
-                                <li>
-                                   <div class="search-blog-img">
-                                        <img src="/link/resources/images/search-blog-ex2.jpg" alt="">
-                                    </div>
-                                    <dl>
-                                        <dt class="title">
-                                            <a href="#" class="jisikin-list-title"><span class="keyword">MFC</span>란?</a>
-                                            <span class="create_date">2016.06.12</span>
-                                        </dt>
-                                        <dd class="content"> 
-                                            사용하시는 분들마다 선호하시는 Maker에 따라 호불호가 나눠지는듯 합니다만
-                                            개인적으로는 기능이나 정밀도에서는 크게 차이가 나지 않는것 같았습니다.     
-                                        </dd>
-                                        <dd class="cat blog-title">CmelCmel 개발자 세상</dd>
-                                    </dl>
-                                </li>
+                                
                             </ul>
                         </div>
                         <div class="section-more">
@@ -323,19 +287,7 @@
                                     </dl>  
                                 </li>
                             </c:forEach>                 
-                                <li>
-                                    <dl>
-                                        <dt class="title">
-                                            <p class="band-title">BAND명 : </p><a href="#" class="jisikin-list-title"><span class="keyword">재헌이의 MFC</span>세상</a>
-                                            <span class="create_date">/ 창설일 : 2016.01.14</span>
-                                        </dt>
-                                        <dd class="content">
-                                            <span class="keyword">MFC</span>를 소개 해드리겠습니다.
-                                            Mass Flow Controler의 줄임말이죠  이제부터는 <span class="keyword">MFC</span>라고 말씀드리겠습니다.
-                                            제가 사용해봤던 제품들은 Bronkhorst, Brooks, MKP 등이 있었지요
-                                        </dd>
-                                    </dl>
-                                </li>
+                                
                             </ul>
                         </div>
                         <div class="section-more">
@@ -373,28 +325,7 @@
                                     </dl>
                                 </li>                             
                             </c:forEach>
-                                <li>
-                                   <div class="search-blog-img">
-                                       <a href="" class="video">
-                                            <img src="/link/resources/images/search-video-ex2.jpg" width="140px;" alt="">
-                                            <span class="runtime"><span class="blind">재생시간</span>12분 58초</span>
-                                            <span class="spmv ico play">동영상 바로보기</span>
-                                       </a>
-                                    </div>
-                                    <dl>
-                                        <dt class="title">
-                                            <a href="#" class="jisikin-list-title"><span class="keyword">MFC</span>란?</a>
-                                        </dt>
-                                        <dd class="content">
-                                            <span class="keyword">MFC</span>를 소개 해드리겠습니다.
-                                            Mass Flow Controler의 줄임말이죠  이제부터는 <span class="keyword">MFC</span>라고 말씀드리겠습니다.
-                                            제가 사용해봤던 제품들은 Bronkhorst, Brooks, MKP 등이 있었지요
-                                            사용하시는 분들z마다 선호하시는 Maker에 따라 호불호가 나눠지는듯 합니다만
-                                            개인적으로는 기능이나 정밀도에서는 크게 차이가 나지 않는것 같았습니다.
-                                        </dd>
-                                        <dd class="cat blog-title video-title">청주지웰해상기지<span class="create_date video_date">2019.04.12</span></dd>
-                                    </dl>
-                                </li>
+                                
                             </ul>
                         </div>
                         <div class="section-more">

@@ -93,12 +93,12 @@
         </div>
 			<div class="profile_section3" style="width: 700px;">
 				<!-- 답변, 채택답변, 채택률 -->
-				<div class="lv_area grd_lv4">
+				<div class="lv_area grd_lv4"> 
 				
 					<ul class="lv_cnt">
 					<li><em class="tit">전체답변</em><p class="num" id="total_answer">${countAllAnswerById }</p></li>
 					<li><em class="tit">채택답변</em><p class="num" id="total_best">${countSelectById }</p></li>
-					<li><em class="tit">답변채택률</em><p class="num" id="best_rate">${selectPercent }%</p></li>
+					<li><em class="tit">답변채택률</em><p class="num" id="best_rate"><fmt:formatNumber value="${selectPercent }" type="percent"></fmt:formatNumber></p></li>
 					</ul>
 				</div>
 				
@@ -112,8 +112,8 @@
 					<span class="q_list">전체질문 <strong>${countAllJisikinById }건</strong></span>
 					<span class="q_list rec_text">답변 받은 질문 <strong>${countJisikinSelectById }건</strong></span>
 					<span class="q_list">전체마감률 <strong>${deadLineById }%</strong></span>
-					<span class="q_list rec_text">답변채택률 <strong>${selectPercent }%</strong></span>
-				</dd>
+					<span class="q_list rec_text">답변채택률 <strong><fmt:formatNumber value="${selectPercent }" type="percent"></fmt:formatNumber></strong></span>
+				</dd> 
 				<dt>받은추천</dt>
 				<dd>
 					<span class="q_list">좋아요 <strong>${recommendById }</strong></span>

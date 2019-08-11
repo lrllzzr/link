@@ -194,7 +194,7 @@
 	          <!-- 등록 -->
 	          <div class="sub_qna_btn_area" id="au_submit_button2" style="display: block;">
 	            <div class="btn_c2">
-	                <button type="submit" id="submit-question" class="button_style is_primary _register _clickcode:sbm.ok">질문등록</button>
+	                <button type="button" id="submit-question" class="button_style is_primary _register _clickcode:sbm.ok">질문등록</button>
 	            </div>
 	            <div class="btn_r">
 	                <button type="button" class="button_style _write_cancel _clickcode:sbm.cancel">작성취소</button>

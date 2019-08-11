@@ -10,10 +10,54 @@
 <link rel="stylesheet" href="/link/resources/css/main.css">
 <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
 <link rel="stylesheet" href="/link/resources/css/search/searchMain.css">
-
+ 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
+.block {
+	border:2px solid #649dfa; 
+	padding:0 5px; height:25px; 
+	overflow:hidden; 
+	background:#fff; 
+	width:140px;  
+	font-family:Gulim;   
+	font-size:15px;}  
+	  
+.block ul, .block li {
+	margin:0; 
+	padding:0; 
+	list-style:none;}
+	
+.block li a {
+	display:block; 
+	height:25px; 
+	width:120px; 
+	line-height:20px; 
+	color:#555; 
+	text-decoration:none;
+}
+	
+.block li .rankk {
+	padding:2px 5px; 
+	background:#649dfa; 
+	color:#fff; 
+	font-weight:bold; 
+	margin-right:3px;}
+	
+.pull-right{  
+	color: #649dfa !important; 
+	font-size:12px;
+}
+
+.unfold-rank {
+	border: 1px solid #649dfa;
+	position:absolute !important;
+	top:-5px !important;
+	left:102px !important;
+	z-index : 1000;
+	background-color:white;
+	min-width:150px;
+}
 </style>  
 </head>
 
@@ -70,13 +114,37 @@
 			</fieldset>  
 			</form>
 			</div>
-			<div class="col-sm-3 main-rank">
-				<div>
-					<a href=""> <span class="main-rankNumber">1</span> <span class="main-rankName" style="">이해훈</span> <span
-						class="glyphicon glyphicon-chevron-down"
-					></span>
-					</a>
-				</div>
+			<div class="col-sm-3 main-rank" style="margin-top:-15px">  
+				<p class="text-center" style="margin-left:-26px;">실시간 인기 검색 순위</p>  
+				<div class="block" style="overflow:hidden;">
+				    <ul id="ticker"> 
+				    <c:forEach var="rank" items="${popWords }" varStatus="status" begin="0" end="9">
+				        <li><a href="/link/search.do?word=${rank }"><span class="rankk">${status.count }</span> ${rank }&nbsp;<span class="pull-right glyphicon glyphicon-chevron-down"></span></a></li>
+				    </c:forEach>
+				    </ul>
+				</div>  
+				<div class="rank-list unfold-rank" style="display:none;">
+				<p style="margin-top:-25px !important;">실시간 인기 검색 순위</p>
+                    <ol>
+                    	<c:forEach var="pop" items="${popWords }" begin="0" end="9" varStatus="status">
+                         <li>
+                             <a href="/link/search.do?word=${pop }" class="bx bx_item">
+                                 <span class="keyword">
+                                     <em class="num">${status.count }</em>
+                                     <span class="tit">${pop }</span>
+                                 </span>
+                             </a>
+                         </li>
+                    	</c:forEach>
+                    </ol>
+                    <div class="realtime_srch_area">
+                        <p class="dsc">
+                        <c:set var="now" value="<%=new java.util.Date()%>" />
+                            <time><fmt:formatDate value="${now }" pattern="yyyy.MM.dd"/></time>
+                            . 기준
+                        </p>
+                    </div>
+                </div>
 			</div>
 		</div>
 		<hr class="main-row-hr-1" />
@@ -122,4 +190,28 @@
 	</div>
 </body>
 <script src="/link/resources/js/returnUrl.js"></script>
+<script type="text/javascript">
+$(function()
+		{  
+		    var ticker = function()
+		    {     
+		        setTimeout(function(){
+		            $('#ticker li:first').animate( {marginTop:'20px'}, 600, function()
+		            {
+		                $(this).detach().appendTo('ul#ticker').removeAttr('style');
+		            });
+		            ticker();
+		        }, 2000);
+		    };
+		    ticker();
+		});
+		
+$(".pull-right").hover(function(){ 
+	$(".unfold-rank").css('display', 'block');
+});
+
+$(".unfold-rank").mouseleave(function(){
+	$(".unfold-rank").css('display', 'none');
+})
+</script>
 </html>

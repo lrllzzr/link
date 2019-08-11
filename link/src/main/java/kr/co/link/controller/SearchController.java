@@ -25,9 +25,6 @@ public class SearchController {
 	@Autowired
 	private SearchService searchService;
 	
-	@Autowired
-	private JisikinService jisikinService;
-	
 	@RequestMapping("/search.do")
 	public String search(@RequestParam(required = false, value="word", defaultValue = "")String word, Model model) {
 		// 검색어 추가

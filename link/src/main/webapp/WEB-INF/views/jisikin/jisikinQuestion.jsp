@@ -134,7 +134,7 @@
                 <!-- 등록 -->
 				<div class="text-center">
 					<div class="btn_c2" style="float:center;">
-						<button type="submit" id="submit-answer"
+						<button type="button" id="submit-answer"
 							class="btn btn-primary _register _clickcode:sbm.ok">답변등록</button>
 					</div>
 					<div class="btn_r" style="float:right; margin-top : -34px;">
