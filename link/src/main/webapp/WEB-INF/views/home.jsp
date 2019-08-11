@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css?family=Jura|Marck+Script|Russo+One|Sacramento&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/link/resources/css/main.css">
 <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
+<link rel="stylesheet" href="/link/resources/css/search/searchMain.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -60,10 +61,14 @@
 					>i</span><span style="color: #FCC800;">n</span><span style="color: #00B658">k</span> </a></span>
 			</div>
 			<div class="col-sm-6 col-sm-offset-3 text-center">
-				<input type="text" class="main-searchbar">
-				<div class="search-shape">
-					<a href=""><span class="glyphicon glyphicon-search"></span></a>
-				</div>
+			<form id="search-bar-form" action="/link/search.do" method="GET">
+			<fieldset class="greenwindow">
+				<div class="greenbox"> <span class="keyword"> <input type="text" id="nx_query" name="word" class="box_window" maxlength="255" accesskey="s" value="" autocomplete="off" title="검색어 입력"> </span> 
+                    </div>
+					<button type="submit" class="bt_search"><span class="
+                    glyphicon glyphicon-search"></span></button>
+			</fieldset>  
+			</form>
 			</div>
 			<div class="col-sm-3 main-rank">
 				<div>
@@ -115,6 +120,5 @@
 		</div>
 
 	</div>
-
 </body>
 </html>
