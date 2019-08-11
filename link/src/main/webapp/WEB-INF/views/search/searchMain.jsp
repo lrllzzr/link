@@ -16,11 +16,12 @@
 <body>
         <div class="container-fluid" style="margin-top: 30px;">
             <div class="row navbar main-nav">
-                <div class="col-sm-6 col-sm-offset-1" style="z-index: 100;">
-                    <form id="nx_search_form" name="search" action="" method="GET" style="width: 702px;">
-                <h1 class="search_logo"><a href="" class="spnew logo_naver"><img src="/link/resources/images/link_logo.PNG" alt="링크_로고"></a></h1>
+                <div class="col-sm-6 col-sm-offset-1 testbox" style="z-index: 100;">
+                    <form id="nx_search_form" name="search" action="/link/search.do" method="GET" style="width: 702px;">
+                <h1 class="search_logo"><a href="/link/home.do" class="spnew logo_naver"><img src="/link/resources/images/link_logo.PNG" alt="링크_로고"></a></h1>
                 <fieldset class="greenwindow" style="width: 503px;">
-                    <div class="greenbox"> <span class="keyword"> <input type="text" id="nx_query" name="query" class="box_window" maxlength="255" accesskey="s" value="" autocomplete="off" title="검색어 입력"> </span> 
+                    <div class="greenbox"> <span class="keyword"> 
+                    	<input type="text" id="search-input" name="word" class="box_window" maxlength="255" accesskey="s" value="${param.word }" autocomplete="off" title="검색어 입력"> </span> 
                     </div>
                     <button type="submit" class="bt_search"><span class="
                     glyphicon glyphicon-search"></span></button>
@@ -35,14 +36,13 @@
                     </div>
                     
                     <!-- 자동검색 박스 -->
-                    <div class="ly_atcmp" id="nx_autoframe_top" style="display: none;">
+                    <div class="ly_atcmp" id="nx_autoframe_top" style="display: none; z-index:1000;">
                        <div class="api_atcmp_wrap _atcmp" style="display: block">
-                            <div class="words _words expand" style="display: block;"> <div class="_atcmp_result_wrap"> <ul class="_resultBox" style="display: block;">
-                               <li class="_item"><a href="#">MFC</a></li>
-                                <li class="_item"><a href="#">MFC가 뭐고</a></li>
-                                <li class="_item"><a href="#">웹 개발?</a></li>
-                                <li class="_item"><a href="#">MFC로??!</a></li></ul>
-                            </div>
+                            <div class="words _words expand" style="display: block;"> 
+                            	<div class="_atcmp_result_wrap"> 
+                            		<ul class="_resultBox" style="display: block;">
+		                            </ul>
+                            	</div>
                             </div>
                            
                        </div>
@@ -56,25 +56,35 @@
                 <div class="col-sm-4 text-right blog-toprow-right">
                     <div class="blog-navbar-right collapse navbar-collapse navbar-right">
                         <ul class="nav navbar-nav">
+                        	<c:if test="${not empty LOGIN_USER }">
                             <li class="dropdown" id="my_saying">
                                 <a href="#" class="dropdown-toggle myfirst" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <img class="blog-profile-img" src="/link/resources/images/default_profile.PNG" alt="">
-                                    <span class="blog-navbar-id">빗취</span>
+                                    <span class="blog-navbar-id">${LOGIN_USER.nickName }</span>
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">내 블로그</a></li>
-                                    <li><a href="#">밴드</a></li>
-                                    <li><a href="#">가계부 </a></li>
-                                    <li><a href="#">지식인</a></li>
-                                    <li><a href="#">시리즈</a></li>
-                                    <li><a href="#">TV</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">로그아웃</a></li>
-                                </ul>
-                            </li>
+                                    <li><a href="/link/band/main.do">밴드</a></li>
+                                    <li><a href="/link/accountbook/expense.do">가계부 </a></li>
+                                    <li><a href="/link/jisikin/main.do?categoryNo=0&sort=1">지식인</a></li>
+                                    <li><a href="/link/series/home.do">시리즈</a></li>
+                                    <li><a href="/link/tv/home.do">TV</a></li>
+                                    <li class="divider"></li> 
+                                    <li><a href="/link/logout.do">로그아웃</a></li>
+                                </ul>  
+                            </li>  
                         </ul>
                         <div class="bell text-center"><a href=""><span class="glyphicon glyphicon-bell"></span></a></div>
-                        <div class="envelope"><a href=""><span class="glyphicon glyphicon-envelope"></span></a></div>
+                            </c:if>
+                        <div class="envelope" style="width:57px !important;">
+		                        <c:if test="${empty LOGIN_USER }">
+									<li style="margin-top:15px;" 
+									class="btn btn-default"><a class="main-login" style="color: #666666;" href="/link/loginform.do">로그인</a></li>
+								</c:if>
+								<c:if test="${not empty LOGIN_USER }">
+									<li style="margin-top:15px;" class="btn btn-default"><a class="main-login" style="color: #666666;" href="/link/logout.do">로그아웃</a></li>
+								</c:if>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,45 +131,51 @@
         </div>
         <div class="container-fluid">
             <div class="row search-content">
-                <div class="col-sm-7 col-sm-offset-1 search-result">
+                <div class="col-sm-9 search-result">
                     <div class="row related_content">
                         <span class="tit_relate  _related_keyword_lis">연관검색어
                         <img src="/link/resources/images/search-notice.PNG" width="15px" alt=""></span>
                         <ul>
-                            <li><a href="#">링크</a></li>
-                            <li><a href="#">연관검색어</a></li>
-                            <li><a href="#">할수있을까</a></li>
-                            <li><a href="#">디자인그만하고싶다</a></li>
+                            <li><a href="/link/search.do?word=${words[0] }">${words[0] }</a></li>
+                            <li><a href="/link/search.do?word=${words[1] }">${words[1] }</a></li>
+                            <li><a href="/link/search.do?word=${words[2] }">${words[2] }</a></li>
+                            <li><a href="/link/search.do?word=${words[3] }">${words[3] }</a></li>
                         </ul>
                     </div>
                     
                     
                 <!-- 검색 메인 결과내역들 -->
+                <!-- 지식인 -->
+                <c:if test="${not empty resultJisikin }">
                     <div class="row result-section result-jisikin">
                         <div class="row section_head">
                             <h2>지식iN</h2>
-                            <span class="title_num">8,796건</span>
+                            <span class="title_num">${resultJisikin.size() }건</span>
                         </div>
                         <div class="jisikin-section-content">
                             <ul class="jisikin-list">
+                            <c:forEach var="jisikinList" items="${resultJisikin }" begin="0" end="1">
+                            <a href="/link/jisikin/questionDetail.do?jisikinNo=${jisikinList.NO }">
                                 <li>
-                                    <dl>
+                                    <dl>  
                                         <dt class="title">
                                             <img src="/link/resources/images/jisikin-Q2.png" width="15" alt="">
-                                            <a href="#" class="jisikin-list-title"><span class="keyword">MFC</span>가 뭔지 알려주세요!</a>
-                                            <span class="create_date">2019.06.02</span>
+                                            <a href="/link/jisikin/questionDetail.do?jisikinNo=${jisikinList.NO }" class="jisikin-list-title">${jisikinList.TITLE }</a>
+                                            <span class="create_date"><fmt:formatDate value="${jisikinList.CREATEDATE }" pattern="yyyy.MM.dd"/> </span>
                                         </dt>
                                         <dd class="content">
-                                            프로그래밍언어 중에 <span class="keyword">MFC</span>가 뭔가요??
+                                           ${jisikinList.CONTENTS }
                                         </dd>
                                         <dd class="answer">
                                             <p class="p-answer">
                                             <img src="/link/resources/images/jisikin-A2.png" width="15" alt=""> 
-                                            <span class="keyword">MFC</span>는 C프로그래머의 편리를 위해 나온거지만 구조가 다소 복잡하여 처음 배우려면 머리아픕니다~ (저는그랫어요;) 그래도 익숙해지면 이것처럼 편한게 없다니 열심히 공부중입니다~는 C프로그래머의 편리를 위해 나온거지요 이제 아시겠습니까? 예?????</p>
-                                        </dd>
-                                        <dd class="cat">컴퓨터사전 > IT</dd>
+                                            ${jisikinList.ANSWERCONTENTS }
+                                        </dd> 
+                                        <dd class="cat">${jisikinList.CATEGORYNAME }</dd>
                                     </dl>
                                 </li>
+                            </a>  
+                            </c:forEach>
                                 <li>
                                     <dl>
                                         <dt class="title">
@@ -187,30 +203,34 @@
                             <a href="#">지식iN 더보기></a>
                         </div>
                     </div>
+                </c:if>
+                
+                <!-- BLOG 08.11 여기부터 ( resultType Map으로 다시시작해보자  -->
+                <c:if test="${not empty resultBlog }">
                     <div class="row result-section result-blog">
                         <div class="section_head">
                             <h2>블로그</h2>
-                            <span class="title_num">9,796건</span>
+                            <span class="title_num">${resultBlog.size() }건</span>
                         </div>
                         <div class="jisikin-section-content">
                             <ul class="jisikin-list blog-list">
+                            <c:forEach var="blogList" items="${resultBlog }" begin="0" end="1">
                                 <li>
-                                    <div class="search-blog-img">
-                                        <img src="/link/resources/images/search-blog-ex1.jpg" alt="">
+                                    <div class="search-blog-img">   
+                                        <img src="/link/resources/images/userblogimgs/${blogList.BOARDMAINIMG }" width="80px" height="80px" alt="">
                                     </div>
-                                    <dl>
+                                    <dl> 
                                         <dt class="title">
-                                            <a href="#" class="jisikin-list-title"><span class="keyword">MFC</span>는 무엇일까요?</a>
-                                            <span class="create_date">2014.11.02</span>
-                                        </dt>
-                                        <dd class="content">
-                                            윈도우계열에 제공되는 API함수들은 모두C언어로 작성되어있습니다
-                                            <span class="keyword">MFC</span>는 API함수를 사용하여 좀더쉽게 윈도우즈 프로그래밍을 하기위해
-                                            만들어졌습니다. 기반언어는C++이고요
-                                        </dd>
-                                        <dd class="cat blog-title">CmelCmel 개발자 세상</dd>
+                                            <a href="/link/blog/board.do?blogNo=${blogList.BLOGNO }&categoryNo=${blogList.CATEGORYNO}&boardNo=${blogList.BOARDNO}" class="jisikin-list-title">${blogList.TITLE }</a>
+                                            <span class="create_date"><fmt:formatDate value="${blogList.CREATEDATE }" pattern="yyyy.MM.dd"/> </span>
+                                        </dt>  
+                                        <dd class="content" style="display: block !important">
+                                       		${blogList.CONTENTS }
+                                        </dd>    
+                                        <dd class="cat blog-title">${blogList.BLOGTITLE }</dd>
                                     </dl>
                                 </li>                             
+                            </c:forEach>
                                 <li>
                                    <div class="search-blog-img">
                                         <img src="/link/resources/images/search-blog-ex2.jpg" alt="">
@@ -220,12 +240,9 @@
                                             <a href="#" class="jisikin-list-title"><span class="keyword">MFC</span>란?</a>
                                             <span class="create_date">2016.06.12</span>
                                         </dt>
-                                        <dd class="content">
-                                            <span class="keyword">MFC</span>를 소개 해드리겠습니다.
-                                            Mass Flow Controler의 줄임말이죠  이제부터는 <span class="keyword">MFC</span>라고 말씀드리겠습니다.
-                                            제가 사용해봤던 제품들은 Bronkhorst, Brooks, MKP 등이 있었지요
+                                        <dd class="content"> 
                                             사용하시는 분들마다 선호하시는 Maker에 따라 호불호가 나눠지는듯 합니다만
-                                            개인적으로는 기능이나 정밀도에서는 크게 차이가 나지 않는것 같았습니다.
+                                            개인적으로는 기능이나 정밀도에서는 크게 차이가 나지 않는것 같았습니다.     
                                         </dd>
                                         <dd class="cat blog-title">CmelCmel 개발자 세상</dd>
                                     </dl>
@@ -236,62 +253,76 @@
                             <a href="#">blog 더보기></a>
                         </div>
                     </div>
+                </c:if>
+                
+                <!-- 시리즈 검색 -->
+                <c:if test="${not empty resultVod }">
                     <div class="row result-section result-series">
                         <div class="section_head">
                             <h2>시리즈</h2>
-                            <span class="title_num">1건</span>
+                            <span class="title_num">${resultVod.size() }건</span>
                         </div>
                         <div class="jisikin-section-content">
-                            <ul class="jisikin-list vod-list">
-                                <li>
+                            <ul class="jisikin-list vod-list" style="margin-left:-20px;">
+                            <c:forEach var="vod" items="${resultVod }" begin="0" end="1">
+                                <li style="padding-bottom:10px !important;">
                                     <div class="search-blog-img">
-                                        <img src="/link/resources/images/search-series-poster.PNG" width="150" height="200" alt="">
-                                    </div>
-                                    <dl>
-                                        <dt class="title">
-                                            <a href="#" class="jisikin-list-title"><span class="keyword vod-title">MFC</span></a>
-                                            <span class="create_date">개봉일  : 2014.11.02</span>
-                                        </dt>
-                                        <dd class="content">
-                                            <p class="descript"><span style="color:gray">내용</span>
-                                                아버지의 죽음에 대한 죄책감에 시달리던 ‘심바’는 의욕 충만한 친구들 ‘품바’와 ‘티몬’의 도움으로 희망을 되찾는다.
-                                            </p>
+                                    <a href="/link/series/detail.do?vodno=${vod.no }">
+                                        <img src="/link/resources/images/series/vods/${vod.img }" width="150" height="200" alt="">
+                                        </a>    
+                                    </div>  
+                                    <dl>  
+                                        <dt class="title"> 
+                                            <a href="/link/series/detail.do?vodno=${vod.no }" class="jisikin-list-title">${vod.title }</a>
+                                            <span class="create_date">개봉일  : <fmt:formatDate value="${vod.createDate }" pattern="yyyy.MM.dd"/> </span>
+                                        </dt>   
+                                        <dd class="content" style="max-width:420px; overflow:hidden;">
+                                            <span style="color:gray;">내용</span>
+                                            ${vod.descriptrion }    	
                                         </dd>
                                         <dd class="cat blog-title">
-                                            <span class="running-time">상영시간<em>2시간20분</em></span>
-                                            <span class="grade">관람등급<em>12세 관람가</em></span>
-                                            <span class="actor">배우<em>존 파브로</em></span>
-                                        </dd>
+                                            <span class="running-time">상영시간<em>${vod.runningTime }분</em></span>
+                                            <span class="grade">관람등급<em>${vod.grade }</em></span>
+                                            <span class="actor"
+                                            style="max-width:420px; overflow:hidden;"
+                                            >배우<em>${vod.actor }</em></span>
+                                        </dd>   
                                     </dl>
                                 </li>                             
+                            </c:forEach>
                             </ul>
                         </div>
-                        <div class="section-more">
+                        <div class="section-more">  
                             <a href="#">상세보기></a>
                         </div>
-                    </div>
+                        
+                    </div>  
+                 </c:if>
+                 
+                 <!--  밴드 검색 -->
+                 <c:if test="${not empty resultBand }">
                     <div class="row result-section result-band">
                         <div class="section_head">
                             <h2>BAND</h2>
-                            <span class="title_num">1,796건</span>
+                            <span class="title_num">${resultBand.size() }건</span>
                         </div>
                         <div class="jisikin-section-content">
-                            <ul class="jisikin-list">                         
-                                <li>
-                                    <dl>
-                                        <dt class="title">
-                                            <p class="band-title">BAND명 : </p><a href="#" class="jisikin-list-title"><span class="keyword">재헌이의 MFC</span>세상</a>
-                                            <span class="create_date">/ 창설일 : 2016.01.14</span>
+                            <ul class="jisikin-list">        
+                            <c:forEach var="band" items="${resultBand }" begin="0" end="1">
+                                <li style="min-width:600px;">
+                                    <dl>   
+                                        <dt class="title">  
+                                            <p class="band-title">
+                                            BAND명 : 
+    	                                        <a href="/link/band/bandhome.do?bandNo=${band.BANDNO }" class="jisikin-list-title">
+	    	                                        ${band.BANDNAME }
+            	                                </a>
+                                            </p>
+                                            <span class="create_date">/ 창설일 : <fmt:formatDate value="${band.CREATEDATE }" pattern="yyyy.MM.dd"/> </span>
                                         </dt>
-                                        <dd class="content">
-                                            <span class="keyword">MFC</span>를 소개 해드리겠습니다.
-                                            Mass Flow Controler의 줄임말이죠  이제부터는 <span class="keyword">MFC</span>라고 말씀드리겠습니다.
-                                            제가 사용해봤던 제품들은 Bronkhorst, Brooks, MKP 등이 있었지요
-                                            사용하시는 분들마다 선호하시는 Maker에 따라 호불호가 나눠지는듯 합니다만
-                                            개인적으로는 기능이나 정밀도에서는 크게 차이가 나지 않는것 같았습니다.
-                                        </dd>
-                                    </dl>
+                                    </dl>  
                                 </li>
+                            </c:forEach>                 
                                 <li>
                                     <dl>
                                         <dt class="title">
@@ -302,8 +333,6 @@
                                             <span class="keyword">MFC</span>를 소개 해드리겠습니다.
                                             Mass Flow Controler의 줄임말이죠  이제부터는 <span class="keyword">MFC</span>라고 말씀드리겠습니다.
                                             제가 사용해봤던 제품들은 Bronkhorst, Brooks, MKP 등이 있었지요
-                                            사용하시는 분들마다 선호하시는 Maker에 따라 호불호가 나눠지는듯 합니다만
-                                            개인적으로는 기능이나 정밀도에서는 크게 차이가 나지 않는것 같았습니다.
                                         </dd>
                                     </dl>
                                 </li>
@@ -313,34 +342,40 @@
                             <a href="#">BAND 더보기></a>
                         </div>
                     </div>
+                 </c:if>
+                 
+                 <!-- TV검색 -->
+                 <c:if test="${not empty resultTv }">
                     <div class="row result-section result-tv">
                         <div class="section_head">
                             <h2>TV</h2>
-                            <span class="title_num">4,506건</span>
+                            <span class="title_num">${resultTv.size() }건</span>
                         </div>
                         <div class="jisikin-section-content">
                             <ul class="jisikin-list blog-list">
+                            <c:forEach var="tv" items="${resultTv }" begin="0" end="3">
                                 <li>
                                     <div class="search-blog-img">
-                                       <a href="#" class="video">
-                                            <img src="/link/resources/images/search-video-ex1.jpg" width="140px;" alt="">
-                                            <span class="runtime"><span class="blind">재생시간</span>1분 18초</span>
+                                       <a href="/link/tv/detail.do?vno=${tv.no }" class="video">
+                                            <img src="/link/resources/images/tvdb/${tv.thumbnail }" width="140px;" alt="">
+                                            <span class="runtime"><span class="blind">재생시간</span>${tv.playTime }초</span>
                                             <span class="spmv ico play">동영상 바로보기</span>
                                        </a>
                                     </div>
                                     <dl>
                                         <dt class="title">
-                                            <a href="#" class="jisikin-list-title">아이티동스쿨 <span class="keyword">MFC</span>강좌 샘플 영상</a>
+                                            <a href="/link/tv/detail.do?vno=${tv.no }" class="jisikin-list-title">${tv.title }</a>
                                         </dt>
                                         <dd class="content">
-                                        
+                                        	${tv.contents }
                                         </dd>
-                                        <dd class="cat blog-title video-title">달님 블로그<span class="create_date video_date">2019.02.12</span></dd>
+                                        <dd class="cat blog-title video-title">${tv.tvPlaylist.tvChannel.title }<span class="create_date video_date"><fmt:formatDate value="${tv.createDate }" pattern="yyyy.MM.dd"/> </span></dd>
                                     </dl>
                                 </li>                             
+                            </c:forEach>
                                 <li>
                                    <div class="search-blog-img">
-                                       <a href="#" class="video">
+                                       <a href="" class="video">
                                             <img src="/link/resources/images/search-video-ex2.jpg" width="140px;" alt="">
                                             <span class="runtime"><span class="blind">재생시간</span>12분 58초</span>
                                             <span class="spmv ico play">동영상 바로보기</span>
@@ -366,6 +401,8 @@
                             <a href="#">TV 더보기></a>
                         </div>
                     </div>
+                 </c:if>
+                 
                     <div class="row result-section result-image">
                         <div class="section_head">
                             <h2>이미지</h2>
@@ -412,97 +449,28 @@
                     </div>
                 <!-- 내역 끝 -->
                 </div>
-                <div class="col-sm-4 search-ranking">
+                <div class="col-sm-3 search-ranking">   
                     <div class="search-rank">
                         <div class="rank-head">
                             <h2>일간검색순위</h2>
                         </div>
                         <div class="rank-list">
                             <ol>
-                                <li>
-                                    <a href="#" class="bx bx_item">
-                                        <span class="keyword">
-                                            <em class="num">1</em>
-                                            <span class="tit">MFC</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="bx bx_item">
-                                        <span class="keyword">
-                                            <em class="num">2</em>
-                                            <span class="tit">디자인 극혐띠</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="bx bx_item">
-                                        <span class="keyword">
-                                            <em class="num">3</em>
-                                            <span class="tit">코딩하고싶어</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="bx bx_item">
-                                        <span class="keyword">
-                                            <em class="num">4</em>
-                                            <span class="tit">이제 그만하자</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="bx bx_item">
-                                        <span class="keyword">
-                                            <em class="num">5</em>
-                                            <span class="tit">널사랑한다는말도~</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="bx bx_item">
-                                        <span class="keyword">
-                                            <em class="num">6</em>
-                                            <span class="tit">똑바로못하면서~~</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="bx bx_item">
-                                        <span class="keyword">
-                                            <em class="num">7</em>
-                                            <span class="tit">후우우우우우</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="bx bx_item">
-                                        <span class="keyword">
-                                            <em class="num">8</em>
-                                            <span class="tit">줫이킴이</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="bx bx_item">
-                                        <span class="keyword">
-                                            <em class="num">9</em>
-                                            <span class="tit">부릅니다</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="bx bx_item">
-                                        <span class="keyword">
-                                            <em class="num">10</em>
-                                            <span class="tit">디자인 그만하자</span>
-                                        </span>
-                                    </a>
-                                </li>
+                            	<c:forEach var="pop" items="${popWords }" begin="0" end="9" varStatus="status">
+	                                <li>
+	                                    <a href="/link/search.do?word=${pop }" class="bx bx_item">
+	                                        <span class="keyword">
+	                                            <em class="num">${status.count }</em>
+	                                            <span class="tit">${pop }</span>
+	                                        </span>
+	                                    </a>
+	                                </li>
+                            	</c:forEach>
                             </ol>
                             <div class="realtime_srch_area">
                                 <p class="dsc">
-                                    <time>2019.07.28</time>
+                                <c:set var="now" value="<%=new java.util.Date()%>" />
+                                    <time><fmt:formatDate value="${now }" pattern="yyyy.MM.dd"/></time>
                                     . 기준
                                 </p>
                             </div>
@@ -510,8 +478,63 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
 <script>
+$(document).ready(function(){ 
+	// $('.content *').removeAttr("style"); 
+	$('.blog-list .content *').css("all", "inherit");  
+	$('.blog-list .content *').css("overflow", "");  
+	$(".content img").hide();  
+}); 
+
+	/* 검색바 자동완성 */
+	$("#search-input").keyup(function(){
+		var word = $("#search-input").val();
+		console.log(word);
+		
+		$.ajax({
+			url:"autoComplete.do",
+			data:{word:word},
+			dataType:"json",
+			success:function(result){
+				console.log(result)
+				$("._resultBox").empty();
+				
+				$.each(result,function(index,item){
+					
+					var html = '<li class="_item"><a href="/link/search.do?word='+item+'">'+item+'</a></li>';
+					$("._resultBox").append(html);
+				})
+			}
+		})
+	})
+	
+	/* 자동완성기능 ( 펼치기 접기 포함)*/
+	var isIntoResultBox = false;
+	
+	 $("#search-input").click(function(){ 
+		 $(".unfold").css("display", "block");
+		 $(".fold").css("display", "none");
+		 $("#nx_autoframe_top").show();
+	 })
+	 
+	 $("#search-input").blur(function(){ 
+		 if (!isIntoResultBox) {
+			 $(".unfold").css("display", "none");
+			 $("#nx_autoframe_top").hide();
+			 $(".fold").css("display", "block");
+		 }
+	 })
+	 
+	 $("#nx_autoframe_top").mouseenter(function() {
+		 isIntoResultBox = true;
+	 })
+	 
+	 $("#nx_autoframe_top").mouseleave(function() {
+		 isIntoResultBox = false;
+	 })
+
+    
     /* 페이징 */
     $(".paging a").click(function(){
         $(this).siblings().removeClass("paging-strong");
@@ -587,18 +610,6 @@
         return false;   
     })
     
-    /* 자동완성 펼치기 접기 */
-    $("#nx_query").focus(function(){ 
-        $(".unfold").css("display", "block");
-        $("#nx_autoframe_top").css("display", "block");
-        $(".fold").css("display", "none");
-    });
-    
-    $("#nx_query").blur(function(){
-        $(".unfold").css("display", "none");
-        $("#nx_autoframe_top").css("display", "none");
-        $(".fold").css("display", "block");
-    });
 </script>
 </body>
 </html>

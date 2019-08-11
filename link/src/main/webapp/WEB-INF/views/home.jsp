@@ -9,7 +9,8 @@
 <link href="https://fonts.googleapis.com/css?family=Jura|Marck+Script|Russo+One|Sacramento&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/link/resources/css/main.css">
 <link rel="stylesheet" href="/link/resources/css/blog/blog.css">
-<script src="/link/resources/js/returnUrl.js"></script>
+<link rel="stylesheet" href="/link/resources/css/search/searchMain.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
@@ -22,7 +23,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<c:if test="${not empty LOGIN_USER }">
 					<li class="dropdown"><a href="#" style="background-color: white !important;" class="dropdown-toggle" data-toggle="dropdown"
-						role="button" aria-expanded="false"> <img class="blog-profile-img" style="width:30px; height:30px; border-radius: 50%;" src="/link/resources/images/${LOGIN_USER.img }" alt="">> <span class="blog-navbar-id"
+						role="button" aria-expanded="false"> <img class="blog-profile-img" src="/link/resources/images/blog.png" alt=""> <span class="blog-navbar-id"
 							style="color: gray !important;">${LOGIN_USER.nickName }</span> <span class="caret" style="color: gray !important;"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/link/home.do">Link 홈</a></li>
@@ -44,10 +45,10 @@
 						</ul></li>
 				</c:if>
 				<c:if test="${empty LOGIN_USER }">
-					<li class=""><a class="main-login blogmain_login" style="color: #666666;" href="loginform.do">로그인</a></li>
+					<li class=""><a class="main-login" style="color: #666666;" href="loginform.do">로그인</a></li>
 				</c:if>
 				<c:if test="${not empty LOGIN_USER }">
-					<li class=""><a class="main-login blognav_logout_btn" style="color: #666666;" href="logout.do">로그아웃</a></li>
+					<li class=""><a class="main-login" style="color: #666666;" href="logout.do">로그아웃</a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -60,10 +61,14 @@
 					>i</span><span style="color: #FCC800;">n</span><span style="color: #00B658">k</span> </a></span>
 			</div>
 			<div class="col-sm-6 col-sm-offset-3 text-center">
-				<input type="text" class="main-searchbar">
-				<div class="search-shape">
-					<a href=""><span class="glyphicon glyphicon-search"></span></a>
-				</div>
+			<form id="search-bar-form" action="/link/search.do" method="GET">
+			<fieldset class="greenwindow">
+				<div class="greenbox"> <span class="keyword"> <input type="text" id="nx_query" name="word" class="box_window" maxlength="255" accesskey="s" value="" autocomplete="off" title="검색어 입력"> </span> 
+                    </div>
+					<button type="submit" class="bt_search"><span class="
+                    glyphicon glyphicon-search"></span></button>
+			</fieldset>  
+			</form>
 			</div>
 			<div class="col-sm-3 main-rank">
 				<div>
@@ -104,7 +109,7 @@
 				<div class="main-menu">
 					<a href="/link/tv/home.do">TV</a>
 				</div>
-				<a href="/link/tv/home.do"><img style="position: relative;" src="resources/images/tv.png"  alt=""></a>
+				<a href="/link/tv/home.do""><img style="position: relative;" src="resources/images/tv.png"  alt=""></a>
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
@@ -115,6 +120,5 @@
 		</div>
 
 	</div>
-
 </body>
 </html>

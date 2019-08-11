@@ -204,7 +204,7 @@
        	<c:when test="${empty LOGIN_USER}">
             <div class="aside-login">
                <p class="top_text">질문과 답변을 하고 싶다면,</p>
-                <button type="text" class="btn btn-default" onclick ="location.href = '/link/loginform.do'">
+                <button type="text" id="login-btn" class="btn btn-default" onclick ="location.href = '/link/loginform.do'">
                     <img src="/link/resources/images/link_logo.PNG" alt="" style="width: 50%;"><strong>로그인</strong>
                 </button>
                 <div class="row sign_area">
@@ -241,7 +241,7 @@
 								<a href="/link/jisikin/profile.do?userId=${LOGIN_USER.id}">프로필 바로가기&gt;</a>
 							</div>
 						</a> <span class="btn_login_area"> <a
-							href="/link/logout.do"
+							href="/link/logout.do" id="logout-btn"
 							class="btn_login">로그아웃</a>
 						</span>
 						<div class="mykin_wrap _tab_myarea">
@@ -355,6 +355,22 @@
             console.log(timeago_t);
             $(this).text(timeago_t);
          });
+        
+        $('#login-btn').click(function(){
+            var host = location.host;
+            var returnUrl = location.pathname;
+            var queryString = location.search.substr(1).replace(/&/g, ',');
+            location.href = '/link/loginform.do?returnUrl=' + returnUrl + '&queryString=' + queryString;
+            return false;
+        }); 
+        
+        $('#logout_btn').click(function(){
+            var host = location.host;
+            var returnUrl = location.pathname;
+            var queryString = location.search.substr(1).replace(/&/g, ',');
+            location.href = '/link/logout.do?returnUrl=' + returnUrl + '&queryString=' + queryString;
+            return false;
+      });
          
 
      });

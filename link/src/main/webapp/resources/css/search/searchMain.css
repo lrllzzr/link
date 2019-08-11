@@ -335,7 +335,7 @@ ol, ul {
 /* 검색결과 */
 
 .search-result {
-    width : 55%;
+    width : 68%;
     padding-top : 30px;
     padding-left : 135px;
     min-height: 800px;
@@ -437,7 +437,7 @@ h2 {
 .jisikin-list-title {
     color: #00C;
 }
-
+  
 .content {
     min-width : 600px;
     width: 80%;
