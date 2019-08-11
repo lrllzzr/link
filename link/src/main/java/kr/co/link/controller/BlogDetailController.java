@@ -141,9 +141,13 @@ public class BlogDetailController {
 			rangeMap.put("end", end);
 			rangeMap.put("categoryNo", blogCategory.getNo());
 			List<BlogBoard> blogboards10 = blogBoardService.getBoardsByRange(rangeMap);
+			for(BlogBoard blogBoard : blogboards10) {
+				int commentsCount = blogBoardService.getCommentsCountByBoardNo(blogBoard.getNo());
+				blogBoard.setCommentsCount(commentsCount);
+			}
 			totalCount = blogBoardService.getBoardsCountByCategoryNo(blogCategory.getNo());
 			totalCount = (int) Math.ceil((double) totalCount / howMany);
-
+			
 			model.addAttribute("blogboardsByRange10", blogboards10);
 			model.addAttribute("pno10", pno10);
 			model.addAttribute("totalCount10", totalCount);
@@ -170,7 +174,7 @@ public class BlogDetailController {
 			rangeMap.put("end", end);
 			rangeMap.put("categoryNo", categoryNo);
 			List<BlogBoard> blogboards = blogBoardService.getBoardsByRange(rangeMap);
-
+				
 			int totalCount = blogBoardService.getBoardsCountByCategoryNo(categoryNo);
 			totalCount = (int) Math.ceil((double) totalCount / howMany);
 			int blogCount = blogBoardService.countBoardsByCategoryId(categoryNo);
@@ -187,6 +191,11 @@ public class BlogDetailController {
 			rangeMap.put("end", end);
 			rangeMap.put("categoryNo", blogCategory.getNo());
 			List<BlogBoard> blogboards10 = blogBoardService.getBoardsByRange(rangeMap);
+			for(BlogBoard blogBoard : blogboards10) {
+				int commentsCount = blogBoardService.getCommentsCountByBoardNo(blogBoard.getNo());
+				blogBoard.setCommentsCount(commentsCount);
+			}
+			
 			totalCount = blogBoardService.getBoardsCountByCategoryNo(blogCategory.getNo());
 			totalCount = (int) Math.ceil((double) totalCount / howMany);
 

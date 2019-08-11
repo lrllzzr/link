@@ -382,9 +382,9 @@
 							<img style="width: 290.511px;" src="/link/resources/images/bloghome1.jpg" alt="" />
 						</div>
 					</div>
-					<a style="color: white; font-size: 15px;" href="/link/loginform.do">
+					<a class="blogmain_login" style="color: white; font-size: 15px;" href="/link/loginform.do">
 						<div class="row blog-col-4 text-center" style="padding: 15px;">
-							<span class="blogmain_login"><strong>Link</strong>로그인</span>
+							<span><strong>Link</strong>로그인</span>
 						</div>
 					</a>
 				</div>

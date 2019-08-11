@@ -8,7 +8,14 @@
                         <span class="blog-main-javer">Link</span>
                     </a>
                     <a href="/link/blog/main.do">
+                    <c:choose>
+                    <c:when test="${navMenu eq 'jisikin' }">
+                        <span class="blog-main-blog">지식인</span>
+                    </c:when>
+                    <c:otherwise>
                         <span class="blog-main-blog">블로그</span>
+                    </c:otherwise>
+                    </c:choose>
                     </a>
                 </div>
                 <div class="col-sm-5 blog-searchbar">

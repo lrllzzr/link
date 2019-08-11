@@ -41,14 +41,14 @@
 							<li><a href="/link/series/home.do">시리즈</a></li>
 							<li><a href="/link/tv/home.do">TV</a></li>
 							<li class="divider"></li>
-							<li><a href="/link/logout.do">로그아웃</a></li>
+							<li><a class="blognav_logout_btn" href="/link/logout.do">로그아웃</a></li>
 						</ul></li>
 				</c:if>
 				<c:if test="${empty LOGIN_USER }">
-					<li class=""><a class="main-login" style="color: #666666;" href="loginform.do">로그인</a></li>
+					<li class=""><a class="main-login blogmain_login" style="color: #666666;" href="loginform.do">로그인</a></li>
 				</c:if>
 				<c:if test="${not empty LOGIN_USER }">
-					<li class=""><a class="main-login" style="color: #666666;" href="logout.do">로그아웃</a></li>
+					<li class=""><a class="main-login blognav_logout_btn" style="color: #666666;" href="logout.do">로그아웃</a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -121,4 +121,5 @@
 
 	</div>
 </body>
+<script src="/link/resources/js/returnUrl.js"></script>
 </html>

@@ -95,4 +95,5 @@ public class BlogBoardServiceImpl implements BlogBoardService{
 	public void deleteBoardByBoardNo(Integer boardNo) {
 		blogBoardDao.deleteBoardByBoardNo(boardNo);
 	}
+
 }

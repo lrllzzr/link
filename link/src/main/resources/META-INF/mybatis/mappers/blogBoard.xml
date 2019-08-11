@@ -53,6 +53,20 @@
           row_no >=#{begin}
       
 </select>
+<select id="getCommentCountByBoardNo" parameterType="int" resultType="int">
+select
+	count(*)
+	from(
+		select 
+			row_number() OVER(order by board_create_Date desc) row_no
+		from 
+			blog_boards a, blog_boards_comments b
+		where
+			a.board_no = b.board_no
+		and
+			a.board_no = #{value}
+		)
+</select>
 <select id="getBoardsCountByCategoryNo" parameterType="int" resultType="int">
    select
       count(*)

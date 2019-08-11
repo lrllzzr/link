@@ -28,4 +28,5 @@ public interface BlogBoardDao {
 	void addNewComment(BlogBoardComment blogBoardComment);
 	void updateBoard(BlogBoard blogBoard);
 	void deleteBoardByBoardNo(Integer boardNo);
+	Integer getCommentCountByBoardNo(Integer boardNo);
 }

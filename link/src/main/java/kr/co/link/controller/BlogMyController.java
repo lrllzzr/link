@@ -96,6 +96,10 @@ public class BlogMyController {
 			rangeMap.put("end", end);
 			rangeMap.put("categoryNo", blogCategory.getNo());
 			List<BlogBoard> blogboards10 = blogBoardService.getBoardsByRange(rangeMap);
+			for(BlogBoard blogBoard : blogboards10) {
+				int commentsCount = blogBoardService.getCommentsCountByBoardNo(blogBoard.getNo());
+				blogBoard.setCommentsCount(commentsCount);
+			}
 			totalCount = blogBoardService.getBoardsCountByCategoryNo(blogCategory.getNo());
 			totalCount = (int) Math.ceil((double) totalCount / howMany);
 
@@ -133,6 +137,10 @@ public class BlogMyController {
 			rangeMap.put("end", end);
 			rangeMap.put("categoryNo", blogCategory.getNo());
 			List<BlogBoard> blogboards10 = blogBoardService.getBoardsByRange(rangeMap);
+			for(BlogBoard blogBoard : blogboards10) {
+				int commentsCount = blogBoardService.getCommentsCountByBoardNo(blogBoard.getNo());
+				blogBoard.setCommentsCount(commentsCount);
+			}
 			totalCount = blogBoardService.getBoardsCountByCategoryNo(blogCategory.getNo());
 			totalCount = (int) Math.ceil((double) totalCount / howMany);
 

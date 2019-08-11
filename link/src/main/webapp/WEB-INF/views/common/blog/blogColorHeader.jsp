@@ -15,6 +15,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script>
 	$(function() {
+		var isComment = '${param.isComment}';
+		if(isComment == 'Y'){
+			var offset = $('.blog_board_comment1').offset(); //선택한 태그의 위치를 반환
+			$('html').animate({scrollTop : offset.top}, 400);
+		}
+		
+		
 		$('.blog_page_bum2').click(event, function() {
 			event.preventDefault();
 			var page = $(this).text();

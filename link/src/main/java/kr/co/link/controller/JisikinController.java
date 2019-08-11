@@ -46,11 +46,15 @@ public class JisikinController {
 	private JisikinAnswerService answerService;
 	
 	
+	public void setMenu(Model model) {
+		model.addAttribute("navMenu","jisikin");
+	}
 	// 지식인 메인
 	@RequestMapping("/main.do")
-	public String main(@RequestParam(required = false, value = "sort", defaultValue = "1")int sort, 
+	public String main(HttpSession session, @RequestParam(required = false, value = "sort", defaultValue = "1")int sort, 
 					   @RequestParam(required = false, value = "categoryNo", defaultValue ="0")Integer categoryNo,
 					   Model model) {
+		setMenu(model);
 		// 카테고리별 정렬 답변리스트
 		Map<String, Object> sortMap = new HashMap<String, Object>();
 		if(categoryNo == 0) {
@@ -98,6 +102,7 @@ public class JisikinController {
 	// Q&A							값이 없어도되는      변수명과 값일치      required=false일때 기본값
 	@RequestMapping("/qna.do")
 	public String qna(@RequestParam(required = false, value = "categoryNo", defaultValue = "0")int categoryNo, Model model) {
+		setMenu(model);
 		// 지식인 카테고리
 		if (categoryNo == 0) {
 			List<Jisikin> allJisikin = jisikinService.getAllJisikin();
@@ -127,6 +132,7 @@ public class JisikinController {
 	// 질문 상세
 	@RequestMapping(value= "/questionDetail.do", method = RequestMethod.GET)
 	public String questionDetail(@RequestParam(value= "jisikinNo")int jisikinNo, Model model) {
+		setMenu(model);
 		Jisikin jisikin = jisikinService.getJisikinByNo(jisikinNo);
 		
 		// 조회수 증가
@@ -147,7 +153,8 @@ public class JisikinController {
 	}
 	
 	@RequestMapping(value= "/questionDetail.do", method = RequestMethod.POST)
-	public String questionDetail(JisikinAnswer jisikinAnswer, HttpSession session) {
+	public String questionDetail(JisikinAnswer jisikinAnswer, HttpSession session, Model model) {
+		setMenu(model);
 		JisikinAnswer answer = new JisikinAnswer();
 		
 		User user = (User) session.getAttribute("LOGIN_USER");
@@ -164,13 +171,13 @@ public class JisikinController {
 	
 	// 카테고리별 질문
 	@RequestMapping(value="/byCategory.do")
-	public @ResponseBody List<Jisikin> byCategory(int categoryNo){
+	public @ResponseBody List<Jisikin> byCategory(HttpSession session, int categoryNo){
 		return jisikinService.getJisikinByCategory(categoryNo);
 	}
 	
 	// 카테고리별 검색
 	@RequestMapping(value="/byKeywordCategory.do")
-	public @ResponseBody List<Jisikin> byKeywordCategory(int categoryNo, String keyword){
+	public @ResponseBody List<Jisikin> byKeywordCategory(HttpSession session, int categoryNo, String keyword){
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("no", categoryNo);
@@ -181,7 +188,8 @@ public class JisikinController {
 	
 	// 질문폼
 	@RequestMapping(value= "/questionform.do", method = RequestMethod.GET)
-	public String form(Model model) {
+	public String form(Model model, HttpSession session) {
+		setMenu(model);
 		model.addAttribute("jisikinForm", new JisikinForm());
 		List<JisikinCategory> categories = categoryService.getParentCategory();
 		model.addAttribute("categories", categories);
@@ -192,9 +200,9 @@ public class JisikinController {
 	
 	// 질문폼 기입
 	@RequestMapping(value= "/questionform.do", method = RequestMethod.POST)
-	public String addform(JisikinForm jisikinForm, HttpSession session) {
+	public String addform(JisikinForm jisikinForm, HttpSession session, Model model) {
+		setMenu(model);
 		User user = (User) session.getAttribute("LOGIN_USER");
-		
 		Jisikin jisikin = new Jisikin();
 		// 폼객체를 지식인과 태그에 복사
 		BeanUtils.copyProperties(jisikinForm, jisikin);
@@ -236,6 +244,7 @@ public class JisikinController {
 	// 답변하기 메뉴
 	@RequestMapping("/answer.do")
 	public String answer(@RequestParam(required = false, value = "categoryNo", defaultValue = "0")int categoryNo, Model model) {
+		setMenu(model);
 		// 카테고리별 질문글 뿌리기
 		if (categoryNo == 0) {
 			List<Jisikin> allJisikin = jisikinService.getAllJisikin();
@@ -263,6 +272,7 @@ public class JisikinController {
 	// 프로필
 	@RequestMapping("/profile.do")
 	public String profile(String userId , Model model) {
+		setMenu(model);
 		List<JisikinAnswer> myAnswer = jisikinService.getMyAnswer(userId);
 		List<Jisikin> myJisikin = jisikinService.getMyJisikin(userId);
 		
@@ -305,6 +315,7 @@ public class JisikinController {
 	// 명예의 전당
 	@RequestMapping("/rank.do")
 	public String rank(Model model) {
+		setMenu(model);
 		// 인기 태그
 		List<JisikinTag> toptag = tagService.getPopularTagTop10();
 		model.addAttribute("toptag", toptag);
@@ -322,8 +333,8 @@ public class JisikinController {
 	
 	// 추천하기
 	@RequestMapping("/addRecommend.do")
-	public String addRecommend(@RequestParam(value= "jisikinNo")int jisikinNo) {
-		
+	public String addRecommend(@RequestParam(value= "jisikinNo")int jisikinNo, Model model) {
+		setMenu(model);
 		// 추천
 		jisikinService.updateJisikinRecommendByNo(jisikinNo);
 		
