@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import kr.co.link.vo.JisikinAnswer;
 import kr.co.link.dao.JisikinDao;
+import kr.co.link.dao.UserDao;
 import kr.co.link.vo.Jisikin;
 import kr.co.link.vo.JisikinTag;
+import kr.co.link.vo.User;
 
 @Service
 public class JisikinServiceImpl implements JisikinService {
@@ -21,6 +23,9 @@ public class JisikinServiceImpl implements JisikinService {
 	
 	@Autowired
 	private JisikinTagService tagService;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	
 	@Override
@@ -119,6 +124,14 @@ public class JisikinServiceImpl implements JisikinService {
 		jisikinDao.updateJisikinByNo(jisikin);
 	}
 	
+	// 마감
+	@Override
+	public void updateDeadlineYn(int jno) {
+		Jisikin updateJisikin = jisikinDao.getJisikinByNo(jno);
+		updateJisikin.setDeadLineYn("Y");
+		jisikinDao.updateJisikinByNo(updateJisikin);
+	}
+	
 	// 조회순 질문리스트
 	public List<Jisikin> getJisikinByView(){
 		return jisikinDao.getJisikinByView();
@@ -177,8 +190,24 @@ public class JisikinServiceImpl implements JisikinService {
 		 return map;
 	}
 	
+	@Override
 	// 카테고리별 정렬 답변리스트
 	public List<Jisikin> getSortByCategory(Map<String, Object> map) {
 		return jisikinDao.getSortByCategory(map);
+	}
+	
+	
+	
+	// 내공 부여하기
+	@Override
+	public void addMentalPoint(User user, int point) {
+		User pointUser = userDao.getUserById(user.getId());
+		
+		// 부여받은 내공점수 넣기
+		int presentPoint = pointUser.getMentalPoint();
+		presentPoint = (presentPoint+point);
+		pointUser.setMentalPoint(presentPoint);
+		
+		userDao.updateUser(pointUser);
 	}
 }

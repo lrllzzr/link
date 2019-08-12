@@ -80,7 +80,7 @@
 							<li class="divider"></li>
 
 							<li><a href="/link/band/main.do">밴드</a></li>
-							<li><a href="/link/jisikin/main.do">지식인</a></li>
+							<li><a href="/link/jisikin/main.do?sort=1&categoryNo=0">지식인</a></li>
 							<li><a href="/link/accountbook/expense.do">가계부 </a></li>
 							<li><a href="/link/series/home.do">시리즈</a></li>
 							<li><a href="/link/tv/home.do">TV</a></li>
@@ -163,7 +163,7 @@
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">
-					<a href="/link/jisikin/main.do">지식인</a>
+					<a href="/link/jisikin/main.do?sort=1&categoryNo=0">지식인</a>
 				</div>
 				<a href="/link/jisikin/main.do"><img style="position: relative;" src="resources/images/jisik.jpg" alt=""></a>
 			</div>

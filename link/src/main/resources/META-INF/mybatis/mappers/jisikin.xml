@@ -143,7 +143,8 @@
 			jisikin
 		set 
 		    jisikin_recommend = #{recommend},
-		    jisikin_viewcnt = #{viewCnt}
+		    jisikin_viewcnt = #{viewCnt},
+		    jisikin_deadline_yn = #{deadLineYn}
 		where
 		    jisikin_no = #{no}
 	</update>
@@ -247,15 +248,16 @@
 	
 	<!-- 내공 순위 -->
 	<select id="rankMentalPointById" parameterType="string" resultType="int">
-		select rank
-		from (select 
-		        rownum rank, user_id
-		      from
+		select 
+			rn
+        from (select  
+                user_id, row_number() over (order by user_mental_point desc) rn
+              from
 		        users
 		      order by
 		        user_mental_point desc)
-		where
-		    user_id = #{value}
+        where 
+        	user_id = #{value}
 	</select>
 	
 	<!--  전체질문 -->

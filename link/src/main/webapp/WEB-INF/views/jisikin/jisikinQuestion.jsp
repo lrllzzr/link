@@ -187,6 +187,11 @@
 		                    <h3 class="answer-author">${answer.secretYn eq 'Y' ? answer.userId : '비공개' } 님 답변</h3>
 		                    <h4 class="answer-author-num">채택답변수 <em>114</em></h4>
 		                </div>
+		                <c:if test="${LOGIN_USER.id eq jisikin.userId }"> 
+		                <div class="pull-right" style="margin-top:-40px !important; margin-right:10px;">
+		                	<a id="select-btn" href="/link/jisikin/selected.do?jno=${jisikin.no }&ano=${answer.no}" class="c-button-default c-button-default--blue">채택하기</a>
+		                </div>
+		                </c:if>
 		           </div>
 		       </div>
 		       <div class="answer-contents" style="overflow-y:hidden; overflow-x:scroll">
@@ -265,6 +270,10 @@
 </div>
 
 <script>
+	// 채택버튼
+	$("#select-btn").click(function(){
+		alert("채택하셨습니다!");
+	})
 
    	/* 스마트에디터 */
    	var oEditors = [];

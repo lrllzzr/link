@@ -29,6 +29,30 @@
 			answer_create_date desc
 	</select>
 	
+	<select id="getAnswerByNo" parameterType="int" resultType="jisikinAnswer">
+		select
+			answer_no no,
+			answer_create_date createDate,
+			answer_selected_yn selectedYn,
+			answer_secret_yn secretYn,
+			jisikin_no jisikinNo,
+			user_id userId,
+			answer_contents contents
+		from
+			jisikin_answer
+		where
+			answer_no = #{value}
+	</select>
+	
+	<update id="updateAnswerByNo" parameterType="jisikinAnswer">
+		update
+			jisikin_answer
+		set
+			answer_selected_yn = #{selectedYn}
+		where
+			answer_no = #{no}
+	</update>
+	
 	<select id="getRank" resultType="jisikinrank">
 		select 
 			rownum rank, 

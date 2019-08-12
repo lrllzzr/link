@@ -148,7 +148,7 @@
 	                            <a href="#" id="betPointLayerBtn" class="btn_ btn_set_point _clickcode:set.point" role="button">내공 설정하기</a>
 	
 	                            <div id="betPointInfo" class="oto_info">
-	                                채택한 답변자에게 추가내공을 드리며, 질문자에게도 추가내공의 50%(최대500점)을 돌려드립니다.
+	                                채택한 답변자에게 추가내공을 드리며, 질문자에게도 추가내공을 돌려드립니다.
 	                            </div>
 	
 	                            <div id="betPointInfoWithSelection" class="_layer_additionPoints oto_info_after" style="display: none">
@@ -160,12 +160,12 @@
 	                                    <h1 class="title">추가내공 설정</h1>
 	                                </div>
 	                                <div class="group_input_point_added input_box _clickcode:set.pointwrite">
-	                                    <input type="number" max="1704" id="betPoint" name="mentalPoint" placeholder="직접입력" class="input_point_added _clearWhenResize" title="내공 입력">
+	                                    <input type="number" max="${LOGIN_USER.mentalPoint }" id="betPoint" name="mentalPoint" placeholder="직접입력" class="input_point_added _clearWhenResize" title="내공 입력">
 	                                    <a id="betPointDelete" href="#" class="btn_close" role="button">
 	                                        <img src="https://ssl.pstatic.net/static/kin/09renewal/btn_close_layer.gif" width="14" height="14" alt="닫기">
 	                                    </a>
 	                                </div>
-	                                <div class="my_point">보유내공 <em>1,704</em></div>
+	                                <div class="my_point">보유내공 <em>${LOGIN_USER.mentalPoint }</em></div>
 	                                <div class="group_button">
 	                                    <a id="betPointCancel" href="#" role="button" class="button button_default _clickcode:set.pointcancel">취소</a>
 	                                    <a id="betPointSubmit" href="#" role="button" class="button button_primary _clickcode:set.pointok">확인</a>
@@ -178,7 +178,7 @@
 	                            <span class="first">별명 
 	                            <!-- 공개 설정 레이어 --> 
                                 <select id="secretYN" name="secretYn">
-                                	<option value="N">비공개</option>
+                                	<option value="N" selected="selected">비공개</option>
                                 	<option value="Y">공개</option>
                                 </select>
 	                            </span>
@@ -256,7 +256,60 @@ $("#category").change(function(){
 	
 // 등록 버튼
 $("#submit-question").click(function(){
+	if(questionForm.title.value == "") {
+
+	    alert("제목을 입력해 주세요.");
+
+	    questionForm.title.focus();
+
+	    return false;
+
+	  }
+	
+	  else if( $("._tagListArea ul").html().trim() == "") {
+
+		    alert("태그를 등록해 주세요.");
+
+		    questionForm.tag.focus();
+
+		    return false;
+
+		  }
+	
+	  else if(questionForm.parentCategory.value == "") {
+
+		    alert("카테고리를 등록해 주세요.");
+
+		    questionForm.parentCategory.focus();
+
+		    return false;
+
+		  }
+	
+	  else if(questionForm.categoryNo.value == "") {
+
+		    alert("상세 카테고리를 등록해 주세요.");
+
+		    questionForm.categoryNo.focus();
+
+		    return false;
+
+		  }
+	
+	  else if(questionForm.mentalPoint.value == "") {
+
+		    alert("내공을 등록해 주세요.");
+
+		    questionForm.mentalPoint.focus();
+
+		    return false;
+
+		  }
+
+	  else 
+	alert("질문 등록 성공!");
 	submitContents();
+	return true;
 })
 	
 	
