@@ -13,4 +13,5 @@ public interface TvLikeDao {
 	public void addLike(TvLikes tvLike);
 	public int getCountLikeById(Map<String, Object> info);
 	public int getCountByLike(int vno);
+	public void deleteLikeById(Map<String, Object> info);
 }

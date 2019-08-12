@@ -9,6 +9,7 @@ public class TvComments {
 	private String contents;
 	private Date createDate;
 	private User user;
+	
 	public TvComments() {
 		super();
 	}

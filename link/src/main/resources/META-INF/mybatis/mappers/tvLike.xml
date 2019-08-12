@@ -6,21 +6,11 @@
   <mapper namespace="kr.co.link.dao.TvLikeDao">
   	
   	<insert id="addLike" parameterType="tvLikes">
-  	insert into tv_like 
+  	insert into tv_likes
   	values(tv_likes_seq.nextval,#{tv.no},sysdate,#{user.id})
   	
   	</insert>
   	
-  	<delete id="delete">
-  		delete 
-  		from 
-  			tv_likes
-		where 
-			tv_no = #{vno}
-		and 
-			user_id = #{userId}
-  	</delete>
-
 	<select id="getCountLikeById" parameterType="map" resultType="int">
 	select 
 		count(*)
@@ -42,4 +32,14 @@
 			TV_NO = #{value}
 	</select>
 
+<delete id="deleteLikeById" parameterType="map">
+	DELETE
+	FROM 
+		TV_likes
+	WHERE 
+		user_id = #{userId}
+	and 
+		tv_no = #{vno}
+	
+</delete>
  </mapper>

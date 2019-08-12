@@ -31,5 +31,9 @@ public class TvLikeServiceImpl implements TvLikeService {
 		int count = tvLikeDao.getCountByLike(vno);
 		return count;
 	}
+	@Override
+	public void deleteLikeById(Map<String, Object> info) {
+		tvLikeDao.deleteLikeById(info);
+	}
 	
 }

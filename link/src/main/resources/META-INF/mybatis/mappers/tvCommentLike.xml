@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="kr.co.link.dao.TvCommentLikeDao">
+
+	<insert id="addCommentStatus" parameterType="map">
+		insert into tv_comment_likes
+		values(tv_comments_likes_seq.nextval, #{status}, #{vno}, #{userId})
+	</insert>
+	
+	<update id="updateCommentStatus" parameterType="map">
+		UPDATE TV_COMMENT_LIKES 
+		set COMMNET_STATUS = #{status} 
+		where = COMMENT_NO =#{vno} 
+		and USER_ID =#{userId}
+	</update>
+	
+	<delete id="deleteCommentStatus" parameterType="int">
+		delete from tv_comment_likes where COMMENT_NO = #{cno}
+	</delete>
+	
+		
+ </mapper>

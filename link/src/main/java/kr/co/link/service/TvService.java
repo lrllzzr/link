@@ -20,5 +20,4 @@ public interface TvService {
 	public Tv getVideoDetailByNo(int vno);
 	public List<Tv> getPlaylistByNo(int vno);
 	public void updateVideo(Tv tv);
-
 }

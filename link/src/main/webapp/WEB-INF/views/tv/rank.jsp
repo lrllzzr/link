@@ -297,7 +297,7 @@
 	                 				</c:otherwise>
 	                			</c:choose>
 	                		</span>
-		                	<span class="glyphicon glyphicon-time tv-btn-later"  data-vno='${best.no }'></span>
+		                	<span class="glyphicon glyphicon-time tv-btn-later" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-vno='${best.no }'></span>
 		                </a>
 		                
 		                <p class="tv-content-title" style="text-align: center; cursor: pointer;" onclick="location.href=''">${best.title }</p>
@@ -345,7 +345,7 @@
 	                 				</c:otherwise>
 	                			</c:choose>
 	                		</span>
-		                	<span class="glyphicon glyphicon-time tv-btn-later"  data-vno='${suggest.no }'></span>
+		                	<span class="glyphicon glyphicon-time tv-btn-later" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-vno='${suggest.no }'></span>
 		                </a>
 		                
 		                <p class="tv-content-title" style="text-align: center; cursor: pointer;" onclick="location.href=''">${suggest.title }</p>
@@ -389,7 +389,7 @@
 	                 				</c:otherwise>
 	                			</c:choose>
 	                		</span>
-		                	<span class="glyphicon glyphicon-time tv-btn-later"  data-vno='${recent.no }'></span>
+		                	<span class="glyphicon glyphicon-time tv-btn-later" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-vno='${recent.no }'></span>
 		                </a>
 		                
 		                <p class="tv-content-title" style="text-align: center; cursor: pointer;" onclick="location.href=''">${recent.title }</p>
@@ -449,28 +449,53 @@
     $(".tv-btn-later").on("click", function(event) {
 	
 		var vno = $(this).attr("data-vno");
-		$.ajax({
-			type:"POST",
-			url:"addLater.do",
-			data:{"vno":vno},
-			dataType:"text",
-			success:function(result){
-				console.log(result);
-				if(result =='fail'){
-					/* alert('이미 나중에 보기 한 영상입니다.'); */
-					$("#modalFail").modal({
-						backdrop: true
-					});
-				}
-				if(result =='success'){
-					/* alert('나중에 보기에 영상을 담았습니다.'); */
-					$("#modalSuccess").modal({
-						backdrop: true
-					});
-				}
-			
+		var login = $(this).attr("data-login");
+		
+		//지금 켜져있는 텝의정보를 찾아와서 이프문으로 리다이렉트 주소로 보낼값 전해주기
+		var inActive = $(this).parents(".tab-pane").attr("id");
+		
+		if(inActive == 'menu1'){
+			inActive = 'suggest'			
+		}
+		if(inActive == 'menu2'){
+			inActive = 'recent'			
+		}
+		if(inActive == 'home'){
+			inActive = 'best'			
+		}
+		if(login == 'N'){
+			var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+			if(YN){
+				
+				location.href="/link/loginform.do?returnUrl=tv/rank.do?category="+inActive;
+				
 			}
-		}) 
+		}
+		 if(login == 'Y'){
+			$.ajax({
+				type:"POST",
+				url:"addLater.do",
+				data:{"vno":vno},
+				dataType:"text",
+				success:function(result){
+					console.log(result);
+					if(result =='fail'){
+						/* alert('이미 나중에 보기 한 영상입니다.'); */
+						$("#modalFail").modal({
+							backdrop: true
+						});
+					}
+					if(result =='success'){
+						/* alert('나중에 보기에 영상을 담았습니다.'); */
+						$("#modalSuccess").modal({
+							backdrop: true
+						});
+					}
+				
+				}
+			}) 	
+			 
+		 }	
 		return false;
 	})
 	

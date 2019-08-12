@@ -18,6 +18,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="/link/resources/js/jquery.timeago.js"></script>
+    <script src="/link/resources/js/jquery.timeago.ko.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
@@ -273,9 +275,9 @@ ul, li {
 
 .comment-tumbsup {
 	display: inline-block;
-	margin-left: 650px;
+	margin-left: 720px;
 	padding: 2px;
-	border: 1px solid indigo;
+	border: 1px dashed gray;
 	cursor: pointer;
 }
 
@@ -285,6 +287,10 @@ ul, li {
 	padding: 2px;
 	border: 1px dashed gray;
 	cursor: pointer;
+}
+
+.likeYnOn{
+	border:1px solid indigo;
 }
 
 .clip-list-title {
@@ -359,7 +365,7 @@ ul, li {
                                 <h2 class="tv-detail-title">${video.title}</h2>
                                 <div class="pull-right">
                                     <span class="glyphicon glyphicon-heart btn-detail-like ${status eq 'Like' ? 'likeOn' : '' }" data-likeStatus="${status eq 'Like' ? 'Y' : 'N' }" data-vno=${video.no } data-login="${not empty LOGIN_USER ? 'Y' : 'N' }"></span><span><strong class="like-count">${video.likes }</strong></span>
-                                    <span class="glyphicon glyphicon-comment btn-detail-comment"></span><span><strong>${video.comments }</strong></span>
+                                    <span class="glyphicon glyphicon-comment btn-detail-comment" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }"></span><span><strong>${video.comments }</strong></span>
                                     <span class="glyphicon glyphicon-time btn-detail-later" data-vno=${video.no } data-login="${not empty LOGIN_USER ? 'Y' : 'N' }"></span>
                                 </div>
                             </div>
@@ -379,10 +385,11 @@ ul, li {
 
 
                     <div class="row" style="margin-top: 100px;">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 comment-header" data-position='${param.position eq "cmt" ? "bottom" : "" }'>
                             <form action="addComment.do" class="form-group">
                                 <label>댓글</label>
-                                <textarea class="form-control comment-textarea" data-login="${not empty LOGIN_USER ? 'Y' : 'N'}" style="resize: none;" id="" rows="5"></textarea>
+                                <input type="hidden" name="vno" value="${param.vno }">
+                                <textarea class="form-control comment-textarea" name="CommentContents" data-login="${not empty LOGIN_USER ? 'Y' : 'N'}" style="resize: none;" id="" rows="5"></textarea>
                                 <div><strong><span class="word-check">0</span>/200</div></strong>
                                 <button class="btn btn-info pull-right btn-comment-insert" type="submit">등록</button>
                             </form>
@@ -390,19 +397,19 @@ ul, li {
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="tv-detail-comment">
-                                <label>민지</label>
-                                <div>안녕하세요</div>
-                                <span style="color: gray">등록일 : 2019-08-18</span>
-                                <div class="comment-tumbsup">
-                                    <span class="glyphicon glyphicon-thumbs-up">좋아요</span><em>10</em>
-                                </div>
-                                <div class="comment-tumbsdown">
-                                    <span class="glyphicon glyphicon-thumbs-down">싫어요</span><em>30</em>
-                                </div>
-                            </div>
-                            
-                            
+                            <c:forEach var="comment" items="${comments }">
+	                            <div class="tv-detail-comment">
+	                                <label>${comment.USERID }</label>
+	                                <div>${comment.CONTENTS }</div>
+	                                <span style="color: gray">등록일 :</span> <span class="tg" style="color: gray">${comment.CREATEDATE }</span>
+	                                <div class="comment-tumbsup ${comment.STATUS eq 'Y' ? 'likeYnOn' : '' }">
+	                                    <span class="glyphicon glyphicon-thumbs-up" data-login="${not empty LOGIN_USER ? 'Y' : 'N'}">좋아요</span><em>${comment.LIKECNT }</em>
+	                                </div>
+	                                <div class="comment-tumbsdown ${comment.STATUS eq 'N' ? 'likeYnOn' : '' }">
+	                                    <span class="glyphicon glyphicon-thumbs-down" data-login="${not empty LOGIN_USER ? 'Y' : 'N'}">싫어요</span><em>${comment.HATECNT }</em>
+	                                </div>
+	                            </div>
+                            </c:forEach>
 
                         </div>
                     </div>
@@ -541,7 +548,7 @@ ul, li {
 			//댓글창 클릭시 로그인 체크
 		$(".comment-textarea").on("focus", function () {
 			var login = $(this).attr("data-login");
-			
+							
 			if(login == 'N'){
 				var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
 				if(YN) {
@@ -612,12 +619,9 @@ ul, li {
 		var vno = $(this).attr("data-vno");
 		var login = $(this).attr("data-login");
 		var status = $(this).attr("data-likeStatus");
-		 
-		if($(this).hasClass("likeOn")){
-			$(this).removeClass("linkOn");
-		} else{
-			$(this).addClass("linkOn");
-		}
+		 console.log(vno);
+		 console.log(login);
+		 console.log(status);
 		
 		if(login == 'N'){
 			var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
@@ -626,13 +630,24 @@ ul, li {
 			}
 		}
 		if(login == 'Y'){
+			
+			if($(this).hasClass("likeOn")){
+				$(this).removeClass("likeOn");
+				$(this).attr("data-likeStatus", "N");
+			} else{
+				$(this).addClass("likeOn");
+				$(this).attr("data-likeStatus", "Y");
+			}
+			
+			console.log(status);
 			$.ajax({
 				type:"POST",
 				url:"addLike.do",
 				data:{"vno":vno, "status":status},
 				dataType:"text",
 				success:function(result){
-					
+					console.log(result);
+					$(".like-count").text(result);
 				
 				}
 			}) 
@@ -641,9 +656,75 @@ ul, li {
 	});
 		
 		
+	// 댓글번튼 누르면 comment-rextarea 포커스 시켜서 포커스이벤트 발동시키기(포커스이벤트에 로그인체크 기능해놨으니까...)
+	// 로그인 되어있으면 댓글 area 포커스해주기 알아서 스크롤 움직일테니까..
+		$(".btn-detail-comment").on("click",function(){
+			var login = $(this).attr("data-login");
+	
+			if(login == 'N'){
+				var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+				if(YN){
+					location.href="/link/loginform.do?returnUrl=tv/detail.do?position=cmt&vno=${param.vno}";
+				}
+			}
+			
+			if(login == 'Y'){
+		       $(".comment-textarea").focus();
+		       /* var x = 한페이지에 5댓글씩 보여준다면, 5이상이면 5고정  */
+		       /*			1,2,3,4	???? 이렇게하면되나  */
+		       /* $(window).scrollTop(410+(x*95)); */
+			}
+		})
+		
+		 // 포지션 bottom은 바텀으로 스크롤이동
+		$(function () {
+			var p =$(".comment-header").attr("data-position");
+			if(p == 'bottom'){
+				$(window).scrollTop(900);
+			}
+		});
+	
+	
+		
+	// 댓글의 좋아요 싫어요 ajax
+	
+		$(".glyphicon-thumbs-up, .glyphicon-thumbs-down").on("click", function () {
+			 
+			var login = $(this).attr("data-login");
+			
+			if(login == 'N'){
+				var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+				if(YN){
+					location.href="/link/loginform.do?returnUrl=tv/detail.do?position=cmt&vno=${param.vno}";
+				}
+			}
+			
+			if(login == 'Y'){
+				$.ajax({
+					type:"POST",
+					url:"addCommentLike.do",
+					data:{"vno":vno, "status":status},
+					dataType:"text",
+					success:function(result){
+						console.log(result);
+						$(this).next().text();
+					
+					}
+				}) 
+			}
+		})
 		
 		
 	
+
+		
+		// timeAgo 현재시간 구하는 아주 멋잇는놈
+        $(".tg").each(function(){
+           var timeago_t = jQuery.timeago( new Date(parseInt($(this).text())));
+           console.log(timeago_t);
+           $(this).text(timeago_t);
+        });
+		
 		/*var x = $("#myVideo");
 		
 		 $(document).ready(function(){
@@ -673,6 +754,8 @@ ul, li {
 		      
 		  });
 		}); */
+		
+		
 	</script>
 </body>
 </html>
