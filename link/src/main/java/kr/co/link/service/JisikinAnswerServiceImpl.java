@@ -39,7 +39,7 @@ public class JisikinAnswerServiceImpl implements JisikinAnswerService {
 	@Override
 	public void updateAnswerByNo(int ano) {
 		JisikinAnswer answer = getAnswerByNo(ano);
-		answer.setSecretYn("Y");
+		answer.setSelectedYn("Y");
 		answerDao.updateAnswerByNo(answer);
 	}
 }
