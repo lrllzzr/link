@@ -129,7 +129,7 @@
 					
 						<li class="ranking_item">
 							<span class="no">1</span>
-							<a href="#" class="ranking_keyword_link_area" target="_blank">
+							<a href="/link/search.do?word=${toptag[0].tagName }" class="ranking_keyword_link_area" target="_blank">
 								<strong class="ranking_title">${toptag[0].tagName }</strong>
 								<span class="keyword_num_text"><em class="num">${toptag[0].countTag }</em><span class="text">개의 질문 &gt;</span></span>
 							</a>
@@ -137,7 +137,7 @@
 					
 						<li class="ranking_item">
 							<span class="no">2</span>
-							<a href="#" class="ranking_keyword_link_area" target="_blank">
+							<a href="/link/search.do?word=${toptag[1].tagName }" class="ranking_keyword_link_area" target="_blank">
 								<strong class="ranking_title">${toptag[1].tagName }</strong>
 								<span class="keyword_num_text"><em class="num">${toptag[1].countTag }</em><span class="text">개의 질문 &gt;</span></span>
 							</a>
@@ -145,7 +145,7 @@
 					   
 						<li class="ranking_item">
 							<span class="no">3</span>
-							<a href="#" class="ranking_keyword_link_area" target="_blank">
+							<a href="/link/search.do?word=${toptag[2].tagName }" class="ranking_keyword_link_area" target="_blank">
 								<strong class="ranking_title">${toptag[2].tagName }</strong>
 								<span class="keyword_num_text"><em class="num">${toptag[2].countTag }</em><span class="text">개의 질문 &gt;</span></span>
 							</a>
@@ -153,7 +153,7 @@
 					
 						<li class="ranking_item">
 							<span class="no">4</span>
-							<a href="#" class="ranking_keyword_link_area" target="_blank">
+							<a href="/link/search.do?word=${toptag[3].tagName }" class="ranking_keyword_link_area" target="_blank">
 								<strong class="ranking_title">${toptag[3].tagName }</strong>
 								<span class="keyword_num_text"><em class="num">${toptag[3].countTag }</em><span class="text">개의 질문 &gt;</span></span>
 							</a>
@@ -169,7 +169,7 @@
 					   
 						<li class="ranking_item">
 							<span class="no">6</span>
-							<a href="#" class="ranking_keyword_link_area" target="_blank">
+							<a href="/link/search.do?word=${toptag[5].tagName }" class="ranking_keyword_link_area" target="_blank">
 								<strong class="ranking_title">${toptag[5].tagName }</strong>
 								<span class="keyword_num_text"><em class="num">${toptag[5].countTag }</em><span class="text">개의 질문 &gt;</span></span>
 							</a>
@@ -385,7 +385,7 @@
                     <h4>지식iN 인기태그</h4>
                     <div class="tag_wrap">
                     		<c:forEach var="tag" items="${toptag }">
-	                            <a href="#" class="tag">#${tag.tagName }</a>
+	                            <a href="/link/search.do?word=${tag.tagName }" class="tag">#${tag.tagName }</a>
                     		</c:forEach>
                     </div>
                 </div>

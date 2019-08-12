@@ -102,9 +102,6 @@ public class JisikinController {
 		int male = map.get("male");
 		int female = map.get("female");
 		
-		System.out.println(male);
-		System.out.println(female);
-		
 		model.addAttribute("male", male);
 		model.addAttribute("female", female);
 		
@@ -371,8 +368,6 @@ public class JisikinController {
 	@RequestMapping("/selected.do")
 	public String selected(@RequestParam(value="jno")int jno,
 						   @RequestParam(value="ano")int ano) {
-		System.out.println(jno);
-		System.out.println(ano);
 		jisikinService.updateDeadlineYn(jno);
 		answerService.updateAnswerByNo(ano);
 		

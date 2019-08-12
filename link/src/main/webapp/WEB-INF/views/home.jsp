@@ -171,7 +171,7 @@
 				<div class="main-menu">
 					<a href="/link/series/home.do">시리즈</a>
 				</div>
-				<a href=""><img style="position: relative;" src="resources/images/video.png" alt=""></a>
+				<a href="/link/series/home.do"><img style="position: relative;" src="resources/images/video.png" alt=""></a>
 			</div>
 			<div class="col-sm-2 text-center main-col">
 				<div class="main-menu">

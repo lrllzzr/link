@@ -111,7 +111,7 @@
 				<dd>
 					<span class="q_list">전체질문 <strong>${countAllJisikinById }건</strong></span>
 					<span class="q_list rec_text">답변 받은 질문 <strong>${countJisikinSelectById }건</strong></span>
-					<span class="q_list">전체마감률 <strong>${deadLineById }%</strong></span>
+					<span class="q_list">전체마감률 <strong><fmt:formatNumber value="${deadLineById }" pattern=".00"></fmt:formatNumber>%</strong></span>
 					<span class="q_list rec_text">답변채택률 <strong><fmt:formatNumber value="${selectPercent }" type="percent"></fmt:formatNumber></strong></span>
 				</dd> 
 				<dt>받은추천</dt>
@@ -214,7 +214,7 @@
                 <a href="/link/jisikin/questionDetail.do?jisikinNo=${myAnswerQuestion[status.index].no }">${myAnswerQuestion[status.index].title }</a>
 
             </dt>
-            <dd>
+            <dd style="max-height:20px; overflow:hidden; text-overflow:ellipsis;"> 
                 <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>${ma.contents }
             </dd>
             </dl>
@@ -241,8 +241,8 @@
                 <span class="ico_q"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="질문"></span>
                 <a href="/link/jisikin/questionDetail.do?jisikinNo=${myAnswerQuestion[status.index].no }">${myAnswerQuestion[status.index].title }</a>
 
-            </dt>
-            <dd>
+            </dt>  
+            <dd style="max-height:20px; overflow:hidden; text-overflow:ellipsis;">
                 <span class="ico_a"><img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="18" height="14" alt="답변"></span>${ma.contents }
             </dd>
             </dl>

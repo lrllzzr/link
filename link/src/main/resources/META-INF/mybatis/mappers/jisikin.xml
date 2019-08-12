@@ -33,6 +33,7 @@
 			category_name "category.name",
 			jisikin_create_date createDate,
 			user_id userId,
+			jisikin_deadline_yn deadLineYn,
 			jisikin_recommend recommend,
 			jisikin_viewcnt viewCnt,
 			(select count(answer_no) from jisikin_answer where jisikin_answer.jisikin_no = jisikin.jisikin_no) countAnswer

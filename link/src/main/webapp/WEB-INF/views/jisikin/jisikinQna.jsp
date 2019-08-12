@@ -290,7 +290,7 @@
                     <h4>지식iN 인기태그</h4>
                     <div class="tag_wrap">
                             <c:forEach var="tag" items="${toptag }">
-	                            <a href="#" class="tag">#${tag.tagName }</a>
+	                            <a href="/link/search.do?word=${tag.tagName }" class="tag">#${tag.tagName }</a>
                     		</c:forEach>
                     </div>
                 </div>
