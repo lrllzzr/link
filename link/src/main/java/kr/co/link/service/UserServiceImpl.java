@@ -36,5 +36,9 @@ public class UserServiceImpl implements UserService{
 		userDao.updateUser(user);
 	}
 
-	
+	// 회원가입
+	@Override
+	public void addUser(User user) {
+		userDao.addUser(user);
+	}
 }

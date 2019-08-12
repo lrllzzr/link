@@ -316,7 +316,7 @@
                     </div>
 
                     <div class="sign_in">
-                        <a href="#">회원가입</a>
+                        <a href="/link/registerAgree.do">회원가입</a>
                     </div>
 			    </div>
            </div>

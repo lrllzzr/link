@@ -138,7 +138,7 @@
                     	</c:forEach>
                     </ol>
                     <div class="realtime_srch_area">
-                        <p class="dsc">
+                        <p class="dsc" style="margin-left:-42px;">
                         <c:set var="now" value="<%=new java.util.Date()%>" />
                             <time><fmt:formatDate value="${now }" pattern="yyyy.MM.dd"/></time>
                             . 기준
@@ -195,7 +195,7 @@ $(function()
 		{  
 		    var ticker = function()
 		    {     
-		        setTimeout(function(){
+		        setTimeout(function(){			   
 		            $('#ticker li:first').animate( {marginTop:'20px'}, 600, function()
 		            {
 		                $(this).detach().appendTo('ul#ticker').removeAttr('style');

@@ -8,4 +8,6 @@ import kr.co.link.vo.User;
 public interface UserDao {
 	public User getUserById(String userId);
 	void updateUser(User user);
+	// 회원가입
+	void addUser(User user);
 }

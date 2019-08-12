@@ -45,7 +45,7 @@ a:hover, a:focus {
 						</div>
 						<hr />
 						<div>
-							<a class="border" href="">아이디 찾기</a> <a class="border" href="">비밀번호 찾기</a> <a href="">회원 가입</a>
+							<a class="border" href="">아이디 찾기</a> <a class="border" href="">비밀번호 찾기</a> <a href="/link/registerAgree.do">회원 가입</a>
 						</div>
 					</form>
 				</div>
