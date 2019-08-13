@@ -28,4 +28,5 @@ public interface BlogBoardService {
 	void addNewComment(BlogBoardComment blogBoardComment);
 	void updateBoard(BlogBoard blogBoard);
 	void deleteBoardByBoardNo(Integer boardNo);
+	List<Map<String, Object>> getBoardCommentsInMyBlog(Map<String, Object> map);
 }

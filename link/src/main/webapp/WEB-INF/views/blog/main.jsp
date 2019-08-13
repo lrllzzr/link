@@ -170,6 +170,9 @@
 												<p>아래 주제별 블로거 추천을 통해 관심 주제의 블로그 이웃을 만들어보세요.</p>
 											</div>
 										</div>
+										<div class="blog-hrdiv">
+											<hr class="blog-row-hr-2" />
+										</div>
 									</c:if>
 								</c:when>
 								<c:otherwise>
@@ -196,6 +199,9 @@
 									<p>로그아웃 상태입니다.</p>
 									<p>로그인하여 이웃 새글을 확인해보세요.</p>
 								</div>
+							</div>
+							<div class="blog-hrdiv">
+								<hr class="blog-row-hr-2" />
 							</div>
 						</c:if>
 						<!--     이웃 새글 끝     -->

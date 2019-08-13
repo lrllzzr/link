@@ -31,12 +31,12 @@
 		<!-- 헤더 끝  -->
 		<div class="row">
 			<!-- 왼쪽 navi 시작  -->
-			<%@include file="../../common/blog/beautyleftnav.jsp"%>
+			<%@include file="../../common/blog/beautyleftnav3.jsp"%>
 			<!-- 왼쪽 navi 끝 -->
 			<div class="col-sm-10 blog_manage_right_row">
 				<div class="row">
 					<div class="col-sm-4">
-						<span class="blog_manage_title">이웃 관리</span>
+						<span class="blog_manage_title">댓글 관리</span>
 					</div>
 					<div class="col-sm-12">
 						<hr class="blog_manage_hr1" />
@@ -45,11 +45,11 @@
 				<div class="row blog_manage_right_row2">
 					<div class="col-sm-12">
 						<ul class="nav nav-tabs blog_nav_tabs">
-							<li role="presentation" class="active"><a href="#">이웃목록</a></li>
+							<li role="presentation" class="active"><a href="#">댓글목록</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-12">
-						<c:if test="${not empty blogNeighbors}">
+						<c:if test="${not empty blogComments}">
 							<table class="table blog_table">
 								<colgroup>
 									<col width="30%">
@@ -60,22 +60,22 @@
 								<thead>
 									<tr>
 										<th class="text-center">유저아이디</th>
-										<th class="text-center">블로그명</th>
+										<th class="text-center">게시글제목</th>
 										<th class="text-center">추가일</th>
 										<th class="text-center">관리</th>
 									</tr>
 								</thead>
 								<tbody>
-								<form id="neighbordeleteForm" action="manageNeighbor.do" method="post">
-									<c:forEach var="neighbor" items="${blogNeighbors }">
+								<form id="neighbordeleteForm" action="manageComment.do" method="post">
+									<c:forEach var="comment" items="${blogComments }">
 										<tr>
 											<td>
-												<input type="checkbox" name="neighborBlogNo" value="${neighbor.NO }"/>
-												<a href="detail.do?blogNo=${neighbor.NO }"><img style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;" src="/link/resources/images/${neighbor.MAINIMG }"/> ${neighbor.NICKNAME }(${neighbor.USERID  })</a>
+												<input type="checkbox" name="neighborBlogNo" value="${comment.COMMENTNO }"/>
+												<a href="detail.do?blogNo=${comment.NO }"><img style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;" src="/link/resources/images/${comment.MAINIMG }"/> ${comment.NICKNAME }(${comment.USERID  })</a>
 											</td>
-											<td class="text-center">${neighbor.TITLE }</td>
+											<td class="text-center">${comment.TITLE }</td>
 											<td class="text-center">
-												<fmt:formatDate value="${neighbor.CREATEDATE}" pattern="yyyy-MM-dd HH:mm" />
+												<fmt:formatDate value="${comment.CREATEDATE}" pattern="yyyy-MM-dd HH:mm" />
 											</td>
 											<td class="text-center">
 												<button id="singo" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-exclamation-sign"></span>신고</button>
@@ -92,9 +92,9 @@
 								</tbody>
 							</table>
 						</c:if>
-						<c:if test="${empty blogNeighbors }">
+						<c:if test="${empty blogComments }">
 							<p class="text-center" style="padding:60px 60px 0px 60px;">
-								이웃이 없습니다.
+								댓글이 없습니다.
 							</p>
 						</c:if>
 					</div>

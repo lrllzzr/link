@@ -95,5 +95,9 @@ public class BlogBoardServiceImpl implements BlogBoardService{
 	public void deleteBoardByBoardNo(Integer boardNo) {
 		blogBoardDao.deleteBoardByBoardNo(boardNo);
 	}
+	@Override
+	public List<Map<String, Object>> getBoardCommentsInMyBlog(Map<String, Object> map) {
+		return blogBoardDao.getBoardCommentsInMyBlog(map);
+	}
 
 }

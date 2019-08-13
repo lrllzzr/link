@@ -16,11 +16,8 @@
 		<div class="blog_open_neighbor">
 			<span class="blog-manage-title"><a href="">글 관리</a></span>
 		</div>
-			<div class="col-sm-12 blog-manage-smallbox">
-				<span><a href="">댓글</a></span>
-			</div>
-			<div class="col-sm-12 blog-manage-smallbox">
-				<span><a href="">태그</a></span>
+			<div class="col-sm-12 blog-manage-smallbox ${left3 eq 'manageComment' ? 'blog_beauty_selected' : '' }">
+				<span><a href="manageComment.do">댓글</a></span>
 			</div>
 			<div class="col-sm-12">
 				<hr class="blog-beauty-left-hr"/>

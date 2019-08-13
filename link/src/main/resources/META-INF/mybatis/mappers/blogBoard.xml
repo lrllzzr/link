@@ -230,4 +230,26 @@ values(
    where
       BOARD_NO = #{no}   
 </update>
+<select id="getBoardCommentsInMyBlog" parameterType="map" resultType="map">
+	select a.comment_no commentNo, g.blog_main_Img mainImg, g.blog_no no,
+        a.comment_contents contents, a.board_no boardNo, f.user_id userId, b.board_title title, f.user_nickname nickName, a.comment_create_date createDate
+from blog_boards_comments a, blog_boards b, blog_category c, blog_subcategory d, blog e, users f, blog g
+where
+    a.board_no = b.board_no
+and
+    b.category_no = c.category_no
+and
+    c.subcategory_no = d.subcategory_no
+and
+    d.blog_no = e.blog_no
+and
+    a.user_id = f.user_id
+and
+    d.blog_no = #{myBlogNo}
+and
+    a.user_id != #{myUserId}
+and
+    f.user_id = g.user_id
+
+</select>
 </mapper>

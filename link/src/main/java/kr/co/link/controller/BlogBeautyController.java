@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.link.form.BlogUpdateForm;
 import kr.co.link.form.ColorForm;
+import kr.co.link.service.BlogBoardService;
 import kr.co.link.service.BlogNeighborService;
 import kr.co.link.service.BlogService;
 import kr.co.link.service.BlogThemeService;
@@ -46,6 +47,8 @@ public class BlogBeautyController {
 	private UserService userService;
 	@Autowired
 	private BlogNeighborService blogNeighborService;
+	@Autowired
+	private BlogBoardService blogBoardService;
 	
 	// 기본 설정 시작
 	@RequestMapping("/start.do")
@@ -435,6 +438,24 @@ public class BlogBeautyController {
 			blogNeighborService.deleteNeighborByMyBlogNoNeighborBlogNo(map);
 		}
 		return "redirect:manageNeighbor.do";
+	}
+	
+	@RequestMapping(value="manageComment.do", method = RequestMethod.GET)
+	public String manageComment(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		// 내 블로그 얻어오기
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("myBlogNo", blog.getNo());
+		map.put("myUserId", user.getId());
+		List<Map<String, Object>> blogComments = blogBoardService.getBoardCommentsInMyBlog(map);
+		model.addAttribute("blogComments",blogComments);
+		// 이웃 관리 파랗게
+		model.addAttribute("left3","manageComment");
+		// 메뉴,글 관리
+		model.addAttribute("column","menu");
+		
+		return "blog/category/manageComment";
 	}
 	
 }

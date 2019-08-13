@@ -48,46 +48,46 @@
 						</ul>
 					</div>
 					<div class="col-sm-12">
-
-						<table class="table blog_table">
-							<colgroup>
-								<col width="20%">
-								<col width="40%">
-								<col width="20%">
-								<col width="20%">
-							</colgroup>
-							<thead>
-								<tr>
-									<th class="text-center">유저아이디</th>
-									<th class="text-center">블로그명</th>
-									<th class="text-center">추가일</th>
-									<th class="text-center">관리</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="neighbor" items="${blogNeighbors }">
+						<c:if test="${empty blogNeighbors }">
+							<p class="text-center" style="padding: 50px;">나를 추가한 이웃이 없습니다.</p>
+						</c:if>
+						<c:if test="${not empty blogNeighbors }">
+							<table class="table blog_table">
+								<colgroup>
+									<col width="20%">
+									<col width="40%">
+									<col width="20%">
+									<col width="20%">
+								</colgroup>
+								<thead>
 									<tr>
-										<td class="">
-											<img style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;" src="/link/resources/images/${neighbor.MAINIMG }" alt="" />
-											 <a href="detail.do?blogNo=${neighbor.NO }">${neighbor.NICKNAME }(${neighbor.USERID  })</a>
-										</td>
-										<td class="text-center">
-												${neighbor.TITLE }
-										</td>
-										<td class="text-center">
-											<fmt:formatDate value="${neighbor.CREATEDATE}" pattern="yyyy-MM-dd HH:mm" />
-										</td>
-										<td class="text-center">
-											<button id="singo" type="button" class="btn btn-default btn-sm">
-												<span class="glyphicon glyphicon-exclamation-sign"></span>
-												신고
-											</button>
-										</td>
+										<th class="text-center">유저아이디</th>
+										<th class="text-center">블로그명</th>
+										<th class="text-center">추가일</th>
+										<th class="text-center">관리</th>
 									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-
+								</thead>
+								<tbody>
+									<c:forEach var="neighbor" items="${blogNeighbors }">
+										<tr>
+											<td class="">
+												<img style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;" src="/link/resources/images/${neighbor.MAINIMG }" alt="" /> <a href="detail.do?blogNo=${neighbor.NO }">${neighbor.NICKNAME }(${neighbor.USERID  })</a>
+											</td>
+											<td class="text-center">${neighbor.TITLE }</td>
+											<td class="text-center">
+												<fmt:formatDate value="${neighbor.CREATEDATE}" pattern="yyyy-MM-dd HH:mm" />
+											</td>
+											<td class="text-center">
+												<button id="singo" type="button" class="btn btn-default btn-sm">
+													<span class="glyphicon glyphicon-exclamation-sign"></span>
+													신고
+												</button>
+											</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</c:if>
 					</div>
 				</div>
 			</div>

@@ -92,7 +92,7 @@
 					<li class=""><a class="main-login blogmain_login" style="color: #666666;" href="loginform.do">로그인</a></li>
 				</c:if>
 				<c:if test="${not empty LOGIN_USER }">
-					<li class=""><a class="main-login blognav_logout_btn" style="color: #666666;" href="logout.do">로그아웃</a></li>
+					<li class=""><a class="main-login blognav_logout_btn" style="color: #666666; padding:15px !important;" href="logout.do">로그아웃</a></li>
 				</c:if>
 			</ul>
 		</div>
