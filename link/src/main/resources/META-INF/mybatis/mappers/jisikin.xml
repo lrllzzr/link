@@ -4,6 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="kr.co.link.dao.JisikinDao">		<!-- Dao경로설정 -->
+	<select id="countJiskinBycategory" parameterType="int" resultType="jisikin">
+		select
+			count(*)
+		from
+			jisikin
+	</select>
 
 	<insert id="addJisikin" parameterType="jisikin">
 		insert into Jisikin (jisikin_no, 

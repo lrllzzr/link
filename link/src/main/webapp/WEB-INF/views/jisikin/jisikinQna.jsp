@@ -17,38 +17,6 @@
 	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinmain.css">
 	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinQna.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-	<script>
-	
-		var app = angular.module('myApp', []);
-		
-		app.controller('categoryCtrl', function($scope, $http){
-            // $scope에 boxoffice라는 이름으로 빈 배열을 저장한다.
-            $scope.categories = [];
-            
-            $scope.searchCategories = function(categoryNo){
-                
-                var url = "byCategory.do?categoryNo="+categoryNo;
-                
-                $http.get(url)
-                    .then(function(response){
-                    	$(".list2").empty();
-                    	
-                        var data = response.data;   // 응답데이터 조회
-                        console.log(data);
-                        $scope.jisikinByCategory = data;
-                }, function(){
-                    alert("조회 중 오류가 발생하였습니다.");
-                })
-            }
-            
-        })
-        
-        app.filter("timeago", function() {
-        	return function(time) {
-        		return jQuery.timeago( new Date(time));
-        	}
-        })
-	</script>
 </head>
 <body  ng-app="myApp" ng-controller="categoryCtrl">
     <%@ include file="../common/nav.jsp" %>
@@ -78,7 +46,7 @@
                             <ul style="padding-left:50px;">
                             	<c:forEach var="c" items="${categoriesParent }">
                             		<li style="list-style:square !important;">
-                            			<a class="a-category" href="#" data-value="${c.no }" ng-click="searchCategories('${c.no}')" >${c.name }</a>
+                            			<a class="a-category" href="/link/jisikin/qna.do?categoryNo=${c.no }">${c.name }</a>
                             		</li>
                             	</c:forEach>
                             </ul>
@@ -112,19 +80,6 @@
                     <th scope="col" class="on"><a href="#" class="_nclicks:kls_new.bydate">작성<img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="12" height="12" alt="정렬"></a></th>
                     </tr>
                     </thead>
-
-                    <tbody id="au_board_list">
-
-						<tr ng-repeat="question in jisikinByCategory">
-							<td class="title">
-	                                <a href="/link/jisikin/questionDetail.do?jisikinNo={{question.no}}" rel="KIN" class="">{{question.title}}</a>
-	                            </td>
-	                            <td class="field"><a href="#" class="">{{question.category.name}}</a></td>
-	                            <td class="t_num">{{question.countAnswer}}</td>
-	                            <td class="t_num tg">{{question.createTime | timeago}}</td>
-	                        </tr>
-	                 </tbody>
-	                        
 	                 <tbody id="au_board_list" class="list2">
 
 						<c:forEach var="all" items="${allJisikin }">
@@ -137,17 +92,8 @@
 	                            <td class="t_num tg">${all.createTime }</td>
 	                        </tr>
 						</c:forEach>
-
                     </tbody>
                     </table>	
-                    
-
-        <ww:if test="false">
-
-        </ww:if>
-        <ww:else>
-
-        </ww:else>
 
 
 

@@ -180,13 +180,7 @@ public class JisikinController {
 		
 		return "redirect:/jisikin/questionDetail.do?jisikinNo="+jisikinAnswer.getJisikinNo()+"";
 	}
-	
-	// 카테고리별 질문
-	@RequestMapping(value="/byCategory.do")
-	public @ResponseBody List<Jisikin> byCategory(HttpSession session, int categoryNo){
-		return jisikinService.getJisikinByCategory(categoryNo);
-	}
-	
+
 	// 카테고리별 검색
 	@RequestMapping(value="/byKeywordCategory.do")
 	public @ResponseBody List<Jisikin> byKeywordCategory(HttpSession session, int categoryNo, String keyword){
