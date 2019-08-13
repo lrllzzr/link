@@ -27,7 +27,7 @@
                 <form id="register_form" method="post" name="fr" action="addUser.do">
                   <div class="form-group well">  
                     <div>
-                        <label>아이디</label><label id="idmsg" style="color:red; padding-left:10px;"></label>
+                        <label>아이디</label><label id="idmsg" style="padding-left:10px;"></label>
                         <input class="register-input form-control" id="confirmid" type="text" value="" name="id"/>
                     </div>
                     <div>  
@@ -54,16 +54,18 @@
                         </select>
                     </div>
                     <div style="margin-bottom: 20px;">
-                           <div class="form-group">
-                            <label>휴대전화</label>
-                            <select class="register-input" id="phone-pre" name="phonepre">
-                                <option value="010" selected="selected">010</option>
-                                <option value="02">02</option>
-                                <option value="070">070</option>
-                                <option value="055">055</option>
-                            </select>
-                            <input class="register-input" type="text" id="phone-post" value="" name="phonepost"/>
-                            <input type="hidden" id="phonebox" value="" name="phone"/>
+                           <div>
+                            <label>휴대전화</label>  
+                            <div class="form-group">
+	                            <select class="register-input" id="phone-pre" name="phonepre">
+	                                <option value="010" selected="selected">010</option>
+	                                <option value="02">02</option>
+	                                <option value="070">070</option>
+	                                <option value="055">055</option>
+	                            </select>  
+	                            <input class="register-input" type="text" id="phone-post" value="" name="phonepost"/>
+	                            <input type="hidden" id="phonebox" value="" name="phone"/>
+                            </div> 
                            </div>
                       </div>
                     <div>
@@ -121,12 +123,12 @@
 			dataType:"json",
 			success:function(result){
 				$("#idmsg").empty();  
-				var checkhtml = '<label>이미 존재하는 아이디입니다.</label>';
+				var checkhtml = '<label style="color:red;">이미 존재하는 아이디입니다.</label>';
 				$("#idmsg").append(checkhtml);
 			},
 			error:function(){ 
 				$("#idmsg").empty();
-				var checkhtml = '<label>사용가능한 아이디입니다.</label>';
+				var checkhtml = '<label style="color:blue;">사용가능한 아이디입니다.</label>';
 				$("#idmsg").append(checkhtml);
 			}
 		})

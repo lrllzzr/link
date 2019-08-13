@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.link.dao.JisikinDao;
 import kr.co.link.form.JisikinForm;
 import kr.co.link.service.JisikinAnswerService;
 import kr.co.link.service.JisikinCategoryService;
 import kr.co.link.service.JisikinService;
 import kr.co.link.service.JisikinTagService;
+import kr.co.link.service.UserService;
 import kr.co.link.vo.Jisikin;
 import kr.co.link.vo.JisikinAnswer;
 import kr.co.link.vo.JisikinCategory;
@@ -45,6 +47,9 @@ public class JisikinController {
 	@Autowired
 	private JisikinAnswerService answerService;
 	
+	@Autowired
+	private UserService userService;
+	
 	
 	public void setMenu(Model model) {
 		model.addAttribute("navMenu","jisikin");
@@ -55,6 +60,13 @@ public class JisikinController {
 					   @RequestParam(required = false, value = "categoryNo", defaultValue ="0")Integer categoryNo,
 					   Model model) {
 		setMenu(model);
+		
+		// 세션갱신
+		if(session.getAttribute("LOGIN_USER") != null) {
+			User user = (User) session.getAttribute("LOGIN_USER");
+			session.setAttribute("LOGIN_USER", userService.getUserById(user.getId()));
+		}
+		
 		// 카테고리별 정렬 답변리스트
 		Map<String, Object> sortMap = new HashMap<String, Object>();
 		if(categoryNo == 0) {
@@ -89,9 +101,6 @@ public class JisikinController {
 		Map<String, Integer> map = jisikinService.getGenderToday();
 		int male = map.get("male");
 		int female = map.get("female");
-		
-		System.out.println(male);
-		System.out.println(female);
 		
 		model.addAttribute("male", male);
 		model.addAttribute("female", female);
@@ -162,6 +171,9 @@ public class JisikinController {
 		// 작성자 아이디 넣기
 		answer.setUserId(user.getId());
 		
+		// 답변시 내공 10점 부여
+		jisikinService.addMentalPoint(user, 10);
+		
 		System.out.println(answer.getUserId()+"이 답변을 등록하였습니다!");
 		
 		answerService.addAnswer(answer);
@@ -230,6 +242,12 @@ public class JisikinController {
 			tag.setJisikinNo(jisikinNo);
 			tagService.addTag(tag);
 		}
+		
+		// 내공 처리
+		System.out.println(jisikinForm.getMentalPoint());
+		int mentalp = (-jisikinForm.getMentalPoint());
+		System.out.println(mentalp);
+		jisikinService.addMentalPoint(user, mentalp);
 		
 		return "redirect:/jisikin/questionDetail.do?jisikinNo="+jisikinNo+"";
 	}
@@ -338,6 +356,21 @@ public class JisikinController {
 		// 추천
 		jisikinService.updateJisikinRecommendByNo(jisikinNo);
 		
+		// 추천시 질문자 내공 2점부여
+		Jisikin recomJisikin = jisikinService.getJisikinByNo(jisikinNo);
+		User recomUser = userService.getUserById(recomJisikin.getUserId());
+		jisikinService.addMentalPoint(recomUser, 2);
+		
 		return "redirect:/jisikin/questionDetail.do?jisikinNo="+jisikinNo+"";
+	}
+	
+	// 채택하기
+	@RequestMapping("/selected.do")
+	public String selected(@RequestParam(value="jno")int jno,
+						   @RequestParam(value="ano")int ano) {
+		jisikinService.updateDeadlineYn(jno);
+		answerService.updateAnswerByNo(ano);
+		
+		return "redirect:/jisikin/questionDetail.do?jisikinNo="+jno+"";
 	}
 }

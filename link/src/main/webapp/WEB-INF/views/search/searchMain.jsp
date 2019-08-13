@@ -23,7 +23,7 @@
                     <div class="greenbox"> <span class="keyword"> 
                     	<input type="text" id="search-input" name="word" class="box_window" maxlength="255" accesskey="s" value="${param.word }" autocomplete="off" title="검색어 입력"> </span> 
                     </div>
-                    <button type="submit" class="bt_search"><span class="
+                    <button id="go-search" type="submit" class="bt_search"><span class="
                     glyphicon glyphicon-search"></span></button>
                     <!-- 자동완성 -->
                     <div id="nautocomplete" class="autocomplete"> 
@@ -97,7 +97,7 @@
                 <ul class="search-category-list">
                     <li><a href="#" id="totalsearch" class="category-btn cat-on">통합검색</a></li>
                     <li><a href="#" id="jisikinsearch" class="category-btn">지식IN</a></li>
-                    <li><a href="#" id="imagesearch" class="category-btn">이미지</a></li>
+                    <!-- <li><a href="#" id="imagesearch" class="category-btn">이미지</a></li> -->
                     <li><a href="#" id="blogsearch" class="category-btn">블로그</a></li>
                     <li><a href="#" id="tvsearch" class="category-btn">TV</a></li>
                     <li><a href="#" id="seriessearch" class="category-btn">SERIES</a></li>
@@ -181,7 +181,18 @@
                         <div class="section-more">
                             <a href="#">지식iN 더보기></a>
                         </div>
-                    </div>
+                    </div>	
+                </c:if>
+                <c:if test="${empty resultJisikin and empty resultBlog and empty resultBand and empty resultTv and empty resultVod}">
+                	<div class="not_frow result-section result-jisikin not_found02"> 
+	                	<ul>   
+		                	<li>단어의 철자가 정확한지 확인해 보세요.</li><br/> 
+		                	<li>한글을 영어로 혹은 영어를 한글로 입력했는지 확인해 보세요.</li> <br/>
+		                	<li>검색어의 단어 수를 줄이거나, 보다 일반적인 검색어로 다시 검색해 보세요.</li> <br/>
+		                	<li>두 단어 이상의 검색어인 경우, 띄어쓰기를 확인해 보세요.</li><br/>
+		                	<li>검색 옵션을 변경해서 다시 검색해 보세요.</li>	 <br/>
+	                	</ul> 
+                	</div>
                 </c:if>
                 
                 <!-- BLOG 08.11 여기부터 ( resultType Map으로 다시시작해보자  -->
@@ -333,8 +344,8 @@
                         </div>
                     </div>
                  </c:if>
-                 
-                    <div class="row result-section result-image">
+                 	<!-- 이미지 검색 폐기 -->
+                    <!-- <div class="row result-section result-image">
                         <div class="section_head">
                             <h2>이미지</h2>
                             <span class="title_num">26건</span>
@@ -363,7 +374,7 @@
                         <div class="section-more">
                             <a href="#">이미지 더보기></a>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row paging-row" style="display: none;">
                         <div class="paging" style="padding-left:0px;">             <a href="#" class="paging-strong">1</a>
                             <a href="#">2</a>
@@ -410,8 +421,21 @@
                 </div>
             </div>
         </div>  
-<script>
+<script>	
+
 $(document).ready(function(){ 
+	// 키워드 강조
+	var search = $('#search-input').val();
+	
+	$(".title, .content:contains('"+search+"')").each(function (index, item) {
+        var regex = new RegExp(search,'gi');
+        $(item).html($(item).html().replace(regex, '<span style="background-color:yellow;">'+search+'</span>'));
+        
+    });
+	
+	// 검색결과 없을때 
+	$(".not_found02 ul").before('<p><em>\''+search+'\'</em>에 대한 검색결과가 없습니다.</p');
+	
 	// $('.content *').removeAttr("style"); 
 	$('.blog-list .content *').css("all", "inherit");  
 	$('.blog-list .content *').css("overflow", "");  

@@ -29,4 +29,17 @@ public class JisikinAnswerServiceImpl implements JisikinAnswerService {
 	public List<JisikinRank> getRank() {
 		return answerDao.getRank();
 	}
+	
+	@Override
+	public JisikinAnswer getAnswerByNo(int no) {
+		return answerDao.getAnswerByNo(no);
+	}
+	
+	// 답변 채택 업데이트
+	@Override
+	public void updateAnswerByNo(int ano) {
+		JisikinAnswer answer = getAnswerByNo(ano);
+		answer.setSelectedYn("Y");
+		answerDao.updateAnswerByNo(answer);
+	}
 }

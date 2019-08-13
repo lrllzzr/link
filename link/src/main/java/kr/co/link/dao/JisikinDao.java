@@ -27,7 +27,7 @@ public interface JisikinDao {
 	//카테소리별 키워드 검색
 	public List<Jisikin> searchJisikinsByCategory(Map<String, Object> map);
 	
-	// 추천, 조회
+	// 추천, 조회, 마감
 	public void updateJisikinByNo(Jisikin jisikin);
 	
 	// 조회순 질문리스트

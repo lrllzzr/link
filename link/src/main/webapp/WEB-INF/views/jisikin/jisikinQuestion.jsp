@@ -57,8 +57,8 @@
                 <div class="tag-list tag-list--end-title" role="region" aria-label="관련태그 목록" data-select="type-a">
 
 				<c:forEach var="tag" items="${jisikin.tags}">
-                            <a href="#" class="tag-list__item" target="_blank"><span>#</span>${tag.tagName }</a>
-                	</c:forEach> 
+                            <a href="/link/search.do?word=${tag.tagName }" class="tag-list__item" target="_blank"><span>#</span>${tag.tagName }</a>
+                	</c:forEach> 	
 
                 </div>
 
@@ -187,6 +187,11 @@
 		                    <h3 class="answer-author">${answer.secretYn eq 'Y' ? answer.userId : '비공개' } 님 답변</h3>
 		                    <h4 class="answer-author-num">채택답변수 <em>114</em></h4>
 		                </div>
+		                <c:if test="${LOGIN_USER.id eq jisikin.userId }"> 
+		                <div class="pull-right" style="margin-top:-40px !important; margin-right:10px;">
+		                	<a id="select-btn" href="/link/jisikin/selected.do?jno=${jisikin.no }&ano=${answer.no}" class="c-button-default c-button-default--blue">채택하기</a>
+		                </div>
+		                </c:if>
 		           </div>
 		       </div>
 		       <div class="answer-contents" style="overflow-y:hidden; overflow-x:scroll">
@@ -219,7 +224,7 @@
 					<legend>댓글 입력</legend>
 					<div class="c-opinion__write-form">
 						
-						<textarea class="c-opinion__write-textarea placeholder" maxlength="1000" title="댓글 입력">개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.</textarea>
+						<textarea class="c-opinion__write-textarea placeholder" maxlength="1000" title="댓글 입력" placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."></textarea>
 					</div>
 					<div class="c-opinion__write-upload">
 						<div class="c-opinion__write-count">
@@ -265,6 +270,10 @@
 </div>
 
 <script>
+	// 채택버튼
+	$("#select-btn").click(function(){
+		alert("채택하셨습니다!");
+	})
 
    	/* 스마트에디터 */
    	var oEditors = [];

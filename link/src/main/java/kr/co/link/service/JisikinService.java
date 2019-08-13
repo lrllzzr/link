@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.link.vo.JisikinAnswer;
+import kr.co.link.vo.User;
 import kr.co.link.vo.Jisikin;
 
 public interface JisikinService {
@@ -27,6 +28,9 @@ public interface JisikinService {
 	public void updateJisikinRecommendByNo(int jisikin);
 	public void updateJisikinViewCntByNo(int jisikin);
 	
+	// 마감
+	public void updateDeadlineYn(int jno);
+	
 	// 조회순 질문리스트
 	public List<Jisikin> getJisikinByView();
 	
@@ -48,4 +52,7 @@ public interface JisikinService {
 	
 	// 카테고리별 정렬 답변리스트
 	public List<Jisikin> getSortByCategory(Map<String, Object> map);
+	
+	// 내공 부여하기
+	public void addMentalPoint(User user, int point);
 }
