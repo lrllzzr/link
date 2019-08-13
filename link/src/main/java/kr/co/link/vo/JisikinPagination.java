@@ -1,138 +1,93 @@
 package kr.co.link.vo;
 
 public class JisikinPagination {
-    
-    /** 한 페이지당 게시글 수 **/
-    private int pageSize = 10;
-    
-    /** 한 블럭(range)당 페이지 수 **/
-    private int rangeSize = 10;
-    
-    /** 현재 페이지 **/
-    private int curPage = 1;
-    
-    /** 현재 블럭(range) **/
-    private int curRange = 1;
-    
-    /** 총 게시글 수 **/
-    private int listCnt;
-    
-    /** 총 페이지 수 **/
-    private int pageCnt;
-    
-    /** 총 블럭(range) 수 **/
-    private int rangeCnt;
-    
-    /** 시작 페이지 **/
-    private int startPage = 1;
-    
-    /** 끝 페이지 **/
-    private int endPage = 1;
-    
-    /** 시작 index **/
-    private int startIndex = 0;
-    
-    /** 이전 페이지 **/
-    private int prevPage;
-    
-    /** 다음 페이지 **/
-    private int nextPage;
+	private int page;			// 현재 페이지 번호		
+	private int size;			// 한 화면에 표시할 행의 개수 보통 10 또는 15, 20, 30, 40, 50, 60, 80, 100
+	private int pages;			// 한 화면에 표시할 페이지 번호의 개수 5 또는 10
+	private int records;		// 전체 데이터 개수
 
-	public int getPageSize() {
-		return pageSize;
+	private int totalPages;		// 전체 페이지 개수
+	private int totalBlocks;	// 전체 블록 개수
+	private int currentBlock;	// 현재 블록
+
+	public JisikinPagination(int page, int records) {   
+		this.page = page;
+		this.size = 10;
+		this.pages = 10;
+		this.records = records;
+		init();
 	}
 
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
+	public JisikinPagination(int page, int size, int records) {   
+		this.page = page;
+		this.size = size;
+		this.pages = 10;
+		this.records = records;
+		init();
 	}
 
-	public int getRangeSize() {
-		return rangeSize;
+	public JisikinPagination(int page, int size, int pages, int records) {   
+		this.page = page;
+		this.size = size;
+		this.pages = pages;
+		this.records = records;
+		init();
 	}
 
-	public void setRangeSize(int rangeSize) {
-		this.rangeSize = rangeSize;
+	// 현재 요청한 페이지 번호를 제공
+	public int getPage() {
+		return page;
 	}
 
-	public int getCurPage() {
-		return curPage;
+	// 1페이지면 true
+	public boolean isFirst() {
+		if (page == 1) {
+			return true;
+		}
+		return false;
 	}
 
-	public void setCurPage(int curPage) {
-		this.curPage = curPage;
+	// 마지막 페이지면 true
+	public boolean isLast() {
+		if (page == totalPages) {
+			return true;
+		}
+		return false;
 	}
 
-	public int getCurRange() {
-		return curRange;
+	// 블록의 첫 번호 Ex 6, 11
+	public int getBegin() {
+		if (records <= 0) {
+			return 0;
+		}
+
+		if (currentBlock >= totalBlocks) {
+			currentBlock = totalBlocks;
+		}
+		return (currentBlock - 1) * pages + 1;
 	}
 
-	public void setCurRange(int curRange) {
-		this.curRange = curRange;
+	// 블록의 끝 번호 Ex 15, 20
+	public int getEnd() {
+		if (records <= 0) {
+			return 0;
+		}
+		if (currentBlock >= totalBlocks) {
+			return totalPages;
+		}
+		return currentBlock*pages;
 	}
 
-	public int getListCnt() {
-		return listCnt;
+	private void init() {
+		if (page <= 0) {
+			page = 1;
+		}
+		totalPages = (int) (Math.ceil((double) records/size));
+		if (page >= totalPages) {
+			page = totalPages;
+		}
+		totalBlocks = (int) (Math.ceil((double) totalPages/pages));
+		currentBlock = (int) (Math.ceil((double) page/pages));
 	}
-
-	public void setListCnt(int listCnt) {
-		this.listCnt = listCnt;
-	}
-
-	public int getPageCnt() {
-		return pageCnt;
-	}
-
-	public void setPageCnt(int pageCnt) {
-		this.pageCnt = pageCnt;
-	}
-
-	public int getRangeCnt() {
-		return rangeCnt;
-	}
-
-	public void setRangeCnt(int rangeCnt) {
-		this.rangeCnt = rangeCnt;
-	}
-
-	public int getStartPage() {
-		return startPage;
-	}
-
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
-	}
-
-	public int getEndPage() {
-		return endPage;
-	}
-
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
-	}
-
-	public int getStartIndex() {
-		return startIndex;
-	}
-
-	public void setStartIndex(int startIndex) {
-		this.startIndex = startIndex;
-	}
-
-	public int getPrevPage() {
-		return prevPage;
-	}
-
-	public void setPrevPage(int prevPage) {
-		this.prevPage = prevPage;
-	}
-
-	public int getNextPage() {
-		return nextPage;
-	}
-
-	public void setNextPage(int nextPage) {
-		this.nextPage = nextPage;
-	}
- 
-    
 }
+

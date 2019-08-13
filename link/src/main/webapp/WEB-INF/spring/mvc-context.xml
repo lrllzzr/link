@@ -50,6 +50,13 @@
       		
       		<mvc:exclude-mapping path="/confirmid.do"/>
       		<mvc:exclude-mapping path="/addUser.do"/>
+      		
+      		<mvc:exclude-mapping path="/series/category.do"/>
+            <mvc:exclude-mapping path="/series/detail.do"/>
+            <mvc:exclude-mapping path="/series/home.do"/>
+            <mvc:exclude-mapping path="/series/noticedetail.do"/>
+            <mvc:exclude-mapping path="/series/noticelist.do"/>
+            <mvc:exclude-mapping path="/series/toprank.do"/>
 			<ref bean="loginCheckInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

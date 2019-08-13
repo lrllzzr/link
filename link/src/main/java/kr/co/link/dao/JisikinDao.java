@@ -15,13 +15,18 @@ public interface JisikinDao {
 	public void addJisikin(Jisikin jisikin);
 	public int getJisikinSeq();
 	
+	// 전체or카테고리별 질문수
+	public int countJiskinBycategory(int categoryNo);
+	
+	// 페이징 글 리스트
+	public List<Jisikin> pagingJiskinBycategory(Map<String, Object> map);
+	
 	// 오늘의 질문과 답변
 	public int countTodayJisikin();
 	public int countTodayAnswer();
 	// 누적답변수
 	public int countAnswer();
-	public List<Jisikin> getJisikinByCategory(int categoryNo);
-	public List<Jisikin> getAllJisikin();
+
 	public Jisikin getJisikinByNo(int jisikinNo);
 	
 	//카테소리별 키워드 검색

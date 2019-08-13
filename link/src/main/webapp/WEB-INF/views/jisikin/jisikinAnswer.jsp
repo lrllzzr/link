@@ -193,22 +193,19 @@
 	</div>
 
 <!-- 페이징 -->
-		<div id="pagingArea0" class="paging_area paging_control_type1 _pagingArea" style="display: block;">
-		
-		
-			<a href="#" class="number _page _param('1') on" title="선택됨" onclick="nhn.Kin.Utility.nClicks('nql_nlg.page', '', '1', event);">1</a>
-			<a href="#" class="number _page _param('2')">2</a>
-			<a href="#" class="number _page _param('3')">3</a>
-			<a href="#" class="number _page _param('4')">4</a>
-			<a href="#" class="number _page _param('5')">5</a>
-			<a href="#" class="number _page _param('6')">6</a>
-			<a href="#" class="number _page _param('7')">7</a>
-			<a href="#" class="number _page _param('8')">8</a>
-			<a href="#" class="number _page _param('9')">9</a>
-			<a href="#" class="number _page _param('10')">10</a>
-			<a href="#" class="next _nextPage _param('11')">다음</a>
-		
-	</div>
+		<div class="paginate _default_pager">
+	           <c:if test="${!pagination.first }">
+	              <a class="pr-prev _pre" href="/link/jisikin/answer.do?categoryNo=${param.categoryNo }&page=${pagination.page - 1 }">이전페이지
+	              </a>
+	           </c:if>
+	            <c:forEach var="p" begin="${pagination.begin }" end="${pagination.end }">
+		            <a class="${pagination.page eq p ? 'on' : '' }" href="/link/jisikin/answer.do?categoryNo=${param.categoryNo }&page=${p }">${p }</a>
+	            </c:forEach>
+	            <c:if test="${!pagination.last }">
+		              <a class="next" href="/link/jisikin/answer.do?categoryNo=${param.categoryNo }&page=${pagination.page + 1 }">다음페이지
+		              </a>
+		        </c:if>
+        </div>
 	</div>
 
 </div>
