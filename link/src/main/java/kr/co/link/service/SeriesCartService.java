@@ -11,4 +11,5 @@ public interface SeriesCartService {
 	void addCart(int[] episodeNos, String id);
 	void deleteCartByEpisodeNo(int no);
 	void deleteCartById(String id);
+	void deleteCartByUserEpisodeNo(Map<String, Object> map);
 }

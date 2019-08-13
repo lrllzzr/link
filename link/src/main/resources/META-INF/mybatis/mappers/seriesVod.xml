@@ -34,7 +34,7 @@
 		where rownum &lt; 5
 	</select>
 	
-	<select id="getVodsBycategory" parameterType="map" resultType="seriesVod">
+	<select id="getVodsBycategory" parameterType="hashmap" resultType="seriesVod">
 		select
 			vod_no no,
 			vod_img img,
@@ -70,7 +70,7 @@
 		</choose>
 	</select>
 	
-	<select id="get3DailyOrderVod" resultType="map">
+	<select id="get3DailyOrderVod" resultType="hashmap">
 	select 
 		vod_no "no",
 		vod_img "img",
@@ -81,7 +81,7 @@
 	from (
 		select distinct v.vod_no, v.vod_img, v.vod_title, v.vod_price, v.vod_actor, count(*) over (partition by e.episode_no) amount 
 		from series_orders o, series_episodes e, series_vods v 
-		where o.order_create_date &gt;= to_date(to_char(sysdate -1, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
+		where o.order_create_date &gt;= to_date(to_char(sysdate -1, 'yyyy-mm-dd'), 'yyyy-mm-dd')
 		and o.order_create_date &lt; to_date(to_char(sysdate, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
 		and o.episode_no = e.episode_no 
 		and e.vod_no = v.vod_no 
@@ -90,7 +90,7 @@
 	where rownum &lt;= 3
 	</select>
 	
-	<select id="getDailyOrderVod" resultType="map">
+	<select id="getDailyOrderVod" resultType="hashmap">
 	select 
 		vod_no "no",
 		vod_img "img",
@@ -109,7 +109,7 @@
 	where rownum &lt;= 12
 	</select>
 	
-	<select id="getWeeklyOrderVod" resultType="map">
+	<select id="getWeeklyOrderVod" resultType="hashmap">
 	select 
 		vod_no "no",
 		vod_img "img",
@@ -128,7 +128,7 @@
 	where rownum &lt;= 12
 	</select>
 	
-	<select id="getMonthlyOrderVod" resultType="map">
+	<select id="getMonthlyOrderVod" resultType="hashmap">
 	select 
 		vod_no "no",
 		vod_img "img",

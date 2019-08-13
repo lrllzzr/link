@@ -48,5 +48,10 @@ public class SeriesCartServiceImpl implements SeriesCartService {
 		seriesCartDao.deleteCartById(id);
 	}
 
+	@Override
+	public void deleteCartByUserEpisodeNo(Map<String, Object> map) {
+		seriesCartDao.deleteCartByUserEpisodeNo(map);
+	}
+
 
 }

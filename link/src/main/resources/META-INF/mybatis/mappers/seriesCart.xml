@@ -6,8 +6,11 @@
 <mapper namespace="kr.co.link.dao.SeriesCartDao">		<!-- Dao경로설정 -->
 	
 	<select id="getCartsById" parameterType="string" resultType="hashmap">	<!-- 장바구니 -->
-		select v.vod_img "img", 
+		select
+			v.vod_no "vno",
+			v.vod_img "img", 
 			v.vod_title "vtitle", 
+			e.episode_no "eno",
 			e.episode_title "etitle", 
 			e.episode_price "price"
 		from series_carts c, series_episodes e, series_vods v 
@@ -33,5 +36,7 @@
 		delete from series_carts where user_id = #{value}
 	</delete>
 	
-	
+	<delete id="deleteCartByUserEpisodeNo" parameterType="hashmap">		<!-- id의 일부 장바구니 삭제 -->
+		delete from series_carts where user_id = #{id} and episode_no = #{eno}
+	</delete>
 </mapper>

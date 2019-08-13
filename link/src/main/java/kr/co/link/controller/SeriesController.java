@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.link.dao.SeriesCartDao;
 import kr.co.link.service.SeriesCartService;
@@ -19,14 +20,18 @@ import kr.co.link.service.SeriesCategoryService;
 import kr.co.link.service.SeriesEpisodeService;
 import kr.co.link.service.SeriesLikeService;
 import kr.co.link.service.SeriesNoticeService;
+import kr.co.link.service.SeriesOrderService;
 import kr.co.link.service.SeriesReviewReputationService;
 import kr.co.link.service.SeriesReviewService;
 import kr.co.link.service.SeriesVodService;
+import kr.co.link.service.UserService;
+import kr.co.link.view.FileDownloadView;
 import kr.co.link.vo.SeriesCart;
 import kr.co.link.vo.SeriesCategory;
 import kr.co.link.vo.SeriesEpisode;
 import kr.co.link.vo.SeriesLike;
 import kr.co.link.vo.SeriesNotice;
+import kr.co.link.vo.SeriesOrder;
 import kr.co.link.vo.SeriesPagination;
 import kr.co.link.vo.SeriesReview;
 import kr.co.link.vo.SeriesVod;
@@ -37,6 +42,8 @@ import kr.co.link.vo.User;
 public class SeriesController {
 	
 	@Autowired
+	private UserService userService;
+	@Autowired
 	private SeriesCartService seriesCartService;
 	@Autowired
 	private SeriesCategoryService seriesCategoryService;
@@ -46,6 +53,8 @@ public class SeriesController {
 	private SeriesLikeService seriesLikeService;
 	@Autowired
 	private SeriesNoticeService seriesNoticeService;
+	@Autowired
+	private SeriesOrderService seriesOrderService;
 	@Autowired
 	private SeriesReviewReputationService seriesReviewReputationService;
 	@Autowired
@@ -208,12 +217,56 @@ public class SeriesController {
 		return "series/mypage/like";
 	}
 	
+	@RequestMapping("/mypage/order.do")													// 여기 할 차례
+	public String order(int[] chk, HttpSession session) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", user.getId());
+		
+		seriesOrderService.addOrder(map, chk, user.getId());
+		/*
+		 * int mypoint = user.getPoint(); int price = 0;
+		 * 
+		 * for (int i = 0; i < chk.length; i++) { SeriesEpisode episode =
+		 * seriesEpisodeService.getEpisodeByNo(chk[i]); price = episode.getPrice();
+		 * 
+		 * map.put("eno", chk[i]); seriesOrderService.addOrder(map);
+		 * 
+		 * user.setPoint(user.getPoint() - price); userService.updateUser(user);
+		 * 
+		 * seriesCartService.deleteCartByEpisodeNo(chk[i]); };
+		 * 
+		 * 
+		 */
+		
+		return "redirect:orderlist.do";
+	}
 	
+	// 이하 완료
 	@RequestMapping("/mypage/orderlist.do")
 	public String orderList(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		
+		List<Map<String, Object>> orders = seriesOrderService.getOrdersById(user.getId());
+		
+		user = userService.getUserById(user.getId());
+		session.setAttribute("LOGIN_USER", user);
+		
+		model.addAttribute("orders", orders);
 		return "series/mypage/orderlist";
+	}
+	
+	@RequestMapping("/mypage/down.do")
+	public ModelAndView down(int eno, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		SeriesEpisode episode = seriesEpisodeService.getEpisodeByNo(eno);
+
+		mav.addObject("directory", "C:\\Users\\tk2ek\\git\\link\\link\\src\\main\\webapp\\resources\\images\\series\\episodes");
+		mav.addObject("filename", episode.getContents());
+		
+		mav.setView(new FileDownloadView());
+		return mav;
 	}
 	
 	@RequestMapping("/noticelist.do")

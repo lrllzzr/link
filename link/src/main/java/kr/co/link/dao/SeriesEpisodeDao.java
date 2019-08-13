@@ -12,4 +12,5 @@ public interface SeriesEpisodeDao {
 	List<SeriesEpisode> getEpisodesByVodNo(int no);
 	int getCountEpisodesByNo(int no);
 	List<SeriesEpisode> getEpisodesInUserCarts(String id);
+	SeriesEpisode getEpisodeByNo(int no);
 }

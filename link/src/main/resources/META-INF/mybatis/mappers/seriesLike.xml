@@ -28,7 +28,7 @@
 	
 	
 	
-	<select id="getLikesById" parameterType="string" resultType="map">	<!-- 사용자 좋아요 -->
+	<select id="getLikesById" parameterType="string" resultType="hashmap">	<!-- 사용자 좋아요 -->
 		select
 			v.vod_img "img", 
 			v.vod_title "title", 

@@ -1,17 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-   <title>Link 시리즈</title>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" href="/link/resources/css/series/series.css">
     <link rel="stylesheet" href="/link/resources/css/main.css">
-</head>
-<body>
+
    <!-- 공통 내비게이션 시작  -->
      <nav class="navbar main-nav">
         <div class="container">
@@ -51,10 +42,10 @@
 		                                    	<li><a href="/link/series/home.do">시리즈</a></li>
 			                                    <li class="divider"></li>
 			                                    <li><a href="/link/blog/main.do">블로그</a></li>
-			                                    <li><a href="#">밴드</a></li>
-			                                    <li><a href="#">가계부 </a></li>
-			                                    <li><a href="#">지식인</a></li>
-			                                    <li><a href="#">TV</a></li>
+			                                    <li><a href="/link/band/main.do">밴드</a></li>
+			                                    <li><a href="/link/accountbook/expense.do">가계부 </a></li>
+			                                    <li><a href="/link/jisikin/main.do">지식인</a></li>
+			                                    <li><a href="/link/tv/home.do">TV</a></li>
 		                                    	<li class="divider"></li>
 		                                   	<li><a href="/link/logout.do">로그아웃</a></li>
 		                                </ul>
@@ -86,5 +77,3 @@
           </div>
       </div>
     </nav>
-</body>
-</html>

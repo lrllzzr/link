@@ -27,8 +27,8 @@
     </div>
     <div class="col-sm-9">
         <h2>${seriesVod.title }(총 ${countEpisodes }회)</h2>        
-        <button id="heart"  type="button" class="btn btn-default" style="margin: 0px 0px 5px 0px;">
-          <span class="glyphicon glyphicon-heart-empty ${ isAlreadyHearted > 0 ? 'hearted' : 'unhearted'}" aria-hidden="true">${countLikes }</span>
+        <button id="heart"  type="button" class="btn btn-default" style="margin: 0px 0px 5px 0px;" data-login="${not empty LOGIN_USER ? 'yes' : 'no' }">
+          <span class="glyphicon glyphicon-heart-empty ${ isAlreadyHearted > 0 ? 'hearted' : ''}" aria-hidden="true">${countLikes }</span>
         </button>
 
         <div>
@@ -135,20 +135,28 @@
     			data:arr,
     			dataType:"text",
     			success:function(data){	// {result:success}
+    				$("input[name=episode]").prop("checked",false);
     				$("input[name=chk]").prop("checked",false);
+    				$(".checked").text(0);
     				alert("장바구니에 추가되었습니다.");
     			}
     		})
     	});
     	
     	$("#heart").click(function(){
+    		if ($(this).attr('data-login') == "no") {
+    			alert("로그인 페이지로 이동합니다.");
+    			location.href = '/link/loginform.do';
+    			return false;
+    		}
+    		
     		if ($(this).find('span').hasClass('unhearted')){
 	    		$.ajax({
 	    			type:"get",
 	    			url:"likeedit.do?vodno=${param.vodno}&gubun=plus",
 	    			dataType:"text",
 	    			success:function(){
-		    			$(this).find('span').addClass('hearted').removeClass('unhearted');
+		    			$(this).find('span').addClass('hearted');
 	    				
 	    			}
 	    			
@@ -162,7 +170,7 @@
 	    			url:"likeedit.do?vodno=${param.vodno}&gubun=minus",
 	    			dataType:"text",
 	    			success:function(){
-		    			$(this).find('span').addClass('unhearted').removeClass('hearted');
+		    			$(this).find('span').removeClass('hearted');
 	    				
 	    			}
 	    		})

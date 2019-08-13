@@ -19,7 +19,8 @@
 <%@ include file="../common/nav.jsp" %>
 <div class="container">
 <h3>${LOGIN_USER.nickName }님의 장바구니에 담긴 상품입니다.</h3>
-    <form>
+<h3>${LOGIN_USER.nickName }님의 포인트 <fmt:formatNumber type="number" maxFractionDigits="3" value="${LOGIN_USER.point }"></fmt:formatNumber>원</h3>
+    <form id="cart-form" action="" method="post">
 		<div><input id="checkall" type="checkbox">전체</div>
 		<table class="table table-condensed well">
                <colgroup>
@@ -33,28 +34,36 @@
                <tbody>
                		<c:forEach var="cart" items="${carts }">
 						<tr>
-							<td><input type="checkbox" name="chk" value="" style=""></td>
+							<td><input type="checkbox" name="chk" value="${cart.eno }" style=""></td>
 							<td><img class="img-size" src="/link/resources/images/series/vods/${cart.img }"></td>
 							<td>${cart.vtitle }</td>
 							<td>${cart.etitle }</td>
-							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${cart.price }"></fmt:formatNumber>원</td>
+							<td><span class="episode-price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${cart.price }"></fmt:formatNumber></span>원</td>
 							<td><button class="btn">삭제</button></td>
 						</tr>
 					</c:forEach>
                </tbody>
         </table>
-        <div class="text-right">
-            결제 금액(<span class="checked">0</span>건 선택): x,xxx원
-        </div>
+        <div style="margin-bottom: 30px;" >
+	        	<button class="btn btn-default" type="button" id="btn-delete">선택상품 삭제</button>
+	            <button class="btn" type="button" id="btn-order">선택상품 구매</button>
+            <div class="pull-right">결제 금액(<span class="checked">0</span>건 선택) : <strong id="total-price-box">0</strong>원</div>
+        </div >
 
-        <div class="text-right">
-        	<button class="btn btn-default">선택상품 삭제</button>
-            <button class="btn" type="submit">선택상품 구매</button>
-        </div>
     </form>
 </div>
 <script type="text/javascript">
 	$(function(){
+		$("#btn-delete").click(function() {
+			$("#cart-form").attr("action", 'delete.do');
+			$("#cart-form").submit();
+		});
+		
+		$("#btn-order").click(function() {
+			$("#cart-form").attr("action", 'order.do');
+			$("#cart-form").submit();
+		});
+		
 		$("#checkall").change(function(){
 	        if($("#checkall").prop("checked")){
 	            $("input[name=chk]").prop("checked",true);
@@ -63,12 +72,25 @@
 	        }
 		    var checked = $("input:checkbox[name=chk]:checked").length;
 		    $(".checked").text(checked);
+		    
+		    changePrice();
 	    });
 		
 		$("input[name=chk]").change(function(){
 	    	var checked = $("input:checkbox[name=chk]:checked").length;
 		    $(".checked").text(checked);
+		    
+		    changePrice();
 	    });
+		
+		function changePrice() {
+			var totalPrice = 0;
+			$('input[name=chk]:checked').each(function(index, checkbox) {
+				var price = parseInt($(checkbox).parents("tr").find("span").text().replace(/,/g, ''));
+				totalPrice += price;
+			});
+			$("#total-price-box").text(new Number(totalPrice).toLocaleString());
+		}
 	})
 </script>
 </body>

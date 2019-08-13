@@ -38,6 +38,12 @@
 			<mvc:exclude-mapping path="/jisikin/qna.do"/>
 			<mvc:exclude-mapping path="/jisikin/questionDetail.do"/>
 			<mvc:exclude-mapping path="/jisikin/rank.do"/>
+			<mvc:exclude-mapping path="/series/category.do"/>
+			<mvc:exclude-mapping path="/series/detail.do"/>
+			<mvc:exclude-mapping path="/series/home.do"/>
+			<mvc:exclude-mapping path="/series/noticedetail.do"/>
+			<mvc:exclude-mapping path="/series/noticelist.do"/>
+			<mvc:exclude-mapping path="/series/toprank.do"/>
 			<ref bean="loginCheckInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

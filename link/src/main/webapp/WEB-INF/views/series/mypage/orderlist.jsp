@@ -11,6 +11,7 @@
 <style type="text/css">
     .td-title-episode {font-weight: bold;}
     .img-size{width: 40px; height: 60px;}
+    td{vertical-align: middle; }
 </style>
 </head>
 <body>
@@ -26,26 +27,31 @@
         
         <table class="table table-hover table-condensed" style="margin-top: 20px;">
            <colgroup>
-               <col width="3%">
-               <col width="5%">
-               <col width="75%">
+               <col width="10%">
+               <col width="10%">
                <col width="*%">
+               <col width="10%">
+               <col width="10%">
            </colgroup>
             <thead>
                 <tr>
                     <th>구매일자</th>
-                    <th>제목</th>
-                    <th> </th>
+                    <th>이미지</th>
+                    <th>VOD + 회차 정보</th>
+                    <th>가격</th>
                     <th>다운로드</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>2019.07.18.</td>
-                    <td><a href="#"><img class="img-size" src="/link/resources/images/series/vods/ll"></a></td>
-                    <td class="td-title-episode"><a href="#">미스터 기간제 (특별회: 2019년 7월 7일 방송)</a></td>
-                    <td><button class="btn">다운로드</button></td>
-                </tr>
+	            <c:forEach items="${orders }" var="order">
+	                <tr>
+	                    <td><fmt:formatDate value="${ order.createDate}"/></td>
+	                    <td><a href="../detail.do?vodno=${order.no }"><img class="img-size" src="/link/resources/images/series/vods/${order.img }"></a></td>	<!--  -->
+	                    <td class="td-title-episode"><a href="../detail.do?vodno=${order.no }">${order.vtitle } ${order.etitle }</a></td>
+	                    <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${order.price }"></fmt:formatNumber>원</td>
+	                    <td><button class="btn" onclick="location.href='down.do?eno=${order.eno}'">다운로드</button></td>
+	                </tr>
+	            </c:forEach>
             </tbody>
         </table>
         

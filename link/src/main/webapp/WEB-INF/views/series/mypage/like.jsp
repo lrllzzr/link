@@ -12,6 +12,7 @@
 	.img-size {width: 80px; height: 90px;}
 	.bold{font-weight: bold;}
 	td{vertical-align: middle !important;}
+	
 </style>
 </head>
 <body>
