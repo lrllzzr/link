@@ -250,7 +250,6 @@ ol, ul {
 
 /* 로그인쪽 */
 .navbar-nav {
-    width: 130px !important;
     margin-right : -23px;
     color : gray;
 }
@@ -273,7 +272,11 @@ ol, ul {
 
 .dropdown-menu{
     min-width:30px !important;
-    height : 200px;
+    right:auto !important;
+}
+  
+.blognav_logout_btn {  
+	padding-top:20px !important; 
 }
 
 
@@ -439,7 +442,9 @@ h2 {
 }
   
 .content {
+	max-height : 40px;
     min-width : 600px;
+    max-width : 700px;
     width: 80%;
     display: block;
     overflow: hidden;
@@ -688,4 +693,37 @@ ol {
     font-weight: 700;
     text-decoration: none;
     vertical-align: top;
+}
+
+.not_found02 {
+	min-height : 300px;
+    padding: 40px 0 21px 30px;
+    zoom: 1;
+}
+
+.not_found02 p {
+    padding-right: 20px;
+    font-weight: 700;
+    font-size: 13px;
+    color: #000;
+    line-height: 18px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.not_found02 p em {
+    color: #eb0c00;
+}
+
+.not_found02 ul {
+    margin: 14px 0 0 10px;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.not_found02 li {
+    margin-bottom: 2px;
+    padding-left: 7px;
+    background: url(https://ssl.pstatic.net/sstatic/search/pc/img/sprite_bu_v1.gif) no-repeat 0 5px;
+    color: #000;
 }
