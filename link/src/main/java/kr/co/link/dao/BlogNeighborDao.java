@@ -25,4 +25,5 @@ public interface BlogNeighborDao {
 	void deleteNeighborByMyBlogNoNeighborBlogNo(Map<String, Object> map);
 	List<Map<String, Object>>getPaginationByMap(Map<String, Object> map);
 	Integer getPaginationByMapRows(Integer myBlogNo);
+	List<Map<String, Object>> getMeApplyingNeighborNoByBlogNo(Map<String, Object> map);
 }

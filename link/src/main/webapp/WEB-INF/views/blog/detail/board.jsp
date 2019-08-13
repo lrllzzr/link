@@ -33,7 +33,9 @@
 							</div>
 
 							<div class="row">
-								<div class="col-sm-12">${board.contents }</div>
+								<div class="col-sm-12" style="word-wrap:break-word;">
+								${board.contents }
+								</div>
 							</div>
 
 						</div>

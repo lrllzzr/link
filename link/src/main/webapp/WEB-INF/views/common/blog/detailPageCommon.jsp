@@ -14,12 +14,12 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<a href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}"> <img
-								style="width: 100%; height: 173.88px;" src="/link/resources/images/userblogimgs/${board.mainImg }" alt="">							</a>
+								style="width: 100%; height: 173.88px;" src="/link/resources/images/userblogimgs/${board.mainImg }" alt=""></a>
 						</div>
 					</div>
 					<div class="row blog_detail_board_title_row">
 						<div class="col-sm-12" style="height:40px; overflow:hidden;">
-							<span class="blog_detail_board_title">${board.title }</span>
+							<a href="/link/blog/board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}"><span class="blog_detail_board_title">${board.title }</span></a>
 						</div>
 					</div>
 					<div class="row">

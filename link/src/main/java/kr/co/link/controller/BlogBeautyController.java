@@ -2,6 +2,8 @@ package kr.co.link.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +27,7 @@ import kr.co.link.service.BlogNeighborService;
 import kr.co.link.service.BlogService;
 import kr.co.link.service.BlogThemeService;
 import kr.co.link.service.UserService;
+import kr.co.link.util.DateUtils;
 import kr.co.link.vo.Blog;
 import kr.co.link.vo.BlogNeighbor;
 import kr.co.link.vo.BlogSubCategory;
@@ -113,10 +116,19 @@ public class BlogBeautyController {
 	}
 	
 	@RequestMapping(value="/updateProfile.do", method = RequestMethod.POST)
-	public String updateProfileApply(Model model, HttpSession session, String nameVisibility, String genderVisibility) {
+	public String updateProfileApply(Model model, HttpSession session, String nameVisibility, String genderVisibility,
+									 MultipartFile mainImg) throws IOException {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		user.setNameVisibility(nameVisibility);
 		user.setGenderVisibility(genderVisibility);
+		
+		String profileImageSaveDirectory = blogservice.profileImageSaveDirectory();
+		
+		if (!mainImg.isEmpty()) {
+			String filename = mainImg.getOriginalFilename();
+			FileCopyUtils.copy(mainImg.getBytes(), new File(profileImageSaveDirectory, filename));
+			user.setImg(filename);
+		}
 		userService.updateUser(user);
 		// 기본 설정을 파랗게
 		model.addAttribute("column","updateProfile");
@@ -338,6 +350,45 @@ public class BlogBeautyController {
 		}
 		
 		return "redirect:eachNeighbor.do";
+	}
+	@RequestMapping("sendNeighbor.do")
+	public String sendNeighbor(HttpSession session, String neighborBlogNo){
+		User user = (User) session.getAttribute("LOGIN_USER");
+		String[] neighborBlogNums = neighborBlogNo.split(",");
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		
+		for(int i=0; i<neighborBlogNums.length; i++) {
+			int neighborBlogNum = Integer.parseInt(neighborBlogNums[i]);
+			System.out.println("neighborBlogNum: "+neighborBlogNum);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("myBlogNo", blog.getNo());
+			map.put("neighborBlogNo", neighborBlogNum);
+			blogNeighborService.deleteNeighborByMyBlogNoNeighborBlogNo(map);
+		}
+		return "redirect:eachNeighbor.do";
+	}
+	@RequestMapping("neighborApplyAjax.do")
+	public @ResponseBody List<Map<String, Object>> neighborApplyAjax(HttpSession session, String type) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		// 블로그 얻어오기
+		Blog blog = blogservice.getBlogByUserId(user.getId());
+		
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("myBlogNo", blog.getNo());
+			map.put("status", "applying");
+			List<Map<String, Object>> neighbors = new ArrayList<Map<String,Object>>();
+			if(type.equals("applying")){
+				neighbors = blogNeighborService.getNeighborNoByBlogNo(map);
+			} else {
+				neighbors = blogNeighborService.getMeApplyingNeighborNoByBlogNo(map);
+			}
+			for(Map<String, Object> neighbor : neighbors) {
+				Date date = (Date) neighbor.get("CREATEDATE");
+				String sDate = DateUtils.dateToString(date);
+				neighbor.put("CREATEDATE", sDate);
+			}
+			
+		return neighbors;
 	}
 	
 	@RequestMapping(value="addMeNeighbor.do", method = RequestMethod.GET)

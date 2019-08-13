@@ -34,15 +34,15 @@
                         <hr class="blog_manage_hr1" />
                     </div>
                 </div>
-                <form action="updateProfile.do" method="post">
+                <form action="updateProfile.do" method="post" enctype="multipart/form-data">
                 <div class="row blog_manage_right_row2">
                     <div class="col-sm-2">
                         <strong>이름</strong>
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
                     	<span>${user.name } </span>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                     	<select class="form-control" name="nameVisibility" id="">
                     		<option value="N" ${user.nameVisibility eq 'N' ? 'selected' : '' }>비공개</option>
                     		<option value="Y" ${user.nameVisibility eq 'Y' ? 'selected' : '' }>전체공개</option>
@@ -57,10 +57,10 @@
                     <div class="col-sm-2">
                         <strong>성별</strong>
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
                     	<span>${user.gender }</span>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                     	<select class="form-control" name="genderVisibility" id="">
                     		<option value="N" ${user.genderVisibility eq 'N' ? 'selected' : '' }>비공개</option>
                     		<option value="Y" ${user.genderVisibility eq 'Y' ? 'selected' : '' }>전체공개</option>
@@ -70,14 +70,21 @@
                     <div class="col-sm-12">
                         <hr>
                     </div>
+					<div class="col-sm-2">
+						<strong style="font-size: 14px; letter-spacing: -1px;">유저 프로필 이미지</strong>
+					</div>
+					<div class="col-sm-3">
+						<img id="blogImg" src="/link/resources/images/${LOGIN_USER.img }">
+					</div>
+					<div class="col-sm-4 col-sm-offset-3">
+						<span>유저 프로필 사진에 등록됩니다.</span> <input style="margin-top: 10px;" class="form-control" type="file" id="mainImg" name="mainImg" />
+					</div>
+					<div class="col-sm-12">
+						<hr class="blog_beauty_boldhr">
+					</div>
                 </div>
                 
-
-                
                 <div class="row ">
-                    <div class="col-sm-12">
-                        <hr class="blog_beauty_boldhr">
-                    </div>
 	                <div class="col-sm-12 text-center blog_beauty_bottombtndiv">
 		                <button type="submit" class="btn btn-default">확인</button>
 	                </div>
@@ -86,6 +93,24 @@
             </div>
         </div>
     </div>
-
+<script>
+$(function(){
+	function readURL(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	
+	        reader.onload = function (e) {
+	            $('#blogImg').attr('src', e.target.result);
+	        }
+	
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+	
+	$("#mainImg").change(function(){
+	    readURL(this);
+	});
+})
+</script>
 </body></html>
 

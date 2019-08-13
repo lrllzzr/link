@@ -77,6 +77,12 @@ select
 </select>
 <insert id="addBoard" parameterType="blogboard">
    insert into blog_boards
+   (BOARD_NO,
+	BOARD_TITLE,
+	BOARD_CONTENTS,
+	BOARD_CREATE_DATE,
+	CATEGORY_NO,
+	BOARD_MAIN_IMG)
    values(blog_seq.nextval, #{title},#{contents},sysdate,#{categoryNo},#{mainImg})
 </insert>
 <select id="countBoardsByCategoryId" parameterType="int" resultType="int">

@@ -108,6 +108,7 @@ a {
 
 .blog-profile-img {
     width: 24px;
+    
 }
 
 .blog-hot-topic {
@@ -146,6 +147,7 @@ a {
 }
 .blog-row-3-profile-img{
     width: 30px;
+    height:30px;
     border-radius: 50%;
 }
 .blog-hottopic-info{
@@ -206,6 +208,7 @@ a {
 }
 .blog-col-5 .col-sm-6:hover{
     border-bottom: 1px solid black;
+    color:black !important;
 }
 .blog-col-5-selected{
     border-bottom: 1px solid black !important;
@@ -236,7 +239,7 @@ a {
 }
 .glyphicon-remove{
     position: relative;
-    top:5px;
+    top:3px;
     font-size: 16px;
     color: lightgray;
 }
@@ -295,9 +298,7 @@ a {
 .blog-hrdiv{
     padding:0px 15px 0px 0px;
 }
-.blog-neighbor-div{
-	padding-bottom : 100px;
-}
+
 .blog-hr-row{
     position: relative;
     bottom:8px;
@@ -320,7 +321,7 @@ a {
     padding : 0px 10px !important;
 }
 .blog-neighbor-contents{
-	height:65px;
+	height:60px;
 	overflow: hidden;
  	display: inline-block; 
     white-space: nowrap; 

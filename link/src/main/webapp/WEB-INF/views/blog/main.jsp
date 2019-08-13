@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -119,6 +120,9 @@
 
 												</div>
 											</c:forEach>
+											<div class="blog-hrdiv">
+												<hr class="blog-row-hr-2" />
+											</div>
 										</div>
 										<div class="row blog_pagination_row">
 											<div class="col-sm-12 text-center">
@@ -196,7 +200,11 @@
 						</c:if>
 						<!--     이웃 새글 끝     -->
 					</div>
-
+					<div class="blog-hrdiv">
+						<div class="page-header">
+							<span style="font-size:20px;">이런 블로그는 어떠세요?</span>
+						</div>
+					</div>
 					<div class="blog-hrdiv">
 						<hr class="blog-row-hr-3" />
 					</div>
@@ -349,11 +357,8 @@
 									<c:if test="${not empty requestList }">
 										<c:forEach var="request" items="${requestList}">
 											<div class="row blog-alarm">
-												<div class="col-sm-10">
-													<img class="blog-row-3-profile-img" src="/link/resources/images/${request.BLOGMAINIMG }" alt=""> <a href="eachNeighbor.do">${request.NICKNAME }님이 서로이웃을 신청했습니다.</a>
-												</div>
-												<div class="col-sm-1">
-													<a href=""><span class="glyphicon glyphicon-remove"></span></a>
+												<div class="col-sm-12">
+													<img class="blog-row-3-profile-img" src="/link/resources/images/${request.BLOGMAINIMG }" alt=""> <a href="eachNeighbor.do">${request.NICKNAME }님이 서로이웃을 신청했습니다.</a> <a href=""><span class="glyphicon glyphicon-remove"></span></a>
 												</div>
 											</div>
 										</c:forEach>
@@ -365,12 +370,6 @@
 									</c:if>
 								</div>
 							</div>
-							<div class="row blog-col-7">
-								<div class="col-sm-12">
-									<span id="blog-alarm-delete">모두 삭제</span>
-								</div>
-							</div>
-
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -384,7 +383,9 @@
 					</div>
 					<a class="blogmain_login" style="color: white; font-size: 15px;" href="/link/loginform.do">
 						<div class="row blog-col-4 text-center" style="padding: 15px;">
-							<span><strong>Link</strong>로그인</span>
+							<span>
+								<strong>Link</strong>로그인
+							</span>
 						</div>
 					</a>
 				</div>
@@ -398,7 +399,7 @@
 			$('.blog-neighbor-contents3 img').hide();
 			$('.blog-neighbor-contents img').hide();
 			$('#1').addClass('blog_detail_page_1_selected');
-			
+
 			// 캐러샐
 			$('.carousel').carousel({
 				interval : false
@@ -441,7 +442,7 @@
 									row += '						<div class="col-sm-12">';
 									row += '							<a href="">' + blog.NICKNAME + '</a>';
 									row += '						</div>';
-									row += '						<div class="col-sm-12">'+blog.howLongDate+'</div>';
+									row += '						<div class="col-sm-12">' + blog.howLongDate + '</div>';
 									row += '					</div>';
 									row += '				</div>';
 									row += '			</div>';
@@ -530,7 +531,7 @@
 									row += '					<div class="col-sm-12">';
 									row += '						<a href="">' + blog.NICKNAME + '</a>';
 									row += '					</div>';
-									row += '					<div class="col-sm-12">'+blog.howLongDate+'</div>';
+									row += '					<div class="col-sm-12">' + blog.howLongDate + '</div>';
 									row += '				</div>';
 									row += '			</div>';
 									row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
@@ -577,17 +578,25 @@
 					url : "getNeighborsMain.do",
 					success : function(result) {
 						$('#myInfoform').empty();
-						$.each(result, function(index, neighBor) {
+						if (0 == result.length) {
 							var row = '';
-							row += '<div class="col-sm-6" style="padding:5px;">';
-							row += '	<div class="text-left">';
-							row += '		<a href="detail.do?blogNo=' + neighBor.NO + '">';
-							row += '			<img class="blog-row-33-profile-img" src="/link/resources/images/'+neighBor.MAINIMG+'" alt="">' + neighBor.NICKNAME;
-							row += '		</a>';
-							row += '	</div>';
+							row += '<div class="col-sm-12 text-center" style="padding:5px;">';
+							row += '	<p>이웃 목록이 없습니다.</p>';
 							row += '</div>';
 							$('#myInfoform').append(row);
-						})
+						} else {
+							$.each(result, function(index, neighBor) {
+								var row = '';
+								row += '<div class="col-sm-6" style="padding:5px;">';
+								row += '	<div class="text-left">';
+								row += '		<a href="detail.do?blogNo=' + neighBor.NO + '">';
+								row += '			<img class="blog-row-33-profile-img" src="/link/resources/images/'+neighBor.MAINIMG+'" alt="">' + neighBor.NICKNAME;
+								row += '		</a>';
+								row += '	</div>';
+								row += '</div>';
+								$('#myInfoform').append(row);
+							});
+						}
 					}
 				})
 			});
@@ -610,13 +619,13 @@
 								$('.blog3topic-2').empty();
 								var length = data.blogsList.length;
 								console.log(length);
-								if(length == 0){
+								if (length == 0) {
 									var row = "";
 									row += '<div class="row"><div class="col-sm-12 text-center" style="padding:150px; "><p style="font-size:15px;">등록된 글이 없습니다.</p></div></div>';
 									$('.blog3topic').append(row);
 									var row2 = "";
 									$('.blog3topic-2').append(row2);
-								} else{
+								} else {
 									$.each(data.blogsList, function(index, blog) {
 										var row = "";
 										row += '<div class="row blog-main-col-2-1">';
@@ -630,7 +639,7 @@
 										row += '					<div class="col-sm-12">';
 										row += '						<a href="">' + blog.NICKNAME + '</a>';
 										row += '					</div>';
-										row += '					<div class="col-sm-12">'+blog.howLongDate+'</div>';
+										row += '					<div class="col-sm-12">' + blog.howLongDate + '</div>';
 										row += '				</div>';
 										row += '			</div>';
 										row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
@@ -658,14 +667,14 @@
 										row += '<div class="blog-hrdiv">';
 										row += '<hr class="blog-row-hr-2" />';
 										row += '</div>';
-	
+
 										$('.blog3topic').append(row);
 										$('.blog-neighbor-contents3 img').hide();
 										$('.blog-neighbor-contents img').hide();
-	
+
 									});
 									var totalBlocks = data.totalBlocks;
-									
+
 									var row2 = '';
 									row2 += '<div class="row">';
 									row2 += '	<div class="col-sm-12 text-center">';

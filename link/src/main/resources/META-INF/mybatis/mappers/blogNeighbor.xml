@@ -65,6 +65,27 @@
 				a.NEIGHBOR_STATUS = #{status}
 		</if>
 </select>
+<select id="getMeApplyingNeighborNoByBlogNo" parameterType="map" resultType="map">
+	select
+			NEIGHBORHOOD_NO no,
+			a.BLOG_NO blogNo,
+			NEIGHBORHOOD_TYPE type,
+			NEIGHBOR_STATUS status,
+            c.user_id userId,
+            c.user_nickname nickName,
+            a.NEIGHBOR_MESSAGE message,
+            a.neighbor_create_date createDate
+		from
+			blog_neighbor a, blog b, users c
+		where
+            b.user_id = c.user_id
+        and
+            a.neighborhood_no = b.blog_no
+        and
+            a.blog_no = #{myBlogNo}
+        and
+			a.NEIGHBOR_STATUS = #{status}
+</select>
 <!-- 내가 추가한 이웃 가져오기  -->
 <select id="getNeighborIAdd" parameterType="int" resultType="map">
 		select

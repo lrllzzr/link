@@ -45,7 +45,6 @@
 					<div class="col-sm-12">
 						<ul class="nav nav-tabs blog_nav_tabs">
 							<li role="presentation" class="active"><a href="#">이웃목록</a></li>
-							<li role="presentation"><a href="#">추천이웃</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-12">

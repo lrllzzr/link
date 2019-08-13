@@ -250,6 +250,10 @@ public class BlogDetailController {
 		
 		List<Map<String, Object>> blogsList = blogService.getAllBlogsByType(topicMap);
 		blogsList = blogService.dateChange(blogsList);
+		for (Map<String, Object> blog : blogsList) {
+			String contents = (String) blog.get("CONTENTS");
+			blog.put("CONTENTS", contents.replaceAll("\\<.*?>",""));
+		}
 		
 		model.addAttribute("blogsList", blogsList);
 		model.addAttribute("pno", pno);
@@ -625,6 +629,7 @@ public class BlogDetailController {
 		BeanUtils.copyProperties(blogBoardForm, blogBoard);
 		MultipartFile mf = blogBoardForm.getUpfile();
 		String profileImageSaveDirectory = blogService.profileImageSaveDirectory();
+		profileImageSaveDirectory += "/userblogimgs";
 		if (!mf.isEmpty()) {
 			String filename = mf.getOriginalFilename();
 			FileCopyUtils.copy(mf.getBytes(), new File(profileImageSaveDirectory, filename));
@@ -643,7 +648,7 @@ public class BlogDetailController {
 		BeanUtils.copyProperties(blogBoardForm, blogBoard);
 		MultipartFile mf = blogBoardForm.getUpfile();
 		String profileImageSaveDirectory = blogService.profileImageSaveDirectory();
-		
+		profileImageSaveDirectory += "/userblogimgs";
 		if (!mf.isEmpty()) {
 			String filename = mf.getOriginalFilename();
 			FileCopyUtils.copy(mf.getBytes(), new File(profileImageSaveDirectory, filename));
