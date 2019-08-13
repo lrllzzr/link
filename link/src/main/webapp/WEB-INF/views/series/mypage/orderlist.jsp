@@ -2,59 +2,61 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>네이버 시리즈</title>
+<title>Link : 시리즈</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style type="text/css">
-    .td-title-episode {
-        font-weight: bold;
-    }
-    
-    .td-price {
-        font-weight: bold;
-        color: dodgerblue;
-    }
+    .td-title-episode {font-weight: bold;}
+    .img-size{width: 40px; height: 60px;}
+    td{vertical-align: middle; }
 </style>
 </head>
 <body>
+<%@ include file="../common/jstl.jsp" %>
+<%@ include file="../common/nav.jsp" %>
 <div class="container">
     <div class="col-sm-12">
-        <h1>나의 포인트   ${login_user.point}원</h1>
+        <h1>${LOGIN_USER.nickName }님의 포인트 <fmt:formatNumber type="number" maxFractionDigits="3" value="${LOGIN_USER.point }"></fmt:formatNumber>원</h1>
         <ul class="nav nav-pills nav-justified">
-            <li class="active"><a href="#">구입내역</a></li>
-            <li><a href="#">관심작품</a></li>
+            <li class="active"><a href="orderlist.do">구입내역</a></li>
+            <li><a href="like.do">좋아요 한 작품</a></li>
         </ul>
         
-        <table class="table table-hover table-condensed">
+        <table class="table table-hover table-condensed" style="margin-top: 20px;">
            <colgroup>
-               <col width="3%">
-               <col width="5%">
-               <col width="75%">
+               <col width="10%">
+               <col width="10%">
                <col width="*%">
+               <col width="10%">
+               <col width="10%">
            </colgroup>
             <thead>
                 <tr>
                     <th>구매일자</th>
-                    <th>제목</th>
-                    <th> </th>
-                    <th>금액</th>
+                    <th>이미지</th>
+                    <th>VOD + 회차 정보</th>
+                    <th>가격</th>
+                    <th>다운로드</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>2019.07.18.</td>
-                    <td><img src="../no_images.jpg" width="40px"; height="60px";></td>
-                    <td class="td-title-episode">미스터 기간제 (특별회: 2019년 7월 7일 방송)</td>
-                    <td class="td-price">무료</td>
-                </tr>
+	            <c:forEach items="${orders }" var="order">
+	                <tr>
+	                    <td><fmt:formatDate value="${ order.createDate}"/></td>
+	                    <td><a href="../detail.do?vodno=${order.no }"><img class="img-size" src="/link/resources/images/series/vods/${order.img }"></a></td>	<!--  -->
+	                    <td class="td-title-episode"><a href="../detail.do?vodno=${order.no }">${order.vtitle } ${order.etitle }</a></td>
+	                    <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${order.price }"></fmt:formatNumber>원</td>
+	                    <td><button class="btn" onclick="location.href='down.do?eno=${order.eno}'">다운로드</button></td>
+	                </tr>
+	            </c:forEach>
             </tbody>
         </table>
         
 
-        <nav class="text-center">
+        <!-- <nav class="text-center">
           <ul class="pagination">
             <li>
               <a href="#" aria-label="Previous">
@@ -72,7 +74,7 @@
               </a>
             </li>
           </ul>
-        </nav>
+        </nav> -->
     </div>
 </div>
 </body>

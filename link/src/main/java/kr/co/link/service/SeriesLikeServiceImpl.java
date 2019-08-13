@@ -1,5 +1,8 @@
 package kr.co.link.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +31,13 @@ public class SeriesLikeServiceImpl implements SeriesLikeService {
 	}
 
 	@Override
-	public int getCountabc(SeriesLike seriesLike) {
-		return seriesLikeDao.getCountabc(seriesLike);
+	public int getCountUserLikes(SeriesLike seriesLike) {
+		return seriesLikeDao.getCountUserLikes(seriesLike);
+	}
+
+	@Override
+	public List<Map<String, Object>> getLikesById(String id) {
+		return seriesLikeDao.getLikesById(id);
 	}
 
 }

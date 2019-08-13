@@ -34,7 +34,7 @@
 		where rownum &lt; 5
 	</select>
 	
-	<select id="getVodsBycategory" parameterType="map" resultType="seriesVod">
+	<select id="getVodsBycategory" parameterType="hashmap" resultType="seriesVod">
 		select
 			vod_no no,
 			vod_img img,
@@ -70,64 +70,81 @@
 		</choose>
 	</select>
 	
-	<select id="getDailyChart" parameterType="map" resultType="seriesVod">
-		select
-		vod_no no,
-		vod_img img,
-		vod_actor actor,
-		vod_title title,
-		vod_price price
-	from series_vods
-	where vod_no in 
-	(select vod_no
-	from 
-	    (select distinct vod_no, count(*) over(partition by vod_no) A
-    from series_likes
-    where 
-    like_create_date &gt;= to_date(to_char(sysdate -1, 'yyyy-mm-dd'), 'yyyy-mm-dd') and 
-    like_create_date &lt; to_date(to_char(sysdate, 'yyyy-mm-dd'), 'yyyy-mm-dd')
-    order by A desc)
-where rownum &lt;= 12)
+	<select id="get3DailyOrderVod" resultType="hashmap">
+	select 
+		vod_no "no",
+		vod_img "img",
+		vod_title "title",
+		vod_price "price",
+		vod_actor "actor",
+		amount "amount"
+	from (
+		select distinct v.vod_no, v.vod_img, v.vod_title, v.vod_price, v.vod_actor, count(*) over (partition by e.episode_no) amount 
+		from series_orders o, series_episodes e, series_vods v 
+		where o.order_create_date &gt;= to_date(to_char(sysdate -1, 'yyyy-mm-dd'), 'yyyy-mm-dd')
+		and o.order_create_date &lt; to_date(to_char(sysdate, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
+		and o.episode_no = e.episode_no 
+		and e.vod_no = v.vod_no 
+		order by amount desc
+		)
+	where rownum &lt;= 3
 	</select>
 	
-	<select id="getWeeklyChart" parameterType="map" resultType="seriesVod">
-	select
-		vod_no no,
-		vod_img img,
-		vod_actor actor,
-		vod_title title,
-		vod_price price
-	from series_vods
-	where vod_no in 
-	(select vod_no
-	from 
-	    (select distinct vod_no, count(*) over(partition by vod_no) A
-    from series_likes
-    where 
-    like_create_date &gt;= to_date(to_char(sysdate -7, 'yyyy-mm-dd'), 'yyyy-mm-dd') and 
-    like_create_date &lt; to_date(to_char(sysdate, 'yyyy-mm-dd'), 'yyyy-mm-dd')
-    order by A desc)
-where rownum &lt;= 12)
+	<select id="getDailyOrderVod" resultType="hashmap">
+	select 
+		vod_no "no",
+		vod_img "img",
+		vod_title "title",
+		vod_price "price",
+		amount "amount"
+	from (
+		select distinct v.vod_no, v.vod_img, v.vod_title, v.vod_price, count(*) over (partition by e.episode_no) amount 
+		from series_orders o, series_episodes e, series_vods v 
+		where o.order_create_date &gt;= to_date(to_char(sysdate -1, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
+		and o.order_create_date &lt; to_date(to_char(sysdate, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
+		and o.episode_no = e.episode_no 
+		and e.vod_no = v.vod_no 
+		order by amount desc
+		)
+	where rownum &lt;= 12
 	</select>
 	
-	<select id="getMonthlyChart" parameterType="map" resultType="seriesVod">
-	select
-		vod_no no,
-		vod_img img,
-		vod_actor actor,
-		vod_title title,
-		vod_price price
-	from series_vods
-	where vod_no in 
-	(select vod_no
-	from 
-	    (select distinct vod_no, count(*) over(partition by vod_no) A
-	    from series_likes
-	    where 
-	    like_create_date &gt;= trunc(add_months(sysdate, -1), 'MM') and 
-	    like_create_date &lt; trunc(sysdate, 'MM')
-	    order by A desc)
-	where rownum &lt;= 12)
+	<select id="getWeeklyOrderVod" resultType="hashmap">
+	select 
+		vod_no "no",
+		vod_img "img",
+		vod_title "title",
+		vod_price "price",
+		amount "amount"
+	from (
+		select distinct v.vod_no, v.vod_img, v.vod_title, v.vod_price, count(*) over (partition by e.episode_no) amount 
+		from series_orders o, series_episodes e, series_vods v 
+		where o.order_create_date &gt;= to_date(to_char(sysdate -7, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
+		and o.order_create_date &lt; to_date(to_char(sysdate, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
+		and o.episode_no = e.episode_no 
+		and e.vod_no = v.vod_no 
+		order by amount desc
+		)
+	where rownum &lt;= 12
+	</select>
+	
+	<select id="getMonthlyOrderVod" resultType="hashmap">
+	select 
+		vod_no "no",
+		vod_img "img",
+		vod_title "title",
+		vod_price "price",
+		amount "amount"
+	from (
+		select distinct v.vod_no, v.vod_img, v.vod_title, v.vod_price, count(*) over (partition by e.episode_no) amount 
+		from series_orders o, series_episodes e, series_vods v 
+		where o.order_create_date &gt;= trunc(add_months(sysdate, -1), 'MM')
+		and o.order_create_date &lt; trunc(sysdate, 'MM')
+		and o.episode_no = e.episode_no 
+		and e.vod_no = v.vod_no 
+		order by amount desc
+		)
+	where rownum &lt;= 12
 	</select>
 	
 	<select id="getVodByVodNo" parameterType="int" resultType="seriesVod">

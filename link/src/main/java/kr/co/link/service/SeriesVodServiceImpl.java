@@ -38,18 +38,23 @@ public class SeriesVodServiceImpl implements SeriesVodService {
 	}
 
 	@Override
-	public List<SeriesVod> getDailyChart() {
-		return seriesVodDao.getDailyChart();
+	public List<Map<String, Object>> get3DailyOrderVod() {
+		return seriesVodDao.get3DailyOrderVod();
 	}
-
+	
 	@Override
-	public List<SeriesVod> getWeeklyChart() {
-		return seriesVodDao.getWeeklyChart();
+	public List<Map<String, Object>> getDailyOrderVod() {
+		return seriesVodDao.getDailyOrderVod();
 	}
-
+	
 	@Override
-	public List<SeriesVod> getMonthlyChart() {
-		return seriesVodDao.getMonthlyChart();
+	public List<Map<String, Object>> getWeeklyOrderVod() {
+		return seriesVodDao.getWeeklyOrderVod();
+	}
+	
+	@Override
+	public List<Map<String, Object>> getMonthlyOrderVod() {
+		return seriesVodDao.getMonthlyOrderVod();
 	}
 
 	@Override
@@ -61,6 +66,8 @@ public class SeriesVodServiceImpl implements SeriesVodService {
 	public List<SeriesVod> getVodsInUserCarts(String id) {
 		return seriesVodDao.getVodsInUserCarts(id);
 	}
+
+
 	
 	
 }
