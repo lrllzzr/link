@@ -12,9 +12,10 @@ public interface SeriesVodDao {
 	List<SeriesVod> get4BrandNewVods();
 	// List<SeriesVod> getVodsBycategory(int no);
 	List<SeriesVod> getVodsBycategory(Map<String, Object> map);
-	List<SeriesVod> getDailyChart();
-	List<SeriesVod> getWeeklyChart();
-	List<SeriesVod> getMonthlyChart();
+	List<Map<String, Object>> get3DailyOrderVod();
+	List<Map<String, Object>> getDailyOrderVod();
+	List<Map<String, Object>> getWeeklyOrderVod();
+	List<Map<String, Object>> getMonthlyOrderVod();
 	
 	SeriesVod getVodByVodNo(int no);
 	List<SeriesVod> getVodsInUserCarts(String id);

@@ -19,7 +19,7 @@
 	
 	
 	
-	<select id="getNoticeCount" parameterType="map" resultType="int">
+	<select id="getNoticeCount" parameterType="hashmap" resultType="int">
 		select count(*)
 		from series_notices
 		<if test="keyword != null">
@@ -27,7 +27,7 @@
 		</if>
 	</select>
 	
-	<select id="getNotices" parameterType="map" resultType="seriesNotice"> <!-- map 소문자로 쓸 것 -->
+	<select id="getNotices" parameterType="hashmap" resultType="seriesNotice"> <!-- map 소문자로 쓸 것 -->
 		select
 			notice_no no,
 			notice_title title,

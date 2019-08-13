@@ -29,5 +29,11 @@ public class SeriesEpisodeServiceImpl implements SeriesEpisodeService {
 		return seriesEpisodeDao.getEpisodesInUserCarts(id);
 	}
 
+	@Override
+	public SeriesEpisode getEpisodeByNo(int no) {
+		return seriesEpisodeDao.getEpisodeByNo(no);
+	}
+
+
 	
 }

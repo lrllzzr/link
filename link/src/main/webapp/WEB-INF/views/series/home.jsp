@@ -181,14 +181,14 @@
                     <div class="col-sm-12 round well">
                         <div class="row"> 
                            <div class="col-sm-12">
-                            <strong>좋아요 TOP 5</strong>
+                            <strong>인기순위</strong>
                             <div class="look-more"><a href="toprank.do">더 보기</a></div>
                            </div>
                         </div>
                         
                         <div class="row">
                              <ol>
-                             <c:forEach var="vod" items="${likesVods }">
+                             <c:forEach var="vod" items="${ranks }">
                                 <li class="top-N">
                                   <div class="col-sm-3">
                                         <a href="detail.do?vodno=${vod.no }" class="">

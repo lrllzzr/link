@@ -12,5 +12,6 @@ public interface SeriesLikeDao {
 	int getCountLikesByVodNo(int no);
 	void addLike(SeriesLike seriesLike);
 	void deleteLike(SeriesLike seriesLike);
-	int getCountabc(SeriesLike seriesLike);
+	int getCountUserLikes(SeriesLike seriesLike);
+	List<Map<String, Object>> getLikesById(String id);
 }

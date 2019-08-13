@@ -31,7 +31,7 @@
 			EPISODE_NO no,
 			VOD_NO "vod.no",
 			EPISODE_TITLE title,
-			EPISODE_DATE "date",
+			EPISODE_DATE "date",	<!-- date 예약어라 감싸줘야 함 -->
 			EPISODE_SUMMARY summary,
 			EPISODE_CONTENTS contents,
 			EPISODE_CREATE_DATE createDate,
@@ -39,5 +39,19 @@
 		from series_episodes 
 		where episode_no in 
 			(select episode_no from series_carts where user_id= #{value})
+	</select>
+	
+	<select id="getEpisodeByNo" parameterType="int" resultType="seriesEpisode">
+		select
+			EPISODE_NO no,
+			VOD_NO "vod.no",
+			EPISODE_TITLE title,
+			EPISODE_DATE "date",
+			EPISODE_SUMMARY summary,
+			EPISODE_CONTENTS contents,
+			EPISODE_CREATE_DATE createDate,
+			EPISODE_PRICE price 
+		from series_episodes
+		where episode_no = #{value}
 	</select>
 </mapper>
