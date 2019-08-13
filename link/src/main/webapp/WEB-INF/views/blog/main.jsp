@@ -290,7 +290,7 @@
 				<div class="col-sm-3 blog-col-3">
 					<div class="row">
 						<div class="col-sm-3 text-center">
-							<img class="blog-row-2-profile-img" src="/link/resources/images/jisik.jpg" alt="">
+							<img class="blog-row-2-profile-img" src="/link/resources/images/${LOGIN_USER.img }" alt="">
 						</div>
 						<div class="col-sm-7 blog-right-col-1">
 							<div class="row" style="margin-bottom: 40px;">
@@ -612,7 +612,7 @@
 								console.log(length);
 								if(length == 0){
 									var row = "";
-									row += '<div class="row"><div class="col-sm-12 text-center" style="margin-bottom:30px;"><p>등록된 글이 없습니다.</p></div></div>';
+									row += '<div class="row"><div class="col-sm-12 text-center" style="padding:150px; "><p style="font-size:15px;">등록된 글이 없습니다.</p></div></div>';
 									$('.blog3topic').append(row);
 									var row2 = "";
 									$('.blog3topic-2').append(row2);

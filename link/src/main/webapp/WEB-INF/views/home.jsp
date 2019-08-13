@@ -67,8 +67,8 @@
 			<ul class="nav navbar-nav navbar-right">
 				<c:if test="${not empty LOGIN_USER }">
 					<li class="dropdown"><a href="#" style="background-color: white !important;" class="dropdown-toggle" data-toggle="dropdown"
-						role="button" aria-expanded="false"> <img class="blog-profile-img" src="/link/resources/images/blog.png" alt=""> <span class="blog-navbar-id"
-							style="color: gray !important;">${LOGIN_USER.nickName }</span> <span class="caret" style="color: gray !important;"></span></a>
+						role="button" aria-expanded="false"> <img class="blog-profile-img" style="width:25px !important; height:25px; border-radius: 50%;" src="/link/resources/images/${LOGIN_USER.img }" alt=""> <span class="blog-navbar-id"
+							style="color: gray !important; font-size:13px; font-weight: bold;">${LOGIN_USER.nickName }</span> <span class="caret" style="color: gray !important;"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/link/home.do">Link 홈</a></li>
 							<li class="divider"></li>
