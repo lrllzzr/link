@@ -90,5 +90,4 @@ public class BlogNeighborServiceImpl implements BlogNeighborService{
 	public List<Map<String, Object>> getNeighborAddMe(Integer myBlogNo) {
 		return blogNeighborDao.getNeighborAddMe(myBlogNo);
 	}
-	
 }

@@ -440,7 +440,6 @@ public class BlogBeautyController {
 		}
 		return "redirect:manageNeighbor.do";
 	}
-	
 	@RequestMapping(value="manageComment.do", method = RequestMethod.GET)
 	public String manageComment(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("LOGIN_USER");
@@ -463,7 +462,8 @@ public class BlogBeautyController {
 		
 		return "blog/category/manageComment";
 	}
-	@RequestMapping(value="manageComment.do", method = RequestMethod.POST)
+
+@RequestMapping(value="manageComment.do", method = RequestMethod.POST)
 	public String manageCommentApply(HttpSession session, Model model,
 			String commentNo) {
 		// 블로그 얻어오기

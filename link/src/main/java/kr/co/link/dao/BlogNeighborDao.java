@@ -27,4 +27,5 @@ public interface BlogNeighborDao {
 	Integer getPaginationByMapRows(Integer myBlogNo);
 	List<Map<String, Object>> getMeApplyingNeighborNoByBlogNo(Map<String, Object> map);
 	List<Map<String, Object>> getNeighborAddMe(Integer myBlogNo);
+	
 }

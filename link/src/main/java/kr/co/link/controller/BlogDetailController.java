@@ -380,7 +380,6 @@ public class BlogDetailController {
 				}
 			}
 		}
-		
 		map.put("blogsList", blogsList);
 		map.put("totalBlocks", totalBlocks);
 		map.put("pno", pno);

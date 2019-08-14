@@ -11,13 +11,20 @@
                     <c:when test="${navMenu eq 'jisikin' }">
                     <a href="/link/jisikin/main.do">
                         <span class="blog-main-blog">지식인</span>
+                    </a>
+                    </c:when>
+                    <c:when test="${navMenu eq 'account' }">
+                    	<a href="/link/accountbook/expense.do">
+                        <span class="blog-main-blog">가계부</span>
+                    </a>
                     </c:when>
                     <c:otherwise>
                     <a href="/link/blog/main.do">
                         <span class="blog-main-blog">블로그</span>
+                    </a>
                     </c:otherwise>
                     </c:choose>
-                    </a>
+                    
                 </div>
                 <div class="col-sm-5 blog-searchbar">
                     <form class="navbar-form navbar-left" action="/link/search.do" method="GET" role="search">

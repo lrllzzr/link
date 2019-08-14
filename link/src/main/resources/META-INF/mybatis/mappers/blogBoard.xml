@@ -150,13 +150,6 @@ select
    and
       board_no = #{boardNo}
 </delete>
-<delete id="deleteBoardComment" parameterType="int">
-	delete
-	from
-		blog_boards_comments
-	where
-		comment_no = #{value}
-</delete>
 <select id="getBoardCommentByBoardNoParentCno" parameterType="map" resultType="hashmap">
    select
     a.COMMENT_NO no,
@@ -237,8 +230,15 @@ values(
    where
       BOARD_NO = #{no}   
 </update>
+<delete id="deleteBoardComment" parameterType="int">
+	delete
+	from
+		blog_boards_comments
+	where
+		comment_no = #{value}
+</delete>
 <select id="getBoardCommentsInMyBlog" parameterType="map" resultType="map">
-	select a.comment_no commentNo, g.blog_main_Img mainImg, g.blog_no no, e.blog_no boardBlogNo, c.category_no categoryNo,
+	select a.comment_no commentNo, g.blog_main_Img mainImg, g.blog_no no,
         a.comment_contents contents, a.board_no boardNo, f.user_id userId, b.board_title title, f.user_nickname nickName, a.comment_create_date createDate
 from blog_boards_comments a, blog_boards b, blog_category c, blog_subcategory d, blog e, users f, blog g
 where
@@ -253,10 +253,6 @@ and
     a.user_id = f.user_id
 and
     d.blog_no = #{myBlogNo}
-<if test="myUserId != null">
-and
-    a.user_id != #{myUserId}
-</if>
 and
     f.user_id = g.user_id
 
