@@ -49,11 +49,11 @@
 	                                    <li style="margin-left: 10px;"><a href="/link/blog/beauty.do">내 블로그 관리</a></li>
                                     </c:if>
                                     <li class="divider"></li>
-                                    <li><a href="#">밴드</a></li>
-                                    <li><a href="#">가계부 </a></li>
-                                    <li><a href="#">지식인</a></li>
-                                    <li><a href="#">시리즈</a></li>
-                                    <li><a href="#">TV</a></li>
+                                    <li><a href="/link/band/main.do">밴드</a></li>
+                                    <li><a href="/link/accountbook/expense.do">가계부 </a></li>
+                                    <li><a href="/link/jisikin/main.do?sort=1&categoryNo=0">지식인</a></li>
+                                    <li><a href="/link/series/home.do">시리즈</a></li>
+                                    <li><a href="/link/tv/home.do">TV</a></li>
                                     
                                     <li class="divider"></li>
                                     <li><a class="blognav_logout_btn" href="/link/logout.do">로그아웃</a></li>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <script src="/link/resources/js/returnUrl.js"></script>
  <nav class="navbar main-nav navbar-fixed-top">
         <div class="container">
             <div class="row">
@@ -27,19 +28,25 @@
                                     <span class="blog-navbar-id" style="vertical-align:bottom">${LOGIN_USER.name }</span>
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/link/home.do">Link 홈</a></li>
+                                <li class="divider"></li>
                                     <li><a href="/link/blog/main.do">블로그</a></li>
-                                    <li><a href="">밴드</a></li>
-                                    <li><a href="#">가계부 </a></li>
-                                    <li><a href="#">지식인</a></li>
-                                    <li><a href="#">시리즈</a></li>
+                                    <c:if test="${LOGIN_USER.isHaveBlog eq 'Y' }">
+	                                    <li style="margin-left: 10px;"><a href="/link/blog/mydetail.do">내 블로그</a></li>
+	                                    <li style="margin-left: 10px;"><a href="/link/blog/beauty.do">내 블로그 관리</a></li>
+                                    </c:if>
+                                    <li><a href="/link/band/main.do">밴드</a></li>
+                                    <li><a href="/link/accountbook/expense.do">가계부 </a></li>
+                                    <li><a href="/link/jisikin/main.do?sort=1&categoryNo=0">지식인</a></li>
+                                    <li><a href="/link/series/home.do">시리즈</a></li>
                                     <li><a href="/link/tv/home.do">TV</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="/link/logout.do">로그아웃</a></li>
+                                    <li><a class="blognav_logout_btn " href="/link/logout.do">로그아웃</a></li>
                                 </ul>
                             </li>
                             </c:if>
                             <c:if test="${empty LOGIN_USER}">
-                            <li><a class="blog-navbar-id" href="/link/loginform.do">로그인</a></li>
+                            <li><a class="blog-navbar-id blogmain_login"  href="/link/loginform.do">로그인</a></li>
                         	</c:if>
                         </ul>
                     </div>
