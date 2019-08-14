@@ -14,6 +14,7 @@ import kr.co.link.vo.BandNbbang;
 import kr.co.link.vo.BandTodo;
 import kr.co.link.vo.User;
 import kr.co.link.vo.BandVote;
+import kr.co.link.vo.BandWritePhoto;
 
 public interface BandService {
 
@@ -100,4 +101,16 @@ public interface BandService {
 	
 	// 밴드 글 불러오기
 	public List<BandHomeContent> getBandHomeWriteByBandNo(int bandNo);
+	
+	// 밴드 글 디테일 보이기
+	public Map<String, Object> bandContentDetailView(String type, int no);
+	
+	// 밴드 사진첩 출력
+	public List<BandHomeContent> getBandHomeContentPhotoByBandNo(int bandNo);
+	
+	// 밴드 사진첩 추가
+	public void addBandWritePhoto(int writeNo, String fileName, int bandNo);
+	
+	// 밴드 사진첩 출력
+	public List<BandWritePhoto> getbandWritePhotoByBandNo (int bandNo);
 }

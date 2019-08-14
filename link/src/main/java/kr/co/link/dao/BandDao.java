@@ -15,6 +15,7 @@ import kr.co.link.vo.BandLogoImg;
 import kr.co.link.vo.BandNbbang;
 import kr.co.link.vo.BandTodo;
 import kr.co.link.vo.BandVote;
+import kr.co.link.vo.BandWritePhoto;
 import kr.co.link.vo.User;
 
 @Repository
@@ -76,4 +77,14 @@ public interface BandDao {
 	public void updateNbbangByNbbNo(BandNbbang nbbang);
 	public BandNbbang getBandNbbangByNbbNo(int nbbNo);
 	public List<BandHomeContent> getBandHomeWriteByBandNo(int bandNo);
+	public BandVote getBandVoteByVoteNo(int voteNo);
+	public List<BandVote> getBandVoteItemByVoteNo(int voteNo);
+	public BandTodo getBandTodoByTodoNo(int todoNo);
+	public List<BandTodo> getBandTodoItemsByTodoNo(int todoNo);
+	public BandJoin getBandJoinByJoinNo(int joinNo);
+	public List<BandJoin> getBandJoinItemByJoinNo(int joinNo);
+	public List<BandNbbang> getBandNbbangItemByNbbNo(int nbbNo);
+	public List<BandHomeContent> getBandWriteContentImgByBandNo(int bandNo);
+	public void addBandWritePhoto(BandWritePhoto writePhoto);
+	public List<BandWritePhoto> getbandWritePhotoByBandNo(int bandNo);
 }

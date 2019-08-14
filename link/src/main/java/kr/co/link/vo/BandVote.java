@@ -13,6 +13,8 @@ public class BandVote {
 	private String currentView;
 	private String solt;
 	private Integer writeNo;
+	private Integer voteItemNo;
+	private Integer count;
 	
 	public Integer getVoteNo() {
 		return voteNo;
@@ -68,11 +70,18 @@ public class BandVote {
 	public void setHangmocSamll(String hangmocSamll) {
 		this.hangmocSamll = hangmocSamll;
 	}
-	
-	
-	
-	
-	
+	public Integer getVoteItemNo() {
+		return voteItemNo;
+	}
+	public void setVoteItemNo(Integer voteItemNo) {
+		this.voteItemNo = voteItemNo;
+	}
+	public Integer getCount() {
+		return count;
+	}
+	public void setCount(Integer count) {
+		this.count = count;
+	}
 	
 	
 }

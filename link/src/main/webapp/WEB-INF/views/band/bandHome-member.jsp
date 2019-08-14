@@ -43,6 +43,7 @@
 				</div>
 			</div>
 			<div class="row band-members-2">
+			<!-- 
 				<div class="row">
 					<div class="col-sm-2">
 						<strong>이재헌 님</strong>
@@ -74,6 +75,7 @@
 						<a href="#"><span class="glyphicon glyphicon-cog"></span></a>
 					</div>
 				</div>
+				 -->
 			</div>
 		</div>
 		<div class="row band-members-buttom">
@@ -85,3 +87,36 @@
 			</a>
 		</div>
 	</div>
+
+	<script>
+		$(function(){
+			
+			$.ajax({
+				type:'get',
+				data:{bandNo:'${param.bandNo}'},
+				dataType:'json',
+				url:'bandNbbMember.do',
+				success:function(result){
+					
+					$.each(result, function(index, item){
+						var row = '<div class="row">'
+								row += '<div class="col-sm-2">'
+								 	row += '<strong>'+item.name+' 님</strong>'
+								 row += '</div>'
+								 row += '<div class="col-sm-3">'
+								 
+								 	//row += '<img src="/link/resources/images/band_leader.PNG" />'
+								 	
+								 row += '</div>'
+									 row += '<div class="col-sm-7 text-right">'
+									 row += '<a href="#"><span class="glyphicon glyphicon-cog"></span></a>'
+								 row += '</div>'
+							 row += '</div>';
+							 
+						$('.band-members-2').append(row);	
+					})
+					$('.band-members-2 .row:first>.col-sm-3').append('<img src="/link/resources/images/band_leader.PNG" />');
+				}
+			})
+		})
+	</script>
