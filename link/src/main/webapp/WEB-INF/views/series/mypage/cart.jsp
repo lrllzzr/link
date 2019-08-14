@@ -35,9 +35,9 @@
                		<c:forEach var="cart" items="${carts }">
 						<tr>
 							<td><input type="checkbox" name="chk" value="${cart.eno }" style=""></td>
-							<td><img class="img-size" src="/link/resources/images/series/vods/${cart.img }"></td>
-							<td>${cart.vtitle }</td>
-							<td>${cart.etitle }</td>
+							<td><a href="../detail.do?vodno=${cart.vno }"><img class="img-size" src="/link/resources/images/series/vods/${cart.img }"></a></td>
+							<td><a href="../detail.do?vodno=${cart.vno }">${cart.vtitle }</a></td>
+							<td><a href="../detail.do?vodno=${cart.vno }">${cart.etitle }</a></td>
 							<td><span class="episode-price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${cart.price }"></fmt:formatNumber></span>원</td>
 							<td><button class="btn">삭제</button></td>
 						</tr>

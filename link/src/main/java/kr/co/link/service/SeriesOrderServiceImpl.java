@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.link.dao.SeriesCartDao;
 import kr.co.link.dao.SeriesEpisodeDao;
@@ -14,6 +15,7 @@ import kr.co.link.vo.SeriesEpisode;
 import kr.co.link.vo.SeriesOrder;
 import kr.co.link.vo.User;
 
+@Transactional
 @Service
 public class SeriesOrderServiceImpl implements SeriesOrderService {
 

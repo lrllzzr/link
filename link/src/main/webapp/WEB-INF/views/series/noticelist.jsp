@@ -54,7 +54,7 @@
     
     
     <div class="row text-right">
-        <a href="noticeform.do" class="btn btn-default">글쓰기</a>
+        <a href="noticeform.do" class="btn btn-default ${LOGIN_USER.id == 'admin' ? '' : 'hidden' }">글쓰기</a>
     </div>
     
     
