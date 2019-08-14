@@ -5,6 +5,7 @@
 <%@page import="java.io.File"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+
 <%
 
 //String path = "C:\\sts-bundle\\workspace\\spring-smart-editor\\src\\main\\webapp\\resources\\images"; // 이미지가 저장될 주소
@@ -43,6 +44,10 @@ if(request.getContentLength() > 10*1024*1024 ){
 			System.out.println("moveFileName : " + moveFileName);
 			
 			sourceFile.delete();
+			
+			
+			
+			
 			
 			%>
 			<form id="fileform" name="fileform" method="post">

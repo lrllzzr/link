@@ -5,6 +5,7 @@ import java.util.List;
 public class BandNbbang {
 
 	private Integer nbbNo;
+	private Integer nbbItemNo;
 	private Integer price;
 	private Integer writeNo;
 	private List<String> people;
@@ -47,7 +48,13 @@ public class BandNbbang {
 	public void setPersonCount(Integer personCount) {
 		this.personCount = personCount;
 	}
-
+	public Integer getNbbItemNo() {
+		return nbbItemNo;
+	}
+	public void setNbbItemNo(Integer nbbItemNo) {
+		this.nbbItemNo = nbbItemNo;
+	}
+	
 	@Override
 	public String toString() {
 		return "BandNbbang [nbbNo=" + nbbNo + ", price=" + price + ", writeNo=" + writeNo + ", people=" + people

@@ -104,7 +104,7 @@
 						<div class="col-sm-2"
 							style="padding-left: 0px; padding-right: 0px;">
 							<button type="button" class="btn btn-default"
-								style="width: 100%; height: 30px; font-size: 90%; color: #5c5a5a">보내기</button>
+								style="width: 100%; height: 30px; font-size: 90%; color: #5c5a5a; margin-top:15px;">보내기</button>
 						</div>
 					</div>
 				</div>
@@ -164,7 +164,7 @@
                  
                    		<input type="hidden" value="${param.bandNo }" name="bandNo">
                    		<input type="hidden" name="writeNo" value="">
-                       <button type="submit" id="addBandHomeWrite" class="btn btn-default add-new-modal">작성</button>
+                       <button type="button" id="addBandHomeWrite" class="btn btn-default add-new-modal">작성</button>
                    </div>
                </div>
           </div>
@@ -782,7 +782,7 @@
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <button type="button" class="close detail-view-close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title text-center">멤버 선택</h4>
           </div>
           <div class="modal-body">
@@ -847,7 +847,7 @@
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <button type="button" class="close detail-view-close" data-dismiss="modal">&times;</button>
             <div class="modal-title">
                 <div class="row contents-view-modal">
                     <div class="col-sm-11">
@@ -879,13 +879,14 @@
             </div>
           </div>
           <div class="modal-body">
-            <div class="row">
+            <div class="row view-detail-body">
                
                 <div class="col-sm-12 view-count">
                    <span class="">0명</span> 읽었습니다.
                 </div>
                 
                 <!--투표 뷰-->
+                <!-- 
                 <div class="modal-items">
                 
                 <div class="view-content-vote col-sm-12">
@@ -947,10 +948,12 @@
                   </div>
                 </div>
                 </div>
+                -->
                 <!--투표뷰 끝-->
                 
                 
                 <!--투두 뷰-->
+                <!-- 
                 <div class="modal-items">
                 
                 <div class="view-content-vote col-sm-12">
@@ -1010,9 +1013,11 @@
                   </div>
                 </div>
                 </div>
+                -->
                 <!--To-Do뷰 끝-->
                 
                 <!--참가신청 뷰-->
+                <!-- 
                 <div class="modal-items">
                 
                 <div class="view-content-vote col-sm-12">
@@ -1073,9 +1078,11 @@
                   </div>
                 </div>
                 </div>
+                -->
                 <!--참가신청뷰 끝-->
                 
                 <!--N빵 뷰-->
+                <!-- 
                 <div class="modal-items">
                 
                 <div class="view-content-vote col-sm-12">
@@ -1142,6 +1149,7 @@
                   </div>
                 </div>
                 </div>
+                -->
                 <!--참가신청뷰 끝-->
                 
             </div>
@@ -1381,7 +1389,7 @@
 			                		  		+'<div class="row" style="font-size: 15px;">'
 			                		  			+'<div class="col-xs-12"><span style="color:#34cc6c;font-weight: 1000;">참가 신청서</span> </div>'
 			                		  			+'<div class="col-xs-12"><strong style="font-size:19px;">'+join.title+'</strong></div>'
-			                		  			+'<div class="col-xs-12"><span style="color: #999; font-weight: 560;">'+join.startDate+'</span></div>'
+			                		  			+'<div class="col-xs-12"><span style="color: #999; font-weight: 560;">'+join.startDateStr+'</span></div>'
 			                		  		+'</div>'
 			                		  	+'</div>'
 			                		  	+'<div class="col-xs-2" style="position: relative;top: 20px;">'
@@ -1465,7 +1473,7 @@
 			                    				+'<strong style="padding-left: 15px;">'+item+' 님</strong>'
 			               					+'</div>'
 			                				+'<div class="col-sm-9 nbbang-price">'
-			                   					+'<input type="text" value="'+Math.ceil(nPrice)+' 원" class="nbbNPrice" readonly style="padding-right: 16px;">'
+			                   					+'<input type="text" value="'+addComma(Math.ceil(nPrice))+' 원" class="nbbNPrice" readonly style="padding-right: 16px;">'
 			                				+'</div>'
 			            				  +'</div>';
 								
@@ -1575,7 +1583,7 @@
 			                		  	+'<div class="col-xs-9">'
 			                		  		+'<div class="row" style="font-size: 15px;">'
 			                		  			+'<div class="col-xs-12"><span style="color:#34cc6c;font-weight: 1000;">N빵</span> </div>'
-			                		  			+'<div class="col-xs-12"><strong style="font-size:19px;">￦'+nbbang.price+' 원</strong></div>'
+			                		  			+'<div class="col-xs-12"><strong style="font-size:19px;">￦'+addComma(nbbang.price)+' 원</strong></div>'
 			                		  		+'</div>'
 			                		  	+'</div>'
 			                		  	+'<div class="col-xs-2" style="position: relative;top: 11px;">'
@@ -1629,18 +1637,291 @@
                     event.preventDefault();
                     var writeNo = $(this).attr("data-value")
                     
-                   $.('.band-contents-body .contents-view-standart').each(function(index, item){
+                   //$('.band-contents-body .contents-view-standart,.band-contents-body p').each(function(index, item){
+                	   
+                	$(this).find('.contents-view-standart, p, img').each(function(index, item){
+                	
                     	var type = $(item).attr("data-type")
-                    	var no = #(item).attr("data-no")
+                    	var no = $(item).attr("data-no")
                     	
-                    	console.log(type)
-                    	console.log(no)
-                    })
+                    	if(type == 'vote'){
+                    		
+                    		$.ajax({
+                    			type : 'get',
+                    			data : {'type':type ,'no':no},
+                    			dataType : 'json',
+                    			url : 'bandContentDetailView.do',
+                    			success : function(map){
+                    				
+                    				var row = '<div class="modal-items">'
+				                            row += '<div class="view-content-vote col-sm-12">'
+					                            row += '<div class="view-content-vote-title">'
+						                            row += '<div class="row">'
+							                            row += '<div class="col-sm-12">'
+							                            	row += '<input type="hidden" name="vote-doing-no" vlaue="'+map.main.voteNo+'"/>'
+							                          	  	row += '<img src="/link/resources/images/active_vote.PNG"> <span>투표중</span> 0명 참여'
+							                            row += '</div>'
+							                            row += '<div class="col-sm-12">'
+							                            	row += '<strong>'+map.main.title+'</strong>'
+							                            row += '</div>'
+							                            row += '<div class="col-sm-12">'
+							                            
+							                            if(map.main.MultipleYn == 'Y'){
+							                            	row += '복수선택이 가능합니다.'
+							                            }
+							                            if(map.main.MultipleYn == 'N'){
+							                            	row += '복수선택이 안됩니다..'
+							                            }
+							                            
+							                            row += '</div>'
+						                            row += '</div>'
+					                            row += '</div>'
+					                            row += '<div class="view-content-vote-body">'
+						                            row += '<div class="row">'
+							                            row += '<div class="col-sm-12">'
+
+							                            if(map.main.multipleYn == 'Y'){
+							                            	$.each(map.sub, function(index, item){
+																
+																row += '<div class="row">'
+										                            row += '<div class="col-sm-2">'
+										                            	row += '<input type="checkbox" value="'+item.voteItemNo+'" class="doing-vote-click"/>'
+										                            row += '</div>'
+										                            row += '<div class="col-sm-10">'
+										                            	row += item.hangmocSamll
+										                            row += '</div>'
+									                            row += '</div>'
+								                            	row += '<hr/>'
+								                            	
+															})
+							                            }
+							                            if(map.main.multipleYn == 'N'){
+															$.each(map.sub, function(index, item){
+																
+																row += '<div class="row">'
+										                            row += '<div class="col-sm-2">'
+										                            	row += '<input type="radio" value="'+item.voteItemNo+'" class="doing-vote-click"/>'
+										                            row += '</div>'
+										                            row += '<div class="col-sm-10">'
+										                            	row += item.hangmocSamll
+										                            row += '</div>'
+									                            row += '</div>'
+								                            	row += '<hr/>'
+								                            	
+															})
+							                            }
+								                            
+								                            row += '<div class="row view-content-vote-footer">'
+									                            row += '<div class="col-sm-12 text-center">'
+									                            	row += '<button type="button" class="btn btn-default doing-vote-end">종료</button>'
+									                            row += '</div>'
+								                            row += '</div>'
+						                          	  row += '</div>'
+					                          	  row += '</div>'
+				                            row += '</div>'
+				                            row += '</div>'
+			                            row += '</div>';
+			                            
+			                            $('.view-detail-body').append(row);
+	                    			}
+	                    		})
+	                    	}
+	                    	if(type == 'todo'){
+	                    		
+	                    		$.ajax({
+	                    			type : 'get',
+	                    			data : {'type':type ,'no':no},
+	                    			dataType : 'json',
+	                    			url : 'bandContentDetailView.do',
+	                    			success : function(map){
+	                    				
+	                                    var row = '<div class="modal-items">'
+	                                    
+	                                    row +='<div class="view-content-vote col-sm-12">'
+	                                      
+	                                    	row +='<div class="view-content-vote-title">'
+		                                    	row +='<div class="row">'
+			                                    	row +='<div class="col-sm-12">'
+			                                    		row += '<input type="hidden" name="todo-doing-no" vlaue="'+map.main.todoNo+'"/>'
+			                                    		row +='<img src="/link/resources/images/active_todo.PNG"> <span>To-Do</span> 1/3개 완료'
+			                                    	row +='</div>'
+			                                    	row +='<div class="col-sm-12">'
+			                                    		row +='<strong>"'+map.main.title+'"</strong>'
+			                                    	row +='</div>'
+			                                    	row +='<div class="col-sm-12" style="color: #34cc6c;">'
+			                                    		row +='참여가 마감되었습니다.'
+			                                    	row +='</div>'
+		                                    	row +='</div>'
+	                                		row +='</div>'
+	                                      
+	                                    	row +='<div class="view-content-vote-body">'
+		                                    	row +='<div class="row">'
+			                                    	row +='<div class="col-sm-12">'
+			
+				                                    	$.each(map.sub, function(index, item){
+					                                    	row +='<div class="row">'
+						                                    	row +='<div class="col-sm-2">'
+						                                    		row +='<input type="checkbox" value="'+item.todoItemNo+'" class="doing-todo-click"/>'
+						                                    	row +='</div>'
+						                                    	row +='<div class="col-sm-10">'
+						                                    		row += item.hangmocSmall
+						                                    	row +='</div>'
+					                                    	row +='</div>'
+					                                    	row +='<hr/>'
+				                                    	})          
+				                                                  
+				                                        row +='<div class="row view-content-vote-footer">'
+				                                                      
+				                                        row +='</div>'
+			                                        row +='</div>'
+		                                        row +='</div>'
+	                                        row +='</div>'
+	                                        row +='</div>'
+	                                        row +='</div>'
+	                                    
+	                            	$('.view-detail-body').append(row);
+	                    		}
+	                    	})
+	                   	 }
+                    	if(type == 'join'){
+                    		
+                    		$.ajax({
+                    			type : 'get',
+                    			data : {'type':type ,'no':no},
+                    			dataType : 'json',
+                    			url : 'bandContentDetailView.do',
+                    			success : function(map){
+                    				
+                    				var row = '<div class="modal-items">'
+	                                    row +='<div class="view-content-vote col-sm-12">'
+	                                    row +='<div class="view-content-vote-title">'
+		                                    row +='<div class="row">'
+			                                    row +='<div class="col-sm-12">'
+			                                    	row += '<input type="hidden" name="join-doing-no" vlaue="'+map.main.JoinNo+'"/>'
+			                                    	row +='<img src="/link/resources/images/active_join.PNG"> <span>참가 신청서</span>'
+			                                    row +='</div>'
+			                                    row +='<div class="col-sm-12">'
+			                                    	row +='<strong style="font-size: 20px;">'+map.main.title+'</strong>'
+			                                    row +='</div>'
+		                                    row +='</div>'
+	                                    row +='</div>'
+	                                      
+	                                    row +='<div class="view-content-vote-body">'
+	                                    row +='<div class="row">'
+		                                    row +='<div class="col-sm-12" style="padding: 10px 0px 14px 25px;">'
+		                                    	row +='<strong>'+map.main.startDateStr+'</strong>'
+		                                    row +='</div>'
+	                                    row +='<div class="col-sm-12">'
+	                                    
+	                                    $.each(map.sub, function(index, item){
+		                                    row +='<div class="row">'
+			                                    row +='<div class="col-sm-2">'
+			                                    	row +='<input type="checkbox" value="'+item.joinItemNo+'" class="doing-join-click"/>'
+			                                    row +='</div>'
+			                                    row +='<div class="col-sm-10">'
+			                                    	row +=item.hangmocSmall
+			                                    row +='</div>'
+		                                    row +='</div>'
+		                                    row +='<hr/>'
+	                                    })
+	                                    
+	                                    row +='<div class="row view-content-vote-footer">'
+	                                    row +='</div>'
+	                                    row +='</div>'
+	                                    row +='</div>'
+	                                    row +='</div>'
+	                                    row +='</div>'
+	                                    row +='</div>'
+	                                    
+	                                    $('.view-detail-body').append(row);
+                    			}
+                    		})
+                    
+                   		}
+                    	if(type == 'nbb'){
+                    		
+                    		$.ajax({
+                    			type : 'get',
+                    			data : {'type':type ,'no':no},
+                    			dataType : 'json',
+                    			url : 'bandContentDetailView.do',
+                    			success : function(map){
+                    			
+                    				var row ='<div class="modal-items">'
+	                                    	row +='<div class="view-content-vote col-sm-12">'
+		                                    	row +='<div class="view-content-vote-title">'
+			                                    	row +='<div class="row">'
+				                                    	row +='<div class="col-sm-12">'
+				                                    		row += '<input type="hidden" name="nbb-doing-no" vlaue="'+map.main.nbbNo+'"/>'
+				                                    		row +='<img src="/link/resources/images/active_nbbang.PNG"> <span>N빵</span> 0명 냈음'
+				                                    	row +='</div>'
+				                                    	row +='<div class="col-sm-12">'
+				                                    		row +='<strong style="font-size: 20px;"> ￦ '+addComma(map.main.price)+'</strong> / '+map.main.personCount+'명'
+				                                    	row +='</div>'
+			                                    	row +='</div>'
+		                                    	row +='</div>'
+		                                    	row +='<div class="view-content-vote-body">'
+			                                    	row +='<div class="row">'
+			                                    	row +='<div class="col-sm-12">'
+			                                    	
+			                                    		$.each(map.sub, function(index, item){
+			                                    			
+					                                    	row +='<div class="row">'
+						                                    	row +='<div class="col-sm-3">'
+						                                        	row +='<strong>'+item.person+' 님</strong>'
+						                                        row +='</div>'
+						                                        row +='<div class="col-sm-8">'
+						                                        	row +='￦ '+addComma(map.main.price / map.main.personCount)+' 원'
+						                                        row +='</div>'
+						                                        row +='<div class="col-sm-1 text-right">'
+						                                        	row +='<input type="checkbox" value="'+item.nbbItemNo+'" class="doing-nbb-click"/>'
+						                                        row +='</div>'
+					                                        row +='</div>'
+				                                        
+			                                    		})      
+			                                                 
+			                                        row +='<hr/>'
+				                                        row +='<div class="row view-content-vote-footer">'
+				                                        row +='</div>'
+			                                        row +='</div>'
+		                                        row +='</div>'
+	                                        row +='</div>'
+                                        row +='</div>'
+                                        row +='</div>'
+                                        
+                                        $('.view-detail-body').append(row);
+                    			}
+                    		})
+                    	}
+                    	if (item.tagName == 'P') {
+                    		$('.view-detail-body').append($(item).clone());
+                    	} 
+                    	
+                    	if ($(item).attr("src") && $(item).attr("src").startsWith('/link/resources/images/bandUploadImg/')) {
+                    		var imgpath = $(item).attr("src");
+                    		if ($('.view-detail-body img[src="'+imgpath+'"]').length == 0) {
+	                    		$('.view-detail-body').append($(item).clone());
+                    		}
+                    	}
+                    	/* 
+                    	if ($(item).startsWith('<img src="/link/resources/images/bandUploadImg/')) {
+							console.log(item)                    		
+                    	} */
+                    	
+                   })
+                   
+                   
                     $('#view_contents').modal('show');
-                    
-                    
                 });
                     
+                /* 밴드 디테일 닫기 뷰 클릭시 */
+               $('#view_contents').on('click','.detail-view-close', function(){
+            	   
+                	$('.view-detail-body .modal-items').remove();
+                	$('.view-detail-body p').remove();
+                	$('.view-detail-body img').remove();
+                })
+                
                 
                 /*이중모달 가능하게하는 소스*/
                 $(document).on('hidden.bs.modal', function (event) {
@@ -1671,7 +1952,12 @@
 	      	   $("#addBandHomeWrite").click(function(){	// 버튼 아이디
 	       	     submitContents();
 	       	  })
-	            
+	       	  
+	       	  // 숫자 포멧 하는 스크립트
+	            function addComma(num) {
+				  var regexp = /\B(?=(\d{3})+(?!\d))/g;
+				  return num.toString().replace(regexp, ',');
+				}
 	            
 	            //‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
 	            function submitContents(elClickedObj) {

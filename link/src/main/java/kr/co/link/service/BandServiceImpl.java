@@ -18,6 +18,7 @@ import kr.co.link.vo.BandLogoImg;
 import kr.co.link.vo.BandNbbang;
 import kr.co.link.vo.BandTodo;
 import kr.co.link.vo.BandVote;
+import kr.co.link.vo.BandWritePhoto;
 import kr.co.link.vo.User;
 @Service
 public class BandServiceImpl implements BandService{
@@ -355,5 +356,63 @@ public class BandServiceImpl implements BandService{
 	@Override	// 밴드 홈에서 글불러오기
 	public List<BandHomeContent> getBandHomeWriteByBandNo(int bandNo) {
 		return bandDao.getBandHomeWriteByBandNo(bandNo);
+	}
+	
+	@Override	// 밴드 디테일 가져오기
+	public Map<String, Object> bandContentDetailView(String type, int no) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(type.equals("vote")) {
+			BandVote vote = bandDao.getBandVoteByVoteNo(no);
+			List<BandVote> voteItems = bandDao.getBandVoteItemByVoteNo(no);
+			
+			map.put("main", vote);
+			map.put("sub", voteItems);
+			
+		} else if(type.equals("todo")) {
+			BandTodo todo = bandDao.getBandTodoByTodoNo(no);
+			List<BandTodo> todoItems = bandDao.getBandTodoItemsByTodoNo(no);
+			
+			map.put("main", todo);
+			map.put("sub", todoItems);
+		
+		} else if(type.equals("join")) {
+			BandJoin join = bandDao.getBandJoinByJoinNo(no);
+			List<BandJoin> joinItems = bandDao.getBandJoinItemByJoinNo(no);
+			
+			map.put("main", join);
+			map.put("sub", joinItems);
+		
+		} else if(type.equals("nbb")) {
+			BandNbbang nbb = bandDao.getBandNbbangByNbbNo(no);
+			List<BandNbbang> nbbItem = bandDao.getBandNbbangItemByNbbNo(no);
+			nbb.setPersonCount(bandDao.getNbbangItemsCountByNbbNo(no));
+			
+			map.put("main", nbb);
+			map.put("sub", nbbItem);
+		}
+		
+		
+		return map;
+	}
+	
+	@Override
+	public List<BandHomeContent> getBandHomeContentPhotoByBandNo(int bandNo) {
+		return bandDao.getBandWriteContentImgByBandNo(bandNo);
+	}
+	
+	@Override
+	public void addBandWritePhoto(int writeNo, String fileName, int bandNo) {
+		BandWritePhoto writePhoto = new BandWritePhoto();
+		writePhoto.setWriteNo(writeNo);
+		writePhoto.setPhotoName(fileName);
+		writePhoto.setBandNo(bandNo);
+		
+		bandDao.addBandWritePhoto(writePhoto);
+	}
+	
+	@Override
+	public List<BandWritePhoto> getbandWritePhotoByBandNo(int bandNo) {
+		return bandDao.getbandWritePhotoByBandNo(bandNo);
 	}
 }
