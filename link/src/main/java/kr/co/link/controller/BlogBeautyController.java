@@ -2,6 +2,7 @@ package kr.co.link.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -399,7 +400,7 @@ public class BlogBeautyController {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		// 내 블로그 얻어오기
 		Blog blog = blogservice.getBlogByUserId(user.getId());
-		List<Map<String, Object>> blogNeighbors = blogNeighborService.getNeighborIAdd(blog.getNo());
+		List<Map<String, Object>> blogNeighbors = blogNeighborService.getNeighborAddMe(blog.getNo());
 		model.addAttribute("blogNeighbors",blogNeighbors);
 		// 추가한 이웃 파랗게
 		model.addAttribute("left","addMeNeighbor");
@@ -439,7 +440,6 @@ public class BlogBeautyController {
 		}
 		return "redirect:manageNeighbor.do";
 	}
-	
 	@RequestMapping(value="manageComment.do", method = RequestMethod.GET)
 	public String manageComment(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("LOGIN_USER");
@@ -447,8 +447,13 @@ public class BlogBeautyController {
 		Blog blog = blogservice.getBlogByUserId(user.getId());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("myBlogNo", blog.getNo());
-		map.put("myUserId", user.getId());
 		List<Map<String, Object>> blogComments = blogBoardService.getBoardCommentsInMyBlog(map);
+		for(Map<String, Object> blogComment : blogComments) {
+			Date date = (Date) blogComment.get("CREATEDATE");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String sDate = sdf.format(date);
+			blogComment.put("CREATEDATE", sDate);
+		}
 		model.addAttribute("blogComments",blogComments);
 		// 이웃 관리 파랗게
 		model.addAttribute("left3","manageComment");
@@ -456,6 +461,18 @@ public class BlogBeautyController {
 		model.addAttribute("column","menu");
 		
 		return "blog/category/manageComment";
+	}
+
+@RequestMapping(value="manageComment.do", method = RequestMethod.POST)
+	public String manageCommentApply(HttpSession session, Model model,
+			String commentNo) {
+		// 블로그 얻어오기
+		String[] commentNums = commentNo.split(",");
+		for(int i=0; i<commentNums.length; i++) {
+			int commentNum = Integer.parseInt(commentNums[i]);
+			blogBoardService.deleteBoardComment(commentNum);
+		}
+		return "redirect:manageComment.do";
 	}
 	
 }
