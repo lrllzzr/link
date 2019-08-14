@@ -57,7 +57,7 @@ public class TvhomeController {
 		List<Tv> likes = tvService.getVideoLikes();
 		List<Tv> recents = tvService.getVideoRecent();
 		
-		model.addAttribute("tvs", tvs);
+		model.addAttribute("tvs", tvs);  
 		model.addAttribute("likes", likes);
 		model.addAttribute("recents", recents);
 		
