@@ -31,13 +31,15 @@ import kr.co.link.vo.User;
 public class AccountBookController {
 	@Autowired
 	private AccountBookTermService accountbookService;
-
+	public void setMenu(Model model) {
+		model.addAttribute("navMenu","account");
+	}
 	/***** 가계부 *****/
 
 		/*** 모달 ***/
 		@RequestMapping(value = "/modal.do", method = RequestMethod.POST)
 		public String addTerm(HttpSession session, Model model,AccountBookExpenseForm form ) {
-			
+			setMenu(model);
 			User user = (User) session.getAttribute("LOGIN_USER");
 
 			//지출
@@ -88,7 +90,7 @@ public class AccountBookController {
 		/*** 지출 내역 추가 ***/
 		@RequestMapping(value = "/expense.do", method = RequestMethod.POST) 				
 		public String addExpense(HttpSession session, Model model, AccountBookExpenseForm form) {
-	
+			setMenu(model);
 			User user = (User) session.getAttribute("LOGIN_USER");
 	
 			AccountBookTerm term = new AccountBookTerm(); /* 지출.수입 vo */
@@ -117,7 +119,7 @@ public class AccountBookController {
 		/*** 수입 내역 추가 ***/
 		@RequestMapping(value = "/income.do", method = RequestMethod.POST)
 		public String income(Model model, HttpSession session, AccountBookIncomeForm form) {
-	
+			setMenu(model);
 			User user = (User) session.getAttribute("LOGIN_USER");
 	
 			AccountBookTerm term = new AccountBookTerm();
@@ -146,7 +148,6 @@ public class AccountBookController {
 		@RequestMapping(value = "/delexpense.do",method =RequestMethod.POST)
 		public String deleteExpense(HttpSession session, int[] termNos) {
 			User user = (User)session.getAttribute("LOGIN_USER");
-			
 			accountbookService.deleteTerm(termNos);
 			
 			return "redirect:expense.do";
@@ -167,7 +168,6 @@ public class AccountBookController {
 		public String deleteAllIncome(HttpSession session, int[] termNos) {
 			User user = (User)session.getAttribute("LOGIN_USER");
 			
-			
 			accountbookService.deleteTerm(termNos);
 		
 			return "redirect:income.do";
@@ -177,7 +177,6 @@ public class AccountBookController {
 		public String deleteIncome(HttpSession session, int[] termNos) {
 			User user = (User)session.getAttribute("LOGIN_USER");
 			
-			
 		accountbookService.deleteAllIncome();
 			
 			return "redirect:income.do";
@@ -186,7 +185,7 @@ public class AccountBookController {
 		/*** 지출 내역 조회 ***/
 		@RequestMapping(value = "/expense.do", method = RequestMethod.GET)
 		public String expenseList(Model model, HttpSession session, String userId) {
-			
+			setMenu(model);
 			User user = (User) session.getAttribute("LOGIN_USER");
 			userId = user.getId();
 			
@@ -219,7 +218,7 @@ public class AccountBookController {
 		/*** 수입 내역 조회 ***/
 		@RequestMapping(value = "/income.do")
 		public String incomeList(Model model, HttpSession session, String userId) {
-	
+			setMenu(model);
 			User user = (User) session.getAttribute("LOGIN_USER");
 			userId = user.getId();
 	
@@ -255,7 +254,7 @@ public class AccountBookController {
 									Model model, 
 									HttpSession session,
 									String userId) {
-			
+			setMenu(model);
 			User user = (User) session.getAttribute("LOGIN_USER");
 
 			/*월간 지출 수입 총금액*/
@@ -284,7 +283,7 @@ public class AccountBookController {
 									HttpSession session,
 									String userId) {
 			
-			
+			setMenu(model);
 			User user = (User) session.getAttribute("LOGIN_USER");
 
 			/*연간 지출 수입 총금액*/
@@ -309,7 +308,7 @@ public class AccountBookController {
 	
 		@RequestMapping(value = "/analysis.do") /* 지출분석 */
 		public String analysis(String userId, Model model, HttpSession session) {
-			
+			setMenu(model);
 			
 			User user = (User) session.getAttribute("LOGIN_USER");
 			userId = user.getId();
