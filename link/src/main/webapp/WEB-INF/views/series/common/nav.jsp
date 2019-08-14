@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<script src="/link/resources/js/returnUrl.js"></script>
     <link rel="stylesheet" href="/link/resources/css/series/series.css">
     <link rel="stylesheet" href="/link/resources/css/main.css">
 
@@ -28,7 +28,7 @@
                     <div class="series-navbar-right collapse navbar-collapse navbar-right">
                         <ul class="nav navbar-nav">
 							<c:if test="${empty LOGIN_USER }">
-								<li class="seriesmain_login_li"><a class="seriesmain_login" style="background-color:#649dfa; color: white;" href="/link/loginform.do">로그인 </a></li>
+								<li class="seriesmain_login_li"><a class="seriesmain_login blogmain_login" style="background-color:#649dfa; color: white;" href="/link/loginform.do">로그인 </a></li>
 							</c:if>
 							<c:if test="${not empty LOGIN_USER }">
 									 <li class="dropdown">
@@ -47,7 +47,7 @@
 			                                    <li><a href="/link/jisikin/main.do">지식인</a></li>
 			                                    <li><a href="/link/tv/home.do">TV</a></li>
 		                                    	<li class="divider"></li>
-		                                   	<li><a href="/link/logout.do">로그아웃</a></li>
+		                                   	<li><a class="blognav_logout_btn" href="/link/logout.do">로그아웃</a></li>
 		                                </ul>
 		                            </li>
                             </c:if>
@@ -63,7 +63,7 @@
     <nav class="navbar navbar-default">
       <div class="container">
           <div class="navbar-header">
-              <a class="navbar-brand" href="home.do">Link</a>
+              <a class="navbar-brand" href="home.do">시리즈</a>
           </div>
           <ul class="nav navbar-nav">
               <li class="${menu eq 'home' ? 'active' : ''}"><a href="/link/series/home.do">방송 홈</a></li>
@@ -77,3 +77,4 @@
           </div>
       </div>
     </nav>
+    <script src="/link/resources/js/returnUrl.js"></script>
