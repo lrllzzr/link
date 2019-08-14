@@ -3,7 +3,6 @@
 
 <body>
 	<%@include file="../../common/nav.jsp"%>
-	<%@include file="../../common/blog/blogtitle.jsp"%>
 	<div class="container blog_detail_con">
 		<div class="row">
 			<!--  헤더 시작         -->

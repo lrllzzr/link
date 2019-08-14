@@ -273,12 +273,12 @@
         <div class="row">
             <div>
                 <ul class="tv-side-menubar">
-                    <li class="tv-side-menu" onclick="location.href='home.do'">홈</li>
+                   <li class="tv-side-menu" onclick="location.href='home.do'">홈</li>
                    <li class="tv-side-menu" onclick="location.href='rank.do?category=best'">인기</li>
-                   <li class="tv-side-menu" onclick="location.href='history.do?sort=recent'">최근 본 동영상</li>
-                   <li class="tv-side-menu" onclick="location.href='history.do?sort=later'">나중에 볼 동영상</li>
-                   <li class="tv-side-menu" onclick="location.href='history.do?sort=like'">좋아요 한 동영상</li>
-                   <li class="tv-side-menu" onclick="location.href='mychannel.do'">내 채널 가기</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="history.do?sort=recent">최근 본 동영상</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="history.do?sort=later">나중에 볼 동영상</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="history.do?sort=like">좋아요 한 동영상</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="mychannel.do">내 채널 가기</li>
                 </ul>
             </div>
 
@@ -466,6 +466,21 @@
         	}
 			
 		})
+		
+		$(".chk-user").on("click", function () {
+	 
+	 var url = $(this).attr('data-url');
+	 var login = $(this).attr('data-login');
+	 
+	 if (login == 'Y') {
+		 location.href = url;
+	 } else {
+		 var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?")
+		 	if(YN){
+				 location.href = url;
+		 	}
+	 }
+	});
         
        	
        

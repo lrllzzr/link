@@ -9,14 +9,8 @@ public class BlogBoard {
 	private String createDate;
 	private Integer categoryNo;
 	private String mainImg;
-	private Integer commentsCount;
 	
-	public Integer getCommentsCount() {
-		return commentsCount;
-	}
-	public void setCommentsCount(Integer commentsCount) {
-		this.commentsCount = commentsCount;
-	}
+	
 	public String getMainImg() {
 		return mainImg;
 	}

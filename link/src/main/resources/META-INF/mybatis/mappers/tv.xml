@@ -6,7 +6,7 @@
   <mapper namespace="kr.co.link.dao.TvDao">
   <!-- 탑20 재생수 높은순으로 20개 뽑기  -->
  <select id="getVideoTop20" resultType="tv">
-	select 
+	select   
 		tv_no no, 
 		TV_TITLE title, 
 		TV_CONTENTS contents, 
@@ -223,10 +223,10 @@
 				to_char(create_date,'YYYYMMDD') > to_char((sysdate-30) ,'YYYYMMDD')
 			</when>
 			<when test="opt == 'best'">
-				tv_views > 20
+				tv_views > 1
 			</when>
 			<when test="opt == 'suggest'">
-				likes > 10
+				likes > 1
 			</when>
 		</choose>
 	</where>
@@ -486,8 +486,4 @@ order by CREATE_DATE desc
 	where 
 		tv_no =#{no}
 </update>
-
-
-
-
  </mapper>

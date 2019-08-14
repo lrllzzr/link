@@ -23,5 +23,7 @@ public interface TvDao {
 	public Tv getVideoDetailByNo(int vno);
 	public List<Tv> getPlaylistByNo(int vno);
 	public void updateVideo(Tv tv);
+	public int getCountLikeById(Map<String, Object> info);	
+	public int getCountByLike(int vno);
 	
 }

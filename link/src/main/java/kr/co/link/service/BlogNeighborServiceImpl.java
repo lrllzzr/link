@@ -82,9 +82,5 @@ public class BlogNeighborServiceImpl implements BlogNeighborService{
 	public Integer getPaginationByMapRows(Integer myBlogNo) {
 		return blogNeighborDao.getPaginationByMapRows(myBlogNo);
 	}
-	@Override
-	public List<Map<String, Object>> getMeApplyingNeighborNoByBlogNo(Map<String, Object> map) {
-		return blogNeighborDao.getMeApplyingNeighborNoByBlogNo(map);
-	}
 	
 }

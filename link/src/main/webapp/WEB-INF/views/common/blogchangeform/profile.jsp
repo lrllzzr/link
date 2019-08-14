@@ -27,9 +27,6 @@
 			class="glyphicon glyphicon-cog blog-detail-function2"
 		></span>&nbsp;관리,통계</a>
 	</div>
-	<div class="col-sm-8 col-sm-offset-2 blog_detail_neighborplus text-center">
-		<a href="manageNeighbor.do"><span class="blog_detail_plus2">이웃 관리</span></a>
-	</div>
 </c:if>
 <c:if test="${isMyBlog eq 'others' }">
 	<!-- 이웃이 아니면  -->
@@ -41,7 +38,7 @@
 	<!-- 이웃이면  -->
 	<c:if test="${isNeighbor eq 'Y' }">
 		<div class="col-sm-8 col-sm-offset-2 blog_detail_neighborplus text-center">
-			<a href="manageNeighbor.do"><span class="blog_detail_plus2">이웃</span></a>
+			<a href=""><span class="blog_detail_plus2">이웃</span></a>
 		</div>
 	</c:if>
 	

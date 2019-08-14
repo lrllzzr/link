@@ -46,20 +46,21 @@
 					<div class="col-sm-12">
 						<ul class="nav nav-tabs blog_nav_tabs">
 							<li role="presentation" class="active"><a href="#">이웃목록</a></li>
+							<li role="presentation"><a href="#">추천이웃</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-12">
-						<c:if test="${not empty blogNeighbors}">
+						
 							<table class="table blog_table">
 								<colgroup>
-									<col width="30%">
-									<col width="30%">
+									<col width="25%">
+									<col width="35%">
 									<col width="20%">
 									<col width="20%">
 								</colgroup>
 								<thead>
 									<tr>
-										<th class="text-center">유저아이디</th>
+										<th></th>
 										<th class="text-center">블로그명</th>
 										<th class="text-center">추가일</th>
 										<th class="text-center">관리</th>
@@ -71,7 +72,7 @@
 										<tr>
 											<td>
 												<input type="checkbox" name="neighborBlogNo" value="${neighbor.NO }"/>
-												<a href="detail.do?blogNo=${neighbor.NO }"><img style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;" src="/link/resources/images/${neighbor.MAINIMG }"/> ${neighbor.NICKNAME }(${neighbor.USERID  })</a>
+												<a href="detail.do?blogNo=${neighbor.NO }">${neighbor.NICKNAME }(${neighbor.USERID  })</a>
 											</td>
 											<td class="text-center">${neighbor.TITLE }</td>
 											<td class="text-center">
@@ -91,12 +92,7 @@
 									</tr>
 								</tbody>
 							</table>
-						</c:if>
-						<c:if test="${empty blogNeighbors }">
-							<p class="text-center" style="padding:60px 60px 0px 60px;">
-								이웃이 없습니다.
-							</p>
-						</c:if>
+						
 					</div>
 				</div>
 			</div>

@@ -3,7 +3,7 @@ package kr.co.link.vo;
 public class TvCommentLikes {
 
 	private Integer no;
-	private String stasus;
+	private String status;
 	private TvComments tvComments;
 	private User user;
 	
@@ -23,11 +23,11 @@ public class TvCommentLikes {
 	public void setNo(Integer no) {
 		this.no = no;
 	}
-	public String getStasus() {
-		return stasus;
+	public String getStatus() {
+		return status;
 	}
-	public void setStasus(String stasus) {
-		this.stasus = stasus;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	public TvComments getTvComments() {
 		return tvComments;
