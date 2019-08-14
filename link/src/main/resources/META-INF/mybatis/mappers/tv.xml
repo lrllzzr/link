@@ -6,7 +6,7 @@
   <mapper namespace="kr.co.link.dao.TvDao">
   <!-- 탑20 재생수 높은순으로 20개 뽑기  -->
  <select id="getVideoTop20" resultType="tv">
-	select 
+	select   
 		tv_no no, 
 		TV_TITLE title, 
 		TV_CONTENTS contents, 
