@@ -42,10 +42,6 @@
                             <li><a class="blog-navbar-id" href="/link/loginform.do">로그인</a></li>
                         	</c:if>
                         </ul>
-                        <c:if test="${not empty LOGIN_USER}">
-                        <div class="bell"><a href=""><span class="glyphicon glyphicon-bell"></span></a></div>
-                        <div class="envelope"><a href=""><span class="glyphicon glyphicon-envelope"></span></a></div>
-                        </c:if>
                     </div>
                 </div>
             </div>

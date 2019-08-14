@@ -8,20 +8,15 @@
 <html>
 <head>
 <title>Link : TV 메인</title>
-<link rel="shortcut icon" type="image/x-icon"
-	href="../../../resources/images/shortcut-icon.PNG">
+<link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" type="image/x-icon"
-	href="/mj/kurly/images/header_footer/tab-logo02.png">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-	<script src="/link/resources/js/jquery.timeago.js"></script>
-    <script src="/link/resources/js/jquery.timeago.ko.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="shortcut icon" type="image/x-icon" href="/mj/kurly/images/header_footer/tab-logo02.png">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="/link/resources/js/jquery.timeago.js"></script>
+<script src="/link/resources/js/jquery.timeago.ko.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <style>
 .navbar-nav>li>a:hover, .navbar-nav>li>a {
@@ -275,7 +270,9 @@ ul, li {
 
 .comment-tumbsup {
 	display: inline-block;
-	margin-left: 720px;
+	float: right;
+	margin-left: 20px;
+	margin-right: 20px;
 	padding: 2px;
 	border: 1px dashed gray;
 	cursor: pointer;
@@ -283,7 +280,8 @@ ul, li {
 
 .comment-tumbsdown {
 	display: inline-block;
-	margin-left: 20px;
+	float: right;
+	margin-right: 20px;
 	padding: 2px;
 	border: 1px dashed gray;
 	cursor: pointer;
@@ -402,17 +400,17 @@ ul, li {
 	                                <label>${comment.USERID }</label>
 	                                <div>${comment.CONTENTS }</div>
 	                                <span style="color: gray">등록일 :</span> <span class="tg" style="color: gray">${comment.CREATEDATE }</span>
-	                                <div class="comment-tumbsup ${comment.STATUS eq 'Y' ? 'likeYnOn' : '' }">
-	                                    <span class="glyphicon glyphicon-thumbs-up" data-login="${not empty LOGIN_USER ? 'Y' : 'N'}">좋아요</span><em>${comment.LIKECNT }</em>
-	                                </div>
 	                                <div class="comment-tumbsdown ${comment.STATUS eq 'N' ? 'likeYnOn' : '' }">
-	                                    <span class="glyphicon glyphicon-thumbs-down" data-login="${not empty LOGIN_USER ? 'Y' : 'N'}">싫어요</span><em>${comment.HATECNT }</em>
+	                                    <span class="glyphicon glyphicon-thumbs-down" data-cno="${comment.NO }" data-status="${comment.STATUS eq 'N' ? 'N' : '' }"  data-login="${not empty LOGIN_USER ? 'Y' : 'N'}">싫어요</span><em class="hates-${comment.NO }">${comment.HATECNT }</em>
+	                                </div>
+	                                <div class="comment-tumbsup ${comment.STATUS eq 'Y' ? 'likeYnOn' : '' }">
+	                                    <span class="glyphicon glyphicon-thumbs-up"  data-cno="${comment.NO }"data-status="${comment.STATUS eq 'Y' ? 'Y' : ''}" data-login="${not empty LOGIN_USER ? 'Y' : 'N'}">좋아요</span><em class="likes-${comment.NO }">${comment.LIKECNT }</em>
 	                                </div>
 	                            </div>
                             </c:forEach>
 
                         </div>
-                    </div>
+                    </div>	
                 </div>
             </div>
             <div>
@@ -688,27 +686,89 @@ ul, li {
 		
 	// 댓글의 좋아요 싫어요 ajax
 	
-		$(".glyphicon-thumbs-up, .glyphicon-thumbs-down").on("click", function () {
+		$(".glyphicon-thumbs-up").on("click", function () {
 			 
 			var login = $(this).attr("data-login");
+			var status= $(this).attr("data-status");
+			var cno = $(this).attr("data-cno");
+			var hate = $(this).parent().prev().first().children().first().attr("data-status");
 			
 			if(login == 'N'){
 				var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
 				if(YN){
-					location.href="/link/loginform.do?returnUrl=tv/detail.do?position=cmt&vno=${param.vno}";
+					location.href="/link/loginform.do?returnUrl=tv/detail.do?vno=${param.vno}";
 				}
 			}
 			
 			if(login == 'Y'){
+				
+				if(status == 'Y'){
+					$(this).parent().removeClass("likeYnOn");
+					$(this).attr("data-status", '');
+				}
+				if(status == ''){
+					$(this).parent().addClass("likeYnOn"); 
+					$(this).attr("data-status", 'Y');
+					$(this).parent().prev().first().children().first().attr("data-status",'');
+					$(this).parent().prev().first().removeClass("likeYnOn");
+				}
+				
 				$.ajax({
 					type:"POST",
 					url:"addCommentLike.do",
-					data:{"vno":vno, "status":status},
-					dataType:"text",
+					data:{"cno":cno, "status":status, "hate": hate},
+					dataType:"json",
 					success:function(result){
-						console.log(result);
-						$(this).next().text();
+						$(".likes-"+cno).text(result.LIKES);
+						$(".hates-"+cno).text(result.HATES);
+
+					}
+				}) 
+			}
+		})
+		
+		
+		// 댓글 싫어요 /취소
+		
+		$(".glyphicon-thumbs-down").on("click", function () {
+			 
+			var login = $(this).attr("data-login");
+			var status= $(this).attr("data-status");
+			var cno = $(this).attr("data-cno");
+			var like = $(this).parent().next().first().children().first().attr("data-status");
+			console.log(status);
+			console.log(cno);
+			console.log(like);
+			if(login == 'N'){
+				var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+				if(YN){
+					location.href="/link/loginform.do?returnUrl=tv/detail.do?vno=${param.vno}";
+				}
+			}
+			
+			if(login == 'Y'){
+				
+				if(status == 'N'){
+					$(this).parent().removeClass("likeYnOn");
+					$(this).attr("data-status", '');
+				}
+				if(status == ''){
+					$(this).parent().addClass("likeYnOn"); 
+					$(this).attr("data-status", 'N');
+					 $(this).parent().next().first().children().first().attr("data-status",'');
+					$(this).parent().next().first().removeClass("likeYnOn");
 					
+				}
+				
+				$.ajax({
+					type:"POST",
+					url:"addCommentHate.do",
+					data:{"cno":cno, "status":status, "like":like},
+					dataType:"json",
+					success:function(result){
+						$(".likes-"+cno).text(result.LIKES);
+						$(".hates-"+cno).text(result.HATES);
+
 					}
 				}) 
 			}
@@ -734,7 +794,8 @@ ul, li {
 		
 		 });*/
 
-		/*   $(document).ready(function(){
+		/*  
+		$(document).ready(function(){
 		$("#myVideo").one(
 		  "timeupdate", 
 		  function(event){

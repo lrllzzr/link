@@ -240,7 +240,6 @@ public class TvhomeController {
 			m.put("CREATEDATE", ((Date)m.get("CREATEDATE")).getTime());
 		}
 		
-		System.out.println(comments);
 		model.addAttribute("playlist",playlist);
 		model.addAttribute("video",video);
 		model.addAttribute("comments", comments);
@@ -255,8 +254,6 @@ public class TvhomeController {
 		
 		User user = (User)session.getAttribute("LOGIN_USER");
 		
-		System.out.println(status);
-		System.out.println(vno);
 		
 		if(status.equals("Y")) {
 			// 이미 좋아요니까 삭제해
@@ -302,10 +299,81 @@ public class TvhomeController {
 		return "redirect:detail.do?position=cmt&vno="+vno;
 	}
 	
+	//댓글의 좋아요 좋아요 취소
 	@RequestMapping("/addCommentLike.do")
 	@ResponseBody
-	public int addCommentLike(Model model, HttpSession session, int cno, String status)	{
+	public Map<String, Object> addCommentLike(Model model, HttpSession session, int cno,  String status, String hate)	{
 		
-		return 1;
+		User user = (User)session.getAttribute("LOGIN_USER");
+		
+		Map<String, Object> info = new HashMap<String, Object>();
+		info.put("cno", cno);
+		info.put("userId", user.getId());
+		
+		System.out.println(status);
+		System.err.println(hate);
+		
+		if(status.equals("Y")) {
+			//좋아요 취소해
+			tvCommentLikeService.deleteCommentStatus(info);
+		}
+		if(status == "") {
+			info.put("status", "Y");
+			
+			if(hate.equals("N")) {
+				tvCommentLikeService.updateCommentStatus(info);
+			} else {
+				tvCommentLikeService.addCommentStatus(info);
+			}
+		} 
+		
+		
+		Map<String, Object>likeHateAndYn = tvCommentLikeService.getCountLikeAndHate(info);
+		
+		System.out.println(likeHateAndYn);
+		return likeHateAndYn;
+	}
+	//댓글의 시러요 시러요 취소
+	@RequestMapping("/addCommentHate.do")
+	@ResponseBody
+	public Map<String, Object> addCommentHate(Model model, HttpSession session, int cno,  String status, String like)	{
+		
+		User user = (User)session.getAttribute("LOGIN_USER");
+		
+		Map<String, Object> info = new HashMap<String, Object>();
+		info.put("cno", cno);
+		info.put("userId", user.getId());
+		
+		System.out.println(status);
+		System.err.println(like);
+		
+		if(status.equals("N")) {
+			//좋아요 취소해
+			tvCommentLikeService.deleteCommentStatus(info);
+		}
+		if(status == "") {
+			info.put("status", "N");
+			
+			if(like.equals("Y")) {
+				tvCommentLikeService.updateCommentStatus(info);
+			} else {
+				tvCommentLikeService.addCommentStatus(info);
+				
+			}
+				
+			
+		} 
+		
+		
+		Map<String, Object>likeHateAndYn = tvCommentLikeService.getCountLikeAndHate(info);
+		
+		System.out.println(likeHateAndYn);
+		return likeHateAndYn;
+	}
+	
+	@RequestMapping("/mychannel.do")
+	public String mychannel() {
+		return "tv/mychannel";
+		
 	}
 }

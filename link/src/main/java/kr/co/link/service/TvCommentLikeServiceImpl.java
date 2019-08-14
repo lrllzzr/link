@@ -19,14 +19,20 @@ public class TvCommentLikeServiceImpl implements TvCommentLikeService {
 	}
 	
 	@Override
-	public void deleteCommentStatus(int cno) {
-		tvCommentLikeDao.deleteCommentStatus(cno);
+	public void deleteCommentStatus(Map<String, Object> info) {
+		tvCommentLikeDao.deleteCommentStatus(info);
 	}
 	
 	
 	@Override
 	public void updateCommentStatus(Map<String, Object> status) {
 		tvCommentLikeDao.updateCommentStatus(status);
+	}
+	
+	@Override
+	public Map<String, Object> getCountLikeAndHate(Map<String, Object> info) {
+		Map<String, Object>likeAndHate= tvCommentLikeDao.getCountLikeAndHate(info);
+		return likeAndHate;
 	}
 	
 	
