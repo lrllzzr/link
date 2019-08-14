@@ -376,6 +376,11 @@
 									</c:if>
 								</div>
 							</div>
+							<a style="font-size: 15px;" href="manageNeighbor.do">
+								<div class="col-sm-12 text-center" style="padding:10px;">
+									<span>이웃 관리</span>
+								</div>
+							</a>
 						</c:otherwise>
 					</c:choose>
 				</div>
