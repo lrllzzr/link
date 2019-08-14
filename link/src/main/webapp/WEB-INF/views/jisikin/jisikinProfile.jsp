@@ -36,7 +36,7 @@
 <ul class="location" id="au_location">
 	<li><a href="/index.nhn">홈</a></li>
 	<li class="last">
-			<a href="/myinfo/index.nhn">프로필</a>	
+			<a href="#">프로필</a>	
 	</li>
 </ul>
 
@@ -58,7 +58,7 @@
 					
 						<a href="/people/levelup/index.nhn" class="profile_animate profile_default">
 							<span class="thumbnail">
-								<img src="https://ssl.pstatic.net/static/kin/09renewal/avatar/200x200/4.png" width="100%" height="100%" alt="allman956 님의 프로필">
+								<img src="/link/resources/images/${profileUser.img}" width="100%" height="100%" alt="allman956 님의 프로필">
 							</span>
 							<span class="mask_bdr"></span>
 						</a>

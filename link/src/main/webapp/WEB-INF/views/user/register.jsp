@@ -24,7 +24,7 @@
         </div>
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">   
-                <form id="register_form" method="post" name="fr" action="addUser.do">
+                <form id="register_form" method="post" name="fr" action="addUser.do" enctype="multipart/form-data">
                   <div class="form-group well">  
                     <div>
                         <label>아이디</label><label id="idmsg" style="padding-left:10px;"></label>
@@ -68,6 +68,15 @@
                             </div> 
                            </div>
                       </div>
+                      <div>
+						<strong style="font-size: 14px; letter-spacing: -1px;">유저 프로필 이미지</strong>
+					</div>
+					<div>
+						<img id="blogImg" src="/link/resources/images/profile.jpg" width="200" height="200">  
+					</div>
+					<div>
+						<span>유저 프로필 사진에 등록됩니다.</span> <input style="margin-top: 10px;" class="form-control" type="file" id="mainImg" name="mainImg" />
+					</div>
                     <div>
                        <button class="form-control btn btn-primary btn-register" type="submit">가입하기</button>
                     </div>
@@ -80,6 +89,26 @@
 <div class="container">
 </div>
 <script>
+// 프로필 사진
+$(function(){
+	function readURL(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	
+	        reader.onload = function (e) {
+	            $('#blogImg').attr('src', e.target.result);
+	        }
+	
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+	
+	$("#mainImg").change(function(){
+	    readURL(this);
+	});
+})
+
+
 	$(".btn-register").click(function(){
 		if(fr.id.value == "") {
 

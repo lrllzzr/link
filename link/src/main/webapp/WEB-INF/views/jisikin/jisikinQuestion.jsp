@@ -65,9 +65,9 @@
                 <div class="c-userinfo">
                     <div class="c-userinfo__left">
                         <div class="c-userinfo__profile _profileArea">
-                            <div class="profile-default">
-                                <div class="profile-default--inner">
-                                    <span class="profile-default__thumbnail" style="background-image: url(https://ssl.pstatic.net/static/kin/09renewal/avatar/200x200_m_gray/public.png);"><span class="blind">내 프로필 이미지</span></span>
+                            <div class="profile-default">  
+                                <div class="profile-default--inner">    
+                                    <span class="profile-default__thumbnail" style="background-image: url(/link/resources/images/${questionUser.img});"><span class="blind">내 프로필 이미지</span></span>
                                 </div>
 
                                 <div class="c-callout callout--profile-tooltip _profileTooltip">
@@ -180,12 +180,12 @@
 		           <div class="answer-content-header">
 		               <div class="profile-default">
 							<a href="#" target="_blank" class="profile-default--inner">
-								<span class="profile-default__thumbnail" style="background-image: url('https://kin-phinf.pstatic.net/20190323_276/1553332370886E2suf_JPEG/KakaoTalk_20190213_094319724.jpg');"><span class="blind">박수진님 프로필 이미지</span></span>
+								<span class="profile-default__thumbnail" style="background-image: url(/link/resources/images/${answer.user.img});"><span class="blind">박수진님 프로필 이미지</span></span>
 							</a>
 						</div>
 		                <div class="profile-info">
 		                    <h3 class="answer-author">${answer.secretYn eq 'Y' ? answer.userId : '비공개' } 님 답변</h3>
-		                    <h4 class="answer-author-num">채택답변수 <em>114</em></h4>
+		                    <h4 class="answer-author-num">내공 <em>${answer.user.mentalPoint }</em></h4>
 		                </div>
 		                <c:if test="${LOGIN_USER.id eq jisikin.userId }"> 
 		                <div class="pull-right" style="margin-top:-40px !important; margin-right:10px;">

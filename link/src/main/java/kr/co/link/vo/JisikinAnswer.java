@@ -11,11 +11,24 @@ public class JisikinAnswer {
 	private String secretYn;
 	private Integer jisikinNo;
 	private String userId;
+	private User user;
 	
 	public JisikinAnswer() {}
 
 	
 	
+	public User getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+
 	public String getContents() {
 		return contents;
 	}

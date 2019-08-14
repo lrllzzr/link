@@ -152,6 +152,9 @@ public class JisikinController {
 		setMenu(model);
 		Jisikin jisikin = jisikinService.getJisikinByNo(jisikinNo);
 		
+		User questionUser = userService.getUserById(jisikin.getUserId()); 
+		model.addAttribute("questionUser", questionUser);
+		
 		// 조회수 증가
 		jisikinService.updateJisikinViewCntByNo(jisikinNo);
 		
@@ -164,6 +167,12 @@ public class JisikinController {
 		
 		// 답변 뿌리기
 		List<JisikinAnswer> answers = answerService.getAnswersByJisikinNo(jisikinNo);
+		
+		for(JisikinAnswer a : answers) {
+			User answerUser = userService.getUserById(a.getUserId()); 
+			a.setUser(answerUser);
+		}
+		
 		model.addAttribute("answers", answers);
 		
 		return "jisikin/jisikinQuestion";
@@ -173,6 +182,7 @@ public class JisikinController {
 	public String questionDetail(JisikinAnswer jisikinAnswer, HttpSession session, Model model) {
 		setMenu(model);
 		JisikinAnswer answer = new JisikinAnswer();
+		
 		
 		User user = (User) session.getAttribute("LOGIN_USER");
 		BeanUtils.copyProperties(jisikinAnswer, answer);
@@ -301,6 +311,10 @@ public class JisikinController {
 		setMenu(model);
 		List<JisikinAnswer> myAnswer = jisikinService.getMyAnswer(userId);
 		List<Jisikin> myJisikin = jisikinService.getMyJisikin(userId);
+		
+		// 프로필
+		User profileUser = userService.getUserById(userId);
+		model.addAttribute("profileUser", profileUser);
 		
 		// 답변으로 질문정보 구하기
 		List<Jisikin> myAnswerQuestion = new ArrayList<Jisikin>();
