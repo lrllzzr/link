@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <script src="/link/resources/js/returnUrl.js"></script>
 <nav class="navbar navbar-default">
         <div class="container">
             <div class="row">
@@ -38,13 +39,13 @@
 		                                    <li><a href="#">시리즈</a></li>
 		                                    <li><a href="#">TV</a></li>
 		                                    <li class="divider"></li>
-		                                    <li><a href="/link/logout.do">로그아웃</a></li>
+		                                    <li><a href="/link/logout.do" class="blognav_logout_btn">로그아웃</a></li>
 		                                </ul>
 		                            </li>
 		                        </ul>
 							</c:when>
 							<c:otherwise>
-								<span class="band-navbar-id"><a href="/link/loginform.do" class="main-nav-login">로그인</a></span>
+								<span class="band-navbar-id"><a href="/link/loginform.do" class="main-nav-login blogmain_login">로그인</a></span>
 							</c:otherwise>
 						</c:choose>
 					                        
