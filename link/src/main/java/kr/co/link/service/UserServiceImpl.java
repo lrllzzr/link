@@ -41,4 +41,11 @@ public class UserServiceImpl implements UserService{
 	public void addUser(User user) {
 		userDao.addUser(user);
 	}
+	
+	@Override
+	public String profileImageSaveDirectory() {
+		String profileImageSaveDirectory = "C:/Users/allma/git/link/link/src/main/webapp/resources/images";
+		
+		return profileImageSaveDirectory;
+	}
 }
