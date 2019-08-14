@@ -486,8 +486,4 @@ order by CREATE_DATE desc
 	where 
 		tv_no =#{no}
 </update>
-
-
-
-
  </mapper>
