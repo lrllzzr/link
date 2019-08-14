@@ -30,4 +30,5 @@ public interface BlogBoardDao {
 	void deleteBoardByBoardNo(Integer boardNo);
 	Integer getCommentCountByBoardNo(Integer boardNo);
 	List<Map<String, Object>> getBoardCommentsInMyBlog(Map<String, Object> map);
+	void deleteBoardComment(Integer commentNo);
 }

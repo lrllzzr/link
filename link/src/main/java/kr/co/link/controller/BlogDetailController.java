@@ -364,6 +364,23 @@ public class BlogDetailController {
 		List<Map<String, Object>> blogsList = blogService.getAllBlogsByType(topicMap);
 		blogsList = blogService.dateChange(blogsList);
 		
+		if(user != null) {
+			Blog myBlog = blogService.getBlogByUserId(user.getId());
+			if(myBlog != null) {
+				for(Map<String, Object> blogs : blogsList) {
+					Map<String, Object> isNeighborMap = new HashMap<String, Object>();
+					isNeighborMap.put("myBlogNo", myBlog.getNo());
+					isNeighborMap.put("neighborhoodNo", ((BigDecimal)blogs.get("NO")).intValue() );
+					Integer isNeighbor = blogNeighborService.isNeighbor(isNeighborMap);
+					if(isNeighbor == null) {
+						blogs.put("isNeighbor","N");
+					} else if(isNeighbor != null) {
+						blogs.put("isNeighbor","Y");
+					}
+				}
+			}
+		}
+		
 		map.put("blogsList", blogsList);
 		map.put("totalBlocks", totalBlocks);
 		map.put("pno", pno);

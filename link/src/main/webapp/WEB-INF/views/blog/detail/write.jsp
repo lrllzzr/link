@@ -71,15 +71,15 @@
 					alert('제목을 입력해야 합니다.');
 					return false;
 				} else {
-					/* if ($('#file').val() == "") {
+					if ($('#file').val() == "") {
 						alert('메인 이미지를 등록해 주세요');
-					} else { */
+					} else {
 						var result = confirm("등록하시겠습니까?");
 						if (result) {
 							submitContents();
 						}
 						return false;
-					/* } */
+					}
 				}
 			});
 

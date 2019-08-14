@@ -9,6 +9,13 @@ a {
 .blog-hr-row div span{
 	cursor: pointer;
 }
+.blog_table2 td{
+	vertical-align: middle !important;
+}
+.blog_table td{
+	vertical-align: middle !important;
+}
+
 .main-nav {
     background-color: #649dfa;
 }

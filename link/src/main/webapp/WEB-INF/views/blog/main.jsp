@@ -65,7 +65,7 @@
 								<div class="col-sm-3">
 									<div class="form-group">
 										<select class="form-control" name="" id="">
-											<option value=""selected;>전체이웃</option>
+											<option value="" selected>전체이웃</option>
 											<option value="">새 그룹</option>
 										</select>
 									</div>
@@ -376,6 +376,11 @@
 									</c:if>
 								</div>
 							</div>
+							<a style="font-size: 15px;" href="manageNeighbor.do">
+								<div class="col-sm-12 text-center" style="padding:10px;">
+									<span>이웃 관리</span>
+								</div>
+							</a>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -540,11 +545,16 @@
 									row += '					<div class="col-sm-12">' + blog.howLongDate + '</div>';
 									row += '				</div>';
 									row += '			</div>';
-									row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
-									row += '				<div class="col-sm-2 col-sm-offset-7">';
-									row += '					<span class="blog-addneighbor"><a href="">+이웃추가</a></span>';
-									row += '				</div>';
-									row += '			</c:if>';
+									if(blog.isNeighbor == "Y"){
+										row += '				<div class="col-sm-2 col-sm-offset-7">';
+										row += '					<div class="blog-addneighbordiv text-center">이웃</div>';
+										row += '				</div>';
+									}
+									if(blog.isNeighbor == "N"){
+										row += '				<div class="col-sm-2 col-sm-offset-7">';
+										row += '					<span class="blog-addneighbor"><a href="addNeighbor.do?blogNo='+blog.NO+'">+이웃추가</a></span>';
+										row += '				</div>';
+									}
 									row += '		</div>';
 									row += '		<div class="row blog-neighbor-box">';
 									row += '			<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
@@ -624,7 +634,6 @@
 								$('.blog3topic').empty();
 								$('.blog3topic-2').empty();
 								var length = data.blogsList.length;
-								console.log(length);
 								if (length == 0) {
 									var row = "";
 									row += '<div class="row"><div class="col-sm-12 text-center" style="padding:150px; "><p style="font-size:15px;">등록된 글이 없습니다.</p></div></div>';
@@ -648,11 +657,16 @@
 										row += '					<div class="col-sm-12">' + blog.howLongDate + '</div>';
 										row += '				</div>';
 										row += '			</div>';
-										row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
-										row += '				<div class="col-sm-2 col-sm-offset-7">';
-										row += '					<span class="blog-addneighbor"><a href="">+이웃추가</a></span>';
-										row += '				</div>';
-										row += '			</c:if>';
+										if(blog.isNeighbor == "Y"){
+											row += '				<div class="col-sm-2 col-sm-offset-7">';
+											row += '					<div class="blog-addneighbordiv text-center">이웃</div>';
+											row += '				</div>';
+										}
+										if(blog.isNeighbor == "N"){
+											row += '				<div class="col-sm-2 col-sm-offset-7">';
+											row += '					<span class="blog-addneighbor"><a href="addNeighbor.do?blogNo='+blog.NO+'">+이웃추가</a></span>';
+											row += '				</div>';
+										}
 										row += '		</div>';
 										row += '		<div class="row blog-neighbor-box">';
 										row += '			<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
