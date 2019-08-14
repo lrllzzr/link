@@ -260,6 +260,34 @@ from
 			blog_no = #{neighborBlogNo}
 	</if>
 </select>
+
+<select id="getNeighborAddMe" parameterType="int" resultType="map">
+	select
+		NEIGHBORHOOD_NO no,
+		a.BLOG_NO blogNo,
+		NEIGHBORHOOD_TYPE type,
+		NEIGHBOR_STATUS status,
+        c.user_id userId,
+        c.user_nickname nickName,
+        a.NEIGHBOR_MESSAGE message,
+        a.neighbor_create_date createDate
+	from
+		blog_neighbor a, blog b, users c
+	where
+           b.user_id = c.user_id
+       and
+           a.blog_no = b.blog_no
+       and
+           a.NEIGHBORHOOD_NO = #{myBlogNo}
+	<if test="type !=null">
+		and
+			a.NEIGHBORHOOD_TYPE = #{type}
+	</if>
+	<if test="status !=null">
+		and
+			a.NEIGHBOR_STATUS = #{status}
+	</if>
+</select>
 <select id="getNeighborsByMyBlogNo" parameterType="int" resultType="blogNeighbor">
 	select
 		NEIGHBORHOOD_NO no,
