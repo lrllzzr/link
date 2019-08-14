@@ -77,13 +77,13 @@ pageEncoding="UTF-8"%>
 					<ul>
 						<li><a href="/link/accountbook/expense.do" class="active"><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
-							style="color: dimgray"><h4>보고서</h4></a></li>
+							style="color: dimgray"><h4>지출 보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
 							style="color: dimgray"><h4>월결산</h4></a></li>
 						
-						<li class="month-accountBook">▼이달의 가계
+						<!-- <li class="month-accountBook">▼이달의 가계
 							<ul>
 								<li>+수입</li>
 								<li>-지출</li>
@@ -96,7 +96,7 @@ pageEncoding="UTF-8"%>
 						
 						<li>▼최근 태그</li>
 
-						<li>미정국수</li>
+						<li>미정국수</li> -->
 
 					</ul>
 				</div> 
@@ -135,7 +135,6 @@ pageEncoding="UTF-8"%>
             
                 <div class="row">
                     <div class="col-sm-12">
-                    	<form  id="income-form" action="income.do" method="post">
                         <table class="table table-bordered" class="form-inline">
                             <thead>
                                 <tr>
@@ -148,14 +147,19 @@ pageEncoding="UTF-8"%>
                                </tr>
                             </thead>   
                             <tbody>
+                            <form id="term-form" method="post">
+                            	
                             	<c:forEach var="income" items="${incomeList }">
-	                                <tr>
-	                            	   <td><input type="checkbox" name="termNos" value="${income.no }"/></td>
-	                                   <td><input class="form-control" type="text" value="${income.dateString }"></td>
-	                                   <td><input class="form-control" type="text"  value="${income.detail }"></td>
-	                                   <td ><input class="form-control" type="text"  value="${income.cash }"></td>
+	                                <tr class="income-row">
+	                            	   <td>
+	                            	   	<input type="checkbox" id="expenseItem" name="termNos" value="${income.no }"/>
+	                            	   	<input type="hidden"  name="no" value="${income.no }"/>
+	                            	   </td>
+	                                   <td><input class="form-control" type="text" name="date" value="${income.dateString }"></td>
+	                                   <td><input class="form-control" type="text" name="detail" value="${income.detail }"></td>
+	                                   <td ><input class="form-control" type="text" name="cash"  value="${income.cash }"></td>
 	                                   <td>
-											<select id="cat"  class="form-control">
+											<select id="cat"  class="form-control"  name="category" >
 												<option value="">카테고리 선택</option>
 												<c:forEach var="category" items="${incomeCategory }">
 													<option  value="${category.categoryNo }"  ${income.category.categoryNo eq category.categoryNo ? 'selected' :'' }> 
@@ -164,25 +168,11 @@ pageEncoding="UTF-8"%>
 												</c:forEach>
 											</select>
 										</td>
-	                                   <td><input class="form-control" type="text" value="${income.tag.tagName }"></td>
+	                                   <td><input class="form-control" type="text"  name="tag" value="${income.tag.tagName }"></td>
 	                                </tr>
                             	</c:forEach>
-                               	
-                               	<tr>
-									<td><input type="checkbox"/></td>
-									<td><input class="form-control" type="date" name="date" ></td>
-									<td><input class="form-control" type="text" name="detail" ></td>
-									<td class="text-right"><input class="form-control" type="text"  name="cash" ></td>
-									<td>
-										<select id="cat" name="category" class="form-control">
-											<option value="">카테고리 선택</option>
-											<c:forEach var="category" items="${incomeCategory }">
-												<option value="${category.categoryNo }"> ${category.categoryName }</option>
-											</c:forEach>
-										</select>
-									</td>
-									<td><input class="form-control" type="text" name="tag" ></td>
-								</tr>
+                            	
+                            </form>
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -193,27 +183,48 @@ pageEncoding="UTF-8"%>
                                     <td class="text-right"><fmt:formatNumber value="${totalCash }"/></td>
                                     <td class="text-right"></td>
                                     <td colspan="2" rowspan="2" class="text-center" style="vertical-align: middle;">
-                                          <button id="btn-save" class="btn btn-primary" type="submit">저장하기</button>
+                                        <button id="btn-save" class="btn btn-primary" >저장하기</button>
+                                        <button id="btn-update" class="btn btn-default" >수정하기</button>
                                         <button class="btn btn-default">정산하기</button>   
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">
-                                        <strong>수입합계</strong>
-                                    </td>
-                                    <td class="text-right" colspan="2" >
-                                    	<fmt:formatNumber value="${totalCash }"/>
+                  	                <td colspan="3"><strong>수입합계</strong></td>
+                                    <td class="text-right" colspan="2" ><fmt:formatNumber value="${totalCash }"/>
                                     </td>
                                 </tr>
                             </tfoot>
+                            <tfoot>
+                            <form id="income-form" action="income.do" method="post">
+	                            <tr>
+										<td><input type="checkbox"/></td>
+										<td><input class="form-control" type="date" name="date" ></td>
+										<td><input class="form-control" type="text" name="detail" ></td>
+										<td class="text-right"><input class="form-control" type="text"  name="cash" ></td>
+										<td>
+											<select id="cat" name="category" class="form-control">
+												<option value="">카테고리 선택</option>
+												<c:forEach var="category" items="${incomeCategory }">
+													<option value="${category.categoryNo }"> ${category.categoryName }</option>
+												</c:forEach>
+											</select>
+										</td>
+										<td><input class="form-control" type="text" name="tag" ></td>
+									</tr>
+                       		</form>
+                            </tfoot>
                         </table>
-                       </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 <script type="text/javascript">
+	/*내역 수정*/
+	$('#btn-update').click(function(){
+		$('#term-form').attr('action','updateIncome.do')
+		$('#term-form').submit();
+	})
 	/*내역 추가*/
 	$('#btn-save').click(function(){
 		$('#income-form').attr('action','income.do')
@@ -221,15 +232,24 @@ pageEncoding="UTF-8"%>
 	})
 	/*내역 삭제(선택)*/
 	$('#btn-selected-del').click(function(){
-		$('#income-form').attr('action','delincome.do')
-		$('#income-form').submit();
-		
+		$('#term-form').attr('action','delincome.do')
+		$('#term-form').submit();
 	})
-	
+	/*전체 선택*/
+	    $(function(){ 
+	 		$("#all-check").click(function(){
+	    		
+	 			if($("#all-check").prop("checked")) { 
+	    			$("input[type=checkbox]").prop("checked",true); 
+	    		} else { 
+	    			$("input[type=checkbox]").prop("checked",false); }
+	    		
+	 			}) 
+	 	})
 	/*내역 삭제(전체)*/
 	$('#btn-all-del').click(function(){
-		$('#income-form').attr('action','delAllincome.do')
-		$('#income-form').submit();
+		$('#term-form').attr('action','delAllincome.do')
+		$('#term-form').submit();
 		
 	})
 </script>

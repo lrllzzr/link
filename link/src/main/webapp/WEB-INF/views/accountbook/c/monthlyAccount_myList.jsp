@@ -45,13 +45,13 @@
 					<ul>
 						<li><a href="/link/accountbook/expense.do" ><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
-							style="color: dimgray"><h4>보고서</h4></a></li>
+							style="color: dimgray"><h4>지출 보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
 							class="point" style="color: dimgray"><h4>월결산</h4></a></li>
 						
-						<li class="month-accountBook">▼이달의 가계
+			<!-- 			<li class="month-accountBook">▼이달의 가계
 							<ul>
 								<li>+수입</li>
 								<li>-지출</li>
@@ -64,7 +64,7 @@
 						
 						<li>▼최근 태그</li>
 
-						<li>미정국수</li>
+						<li>미정국수</li> -->
 
 					</ul>
 				</div> 
@@ -88,7 +88,7 @@
                     <div class="col-sm-12">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="/link/accountbook/mylist.do" style="color: black">나의 월결산 목록</a></li>
-                            <li><a href="/link/accountbook/list.do"><Strong>전체 글 목록</Strong></a></li>
+                          <!--   <li><a href="/link/accountbook/list.do"><Strong>전체 글 목록</Strong></a></li> -->
                         </ul>
                     </div>
                 </div>
@@ -98,33 +98,25 @@
                           <div class="row">
                               <div class="col-sm-12" style="padding-left: 25px;">
                                    <h3>나의 월결산</h3>
-                                    <a href="/link/accountbook/form.do" type="button" class="btn btn-primary btn-lg" style="float: right; padding-right: 20px;">월결산 쓰기</a>   
+                                    <a href="/link/accountbook/writingForm.do" type="button" class="btn btn-primary btn-lg" style="float: right; padding-right: 20px;">월결산 쓰기</a>   
                               </div>;
                           </div>
                         <table class="table table-striped" >
                            <tbody>
                                <tr>
-                                <th>결산월</th>
+                               <!--  <th>결산월</th> -->
                                 <th>제목</th>
                                 <th>작성일</th>
-                                <th>조회</th>
-                                <th>추천</th>
+                               <!--  <th>조회</th>
+                                <th>추천</th> -->
                             </tr>
+                            <c:forEach var="writing" items="${myList }">
                             <tr>
-                                <td>2019.06</td>
-                                <td>내용이 올 자리입니다. 내용이 올 자리입니다. 내용이 올 자리입니다.</td>
-                                <td>2019.07.17</td>
-                                <td>7</td>
-                                <td>0</td>
+                                <td><a href="/link/accountbook/detail.do">${writing.title }</a></td>
+                                <td><fmt:formatDate value="${writing.createDate }"/></td>
                             </tr>
-                              <tr>
-                                <td>2019.06</td>
-                                <td>내용이 올 자리입니다. 내용이 올 자리입니다. 내용이 올 자리입니다.</td>
-                                <td>강희경</td>
-                                <td>2019.07.17</td>
-                                <td>7</td>
-                                <td>0</td>
-                            </tr>      
+                            </c:forEach>
+                                  
                            </tbody>
                         </table>   
                            <ul class="pagination">

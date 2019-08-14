@@ -46,9 +46,9 @@
       function drawChart() {
 
         var data = google.visualization.arrayToDataTable([
-          ['구분', '금액',{ role: 'style' }],
-          ['지출', parseInt('${totalTerm.expense}'),'#e04931'],
-          ['수입', parseInt('${totalTerm.income}'),'#edcc4a' ],
+          ['구분', '금액'],
+          ['지출', parseInt('${totalTerm.expense}')],
+          ['수입', parseInt('${totalTerm.income}')],
         ]);
 
         var options = {
@@ -60,39 +60,6 @@
         chart.draw(data, options);
       }
       
-      <!--막대그래프-->
-          
-      google.charts.load('current', {packages: ['corechart', 'bar']});
-      google.charts.setOnLoadCallback(drawBasic);
-
-      function drawBasic() {
-          
-       var data = google.visualization.arrayToDataTable([
-    	  data addColnumn('string','카레고리');
- 	      data addColnumn('number','금액');
- 		  data addColnumn('style','속성')	      
- 	      
- 		  data.addRows([
- 			<c:forEach var="totalTerm" items="${totalTerm}">
- 	       ['${totalTerm.categoryName}', parseInt('${totalTerm.total}'), '#395fbf' ],
- 		 	 console.log(${monthlyExpense.total});
- 	       </c:forEach>
- 	    	]);
- 		  
-    var options = {
-      width: 1200,
-      height: 300,
-      legend: { position: '', maxLines: 0 },
-      bar: { groupWidth: '50%' },
-      isStacked: true,
-    };
-
-      
-      var chart = new google.visualization.ColumnChart(
-      document.getElementById('chart_div1'));
-
-      chart.draw(data, options);
-      }
     </script>
 </head>
 <body>
@@ -105,13 +72,13 @@
 					<ul>
 						<li><a href="/link/accountbook/expense.do" ><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do" 
-							class="point" style="color: dimgray"><h4>보고서</h4></a></li>
+							class="point" style="color: dimgray"><h4>지출 보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
 							style="color: dimgray"><h4>월결산</h4></a></li>
 						
-						<li class="month-accountBook">▼이달의 가계
+						<!-- <li class="month-accountBook">▼이달의 가계
 							<ul>
 								<li>+수입</li>
 								<li>-지출</li>
@@ -125,7 +92,7 @@
 						<li>▼최근 태그</li>
 
 						<li>미정국수</li>
-
+ -->
 					</ul>
 				</div> 
             </div>
@@ -146,7 +113,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12 text-center">
-                        <strong>2019-07-01 ~ 2019-07-31</strong>
+                      <!--   <strong>2019-07-01 ~ 2019-07-31</strong> -->
                     </div>
                 </div>
                 <div class="row">
@@ -170,29 +137,24 @@
                 </div>
                 <div class="row" style="padding: 30px;30px;10px;10px">
                     <div class="col-sm-2">
-                    <h4 style="font-">낭비리스트</h4>
+                    <h4 style="font-">낭비 리스트 top5</h4>
                         <div class="row" style="padding-right: 10px;">
                             <table class="table table-bordered" style="border-top:2px red solid;">
                                 <thead>
                                      <tr>
-                                        <th>사용내역</th>
-                                        <th>금액</th>    
+                                        <th>분류</th>
+                                        <th>횟수</th>    
                                     </tr>    
                                 </thead>
                                 <tbody>
-                                      <tr>
-                                    <td>0</td>
-                                    <td>0</td> 
-                                </tr>
+                                <c:forEach var="wasteTop5" items="${wasteTop5 }">
                                 <tr>
-                                    <td>0</td>
-                                    <td>0</td> 
+                                    <td>${wasteTop5.categoryName}</td>
+                                    <td>${wasteTop5.cnt }</td> 
+                                </tr>
+                                </c:forEach>
                                 </tbody>
                                 <tfoot>
-                                   <tr class="info">
-                                        <td>합계</td>
-                                        <td>0</td>
-                                   </tr>
                                 </tfoot>                     
                             </table>
                         </div>
@@ -206,26 +168,18 @@
                                 <thead>
                                      <tr>
                                         <th>분류</th>
-                                        <th>횟수</th>    
+                                        <th>내역</th>    
                                         <th>금액</th>    
                                     </tr>    
                                 </thead>
                                 <tbody>
+                                <c:forEach var="top" items="${top5 }" >
                                     <tr>
-                                        <td>기타</td>
-                                        <td>2</td> 
-                                        <td>69400</td>
+                                        <td>${top.CATEGORY_NAME }</td>
+                                        <td>${top.TERM_DETAIL }</td> 
+                                        <td>${top.CURRENCY }</td>
                                    </tr>
-                                    <tr>
-                                        <td>대중교통비</td>
-                                        <td>2</td> 
-                                        <td>69400</td>
-                                    </tr>
-                                    <tr>
-                                        <td>외식</td>
-                                        <td>2</td> 
-                                        <td>69400</td>
-                                    </tr>
+                                </c:forEach>
                                 </tbody>
                                 <tfoot>
                                    

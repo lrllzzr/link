@@ -104,13 +104,13 @@
 					<ul>
 						<li><a href="/link/accountbook/expense.do"><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
-							class="point" style="color: dimgray"><h4>보고서</h4></a></li>
+							class="point" style="color: dimgray"><h4>지출 보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
 							style="color: dimgray"><h4>월결산</h4></a></li>
 						
-						<li class="month-accountBook">▼이달의 가계
+						<!-- <li class="month-accountBook">▼이달의 가계
 							<ul>
 								<li>+수입</li>
 								<li>-지출</li>
@@ -123,7 +123,7 @@
 						
 						<li>▼최근 태그</li>
 
-						<li>미정국수</li>
+						<li>미정국수</li> -->
 
 					</ul>
 				</div> 
@@ -145,7 +145,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12 text-center">
-                        <strong>2019-07-01 ~ 2019-07-31</strong>
+                        <!-- <strong>2019-07-01 ~ 2019-07-31</strong> -->
                     </div>
                 </div>
                 <div class="row">
@@ -174,30 +174,7 @@
                            </div>
                         </div>    
                         </div>
-                        
-                        
-                        <div class="row">
-                           <div class="col-sm-12" style="padding: 20px 10px 3px 35px;">
-                              <div class="col-sm-3">
-                                  
-                              </div>
-                              <div class="col-sm-9">
-                                  <label class="radio-inline">
-                                  <input type="radio" value="option1">지출
-                              </label>
-                                <select id="category" name="category">
-                                  <option value="">전체보기</option>
-                                  <option  value="">식비</option>
-                                  <option  value="">주거통신</option>
-                                  <option  value="">생활용품</option>
-                                  <option  value="">의복/미용</option>
-                                  <option  value="">기타 등등</option>
-                                </select>
-                                <label class="radio-inline">
-                                    <input type="radio" value="option2">저축
-                              </label>
-                              </div>
-                               
+                           
                            </div>
                         </div>
                         <div class="row" style="padding: 30px 10px 30px 35px;">

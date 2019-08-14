@@ -73,7 +73,7 @@
  			
    
             data.addRows([
- 			<c:forEach var="annualExpense" items="${annualExpenseCategory}">
+ 			<c:forEach var="annualExpense" items="${totalExpenseCategory}">
  			['${annualExpense.categoryName}', parseInt('${annualExpense.total}')],
  			</c:forEach>
       		]);
@@ -106,7 +106,7 @@
 					<ul>
 						<li><a href="/link/accountbook/expense.do" ><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
-							class="point" style="color: dimgray"><h4>보고서</h4></a></li>
+							class="point" style="color: dimgray"><h4>지출 보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
@@ -147,7 +147,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12 text-center">
-                        <strong>2019-07-01 ~ 2019-07-31</strong>
+                       <!--  <strong>2019-07-01 ~ 2019-07-31</strong> -->
                     </div>
                 </div>
                 <div class="row">
@@ -201,7 +201,7 @@
                                      <th>12월</th> 
                                  </tr>
                              </thead>
-                           <tbody>
+<!--                            <tbody>
                                 <tr>
                                     <td>식비</td>
                                     <td>0</td>
@@ -310,13 +310,10 @@
                                 <tr>
                                     <td>지출 합계</td>
                                     <td colspan="12">
-                                        
                                     </td>
-                                    
                                 </tr>
-                         </tbody>
+                         </tbody> -->
                         </table>
-                    
                     </div>
                 </div>
                 
