@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class AccountBookExpenseForm {
 
+	private int termNos;
 	private Date date;
 	private String detail;
 	private Integer cash;
@@ -12,6 +13,19 @@ public class AccountBookExpenseForm {
 	private String tag;
 	
 	public AccountBookExpenseForm() {}
+
+	
+
+	public int getTermNos() {
+		return termNos;
+	}
+	public void setTermNos(int termNos) {
+		this.termNos = termNos;
+	}
+
+
+
+
 
 	public Date getDate() {
 		return date;

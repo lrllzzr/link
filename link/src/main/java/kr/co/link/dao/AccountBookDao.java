@@ -7,6 +7,7 @@ import java.util.Map;
 import kr.co.link.vo.AccountBookCategory;
 import kr.co.link.vo.AccountBookTag;
 import kr.co.link.vo.AccountBookTerm;
+import kr.co.link.vo.AccountBookWriting;
 
 public interface AccountBookDao {
 
@@ -18,6 +19,9 @@ public interface AccountBookDao {
 	void deleteAllExpense();									/* 지출 전체삭제*/
 	void deleteAllIncome();										/* 수입 전체삭제*/
 	int getTermNoSeq();	
+	AccountBookTerm getExpenseTermByNo(int termNo);
+	AccountBookTerm getIncomeTermByNo(int termNo);
+	
 	List<AccountBookTerm> getExpenseByuserId(String userId);	/*지출내역조회*/
 	List<AccountBookTerm> getIncomeByuserId(String userId );	/*수입내역조회*/
 	List<AccountBookCategory> getExpenseCategory();				/*지출 카테고리 조회*/
@@ -27,8 +31,21 @@ public interface AccountBookDao {
 	/*보고서*/
 	AccountBookTerm getMonthlyTotalTermByDate(Map<String, Object> param); 	/*월간 지출 수입 총금액*/
 	AccountBookTerm getAnnualTotalTermByDate(Map<String, Object> param);	/*연간 지출 수입 총금액*/
-	AccountBookTerm getTotalTerm();											/*전체 수입 총금액*/
+	AccountBookTerm getTotalTerm(String userId);							/*전체 수입 총금액*/
 	List<AccountBookTerm> getMonthlyExpenseCategorybydate (Map<String, Object> monthlyCategory);	/*카테고리별 월간 총 지출*/
 	List<AccountBookTerm> getAnnualExpenseCategorybydate (Map<String, Object> annualCategory);		/*카테고리별 연간 총 지출*/
+	List<HashMap<String, Object>> getTop5Expense(String userId);	/*전체기간 중 지출 top5*/
+	List<HashMap<String, Object>> getTop5Waste(String userId);		/*전체기간 중 낭비 top5*/
+	void updateExpense(AccountBookTerm term);			/*수입 내역 조회*/
+	void updateIncome(AccountBookTerm term);			/*수입 내역 조회*/
+	AccountBookCategory getCategoryByNo(int categoryNo);
+	
+	/*예산*/
+	AccountBookTerm getBudget(int categoryNo);
+	
+	/*월결산*/
+	void addWriting(AccountBookWriting writing);
+	List<AccountBookWriting> getMyListByUserId(String userId);
+	List<AccountBookWriting> getAllList();
 	
 }

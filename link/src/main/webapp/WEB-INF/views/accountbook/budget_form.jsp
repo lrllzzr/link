@@ -49,13 +49,13 @@
 					<ul>
 						<li><a href="/link/accountbook/expense.do" class="active"><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
-							style="color: dimgray"><h4>보고서</h4></a></li>
-						<li><a href="/link/accountbook/budget.do"
+							style="color: dimgray"><h4>지출 보고서</h4></a></li>
+						<li><a href="#"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
 							style="color: dimgray"><h4>월결산</h4></a></li>
 						
-						<li class="month-accountBook">▼이달의 가계
+						<!-- <li class="month-accountBook">▼이달의 가계
 							<ul>
 								<li>+수입</li>
 								<li>-지출</li>
@@ -69,7 +69,7 @@
 						<li>▼최근 태그</li>
 
 						<li>미정국수</li>
-
+ -->
 					</ul>
 				</div> 
             </div>
@@ -126,60 +126,18 @@
                                   <th>지출</th>
                                   <th>남은돈</th>
                               </tr>
+                              <c:forEach var="expense" items="${categoryExpense }">
                               <tr>
-                                  <td><input class="form-control" type="text" value="식비"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="688400"></td>
-                                  <td><input class="form-control" type="text" value="100000"></td>
-                                  <td><input class="form-control" type="text" value="688400"></td>
+                                  <td><input class="form-control" type="text" name="categoryNo"value="${expense. }"></td>
+                                  <td><input class="form-control" name="budget1" type="text" value="0"></td>
+                                  <td><input class="form-control" name="expense1" type="text" value="0"></td>
+                                  <td><input class="form-control" name="remainAmount1" type="text" value="0"></td>
+                                  <td><input class="form-control" name="budget2" type="text" value="688400"></td>
+                                  <td><input class="form-control" name="expense2" type="text" value="100000"></td>
+                                  <td><input class="form-control" name="remainAmount2" type="text" value="688400"></td>
                               </tr>
-                              <tr>
-                                  <td><input class="form-control" type="text" value="식비"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="688400"></td>
-                                  <td><input class="form-control" type="text" value="100000"></td>
-                                  <td><input class="form-control" type="text" value="688400"></td>
-                              </tr>
-                              <tr>
-                                  <td><input class="form-control" type="text" value="식비"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="688400"></td>
-                                  <td><input class="form-control" type="text" value="100000"></td>
-                                  <td><input class="form-control" type="text" value="688400"></td>
-                              </tr>
-                              <tr>
-                                  <td><input class="form-control" type="text" value="식비"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="688400"></td>
-                                  <td><input class="form-control" type="text" value="100000"></td>
-                                  <td><input class="form-control" type="text" value="688400"></td>
-                              </tr>
-                              <tr>
-                                  <td><input class="form-control" type="text" value="식비"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="688400"></td>
-                                  <td><input class="form-control" type="text" value="100000"></td>
-                                  <td><input class="form-control" type="text" value="688400"></td>
-                              </tr>
-                              <tr>
-                                  <td><input class="form-control" type="text" value="식비"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="0"></td>
-                                  <td><input class="form-control" type="text" value="688400"></td>
-                                  <td><input class="form-control" type="text" value="100000"></td>
-                                  <td><input class="form-control" type="text" value="688400"></td>
-                              </tr>
+                              </c:forEach>
+                              
                           </table>
                        </div>
                    </div>

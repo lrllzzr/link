@@ -11,6 +11,7 @@ import kr.co.link.dao.AccountBookDao;
 import kr.co.link.vo.AccountBookCategory;
 import kr.co.link.vo.AccountBookTag;
 import kr.co.link.vo.AccountBookTerm;
+import kr.co.link.vo.AccountBookWriting;
 
 @Service
 public class AccountBookTermServiceImpl implements AccountBookTermService {
@@ -39,6 +40,16 @@ public class AccountBookTermServiceImpl implements AccountBookTermService {
 		tag.setTermNo(termNo);
 		accountBookDao.addTag(tag);
 		
+	}
+	/*지출 수정*/
+	@Override
+	public void updateExpense(AccountBookTerm term) {
+  		accountBookDao.updateExpense(term);
+	}
+	/*수입 수정*/
+	@Override
+	public void updateIncome(AccountBookTerm term) {
+		accountBookDao.updateIncome(term);
 	}
 	
 	/*내역 선택 삭제*/
@@ -106,8 +117,8 @@ public class AccountBookTermServiceImpl implements AccountBookTermService {
 	}
 	/*총기간의 수입지출*/
 	@Override
-	public AccountBookTerm getTotalTerm() {
-		return accountBookDao.getTotalTerm();
+	public AccountBookTerm getTotalTerm(String userId) {
+		return accountBookDao.getTotalTerm(userId);
 	}
 	
 	/*해당 월의 카테고리별 총지출*/
@@ -120,4 +131,49 @@ public class AccountBookTermServiceImpl implements AccountBookTermService {
 	public List<AccountBookTerm> getAnnualExpenseCategorybydate(Map<String, Object> annualCategory) {
 		return accountBookDao.getAnnualExpenseCategorybydate(annualCategory);
 	}
+	
+	@Override
+	public List<HashMap<String, Object>> getTop5Expense(String userId) {
+		return accountBookDao.getTop5Expense(userId);
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> getTop5Waste(String userId) {
+		return accountBookDao.getTop5Waste(userId);
+	}
+	@Override
+	public AccountBookTerm getExpenseTermByNo(int termNo) {
+		return accountBookDao.getExpenseTermByNo(termNo);
+	}
+	@Override
+	public AccountBookTerm getIncomeTermByNo(int termNo) {
+		return accountBookDao.getIncomeTermByNo(termNo);
+	}
+	/*예산*/
+	
+	@Override
+	  public AccountBookTerm getBudget(int categoryNo) { 
+		return accountBookDao.getBudget(categoryNo); 
+	}
+
+	@Override
+	public AccountBookCategory getCategoryByNo(int categoryNo) {
+		return accountBookDao.getCategoryByNo(categoryNo);
+	}
+	
+	/*월결산 이야기*/
+	@Override
+	public void addWriting(AccountBookWriting writing) {
+
+		accountBookDao.addWriting(writing);
+	}
+    @Override
+    public List<AccountBookWriting> getMyListByUserId(String userId) {
+    	return accountBookDao.getMyListByUserId(userId);
+    }
+    @Override
+    public List<AccountBookWriting> getAllList() {
+    	return accountBookDao.getAllList();
+    }
+    
 }
