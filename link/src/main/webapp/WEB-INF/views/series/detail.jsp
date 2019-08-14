@@ -143,12 +143,44 @@
     		})
     	});
     	
+    	/*
+    	$(".user-only").click(function(){
+    		   if('${LOGIN_USER}'== ""){
+    				var result = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+    				var host = location.host;
+    				var returnUrl = location.pathname;
+    				var queryString = location.search.substr(1).replace(/&/g, ',');
+    				
+    				if(result){
+    					location.href = '/link/loginform.do?returnUrl='+returnUrl+'&queryString='+queryString;
+    					return false;
+    				}
+    				return false;
+    			}
+    	   })
+    	   */
+    	
     	$("#heart").click(function(){
+    		// if('${LOGIN_USER}'== "") { 지식인-내브.jsp
+    			
     		if ($(this).attr('data-login') == "no") {
+    			var result = confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?');
+    			var host = location.host;
+    			var returnUrl = location.pathname;
+    			var queryString = location.search.substr(1).replace(/&/g, ',');
+    			
+    			if (result) {
+    				location.href = '/link/loginform.do?returnUrl='+returnUrl+'&queryString='+queryString;
+    				return false;
+    			}
+    			
+    			// return false;
+    		}
+    		/* if ($(this).attr('data-login') == "no") {
     			alert("로그인 페이지로 이동합니다.");
     			location.href = '/link/loginform.do';
     			return false;
-    		}
+    		} */
     		
     		if ($(this).find('span').hasClass('unhearted')){
 	    		$.ajax({

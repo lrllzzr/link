@@ -42,8 +42,8 @@
 	</update>
 	
 	<insert id="addUser" parameterType="user">
-		insert into Users(user_id, user_name, user_password, user_nickname, user_phone, user_gender)
+		insert into Users(user_id, user_name, user_password, user_nickname, user_phone, user_gender, user_img)
 		values
-		(#{id}, #{name}, #{password}, #{nickName}, #{phone}, #{gender})
+		(#{id}, #{name}, #{password}, #{nickName}, #{phone}, #{gender}, #{img})
 	</insert>
 </mapper>

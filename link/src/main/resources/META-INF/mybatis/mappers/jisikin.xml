@@ -5,6 +5,56 @@
   
 <mapper namespace="kr.co.link.dao.JisikinDao">		<!-- Dao경로설정 -->
 
+	<!-- 페이징 글 수 -->
+	<select id="countJiskinBycategory" parameterType="int" resultType="int">
+		select
+			count(*)
+		from
+			jisikin j, jisikin_category c
+		where
+            j.category_no = c.category_no
+		<if test="categoryNo != 0">
+	        and c.category_parent_no = #{value}
+		</if>
+	</select>
+	
+	<!-- 페이징처리 글 리스트 -->
+	<select id="pagingJiskinBycategory" parameterType="map" resultType="jisikin">
+		select
+			no, 
+			title, 
+			contents,
+			secretYn, 
+            mentalPoint, 
+			"category.no",
+			"category.name",
+			viewCnt,
+			createDate
+		from (select
+				row_number() over (order by jisikin_create_date desc) rn,
+				jisikin_no no, 
+				jisikin_title title, 
+				jisikin_content contents,
+				jisikin_secret_yn secretYn, 
+				jisikin_mental_point mentalPoint, 
+				jisikin.category_no "category.no",
+				category_name "category.name",
+				jisikin_viewcnt viewCnt,
+				jisikin_create_date createDate
+			from
+				jisikin, jisikin_category
+			where
+				jisikin.category_no = jisikin_category.category_no
+			<if test="categoryNo != 0">
+	        and 
+	        	jisikin_category.category_parent_no = #{categoryNo}
+			</if>)
+        where
+        	rn &gt;= #{beginIndex}
+        and
+        	rn &lt;= #{endIndex}
+	</select>
+
 	<insert id="addJisikin" parameterType="jisikin">
 		insert into Jisikin (jisikin_no, 
 							 jisikin_title, 
@@ -64,27 +114,6 @@
 			jisikin, jisikin_category
 		where
 			jisikin.category_no = jisikin_category.category_no
-		order by
-			jisikin_create_date desc
-	</select>
-	
-	<select id="getJisikinByCategory" parameterType="int" resultType="jisikin">
-		select
-			jisikin_no no, 
-			jisikin_title title, 
-			jisikin_content contents,
-			jisikin_secret_yn secretYn, 
-			jisikin_mental_point mentalPoint, 
-			jisikin.category_no "category.no",
-			category_name "category.name",
-			jisikin_viewcnt viewCnt,
-			jisikin_create_date createDate
-		from
-			jisikin, jisikin_category
-		where
-			jisikin.category_no = jisikin_category.category_no
-		and
-			jisikin_category.category_parent_no = #{value}
 		order by
 			jisikin_create_date desc
 	</select>

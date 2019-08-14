@@ -36,12 +36,13 @@
 				<div class="row blog_manage_right_row2">
 					<div class="col-sm-12">
 						<ul class="nav nav-tabs blog_nav_tabs">
-							<li data-applyType="applying" role="presentation" class="active"><a href="#">받은신청</a></li>
-							<li data-applyType="send" role="presentation"><a href="#">보낸신청</a></li>
+							<li role="presentation" class="active"><a href="#">받은신청</a></li>
+							<li role="presentation"><a href="#">보낸신청</a></li>
+							<li role="presentation"><a href="#">안내메시지</a></li>
 						</ul>
 					</div>
-					<div class="col-sm-12 blog_table_div">
-					<c:if test="${not empty neighbors }">
+					<div class="col-sm-12">
+						
 							<table class="table blog_table">
 								<colgroup>
 									<col width="25%">
@@ -84,12 +85,7 @@
 									</tr>
 								</tbody>
 							</table>
-						</c:if>
-						<c:if test="${empty neighbors }">
-							<div class="text-center" style="padding:25px;">
-								<p>받은 신청이 없습니다.</p>
-							</div>
-						</c:if>
+						
 					</div>
 				</div>
 			</div>
@@ -97,142 +93,19 @@
 	</div>
 	<script>
 		$(function() {
-			$('li[role="presentation"]').click(function(){
-				$(this).addClass('active').siblings().removeClass('active');
-				var type = $(this).attr('data-applyType');
-				
-				$.ajax({
-					type:"GET",
-					url:"neighborApplyAjax.do",
-					data :{
-						type : type
-					},
-					success:function(result){
-						$('.blog_table_div').empty();
-						if(type == 'applying' && result.length != 0){
-							var row = '<form id="neighborForm" action="eachNeighbor.do" method="post">';
-							row += '<table class="table blog_table">';	
-							row += '<colgroup><col width="25%"><col width="35%"><col width="20%"><col width="20%"></colgroup>';
-							row += '<thead>';
-							row += '	<tr>';
-							row += '		<th><input type="checkbox" id="blog_whoApply" name=""></input>신청한 아이디</th>';
-							row += '		<th class="text-center">메시지</th>';
-							row += '		<th class="text-center">신청일</th>';
-							row += '		<th class="text-center">관리</th>';
-							row += '	</tr>';
-							row += '</thead>';
-							row += '<tbody>';
-							row += '		<input type="hidden" name="reply" id="hiddenInput1" />';
-							$.each(result, function(index,neighbor){
-								row += '<tr>';
-								row += '	<td>';
-								row += '		<input type="checkbox" name="neighborBlogNo" value="'+neighbor.BLOGNO+'"/><a href="detail.do?blogNo='+neighbor.BLOGNO+'">'+neighbor.NICKNAME+'('+neighbor.USERID+')</a>';
-								row += '	</td>';
-								row += '	<td>'+neighbor.MESSAGE+'</td>';
-								row += '	<td class="text-center">';
-								row += 			neighbor.CREATEDATE;
-								row += '	</td>';
-								row += '	<td class="text-center">';
-								row += '		<button id="singo" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-exclamation-sign"></span>신고</button>';
-								row += '	</td>';
-								row += '</tr>';
-							})
-							
-							row += '<tr class="blogselectAllTd">';
-							row += '	<td class="blogselectAllTd">';
-							row += '	<span class="blog_selectAll_span"><input type="checkbox" id="blog_select_all"></input>전체선택</span>';
-							row += '<button class="btn btn-default btn-sm blog_neigh_accept_btn">수락</button>';
-							row += '<button class="btn btn-default btn-sm blog_neigh_deny_btn">거절</button>';
-							row += '</td>';
-							row += '</tr>';
-							row += '</tbody>';
-							row += '</table>';
-							row += '</form>';
-							$('.blog_table_div').append(row);
-							
-							
-						} else if(result.length == 0 && type == 'applying'){
-							var row = '<div class="text-center" style="padding:25px;">';
-							row += '<p>받은 신청이 없습니다.</p>';
-							row += '</div>';
-							$('.blog_table_div').append(row);
-						} else if(result.length != 0 && type == 'send'){
-							var row = '<form id="sendNeighborForm" action="sendNeighbor.do" method="post">';
-							row += '<table class="table blog_table">';	
-							row += '<colgroup><col width="25%"><col width="35%"><col width="20%"><col width="20%"></colgroup>';
-							row += '<thead>';
-							row += '	<tr>';
-							row += '		<th><input type="checkbox" id="blog_whoApply" name=""></input>신청한 아이디</th>';
-							row += '		<th class="text-center">메시지</th>';
-							row += '		<th class="text-center">신청일</th>';
-							row += '		<th class="text-center">관리</th>';
-							row += '	</tr>';
-							row += '</thead>';
-							row += '<tbody>';
-							row += '		<input type="hidden" name="reply" id="hiddenInput1" />';
-							$.each(result, function(index,neighbor){
-								row += '<tr>';
-								row += '	<td>';
-								row += '		<input type="checkbox" name="neighborBlogNo" value="'+neighbor.NO+'"/><a href="detail.do?blogNo='+neighbor.NO+'">'+neighbor.NICKNAME+'('+neighbor.USERID+')</a>';
-								row += '	</td>';
-								row += '	<td class="">'+neighbor.MESSAGE+'</td>';
-								row += '	<td class="text-center">';
-								row += 			neighbor.CREATEDATE;
-								row += '	</td>';
-								row += '	<td class="text-center">';
-								row += '		<button id="singo" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-exclamation-sign"></span>신고</button>';
-								row += '	</td>';
-								row += '</tr>';
-							})
-							row += '<tr class="blogselectAllTd">';
-							row += '	<td class="blogselectAllTd">';
-							row += '	<span class="blog_selectAll_span"><input type="checkbox" id="blog_select_all"></input>전체선택</span>';
-							row += '<button class="btn btn-default btn-sm blog_neigh_delete_btn">삭제</button>';
-							row += '</td>';
-							row += '</tr>';
-							row += '</tbody>';
-							row += '</table>';
-							row += '</form>';
-							$('.blog_table_div').append(row);
-							
-						} else if(result.length == 0 && type == 'send'){
-							var row = '<div class="text-center" style="padding:25px;">';
-							row += '<p>보낸 신청이 없습니다.</p>';
-							row += '</div>';
-							$('.blog_table_div').append(row);
-						}
-					}
-				});
-			});
-			$('body').on('click','.blog_neigh_delete_btn',function(){
-				var isChecked = false;
-				$.each($('tbody input[type=checkbox]'), function(index,item){
-					if($(this).prop('checked') == true){
-						isChecked = true;
-					}
-				});
-				
-				if(isChecked == true){
-					var result2 = confirm('삭제하시겠습니까?');
-					if(result2){
-						$('#sendNeighborForm').submit();
-					}
-				} else{
-					alert('삭제할 항목을 선택해주세요');
-					return false;
-				}
-			});
 			$('#singo').click(function(){
 				var result = confirm('신고하시겠습니까?');
 				if(result){
 					alert('신고되었습니다.');
 				}
 			});
-			$('body').on('click','.blog_neigh_accept_btn',function(){
+			$('.blog_neigh_accept_btn').click(function(){
 				var isChecked = false;
 				$.each($('tbody input[type=checkbox]'), function(index,item){
+					console.log(item);
 					if($(this).prop('checked') == true){
 						isChecked = true;
+						console.log('each 안: '+isChecked);
 					}
 				});
 				
@@ -245,7 +118,7 @@
 				}
 			});
 			
-			$('body').on('click','.blog_neigh_deny_btn',function(){
+			$('.blog_neigh_deny_btn').click(function(){
 				var isChecked = false;
 				$.each($('tbody input[type=checkbox]'), function(){
 					if($(this).prop('checked') == true){
@@ -262,12 +135,45 @@
 				
 			});
 			
-			$('body').on('change','#blog_select_all',function() {
+			$('#blog_select_all').change(function() {
 				$('table input[type=checkbox]').prop('checked', $(this).prop('checked'));
 			});
-			
-			$('body').on('change','#blog_whoApply',function() {
+			$('#blog_whoApply').change(function() {
 				$('table input[type=checkbox]').prop('checked', $(this).prop('checked'));
+			});
+
+			$('.blog_beuaty_submit_button').click(function() {
+				if ($('.blog_manage_input').val() == "") {
+					alert('블로그명은 필수입력 사항입니다.');
+					return false;
+				}
+				if ($('#blogNickName').val() == "") {
+					alert('별명을 입력해야 합니다.');
+					return false;
+				}
+				if ($('#blogDescription').val() == "") {
+					alert('소개글을 적어주세요.');
+					return false;
+				}
+				var result = confirm('적용하시겠습니까?');
+				if (result) {
+					$('#updateBlogForm').submit();
+				}
+			})
+			function readURL(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function(e) {
+						$('#blogImg').attr('src', e.target.result);
+					}
+
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+
+			$("#mainImg").change(function() {
+				readURL(this);
 			});
 		})
 	</script>

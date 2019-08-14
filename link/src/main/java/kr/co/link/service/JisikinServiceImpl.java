@@ -27,6 +27,25 @@ public class JisikinServiceImpl implements JisikinService {
 	@Autowired
 	private UserDao userDao;
 	
+	// 전체or카테고리별 질문수
+	@Override
+	public int countJiskinBycategory(int categoryNo) {
+		return jisikinDao.countJiskinBycategory(categoryNo);
+	}
+	
+	// 페이징 글 리스트
+	@Override
+	public List<Jisikin> pagingJiskinBycategory(Map<String, Object> map){
+		List<Jisikin> allJisikin = jisikinDao.pagingJiskinBycategory(map);
+		
+		// 태그들 각 지식인질문에 담기
+		for (Jisikin j : allJisikin) {
+			List<JisikinTag> tags = tagService.getTagByJisikin(j.getNo());
+			j.setTags(tags);
+		}
+		
+		return allJisikin;
+	}
 	
 	@Override
 	public int getJisikinSeq() {
@@ -52,33 +71,6 @@ public class JisikinServiceImpl implements JisikinService {
 	@Override
 	public int countAnswer() {
 		return jisikinDao.countAnswer();
-	}
-	
-	@Override
-	public List<Jisikin> getJisikinByCategory(int categoryNo) {
-		List<Jisikin> allJisikin = jisikinDao.getJisikinByCategory(categoryNo);
-		
-		
-		// 태그들 각 지식인질문에 담기
-		for (Jisikin j : allJisikin) {
-			List<JisikinTag> tags = tagService.getTagByJisikin(j.getNo());
-			j.setTags(tags);
-		}
-		
-		return allJisikin;
-	}
-	
-	@Override
-	public List<Jisikin> getAllJisikin() {
-		List<Jisikin> allJisikin = jisikinDao.getAllJisikin();
-
-		// 태그들 각 지식인질문에 담기
-		for (Jisikin j : allJisikin) {
-			List<JisikinTag> tags = tagService.getTagByJisikin(j.getNo());
-			j.setTags(tags);
-		}
-		
-		return allJisikin;
 	}
 	
 	@Override

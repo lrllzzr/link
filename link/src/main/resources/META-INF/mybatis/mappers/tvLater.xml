@@ -21,7 +21,7 @@
 		TV_VIDEONAME videoName, 
 		a.CREATE_DATE createDate, 
 		PLAYLIST_NO "tvPlaylist.no", 
-		TV_PLAYTIME playTime, 
+		TV_PLAYTIME playTime,   
 		TV_THUMBNAIL thumbnail, 
 		b.user_id "tvPlaylist.tvChannel.User.id"
 		
@@ -32,3 +32,5 @@
 
 	</select>
   </mapper>
+  
+  

@@ -24,7 +24,35 @@ public class AccountBookTerm {
 	private String userId;
 	private String expense;
 	private String income;
+	private Integer budget1;
+	private Integer expense1;
+	private Integer budget2;
+	private Integer expense2;
 	
+	public Integer getBudget1() {
+		return budget1;
+	}
+	public void setBudget1(Integer budget1) {
+		this.budget1 = budget1;
+	}
+	public Integer getExpense1() {
+		return expense1;
+	}
+	public void setExpense1(Integer expense1) {
+		this.expense1 = expense1;
+	}
+	public Integer getBudget2() {
+		return budget2;
+	}
+	public void setBudget2(Integer budget2) {
+		this.budget2 = budget2;
+	}
+	public Integer getExpense2() {
+		return expense2;
+	}
+	public void setExpense2(Integer expense2) {
+		this.expense2 = expense2;
+	}
 	public String getExpense() {
 		return expense;
 	}

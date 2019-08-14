@@ -5,7 +5,14 @@ public class AccountBookCategory {
 	private String categoryName;
 	private String categoryGubun;
 	private Integer total;
+	private Integer cnt;
 	
+	public Integer getCnt() {
+		return cnt;
+	}
+	public void setCnt(Integer cnt) {
+		this.cnt = cnt;
+	}
 	public Integer getTotal() {
 		return total;
 	}

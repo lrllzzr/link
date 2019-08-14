@@ -8,6 +8,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.CustomEditorConfigurer;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -31,6 +35,7 @@ import kr.co.link.vo.BandNbbang;
 import kr.co.link.vo.BandTodo;
 import kr.co.link.vo.User;
 import kr.co.link.vo.BandVote;
+import kr.co.link.vo.BandWritePhoto;
 
 @Controller
 @RequestMapping("/band")
@@ -272,7 +277,17 @@ public class BandController {
 	public String addBandHomeWrite(BandHomeContent bandHomeContent) {
 		bandService.updateBandHomeWriteByWriteNoToStart(bandHomeContent);
 		
+		Document doc = Jsoup.parse(bandHomeContent.getContents());
+		
+		Elements imgElements = doc.select("img");
+		for (Element element : imgElements) {
+			String path = element.attr("src");
+			String filename = path.substring(path.lastIndexOf("/") + 1);
+			bandService.addBandWritePhoto(bandHomeContent.getWriteNo(), filename, bandHomeContent.getBandNo());
+		}
+		
 		BandHomeContent homeContent = bandService.getBandHomeWriteByWriteNo(bandHomeContent.getWriteNo());
+		
 		return "redirect:bandhome.do?bandNo="+homeContent.getBandNo();
 	}
 	
@@ -292,9 +307,24 @@ public class BandController {
 		bandService.bandWriteDelNbbang(nbbNo);
 	}
 	
+	// 데이터 실제 보기
+	@RequestMapping(value="/bandContentDetailView.do", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> bandContentDetailView(String type, int no) {
+		return bandService.bandContentDetailView(type, no);
+	}
+	
+	// 밴드 사진첩 사진 가져오기
+	@RequestMapping(value="/bandWriteContentPhoto.do", method=RequestMethod.GET)
+	@ResponseBody
+	public List<BandWritePhoto> bandWriteContentPhoto (int bandNo) {
+		return bandService.getbandWritePhotoByBandNo(bandNo);
+	}
+
 	// 데이터 포맷팅
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 	}
+	
 }

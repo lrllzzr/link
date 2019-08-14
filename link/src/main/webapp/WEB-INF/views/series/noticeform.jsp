@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/link/resources/js/se2/js/HuskyEZCreator.js"></script>
+	<script type="text/javascript" src="/link/resources/js/njw_se2/js/HuskyEZCreator.js"></script>
 	<style type="text/css">
 	    /*div {border: 1px dotted red}*/
 	</style>
@@ -48,7 +48,7 @@
 	nhn.husky.EZCreator.createInIFrame({
 	   oAppRef : oEditors,
 	   elPlaceHolder : "notice-contents",
-	   sSkinURI : "/link/resources/js/se2/SmartEditor2Skin.html",
+	   sSkinURI : "/link/resources/js/njw_se2/SmartEditor2Skin.html",
 	   fCreator : "createSEditor2",
 	   htParams : {
 	      fOnBeforeUnload : function() {
@@ -60,7 +60,7 @@
 	nhn.husky.EZCreator.createInIFrame({
 		oAppRef: oEditors,
 			elPlaceHolder: "notice-contents",
-			sSkinURI: "/link/resources/js/se2/SmartEditor2Skin.html",
+			sSkinURI: "/link/resources/js/njw_se2/SmartEditor2Skin.html",
 		fCreator: "createSEditor2"
 	}); */
 	

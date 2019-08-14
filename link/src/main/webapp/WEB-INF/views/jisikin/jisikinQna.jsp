@@ -17,40 +17,8 @@
 	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinmain.css">
 	<link rel="stylesheet" href="/link/resources/css/jisikin/jisikinQna.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-	<script>
-	
-		var app = angular.module('myApp', []);
-		
-		app.controller('categoryCtrl', function($scope, $http){
-            // $scope에 boxoffice라는 이름으로 빈 배열을 저장한다.
-            $scope.categories = [];
-            
-            $scope.searchCategories = function(categoryNo){
-                
-                var url = "byCategory.do?categoryNo="+categoryNo;
-                
-                $http.get(url)
-                    .then(function(response){
-                    	$(".list2").empty();
-                    	
-                        var data = response.data;   // 응답데이터 조회
-                        console.log(data);
-                        $scope.jisikinByCategory = data;
-                }, function(){
-                    alert("조회 중 오류가 발생하였습니다.");
-                })
-            }
-            
-        })
-        
-        app.filter("timeago", function() {
-        	return function(time) {
-        		return jQuery.timeago( new Date(time));
-        	}
-        })
-	</script>
 </head>
-<body  ng-app="myApp" ng-controller="categoryCtrl">
+<body>
     <%@ include file="../common/nav.jsp" %>
 <div class="container">
    <%@include file="jisikin-nav.jsp" %>
@@ -78,7 +46,7 @@
                             <ul style="padding-left:50px;">
                             	<c:forEach var="c" items="${categoriesParent }">
                             		<li style="list-style:square !important;">
-                            			<a class="a-category" href="#" data-value="${c.no }" ng-click="searchCategories('${c.no}')" >${c.name }</a>
+                            			<a class="a-category" href="/link/jisikin/qna.do?categoryNo=${c.no }">${c.name }</a>
                             		</li>
                             	</c:forEach>
                             </ul>
@@ -112,19 +80,6 @@
                     <th scope="col" class="on"><a href="#" class="_nclicks:kls_new.bydate">작성<img src="https://ssl.pstatic.net/static/kin/09renewal/blank.gif" width="12" height="12" alt="정렬"></a></th>
                     </tr>
                     </thead>
-
-                    <tbody id="au_board_list">
-
-						<tr ng-repeat="question in jisikinByCategory">
-							<td class="title">
-	                                <a href="/link/jisikin/questionDetail.do?jisikinNo={{question.no}}" rel="KIN" class="">{{question.title}}</a>
-	                            </td>
-	                            <td class="field"><a href="#" class="">{{question.category.name}}</a></td>
-	                            <td class="t_num">{{question.countAnswer}}</td>
-	                            <td class="t_num tg">{{question.createTime | timeago}}</td>
-	                        </tr>
-	                 </tbody>
-	                        
 	                 <tbody id="au_board_list" class="list2">
 
 						<c:forEach var="all" items="${allJisikin }">
@@ -137,63 +92,23 @@
 	                            <td class="t_num tg">${all.createTime }</td>
 	                        </tr>
 						</c:forEach>
-
                     </tbody>
                     </table>	
-                    
 
-        <ww:if test="false">
-
-        </ww:if>
-        <ww:else>
-
-        </ww:else>
-
-
-
-        <div class="paging space _tag_pager" style="display: none;">
-            <div class="nav" style="display:block;"> <p class="btn"><a href="#" class="pr-prev _pre"><img src="https://ssl.pstatic.net/static/kin/09renewal/btn_nav3_prev.gif" width="23" height="23" alt="이전" title="이전"></a><a href="#" class="pr-next _next"><img src="https://ssl.pstatic.net/static/kin/09renewal/btn_nav3_next.gif" width="22" height="23" alt="다음" title="다음"></a></p></div>
-        </div>
         <div class="paginate _default_pager">
-
-                        <a href="#" class="on" title="선택됨">1</a>	
-                        <a href="#">2</a>	
-                        <a href="#">3</a>	
-                        <a href="#">4</a>	
-                        <a href="#">5</a>	
-                        <a href="#">6</a>	
-                        <a href="#">7</a>	
-                        <a href="#">8</a>	
-                        <a href="#">9</a>	
-                        <a href="#">10</a>	
-                    <a href="#" class="next ">다음페이지</a>
-
+	           <c:if test="${!pagination.first }">
+	              <a class="pr-prev _pre" href="/link/jisikin/qna.do?categoryNo=${param.categoryNo }&page=${pagination.page - 1 }">이전페이지
+	              </a>
+	           </c:if>
+	            <c:forEach var="p" begin="${pagination.begin }" end="${pagination.end }">
+		            <a class="${pagination.page eq p ? 'on' : '' }" href="/link/jisikin/qna.do?categoryNo=${param.categoryNo }&page=${p }">${p }</a>
+	            </c:forEach>
+	            <c:if test="${!pagination.last }">
+		              <a class="next" href="/link/jisikin/qna.do?categoryNo=${param.categoryNo }&page=${pagination.page + 1 }">다음페이지
+		              </a>
+		        </c:if>
         </div>
-
-        <div class="search">
-            <form name="bottom_search" id="bottom_search" method="get">
-            <input type="hidden" name="cs" value="utf8">
-            <fieldset>
-                <legend>검색영역</legend>            
-
-
-
-                    <label for="svc_type" class="blind">지식 분류 선택</label>
-                    <select name="section" id="svc_type">
-                    <option value="qna" selected="">Q&amp;A</option>
-                    <option value="junior">쥬니버Q&amp;A</option>
-                    <option value="worry">고민Q&amp;A</option>
-                    <option value="local">지역&amp;플레이스</option>
-                    </select>
-
-
-
-
-                <input type="text" accesskey="s" title="검색어" class="keyword" name="query" id="au_input_query">
-                <input type="image" alt="검색" src="https://ssl.pstatic.net/static/kin/09renewal/btn_search.gif" id="au_search_submit">
-            </fieldset>
-            </form>
-        </div>
+        
             </div>
         </div>  
        </div>

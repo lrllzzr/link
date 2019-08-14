@@ -3,10 +3,14 @@ package kr.co.link.vo;
 import java.util.Date;
 import java.util.List;
 
+import kr.co.link.util.DateUtils;
+import kr.co.link.util.DateUtilsJH;
+
 public class BandJoin {
 
 	private Integer writeNo;
 	private Integer JoinNo;
+	private Integer joinItemNo;
 	private String title;
 	private Date startDate;
 	private List<String> hangmoc;
@@ -37,6 +41,12 @@ public class BandJoin {
 	}
 	public Date getStartDate() {
 		return startDate;
+	}
+	public String getStartDateStr() {
+		if (startDate == null) {
+			return "";
+		}
+		return DateUtilsJH.dateToString(startDate);
 	}
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
@@ -82,6 +92,12 @@ public class BandJoin {
 	}
 	public void setJoinCount(Integer joinCount) {
 		this.joinCount = joinCount;
+	}
+	public Integer getJoinItemNo() {
+		return joinItemNo;
+	}
+	public void setJoinItemNo(Integer joinItemNo) {
+		this.joinItemNo = joinItemNo;
 	}
 	
 	

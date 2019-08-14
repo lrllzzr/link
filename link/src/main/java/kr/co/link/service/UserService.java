@@ -12,4 +12,7 @@ public interface UserService {
 	public void updateUser(User user);
 	// 회원가입
 	void addUser(User user);
+	
+	// 프로필 경로
+	public String profileImageSaveDirectory();
 }

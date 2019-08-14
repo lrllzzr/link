@@ -1,5 +1,7 @@
 package kr.co.link.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,12 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.link.service.BlogService;
 import kr.co.link.service.UserService;
 import kr.co.link.vo.User;
 
@@ -23,6 +29,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BlogService blogService;
 	
 	@RequestMapping("/loginform.do")
 	public String loginform(HttpSession session, HttpServletRequest request,
@@ -101,7 +110,15 @@ public class UserController {
 	}
 	
 	@RequestMapping(value= "/addUser.do", method = RequestMethod.POST)
-	public String addUser(User user) {
+	public String addUser(User user, MultipartFile mainImg)throws IOException {
+		String profileImageSaveDirectory = userService.profileImageSaveDirectory();
+		
+		if (!mainImg.isEmpty()) {
+			String filename = mainImg.getOriginalFilename();
+			FileCopyUtils.copy(mainImg.getBytes(), new File(profileImageSaveDirectory, filename));
+			user.setImg(filename);
+		}
+		
 		userService.addUser(user);
 		return "redirect:/home.do";
 	}

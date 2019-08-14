@@ -8,18 +8,15 @@
 <html>
 <head>
 <title>Link : TV 메인</title>
-<link rel="shortcut icon" type="image/x-icon"
-	href="../../../resources/images/shortcut-icon.PNG">
+<link rel="shortcut icon" type="image/x-icon" href="../../../resources/images/shortcut-icon.PNG">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" type="image/x-icon"
-	href="/mj/kurly/images/header_footer/tab-logo02.png">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="shortcut icon" type="image/x-icon" href="/mj/kurly/images/header_footer/tab-logo02.png">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="/link/resources/js/jquery.timeago.js"></script>
+<script src="/link/resources/js/jquery.timeago.ko.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <style>
 .navbar-nav>li>a:hover, .navbar-nav>li>a {
@@ -223,28 +220,28 @@ ul, li {
 	cursor: pointer;
 }
 
-.btn-detail-like:hover {
+.likeOn {
 	color: red;
 }
 
 .btn-detail-comment {
 	font-size: 30px;
-	color: skyblue;
+	color: blue;
 	cursor: pointer;
 }
 
 .btn-detail-comment:hover {
-	color: blue;
+	color: #1D05D8;
 }
 
 .btn-detail-later {
 	font-size: 30px;
-	color: #CECECE;
+	color: black;
 	cursor: pointer;
 }
 
 .btn-detail-later:hover {
-	color: black;
+	color: #141414;
 }
 
 .tv-clip-list {
@@ -273,18 +270,25 @@ ul, li {
 
 .comment-tumbsup {
 	display: inline-block;
-	margin-left: 650px;
+	float: right;
+	margin-left: 20px;
+	margin-right: 20px;
 	padding: 2px;
-	border: 1px solid indigo;
+	border: 1px dashed gray;
 	cursor: pointer;
 }
 
 .comment-tumbsdown {
 	display: inline-block;
-	margin-left: 20px;
+	float: right;
+	margin-right: 20px;
 	padding: 2px;
 	border: 1px dashed gray;
 	cursor: pointer;
+}
+
+.likeYnOn{
+	border:1px solid indigo;
 }
 
 .clip-list-title {
@@ -327,15 +331,11 @@ ul, li {
 			<div>
 				<ul class="tv-side-menubar">
 					<li class="tv-side-menu" onclick="location.href='home.do'">홈</li>
-					<li class="tv-side-menu"
-						onclick="location.href='rank.do?category=best'">인기</li>
-					<li class="tv-side-menu"
-						onclick="location.href='history.do?sort=recent'">최근 본 동영상</li>
-					<li class="tv-side-menu"
-						onclick="location.href='history.do?sort=later'">나중에 볼 동영상</li>
-					<li class="tv-side-menu"
-						onclick="location.href='history.do?sort=like'">좋아요 한 동영상</li>
-					<li class="tv-side-menu" onclick="location.href='mychannel.do'">내채널 가기</li>
+                   <li class="tv-side-menu" onclick="location.href='rank.do?category=best'">인기</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="history.do?sort=recent">최근 본 동영상</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="history.do?sort=later">나중에 볼 동영상</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="history.do?sort=like">좋아요 한 동영상</li>
+                   <li class="tv-side-menu chk-user" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }" data-url="mychannel.do">내 채널 가기</li>
 				</ul>
 			</div>
 
@@ -345,7 +345,7 @@ ul, li {
 
 
 
-			<div>
+<div>
     <div class="tv-detail-content">
         <div class="row">
             <div class="col-sm-10">
@@ -362,9 +362,9 @@ ul, li {
                             <div>
                                 <h2 class="tv-detail-title">${video.title}</h2>
                                 <div class="pull-right">
-                                    <span class="glyphicon glyphicon-heart btn-detail-like"></span><strong>${video.likes }</strong>
-                                    <span class="glyphicon glyphicon-comment btn-detail-comment"></span><strong>${video.comments }</strong>
-                                    <span class="glyphicon glyphicon-time btn-detail-later" data-vno=${video.no }></span>
+                                    <span class="glyphicon glyphicon-heart btn-detail-like ${status eq 'Like' ? 'likeOn' : '' }" data-likeStatus="${status eq 'Like' ? 'Y' : 'N' }" data-vno=${video.no } data-login="${not empty LOGIN_USER ? 'Y' : 'N' }"></span><span><strong class="like-count">${video.likes }</strong></span>
+                                    <span class="glyphicon glyphicon-comment btn-detail-comment" data-login="${not empty LOGIN_USER ? 'Y' : 'N' }"></span><span><strong>${video.comments }</strong></span>
+                                    <span class="glyphicon glyphicon-time btn-detail-later" data-vno=${video.no } data-login="${not empty LOGIN_USER ? 'Y' : 'N' }"></span>
                                 </div>
                             </div>
                             <div style="color: gray">
@@ -383,33 +383,34 @@ ul, li {
 
 
                     <div class="row" style="margin-top: 100px;">
-                        <div class="col-sm-12">
-                            <form action="addComment.do?vno=${param.vno} " class="form-group">
+                        <div class="col-sm-12 comment-header" data-position='${param.position eq "cmt" ? "bottom" : "" }'>
+                            <form action="addComment.do" class="form-group">
                                 <label>댓글</label>
-                                <textarea class="form-control comment-textarea" style="resize: none;" id="" rows="5"></textarea>
-                                <div><span class="word-check">0</span>/200</div>
+                                <input type="hidden" name="vno" value="${param.vno }">
+                                <textarea class="form-control comment-textarea" name="CommentContents" data-login="${not empty LOGIN_USER ? 'Y' : 'N'}" style="resize: none;" id="" rows="5"></textarea>
+                                <div><strong><span class="word-check">0</span>/200</div></strong>
                                 <button class="btn btn-info pull-right btn-comment-insert" type="submit">등록</button>
                             </form>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="tv-detail-comment">
-                                <label>민지</label>
-                                <div>안녕하세요</div>
-                                <span style="color: gray">등록일 : 2019-08-18</span>
-                                <div class="comment-tumbsup">
-                                    <span class="glyphicon glyphicon-thumbs-up">좋아요</span><em>10</em>
-                                </div>
-                                <div class="comment-tumbsdown">
-                                    <span class="glyphicon glyphicon-thumbs-down">싫어요</span><em>30</em>
-                                </div>
-                            </div>
-                            
-                            
+                            <c:forEach var="comment" items="${comments }">
+	                            <div class="tv-detail-comment">
+	                                <label>${comment.USERID }</label>
+	                                <div>${comment.CONTENTS }</div>
+	                                <span style="color: gray">등록일 :</span> <span class="tg" style="color: gray">${comment.CREATEDATE }</span>
+	                                <div class="comment-tumbsdown ${comment.STATUS eq 'N' ? 'likeYnOn' : '' }">
+	                                    <span class="glyphicon glyphicon-thumbs-down" data-cno="${comment.NO }" data-status="${comment.STATUS eq 'N' ? 'N' : '' }"  data-login="${not empty LOGIN_USER ? 'Y' : 'N'}">싫어요</span><em class="hates-${comment.NO }">${comment.HATECNT }</em>
+	                                </div>
+	                                <div class="comment-tumbsup ${comment.STATUS eq 'Y' ? 'likeYnOn' : '' }">
+	                                    <span class="glyphicon glyphicon-thumbs-up"  data-cno="${comment.NO }"data-status="${comment.STATUS eq 'Y' ? 'Y' : ''}" data-login="${not empty LOGIN_USER ? 'Y' : 'N'}">좋아요</span><em class="likes-${comment.NO }">${comment.LIKECNT }</em>
+	                                </div>
+	                            </div>
+                            </c:forEach>
 
                         </div>
-                    </div>
+                    </div>	
                 </div>
             </div>
             <div>
@@ -460,6 +461,27 @@ ul, li {
     </div>
 </div>
 
+		<div id="modalFail" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+		    	<span></span>
+		    	<div style="border:2px solid indigo; padding: 15px; font-size: 15px; font-weight: bold;">
+		      	이미 나중에 보기 한 영상입니다.
+		    	</div>	
+		    </div>
+		  </div>
+		</div>
+		
+		<div id="modalSuccess" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+		    	<div style="border:2px solid indigo; padding: 15px; font-size: 15px; font-weight: bold;">
+		      		나중에 보기에 영상을 담았습니다.
+		    	</div>
+		    </div>
+		  </div>
+		</div>
+
 </div>
 </div>
 
@@ -508,50 +530,260 @@ ul, li {
 				
 			// 댓글 글자수 체크
 			
-			
-			$(".comment-textarea").on("keyup", function () {
-				var words = $(this).val().length;
-				$(".word-check").text(words);
-				
-				if(words == 0 || words > 200){
-					$(".btn-comment-insert").attr("disabled", true);
-				} else{
-					
-					$(".btn-comment-insert").attr("disabled", false);
-				}
-			})
-			
-			
-			// 나중에 보기 AJAX
-	$(".btn-detail-later").on("click", function(event) {
-	
-		var vno = $(this).attr("data-vno");
-		console.log(vno);
-		 $.ajax({
-			type:"POST",
-			url:"addLater.do",
-			data:{"vno":vno},
-			dataType:"text",
-			success:function(result){
-				console.log(result);
-				if(result =='fail'){
-					/* alert('이미 나중에 보기 한 영상입니다.'); */
-					$("#modalFail").modal({
-						backdrop: true
-					});
-				}
-				if(result =='success'){
-					/* alert('나중에 보기에 영상을 담았습니다.'); */
-					$("#modalSuccess").modal({
-						backdrop: true
-					});
-				}
-			
-			}
-		}) 
-		return false;
-})
 		
+		$(".comment-textarea").on("keyup", function () {
+			var words = $(this).val().length;
+			$(".word-check").text(words);
+			
+			if(words == 0 || words > 200){
+				$(".btn-comment-insert").attr("disabled", true);
+			} else{
+				
+				$(".btn-comment-insert").attr("disabled", false);
+			}
+		})
+			
+			//댓글창 클릭시 로그인 체크
+		$(".comment-textarea").on("focus", function () {
+			var login = $(this).attr("data-login");
+							
+			if(login == 'N'){
+				var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+				if(YN) {
+					$(".comment-textarea").blur();
+					location.href="/link/loginform.do?returnUrl=tv/detail.do?vno=${param.vno}";
+				}else{
+					$(".comment-textarea").blur();
+				}
+			}
+		})
+		
+		
+		$(".chk-user").on("click", function () {
+			 
+			var url = $(this).attr('data-url');
+			var login = $(this).attr('data-login');
+			 
+			if (login == 'Y') {
+				location.href = url;
+			} else {
+				var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?")
+				if(YN){
+					location.href = url;
+				}
+			}
+		});
+	
+		// 나중에보기 ajax
+	 $(".btn-detail-later").on("click", function(event) {
+			
+		  var vno = $(this).attr("data-vno");
+		  var login = $(this).attr("data-login");
+		  
+		  if(login == 'N'){
+			  var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+			  if(YN){
+				  location.href="/link/loginform.do?returnUrl=tv/detail.do?vno=${param.vno}";
+			  }
+		  }
+		  if(login == 'Y'){
+			  $.ajax({
+				type:"POST",
+				url:"addLater.do",
+				data:{"vno":vno},
+				dataType:"text",
+				success:function(result){
+					if(result =='fail'){
+						$("#modalFail").modal({
+							backdrop: true
+						});
+					}
+					if(result =='success'){
+						$("#modalSuccess").modal({
+							backdrop: true
+						});
+						
+					}
+				
+				}
+			}) 
+		  }
+			return false;
+
+	});
+	
+	 // 좋아요 버튼 ajax (좋아요 취소)
+	$(".btn-detail-like").on("click", function () {
+		var vno = $(this).attr("data-vno");
+		var login = $(this).attr("data-login");
+		var status = $(this).attr("data-likeStatus");
+		 console.log(vno);
+		 console.log(login);
+		 console.log(status);
+		
+		if(login == 'N'){
+			var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+			if(YN){
+				location.href="/link/loginform.do?returnUrl=tv/detail.do?vno=${param.vno}";
+			}
+		}
+		if(login == 'Y'){
+			
+			if($(this).hasClass("likeOn")){
+				$(this).removeClass("likeOn");
+				$(this).attr("data-likeStatus", "N");
+			} else{
+				$(this).addClass("likeOn");
+				$(this).attr("data-likeStatus", "Y");
+			}
+			
+			console.log(status);
+			$.ajax({
+				type:"POST",
+				url:"addLike.do",
+				data:{"vno":vno, "status":status},
+				dataType:"text",
+				success:function(result){
+					console.log(result);
+					$(".like-count").text(result);
+				
+				}
+			}) 
+		}
+		return false;
+	});
+		
+		
+	// 댓글번튼 누르면 comment-rextarea 포커스 시켜서 포커스이벤트 발동시키기(포커스이벤트에 로그인체크 기능해놨으니까...)
+	// 로그인 되어있으면 댓글 area 포커스해주기 알아서 스크롤 움직일테니까..
+		$(".btn-detail-comment").on("click",function(){
+			var login = $(this).attr("data-login");
+	
+			if(login == 'N'){
+				var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+				if(YN){
+					location.href="/link/loginform.do?returnUrl=tv/detail.do?position=cmt&vno=${param.vno}";
+				}
+			}
+			
+			if(login == 'Y'){
+		       $(".comment-textarea").focus();
+		       /* var x = 한페이지에 5댓글씩 보여준다면, 5이상이면 5고정  */
+		       /*			1,2,3,4	???? 이렇게하면되나  */
+		       /* $(window).scrollTop(410+(x*95)); */
+			}
+		})
+		
+		 // 포지션 bottom은 바텀으로 스크롤이동
+		$(function () {
+			var p =$(".comment-header").attr("data-position");
+			if(p == 'bottom'){
+				$(window).scrollTop(900);
+			}
+		});
+	
+	
+		
+	// 댓글의 좋아요 싫어요 ajax
+	
+		$(".glyphicon-thumbs-up").on("click", function () {
+			 
+			var login = $(this).attr("data-login");
+			var status= $(this).attr("data-status");
+			var cno = $(this).attr("data-cno");
+			var hate = $(this).parent().prev().first().children().first().attr("data-status");
+			
+			if(login == 'N'){
+				var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+				if(YN){
+					location.href="/link/loginform.do?returnUrl=tv/detail.do?vno=${param.vno}";
+				}
+			}
+			
+			if(login == 'Y'){
+				
+				if(status == 'Y'){
+					$(this).parent().removeClass("likeYnOn");
+					$(this).attr("data-status", '');
+				}
+				if(status == ''){
+					$(this).parent().addClass("likeYnOn"); 
+					$(this).attr("data-status", 'Y');
+					$(this).parent().prev().first().children().first().attr("data-status",'');
+					$(this).parent().prev().first().removeClass("likeYnOn");
+				}
+				
+				$.ajax({
+					type:"POST",
+					url:"addCommentLike.do",
+					data:{"cno":cno, "status":status, "hate": hate},
+					dataType:"json",
+					success:function(result){
+						$(".likes-"+cno).text(result.LIKES);
+						$(".hates-"+cno).text(result.HATES);
+
+					}
+				}) 
+			}
+		})
+		
+		
+		// 댓글 싫어요 /취소
+		
+		$(".glyphicon-thumbs-down").on("click", function () {
+			 
+			var login = $(this).attr("data-login");
+			var status= $(this).attr("data-status");
+			var cno = $(this).attr("data-cno");
+			var like = $(this).parent().next().first().children().first().attr("data-status");
+			console.log(status);
+			console.log(cno);
+			console.log(like);
+			if(login == 'N'){
+				var YN = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+				if(YN){
+					location.href="/link/loginform.do?returnUrl=tv/detail.do?vno=${param.vno}";
+				}
+			}
+			
+			if(login == 'Y'){
+				
+				if(status == 'N'){
+					$(this).parent().removeClass("likeYnOn");
+					$(this).attr("data-status", '');
+				}
+				if(status == ''){
+					$(this).parent().addClass("likeYnOn"); 
+					$(this).attr("data-status", 'N');
+					 $(this).parent().next().first().children().first().attr("data-status",'');
+					$(this).parent().next().first().removeClass("likeYnOn");
+					
+				}
+				
+				$.ajax({
+					type:"POST",
+					url:"addCommentHate.do",
+					data:{"cno":cno, "status":status, "like":like},
+					dataType:"json",
+					success:function(result){
+						$(".likes-"+cno).text(result.LIKES);
+						$(".hates-"+cno).text(result.HATES);
+
+					}
+				}) 
+			}
+		})
+		
+		
+	
+
+		
+		// timeAgo 현재시간 구하는 아주 멋잇는놈
+        $(".tg").each(function(){
+           var timeago_t = jQuery.timeago( new Date(parseInt($(this).text())));
+           console.log(timeago_t);
+           $(this).text(timeago_t);
+        });
 		
 		/*var x = $("#myVideo");
 		
@@ -562,7 +794,8 @@ ul, li {
 		
 		 });*/
 
-		/*   $(document).ready(function(){
+		/*  
+		$(document).ready(function(){
 		$("#myVideo").one(
 		  "timeupdate", 
 		  function(event){
@@ -582,6 +815,8 @@ ul, li {
 		      
 		  });
 		}); */
+		
+		
 	</script>
 </body>
 </html>

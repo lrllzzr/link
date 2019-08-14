@@ -1,6 +1,5 @@
 package kr.co.link.controller;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.link.dao.JisikinDao;
 import kr.co.link.form.JisikinForm;
 import kr.co.link.service.JisikinAnswerService;
 import kr.co.link.service.JisikinCategoryService;
@@ -27,6 +25,7 @@ import kr.co.link.service.UserService;
 import kr.co.link.vo.Jisikin;
 import kr.co.link.vo.JisikinAnswer;
 import kr.co.link.vo.JisikinCategory;
+import kr.co.link.vo.JisikinPagination;
 import kr.co.link.vo.JisikinRank;
 import kr.co.link.vo.JisikinTag;
 import kr.co.link.vo.User;
@@ -110,17 +109,26 @@ public class JisikinController {
 	
 	// Q&A							값이 없어도되는      변수명과 값일치      required=false일때 기본값
 	@RequestMapping("/qna.do")
-	public String qna(@RequestParam(required = false, value = "categoryNo", defaultValue = "0")int categoryNo, Model model) {
+	public String qna(@RequestParam(required = false, value = "categoryNo", defaultValue = "0")int categoryNo, 
+					  @RequestParam(value="page", required = false, defaultValue = "1") int page,
+					  Model model) {
 		setMenu(model);
-		// 지식인 카테고리
-		if (categoryNo == 0) {
-			List<Jisikin> allJisikin = jisikinService.getAllJisikin();
-			model.addAttribute("allJisikin", allJisikin);
-		} else {
-			List<Jisikin> allJisikin = jisikinService.getJisikinByCategory(categoryNo);
-			model.addAttribute("allJisikin", allJisikin);
-		}
 		
+		// 페이징
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("categoryNo", categoryNo);
+		
+		int records = jisikinService.countJiskinBycategory(categoryNo);
+		JisikinPagination pagination = new JisikinPagination(page, 10, records);
+		model.addAttribute("pagination", pagination);
+		
+		map.put("beginIndex", (page - 1)*10 + 1);
+		map.put("endIndex", page*10);
+		
+		List<Jisikin> allJisikin = jisikinService.pagingJiskinBycategory(map);
+		model.addAttribute("allJisikin", allJisikin);
+
+		// 상위 카테고리
 		List<JisikinCategory> categoriesParent = categoryService.getParentCategory();
 		model.addAttribute("categoriesParent", categoriesParent);
 		
@@ -144,6 +152,9 @@ public class JisikinController {
 		setMenu(model);
 		Jisikin jisikin = jisikinService.getJisikinByNo(jisikinNo);
 		
+		User questionUser = userService.getUserById(jisikin.getUserId()); 
+		model.addAttribute("questionUser", questionUser);
+		
 		// 조회수 증가
 		jisikinService.updateJisikinViewCntByNo(jisikinNo);
 		
@@ -156,6 +167,12 @@ public class JisikinController {
 		
 		// 답변 뿌리기
 		List<JisikinAnswer> answers = answerService.getAnswersByJisikinNo(jisikinNo);
+		
+		for(JisikinAnswer a : answers) {
+			User answerUser = userService.getUserById(a.getUserId()); 
+			a.setUser(answerUser);
+		}
+		
 		model.addAttribute("answers", answers);
 		
 		return "jisikin/jisikinQuestion";
@@ -165,6 +182,7 @@ public class JisikinController {
 	public String questionDetail(JisikinAnswer jisikinAnswer, HttpSession session, Model model) {
 		setMenu(model);
 		JisikinAnswer answer = new JisikinAnswer();
+		
 		
 		User user = (User) session.getAttribute("LOGIN_USER");
 		BeanUtils.copyProperties(jisikinAnswer, answer);
@@ -180,13 +198,7 @@ public class JisikinController {
 		
 		return "redirect:/jisikin/questionDetail.do?jisikinNo="+jisikinAnswer.getJisikinNo()+"";
 	}
-	
-	// 카테고리별 질문
-	@RequestMapping(value="/byCategory.do")
-	public @ResponseBody List<Jisikin> byCategory(HttpSession session, int categoryNo){
-		return jisikinService.getJisikinByCategory(categoryNo);
-	}
-	
+
 	// 카테고리별 검색
 	@RequestMapping(value="/byKeywordCategory.do")
 	public @ResponseBody List<Jisikin> byKeywordCategory(HttpSession session, int categoryNo, String keyword){
@@ -244,9 +256,7 @@ public class JisikinController {
 		}
 		
 		// 내공 처리
-		System.out.println(jisikinForm.getMentalPoint());
 		int mentalp = (-jisikinForm.getMentalPoint());
-		System.out.println(mentalp);
 		jisikinService.addMentalPoint(user, mentalp);
 		
 		return "redirect:/jisikin/questionDetail.do?jisikinNo="+jisikinNo+"";
@@ -261,16 +271,24 @@ public class JisikinController {
 	
 	// 답변하기 메뉴
 	@RequestMapping("/answer.do")
-	public String answer(@RequestParam(required = false, value = "categoryNo", defaultValue = "0")int categoryNo, Model model) {
+	public String answer(@RequestParam(required = false, value = "categoryNo", defaultValue = "0")int categoryNo, 
+						 @RequestParam(value="page", required = false, defaultValue = "1") int page,
+						 Model model) {
 		setMenu(model);
-		// 카테고리별 질문글 뿌리기
-		if (categoryNo == 0) {
-			List<Jisikin> allJisikin = jisikinService.getAllJisikin();
-			model.addAttribute("allJisikin", allJisikin);
-		} else {
-			List<Jisikin> allJisikin = jisikinService.getJisikinByCategory(categoryNo);
-			model.addAttribute("allJisikin", allJisikin);
-		}
+		
+		// 페이징
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("categoryNo", categoryNo);
+		
+		int records = jisikinService.countJiskinBycategory(categoryNo);
+		JisikinPagination pagination = new JisikinPagination(page, 3, records);
+		model.addAttribute("pagination", pagination);
+		
+		map.put("beginIndex", (page - 1)*3 + 1);
+		map.put("endIndex", page*3);
+		
+		List<Jisikin> allJisikin = jisikinService.pagingJiskinBycategory(map);
+		model.addAttribute("allJisikin", allJisikin);
 		
 		// 인기 태그
 		List<JisikinTag> toptag = tagService.getPopularTagTop10();
@@ -293,6 +311,10 @@ public class JisikinController {
 		setMenu(model);
 		List<JisikinAnswer> myAnswer = jisikinService.getMyAnswer(userId);
 		List<Jisikin> myJisikin = jisikinService.getMyJisikin(userId);
+		
+		// 프로필
+		User profileUser = userService.getUserById(userId);
+		model.addAttribute("profileUser", profileUser);
 		
 		// 답변으로 질문정보 구하기
 		List<Jisikin> myAnswerQuestion = new ArrayList<Jisikin>();

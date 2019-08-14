@@ -92,13 +92,13 @@
 					<ul>
 						<li><a href="/link/accountbook/expense.do" ><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
-							style="color: dimgray"><h4>보고서</h4></a></li>
+							style="color: dimgray"><h4>지출 보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
 							class="point" style="color: dimgray"><h4>월결산</h4></a></li>
 						
-						<li class="month-accountBook">▼이달의 가계
+						<!-- <li class="month-accountBook">▼이달의 가계
 							<ul>
 								<li>+수입</li>
 								<li>-지출</li>
@@ -111,7 +111,7 @@
 						
 						<li>▼최근 태그</li>
 
-						<li>미정국수</li>
+						<li>미정국수</li> -->
 
 					</ul>
 				</div> 
@@ -141,7 +141,12 @@
                              <div class="col-sm-12" style="padding-top: 50px; ">
                                  <div class="col-sm-12" style="padding-top: 50px; outline: 1px grey solid;">
                                      <div class="a" style="border-bottom: 2px grey dotted; height: 40px;" >
-                                         <div class="b"> <strong style="font-size: 17px;">제목: 이번달은 식비가 많이나오네요.........돼지가 꿈입니다.</strong></div>
+                                        
+                                         <div class="b"> 
+                                         <strong style="font-size: 17px;">
+                                         제목: 이번달은 식비가 많이나오네요.........돼지가 꿈입니다.
+                                         </strong>
+                                         </div>
                                          <div class="c"> 조회
                                              <span>123</span>
                                          </div>
@@ -151,7 +156,6 @@
                                          <div class="e">
                                              2019.07.17
                                          </div>
-
                                      </div>
                                      <div class="row">
                                          <div class="col-sm-12">
@@ -165,24 +169,11 @@
                                              </div>
                                          </div>
                                      </div>
-
                                      <div class="row" style="padding-left: 10px;">
                                          <div class="col-sm-12">
                                              <p>여기는 내용입니다.</p>
-                                             <p>여기는 내용입니다.</p>
-                                             <p>여기는 내용입니다.</p>
-                                             <p>여기는 내용입니다.</p>
-                                             <p>여기는 내용입니다.</p>
-                                             <p>여기는 내용입니다.</p>
-                                             <p>여기는 내용입니다.</p>
-                                             <p>여기는 내용입니다.</p>
-                                             <p>여기는 내용입니다.</p>
-                                             <p>여기는 내용입니다.</p>
-                                             <p>여기는 내용입니다.</p>
-                                             <p>여기는 내용입니 다.</p>
                                          </div>
                                      </div>
-
                                      <div class="row">
                                          <div class="col-sm-12">
                                              <div class="a">
@@ -223,14 +214,11 @@
                                      </div>
                                  </div>
                              </div>
-            
                 <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
                       <div class="col-sm-12">
                           <a href="#" type="button" class="btn btn-primary">목록</a>
                       </div>
                 </div>
-              
-
             </div>
         </div>
     </div>

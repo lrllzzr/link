@@ -172,18 +172,6 @@ public class SeriesController {
 		return seriesLikeService.getCountLikesByVodNo(vodno);
 	}
 	
-	@RequestMapping("/mypage/addcart.do")
-	public @ResponseBody Map<String, String> addCart (@RequestParam("chk")int[] episodeNos, HttpSession session){
-		
-		User user = (User) session.getAttribute("LOGIN_USER");
-		seriesCartService.addCart(episodeNos, user.getId());
-		
-		Map<String, String> map = new HashMap<String, String>();
-		// map.put("result", "success");
-		map.put("ririririri", "ghghghghgh");
-		return map;
-	}
-
 	@RequestMapping("/addReview.do")
 	public String addReview(@RequestParam(value = "vodno", required = true) int vodno, 
 			@RequestParam(value = "contents", required = true) String contents,
@@ -199,7 +187,27 @@ public class SeriesController {
 		seriesReviewService.addReview(review);
 		return "redirect:detail.do?vodno=" + vodno;
 	}
+
+	@RequestMapping("/mypage/addcart.do")
+	public @ResponseBody Map<String, String> addCart (@RequestParam("chk")int[] episodeNos, HttpSession session){
+		
+		User user = (User) session.getAttribute("LOGIN_USER");
+		seriesCartService.addCart(episodeNos, user.getId());
+		
+		Map<String, String> map = new HashMap<String, String>();
+		// map.put("result", "success");
+		map.put("ririririri", "ghghghghgh");
+		return map;
+	}
 	
+	@RequestMapping("/mypage/like.do")
+	public String like(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		List<Map<String, Object>> maps = seriesLikeService.getLikesById(user.getId());
+		model.addAttribute("maps", maps);
+		return "series/mypage/like";
+	}
+
 	@RequestMapping("/mypage/cart.do") 
 	public String cart(HttpSession session,
 			Model model) {
@@ -207,14 +215,6 @@ public class SeriesController {
 		List<Map<String, Object>> carts = seriesCartService.getCartsById(user.getId());
 		model.addAttribute("carts", carts);
 		return "series/mypage/cart";
-	}
-
-	@RequestMapping("/mypage/like.do")
-	public String like(HttpSession session, Model model) {
-		User user = (User) session.getAttribute("LOGIN_USER");
-		List<Map<String, Object>> maps = seriesLikeService.getLikesById(user.getId());
-		model.addAttribute("maps", maps);
-		return "series/mypage/like";
 	}
 	
 	@RequestMapping("/mypage/order.do")													// 여기 할 차례
@@ -299,8 +299,13 @@ public class SeriesController {
 	}
 	
 	@RequestMapping("/noticeform.do")
-	public String noticeForm(Model model) {
-		return "series/noticeform";
+	public String noticeForm(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("LOGIN_USER");
+		if (user.getId().equals("admin")) {
+			return "series/noticeform";
+		} else {
+			return "redirect:noticelist.do";
+		}
 	}
 	
 	@RequestMapping("/addnotice.do")

@@ -45,13 +45,13 @@
 					<ul>
 						<li><a href="/link/accountbook/expense.do"><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
-							style="color: dimgray"><h4>보고서</h4></a></li>
+							style="color: dimgray"><h4>지출 보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
 							class="point" style="color: dimgray"><h4>월결산</h4></a></li>
 						
-						<li class="month-accountBook">▼이달의 가계
+						<!-- <li class="month-accountBook">▼이달의 가계
 							<ul>
 								<li>+수입</li>
 								<li>-지출</li>
@@ -64,7 +64,7 @@
 						
 						<li>▼최근 태그</li>
 
-						<li>미정국수</li>
+						<li>미정국수</li> -->
 
 					</ul>
 				</div> 
@@ -114,62 +114,15 @@
                                 <th>조회</th>
                                 <th>추천</th>
                             </tr>
-                            <tr>
-                                <td>2019.06</td>
-                                <td>테스트용</td>
-                                <td>강희경</td>
-                                <td>2019.07.17</td>
-                                <td>7</td>
-                                <td>0</td>
-                            </tr>
                              <tr>
                                 <td>2019.06</td>
-                                <td>내용이 올 자리입니다. 내용이 올 자리입니다. 내용이 올 자리입니다.</td>
+                                <td><a href="monthlyAccount_detail.jsp">내용이 올 자리입니다. 내용이 올 자리입니다. 내용이 올 자리입니다.</a></td>
                                 <td>강희경</td>
                                 <td>2019.07.17</td>
                                 <td>7</td>
                                 <td>0</td>
                             </tr>  
-                              <tr>
-                                <td>2019.06</td>
-                                <td>내용이 올 자리입니다. 내용이 올 자리입니다. 내용이 올 자리입니다.</td>
-                                <td>강희경</td>
-                                <td>2019.07.17</td>
-                                <td>7</td>
-                                <td>0</td>
-                            </tr>  
-                              <tr>
-                                <td>2019.06</td>
-                                <td>내용이 올 자리입니다. 내용이 올 자리입니다. 내용이 올 자리입니다.</td>
-                                <td>강희경</td>
-                                <td>2019.07.17</td>
-                                <td>7</td>
-                                <td>0</td>
-                            </tr>     
-                             <tr>
-                                <td>2019.06</td>
-                                <td>내용이 올 자리입니다. 내용이 올 자리입니다. 내용이 올 자리입니다.</td>
-                                <td>강희경</td>
-                                <td>2019.07.17</td>
-                                <td>7</td>
-                                <td>0</td>
-                            </tr>  
-                              <tr>
-                                <td>2019.06</td>
-                                <td>내용이 올 자리입니다. 내용이 올 자리입니다. 내용이 올 자리입니다.</td>
-                                <td>강희경</td>
-                                <td>2019.07.17</td>
-                                <td>7</td>
-                                <td>0</td>
-                            </tr>  
-                              <tr>
-                                <td>2019.06</td>
-                                <td>내용이 올 자리입니다. 내용이 올 자리입니다. 내용이 올 자리입니다.</td>
-                                <td>강희경</td>
-                                <td>2019.07.17</td>
-                                <td>7</td>
-                                <td>0</td>
-                            </tr>         
+                              
                            </tbody>
                         </table> 
                            <ul class="pagination">

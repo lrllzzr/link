@@ -39,7 +39,7 @@
                         </div>
                     </a>
                     
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 band-home-name">
                         <a href="#">
                              <p class="band-main-name">${bandInfo.name }</p>   
                         </a>
@@ -92,7 +92,7 @@
             
             <!-- 전체글(본문) -->
             <div class="col-sm-6" style="margin-left: 0px; padding-left: 0px" id="bandHome-center">
-            	
+            <input type="hidden" name="bandNo" value="${param.bandNo }">
             </div>
             <!--가운데 끝-->
              <!--===============================================-->
@@ -226,57 +226,13 @@
                         <div class="col-sm-7">
                             <strong>최근사진</strong>
                         </div>
-                        <div class="col-sm-5 text-right"><a href="#">
+                        <div class="col-sm-5 text-right home-go-photo"><a href="#">
                             <p style="color:#999">더보기</p></a>
                         </div>
                         <div class="col-sm-12" style="padding-left: 7px; padding-right: 7px;">
                             <hr class="iljung-kyungkye"/>
                         </div>
                         <div class="row choisin-photo-form">
-                        
-                        <!--사진1-->
-                            <div class="col-sm-4 choisin-photo-form2">
-                               <a href="#">
-                                <img src="/link/resources/images/band_into_img.JPG" class="choisin-photo" alt="">
-                               </a>
-                            </div>
-                        <!--사진1 끝-->
-                        
-                        <!--사진1-->
-                            <div class="col-sm-4 choisin-photo-form2">
-                               <a href="#">
-                                <img src="/link/resources/images/band_into_img.JPG" class="choisin-photo" alt=""/>
-                               </a>
-                            </div>
-                        <!--사진1 끝-->
-                        <!--사진1-->
-                            <div class="col-sm-4 choisin-photo-form2">
-                               <a href="#">
-                                <img src="/link/resources/images/band_into_img.JPG" class="choisin-photo" alt=""/>
-                               </a>
-                            </div>
-                        <!--사진1 끝-->
-                        <!--사진1-->
-                            <div class="col-sm-4 choisin-photo-form2">
-                               <a href="#">
-                                <img src="/link/resources/images/band_into_img.JPG" class="choisin-photo" alt=""/>
-                               </a>
-                            </div>
-                        <!--사진1 끝-->
-                        <!--사진1-->
-                            <div class="col-sm-4 choisin-photo-form2">
-                               <a href="#">
-                                <img src="/link/resources/images/band_into_img.JPG" class="choisin-photo" alt=""/>
-                               </a>
-                            </div>
-                        <!--사진1 끝-->
-                        <!--사진1-->
-                            <div class="col-sm-4 choisin-photo-form2">
-                               <a href="#">
-                                <img src="/link/resources/images/band_into_img.JPG" class="choisin-photo" alt=""/>
-                               </a>
-                            </div>
-                        <!--사진1 끝-->
                         
                         </div>
             
@@ -318,7 +274,35 @@
     
     <script>
 			$(function () {
+				
+				// 밴드 글 클릭시 메인 이동
+				$('.band-home-name').click(function(event){
+					event.preventDefault();
+					
+					$.ajax({
+         				url:'bandHomeMainContents.do',
+         				data:{bandNo:'${param.bandNo}'},
+         				success:function(result){
+							$('#bandHome-center').html(result); 
+         				}
+         			})
+				})
                 
+				$('.home-go-photo').click(function(event){
+					event.preventDefault();
+					
+					$.ajax({
+         				url:'bandHomePhoto.do',
+         				data:{bandNo:'${param.bandNo}'},
+         				success:function(result){
+							$('#bandHome-center').html(result); 
+         				}
+         			})
+				})
+				
+				/* 밴드 이미지 보기 */
+    			var bandNo = $('[name=bandNo]').val();
+				
                 /* 가운데 내용 바꾸기 */
                 $('.band-secon-nav span').click(function(event){
                 	event.preventDefault();
@@ -338,6 +322,30 @@
                 
                 $('.band-secon-nav .home-mainText').trigger("click");
                 
+
+                // 밴드 이미지 가져오기
+    			$.ajax({
+    				data:{bandNo : bandNo},
+    				dateType:'json',
+    				type:'get',
+    				url:'bandWriteContentPhoto.do',
+    				success:function(write){
+    					$.each(write, function(index, item){
+    					
+    						if(index < 6){	
+	    						var row = '<div class="col-sm-4 choisin-photo-form2">'
+	    						      		+ '<a href="#">'
+	    						      			+'<img src="/link/resources/images/bandUploadImg/'+item.photoName+'"class="choisin-photo" alt=""/>'
+	    							  		+ '</a>'
+	    							  	+ '</div>';
+	    							  	
+	    						$('.choisin-photo-form').append(row);
+    						} else {
+    							return false;
+    						}
+    					})
+    				}
+    			})
                 
 			}) 
     </script>

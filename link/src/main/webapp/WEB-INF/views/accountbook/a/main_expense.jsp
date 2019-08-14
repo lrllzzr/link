@@ -75,13 +75,13 @@
 					<ul>
 						<li><a href="/link/accountbook/expense.do" class="active"><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
-							style="color: dimgray"><h4>보고서</h4></a></li>
+							style="color: dimgray"><h4>지출 보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
 							style="color: dimgray"><h4>월결산</h4></a></li>
 						
-						<li class="month-accountBook">▼이달의 가계
+						<!-- <li class="month-accountBook">▼이달의 가계
 							<ul>
 								<li>+수입</li>
 								<li>-지출</li>
@@ -94,7 +94,7 @@
 						
 						<li>▼최근 태그</li>
 
-						<li>미정국수</li>
+						<li>미정국수</li> -->
 
 					</ul>
 				</div> 
@@ -133,10 +133,8 @@
                         
                     </div>
                 </div>
-               
                 <div class="row">
 						<div class="col-sm-12">
-							<form id="expense-form" action="expense.do" method="post">
 								<table class="table table-bordered">
 									<thead>
 										<tr>
@@ -150,29 +148,57 @@
 										</tr>
 									</thead>
 									<tbody>
+									<form id="term-form" method="post">
 										<c:forEach var="expense" items="${expenseList }">
-											<tr>
-												<td><input type="checkbox" id="expenseItem" name="termNos" value="${expense.no }"/></td>
-												<td><input class="form-control" type="date"  value="${expense.dateString }"></td>
-												<td><input class="form-control" type="text" value="${expense.detail }"></td>
-												<td class="text-right"><input class="form-control" type="text"  value="${expense.cash }"></td>
-												<td class="text-right"><input class="form-control" type="text" value="${expense.card }"></td>
+											<tr class="expense-row">
 												<td>
-													<select id="cat"  class="form-control">
+													<input type="checkbox" id="expenseItem" name="termNos" value="${expense.no }"/>
+													<input type="hidden"  name="no" value="${expense.no }"/>
+												</td>
+												<td><input class="form-control" type="date" name="date"  value="${expense.dateString }"></td>
+												<td><input class="form-control" type="text" name="detail" value="${expense.detail }"></td>
+												<td class="text-right"><input class="form-control" name="cash" type="text"  value="${expense.cash }"></td>
+												<td class="text-right"><input class="form-control" name="card" type="text" value="${expense.card }"></td>
+												<td>
+													<select id="cat"  class="form-control" name="category">
 														<option value="">카테고리 선택</option>
 														<c:forEach var="category" items="${expenseCategory }">
 															<option 
-															value="${category.categoryNo }" 
-															${expense.category.categoryNo eq category.categoryNo ? 'selected' :'' }> 
-															${category.categoryName }
+																value="${category.categoryNo }" 
+																${expense.category.categoryNo eq category.categoryNo ? 'selected' :'' }> 
+																${category.categoryName }
 															</option>
 														</c:forEach>
 													</select>
 												</td>
-												<td><input class="form-control" type="text" value="${expense.tag.tagName  }"></td>
+												<td><input class="form-control" type="text" name="tag"  value="${expense.tag.tagName  }"></td>
 											</tr>
 										</c:forEach>
-										
+									</form>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="3">
+												<button class="btn btn-default btn-sm" type="button" id="btn-selected-del">선택삭제</button>
+												<button class="btn btn-default btn-sm" type="button" id="btn-all-del">전부삭제</button>
+											</td>
+											<td class="text-right"><fmt:formatNumber value="${totalCash }"/> </td>
+											<td class="text-right"><fmt:formatNumber value="${totalCard }"/></td>
+											<td colspan="2" rowspan="2" class="text-center"
+												style="vertical-align: middle;">
+												<button class="btn btn-primary" type="button" id="btn-save">저장하기</button>
+												<button class="btn btn-default" type="button" id="btn-update">수정하기</button>
+												<button class="btn btn-default">정산하기</button>
+
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3"><strong>지출합계</strong></td>
+											<td class="text-right" colspan="2"><fmt:formatNumber value="${totalCash+totalCard }"/></td>
+										</tr>
+									</tfoot>
+									<tfoot>
+									<form id="expense-form" action="expense.do" method="post">
 										<tr>
 											<td><input type="checkbox" /></td>
 											<td><input class="form-control" type="date" name="date" ></td>
@@ -189,35 +215,21 @@
 											</td>
 											<td><input class="form-control" type="text" name="tag" ></td>
 										</tr>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="3">
-												<button class="btn btn-default btn-sm" type="button" id="btn-selected-del">선택삭제</button>
-												<button class="btn btn-default btn-sm" type="button" id="btn-all-del">전부삭제</button>
-											</td>
-											<td class="text-right"><fmt:formatNumber value="${totalCash }"/> </td>
-											<td class="text-right"><fmt:formatNumber value="${totalCard }"/></td>
-											<td colspan="2" rowspan="2" class="text-center"
-												style="vertical-align: middle;">
-												<button class="btn btn-primary" type="button" id="btn-save">저장하기</button>
-												<button class="btn btn-default">정산하기</button>
-
-											</td>
-										</tr>
-										<tr>
-											<td colspan="3"><strong>지출합계</strong></td>
-											<td class="text-right" colspan="2"><fmt:formatNumber value="${totalCash+totalCard }"/></td>
-										</tr>
+									</form>
 									</tfoot>
 								</table>
-							</form>
 						</div>
 					</div>                
             </div>
         </div>
     </div>
     <script type="text/javascript">
+    	/*내역 수정*/
+    	$('#btn-update').click(function(){
+    		$("#term-form").attr("action", "updateExpense.do")
+    		$("#term-form").submit();
+    	})
+    	
     	/*내역추가*/	
     $('#btn-save').click(function() {
     		$("#expense-form").attr("action", "expense.do");
@@ -226,8 +238,8 @@
     
     	/*내역 삭제(선택)*/
     	$('#btn-selected-del').click(function() {
-    		$("#expense-form").attr("action", "delexpense.do")
-    		$("#expense-form").submit();
+    		$("#term-form").attr("action", "delExpense.do")
+    		$("#term-form").submit();
     	})
     	
     	/*전체 선택*/
@@ -239,13 +251,14 @@
 	    		} else { 
 	    			$("input[type=checkbox]").prop("checked",false); }
 	    		
-	 			}) })
+	 			}) 
+	 	})
     	
     	/*내역 삭제(전체)*/
     	$('#btn-all-del').click(function() {
-    		$("#expense-form").attr("action", "delAllexpense.do")
-    		$("#expense-form").submit();
-    	})
+    		$("#term-form").attr("action", "delAllexpense.do")
+    		$("#term-form").submit();
+    	});
     	
     </script>
 </body>

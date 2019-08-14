@@ -38,7 +38,7 @@
     </style>
 </head>
 <body><%@include file="../../common/nav.jsp"%>
-<form action="" method="get">
+
     <div class="container-fluid">
         <div class="row">
 			<div class="left-navi" style="background-color: lightgray; ">
@@ -47,13 +47,13 @@
 					<ul>
 						<li><a href="/link/accountbook/expense.do"><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
-							style="color: dimgray"><h4>보고서</h4></a></li>
+							style="color: dimgray"><h4>지출 보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
 						<li><a href="/link/accountbook/mylist.do"
 							class="point" style="color: dimgray"><h4>월결산</h4></a></li>
 						
-						<li class="month-accountBook">▼이달의 가계
+						<!-- <li class="month-accountBook">▼이달의 가계
 							<ul>
 								<li>+수입</li>
 								<li>-지출</li>
@@ -66,7 +66,7 @@
 						
 						<li>▼최근 태그</li>
 
-						<li>미정국수</li>
+						<li>미정국수</li> -->
 
 					</ul>
 				</div> 
@@ -93,54 +93,53 @@
                         </div>
                     </div>
                 </div>
+               
+               <form id="addwriting" action="addWriting.do" method="post">
                 <div class="row" style="padding-top: 50px;">
                     <div class="col-sm-12">
+                    	<input class="form-control" name="title"  value="" type="text">
                         <textarea rows="10" class="form-control" name="contents" id="textareaID"></textarea>
                     </div>
-                </div>
-            <div class="row" style="padding-top: 50px; padding-bottom: 30px; border-bottom: 1px grey solid">
-                <div class="col-sm-12">
-                    <div class="col-sm-1">
-                        설정정보
-                    </div>
-                    <div class="col-sm-2" style="outline: 1px grey solid;">
-                       <div class="row">
-                        <strong>글공개 </strong>
-                        <input type="radio" name="public" value=""> 공개  
-                        <input type="radio" name="no" value=""> 비공개 
-                       </div>
-                         <div class="row">
-                        <strong>스크랩 </strong>   
-                        <input type="radio" name="y" value="">허용   
-                        <input type="radio" name="n" value=""> 허용안함 
-                       </div>
-                    </div>
-                </div>
-            </div>
+	            </div>
+	            <div class="row" style="padding-top: 50px; padding-bottom: 30px; border-bottom: 1px grey solid">
+	                <div class="col-sm-12">
+	                    <div class="col-sm-1">
+	                        설정정보
+	                    </div>
+	                    <div class="col-sm-2" style="outline: 1px grey solid;">
+	                       <div class="row">
+	                        <strong>글공개 </strong>
+	                        <input type="radio" name="publicYN" value="Y"> 공개  
+	                        <input type="radio" name="publicYN" value="N"> 비공개 
+	                       </div>
+	                 
+	                    </div>
+	                </div>
+	            </div>
             <div class="row">
                <div class="col-sm-12">
-                    <button type="submit" name="" value="">
-                        저장
-                    </button>
-                    <button type="btn btn-button">
-                        취소
-                    </button>   
+                    <button id="btn-save" type="button"  class="btn btn-primary"> 저장 </button>
                </div>
-               
             </div>
+   		</form>
             </div>
         </div>
     </div>
-   </form>
     <script type="text/javascript">
     
-		    var oEditors = [];
-			nhn.husky.EZCreator.createInIFrame({
-				oAppRef: oEditors,
-		   		elPlaceHolder: "textareaID",
-		   		sSkinURI: "/link/resources/js/accountbook_se2/SmartEditor2Skin.html",
-		    		fCreator: "createSEditor2"
-			});
+	    var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef: oEditors,
+	   		elPlaceHolder: "textareaID",
+	   		sSkinURI: "/link/resources/js/accountbook_se2/SmartEditor2Skin.html",
+	    		fCreator: "createSEditor2"
+		});
+
+		$('#btn-save').click(function(event){
+		 	  oEditors.getById["textareaID"].exec("UPDATE_CONTENTS_FIELD",  []);
+	          $("#addwriting").submit();
+		 })
+    
     </script>
 </body>
 </html>
