@@ -50,7 +50,6 @@ public class TvhomeController {
 	@Autowired
 	private TvRecentService tvRecentService;
 	
-	// TV홈 
 	@RequestMapping("/home.do")
 	public String home(Model model) {
 		
@@ -65,7 +64,6 @@ public class TvhomeController {
 		return "tv/home";
 	}
 	
-	// 인기 목록 조회
 	@RequestMapping("/rank.do")
 	public String rank(String category, Model model) {
 		
@@ -113,9 +111,6 @@ public class TvhomeController {
 		return "tv/history";
 	}
 
-
-	
-	// 나중에 보기 등록 기능 
 	@RequestMapping("/addLater.do")
 	@ResponseBody
 	public String addLater(int vno, HttpSession session) {
@@ -149,7 +144,6 @@ public class TvhomeController {
 		return result;
 	}
 	
-	// 최근동영상, 나중에동영상, 좋아요동영상 삭제 기능(ajax)
 	@RequestMapping("/deleteHistory.do")
 	@ResponseBody
 	public void deleteHistory(HttpSession session, int[] vno, String sort) {
@@ -184,8 +178,6 @@ public class TvhomeController {
 			tvService.deleteHistoryByRecent(recentInfo);
 		}
 	}
-	
-	// 동영상 디테일 페이지
 	
 	@RequestMapping("/detail.do")
 	public String detail(int vno, HttpSession session, Model model) {
@@ -234,7 +226,6 @@ public class TvhomeController {
 		
 		}
 		
-		// ago JS를 사용하기위해서 getTime이 필요한데.. result값을 맵으로받아서 어려웠다. 선생님이 해결해줌
 		List<Map<String, Object>> comments= tvCommentService.getAllCommentByVno(param);
 		for(Map m : comments) {
 			m.put("CREATEDATE", ((Date)m.get("CREATEDATE")).getTime());
@@ -247,7 +238,6 @@ public class TvhomeController {
 	}
 	
 	
-	  // 좋아요 싫어오 ajax
 	@RequestMapping("/addLike.do")
 	@ResponseBody 
 	public int addLike(HttpSession session, int vno, String status) {
@@ -256,7 +246,6 @@ public class TvhomeController {
 		
 		
 		if(status.equals("Y")) {
-			// 이미 좋아요니까 삭제해
 			Map<String, Object> likeInfo = new HashMap<String, Object>();
 			likeInfo.put("userId", user.getId());
 			likeInfo.put("vno", vno);
@@ -265,7 +254,6 @@ public class TvhomeController {
 		}
 		
 		if(status.equals("N")){
-			// 좋아요 안되어있으니까 추가해
 			TvLikes tvlike = new TvLikes();
 			Tv tv = new Tv();
 			User userr = new User();
@@ -284,7 +272,6 @@ public class TvhomeController {
 		return count;
 	}
 	
-	//댓글 달기
 	@RequestMapping("/addComment.do")
 	public String addComment(Model model, HttpSession session, int vno , String CommentContents) {
 		User user = (User)session.getAttribute("LOGIN_USER");
@@ -299,7 +286,6 @@ public class TvhomeController {
 		return "redirect:detail.do?position=cmt&vno="+vno;
 	}
 	
-	//댓글의 좋아요 좋아요 취소
 	@RequestMapping("/addCommentLike.do")
 	@ResponseBody
 	public Map<String, Object> addCommentLike(Model model, HttpSession session, int cno,  String status, String hate)	{
@@ -314,7 +300,6 @@ public class TvhomeController {
 		System.err.println(hate);
 		
 		if(status.equals("Y")) {
-			//좋아요 취소해
 			tvCommentLikeService.deleteCommentStatus(info);
 		}
 		if(status == "") {
@@ -333,7 +318,6 @@ public class TvhomeController {
 		System.out.println(likeHateAndYn);
 		return likeHateAndYn;
 	}
-	//댓글의 시러요 시러요 취소
 	@RequestMapping("/addCommentHate.do")
 	@ResponseBody
 	public Map<String, Object> addCommentHate(Model model, HttpSession session, int cno,  String status, String like)	{
@@ -348,7 +332,6 @@ public class TvhomeController {
 		System.err.println(like);
 		
 		if(status.equals("N")) {
-			//좋아요 취소해
 			tvCommentLikeService.deleteCommentStatus(info);
 		}
 		if(status == "") {
