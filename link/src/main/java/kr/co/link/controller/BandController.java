@@ -279,11 +279,18 @@ public class BandController {
 		
 		Document doc = Jsoup.parse(bandHomeContent.getContents());
 		
+		String realFile = null;
+		
 		Elements imgElements = doc.select("img");
 		for (Element element : imgElements) {
 			String path = element.attr("src");
 			String filename = path.substring(path.lastIndexOf("/") + 1);
-			bandService.addBandWritePhoto(bandHomeContent.getWriteNo(), filename, bandHomeContent.getBandNo());
+			
+			if(!filename.startsWith("active")) {
+				realFile = filename;
+				System.out.println(realFile);
+				bandService.addBandWritePhoto(bandHomeContent.getWriteNo(), realFile, bandHomeContent.getBandNo());
+			}
 		}
 		
 		BandHomeContent homeContent = bandService.getBandHomeWriteByWriteNo(bandHomeContent.getWriteNo());
