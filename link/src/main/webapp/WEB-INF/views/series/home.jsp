@@ -156,7 +156,7 @@
                     
                     <div class="row">
                         <ul class="list-group">
-                        <c:forEach var="notice" items="${notices }"><li class="list-group-item">${notice.title }</li></c:forEach>
+                        <c:forEach var="notice" items="${notices }"><li class="list-group-item"><a href="noticedetail.do?no=${notice.no }">${notice.title }</a></li></c:forEach>
                         </ul>
                     </div>
                 </div>

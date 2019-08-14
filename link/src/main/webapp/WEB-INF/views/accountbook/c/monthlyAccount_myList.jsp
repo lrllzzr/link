@@ -48,7 +48,7 @@
 							style="color: dimgray"><h4>지출 보고서</h4></a></li>
 						<li><a href="/link/accountbook/budget.do"
 							style="color: dimgray"><h4>예산쓰기</h4></a></li>
-						<li><a href="/link/accountbook/mylist.do"
+						<li><a href="/link/accountbook/mylist.do" 
 							class="point" style="color: dimgray"><h4>월결산</h4></a></li>
 						
 			<!-- 			<li class="month-accountBook">▼이달의 가계

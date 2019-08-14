@@ -262,7 +262,7 @@ public class SeriesController {
 		
 		SeriesEpisode episode = seriesEpisodeService.getEpisodeByNo(eno);
 
-		mav.addObject("directory", "C:\\Users\\tk2ek\\git\\link\\link\\src\\main\\webapp\\resources\\images\\series\\episodes");
+		mav.addObject("directory", "C:/Users/BM/git/link/link/src/main/webapp/resources/images/series/episodes");
 		mav.addObject("filename", episode.getContents());
 		
 		mav.setView(new FileDownloadView());

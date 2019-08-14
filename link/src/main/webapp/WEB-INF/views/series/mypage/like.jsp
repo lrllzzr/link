@@ -36,7 +36,7 @@
 				<c:forEach var="map" items="${maps }">
 					  <tr>
 					      <td rowspan="2"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
-					      <td rowspan="2"><a href="detail.do?vodno=${map.no }"><img class="img-size" src="/link/resources/images/series/vods/${map.img }"></a></td>
+					      <td rowspan="2"><a href="../detail.do?vodno=${map.no }"><img class="img-size" src="/link/resources/images/series/vods/${map.img }"></a></td>
 					      <td><span class="bold">${map.title }</span> | <fmt:formatDate value="${map.start }"/>  ~ <fmt:formatDate value="${map.finish }"/></td>
 					      <td rowspan="2"><fmt:formatDate value="${map.date }"/></td>
 					  </tr>

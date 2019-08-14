@@ -7,7 +7,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
 
-String path = "C://Users//allma//git//link//link//src//main//webapp//resources//js//jisikin_se2//photo_uploader//upload";
+String path = "C://Users//BM//git//link//link//src//main//webapp//resources//js//jisikin_se2//photo_uploader//upload";
 // 나중에 통합시 수정
 String filename = "";
 

@@ -9,7 +9,7 @@
 <%
 
 //String path = "C:\\sts-bundle\\workspace\\spring-smart-editor\\src\\main\\webapp\\resources\\images"; // 이미지가 저장될 주소
-String path = "C:\\Users\\LJH\\git\\link3\\link\\src\\main\\webapp\\resources\\images\\bandUploadImg"; // 이미지가 저장될 주소
+String path = "C:/Users/BM/git/link/link/src/main/webapp/resources/images/bandUploadImg"; // 이미지가 저장될 주소
 
 String filename = "";
 

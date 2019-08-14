@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public String profileImageSaveDirectory() {
-		String profileImageSaveDirectory = "C:/Users/allma/git/link/link/src/main/webapp/resources/images";
+		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images";
 		
 		return profileImageSaveDirectory;
 	}

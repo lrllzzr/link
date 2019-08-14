@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <script src="/link/resources/js/returnUrl.js"></script>
- <nav class="navbar main-nav navbar-fixed-top">
+ <nav class="navbar main-nav navbar-fixed-top" style="background-color:#649dfa !important">
         <div class="container">
             <div class="row">
                 <div class="col-sm-2">
@@ -22,8 +22,8 @@
                     <div class="blog-navbar-right collapse navbar-collapse navbar-right">
                         <ul class="nav navbar-nav">
                         <c:if test="${not empty LOGIN_USER}">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <li class="dropdown" style="background-color:#649dfa !important">
+                                <a style="background-color:#649dfa !important" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <img class="blog-profile-img" src="/link/resources/images/tv.png" style="width: 25px;" alt="">
                                     <span class="blog-navbar-id" style="vertical-align:bottom">${LOGIN_USER.name }</span>
                                     <span class="caret"></span></a>
