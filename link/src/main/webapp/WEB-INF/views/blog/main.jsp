@@ -540,11 +540,16 @@
 									row += '					<div class="col-sm-12">' + blog.howLongDate + '</div>';
 									row += '				</div>';
 									row += '			</div>';
-									row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
-									row += '				<div class="col-sm-2 col-sm-offset-7">';
-									row += '					<span class="blog-addneighbor"><a href="">+이웃추가</a></span>';
-									row += '				</div>';
-									row += '			</c:if>';
+									if(blog.isNeighbor == "Y"){
+										row += '				<div class="col-sm-2 col-sm-offset-7">';
+										row += '					<div class="blog-addneighbordiv text-center">이웃</div>';
+										row += '				</div>';
+									}
+									if(blog.isNeighbor == "N"){
+										row += '				<div class="col-sm-2 col-sm-offset-7">';
+										row += '					<span class="blog-addneighbor"><a href="addNeighbor.do?blogNo='+blog.NO+'">+이웃추가</a></span>';
+										row += '				</div>';
+									}
 									row += '		</div>';
 									row += '		<div class="row blog-neighbor-box">';
 									row += '			<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
@@ -648,11 +653,16 @@
 										row += '					<div class="col-sm-12">' + blog.howLongDate + '</div>';
 										row += '				</div>';
 										row += '			</div>';
-										row += '			<c:if test="${isHaveBlog eq \'yes\' }">'
-										row += '				<div class="col-sm-2 col-sm-offset-7">';
-										row += '					<span class="blog-addneighbor"><a href="">+이웃추가</a></span>';
-										row += '				</div>';
-										row += '			</c:if>';
+										if(blog.isNeighbor == "Y"){
+											row += '				<div class="col-sm-2 col-sm-offset-7">';
+											row += '					<div class="blog-addneighbordiv text-center">이웃</div>';
+											row += '				</div>';
+										}
+										if(blog.isNeighbor == "N"){
+											row += '				<div class="col-sm-2 col-sm-offset-7">';
+											row += '					<span class="blog-addneighbor"><a href="addNeighbor.do?blogNo='+blog.NO+'">+이웃추가</a></span>';
+											row += '				</div>';
+										}
 										row += '		</div>';
 										row += '		<div class="row blog-neighbor-box">';
 										row += '			<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">';
