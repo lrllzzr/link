@@ -18,7 +18,7 @@
 <!--네비끝-->
     <div class="add-band-container ">
         <div class="row">
-        	<form action="addBand.do" method="post">
+        	<form action="addBand.do" method="post" id="addBandForm">
             <div class="col-sm-12 band-add-name text-left">
                 <strong>밴드 이름</strong>
             </div>
@@ -135,7 +135,7 @@
                     <div class="row">
                         <div class="col-sm-12 text-center add-btn-sort">
                             <button type="reset" class="btn btn-default">취소</button>
-                            <input type="submit" value="완료" class="btn btn-primary"/>
+                            <button type="button" class="btn btn-primary"> 완료 </button>
                         </div>
                     </div>
                 </div>
@@ -145,6 +145,7 @@
     </div>
     <script type="text/javascript">
     	$(function(){
+    		
     		$('#addBandViewImg').on("click", ".many-logo-img", function(event){
     			event.preventDefault();
     			var kuyngro = $(this).find('img').attr("src");
@@ -226,6 +227,18 @@
     			event.preventDefault();
     			
     		})
+    		
+    		$('.btn-primary').click(function(){
+    			var title = $('.band-add-text').val();
+    			
+    			if(title == ""){
+    				alert("밴드명을 입력해주세요.")
+    				$('.band-add-text').focus();
+    				return false;
+    			}
+    			$('#addBandForm').submit();
+    		})
+    		
     		$('[name=name]').keyup(function(){
     			var nameValue = $('[name=name]').val();
 				if(nameValue == ""){
