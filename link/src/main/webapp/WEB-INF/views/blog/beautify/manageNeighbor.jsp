@@ -46,11 +46,15 @@
 					<div class="col-sm-12">
 						<ul class="nav nav-tabs blog_nav_tabs">
 							<li role="presentation" class="active"><a href="#">이웃목록</a></li>
-							<li role="presentation"><a href="#">추천이웃</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-12">
-						
+						<c:if test="${empty blogNeighbors }">
+							<div class="text-center">
+								<p style="padding:40px;">이웃 목록이 없습니다.</p>
+							</div>
+						</c:if>
+						<c:if test="${not empty blogNeighbors }">
 							<table class="table blog_table">
 								<colgroup>
 									<col width="25%">
@@ -92,7 +96,7 @@
 									</tr>
 								</tbody>
 							</table>
-						
+						</c:if>
 					</div>
 				</div>
 			</div>

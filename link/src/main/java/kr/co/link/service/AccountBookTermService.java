@@ -26,7 +26,7 @@ public interface AccountBookTermService {
 	/*보고서*/
 	AccountBookTerm getMonthlyTotalTermByDate(Map<String, Object> param); /*월간 지출 수입 총금액*/
 	AccountBookTerm getAnnualTotalTermByDate(Map<String, Object> param);	/*연간 지출 수입 총금액*/
-	AccountBookTerm getTotalTerm(String userId);							/*전체 수입 총금액*/
+	AccountBookTerm getTotalTerm(String userId);	 						/*전체 수입 총금액*/
 	List<AccountBookTerm> getMonthlyExpenseCategorybydate (Map<String, Object> monthlyCategory);	/*카테고리별 월간 총 지출*/
 	List<AccountBookTerm> getAnnualExpenseCategorybydate (Map<String, Object> annualCategory);		/*카테고리별 연간 총 지출*/
 	List<HashMap<String, Object>> getTop5Expense(String userId);	/*전체기간 중 지출 top5*/

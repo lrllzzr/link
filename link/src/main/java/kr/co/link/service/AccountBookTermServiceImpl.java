@@ -117,7 +117,7 @@ public class AccountBookTermServiceImpl implements AccountBookTermService {
 	}
 	/*총기간의 수입지출*/
 	@Override
-	public AccountBookTerm getTotalTerm(String userId) {
+	public AccountBookTerm getTotalTerm(String userId) {  
 		return accountBookDao.getTotalTerm(userId);
 	}
 	

@@ -312,8 +312,8 @@ public class AccountBookController {
 			
 			User user = (User) session.getAttribute("LOGIN_USER");
 			userId = user.getId();
-
-			AccountBookTerm totalTerm=accountbookService.getTotalTerm();
+  
+			AccountBookTerm totalTerm=accountbookService.getTotalTerm(userId); 
 			
 			model.addAttribute("totalTerm",totalTerm);
 			return "accountbook/b/report_analysis";
