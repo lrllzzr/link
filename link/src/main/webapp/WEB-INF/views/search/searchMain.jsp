@@ -152,11 +152,11 @@
                             <h2>지식iN</h2>
                             <span class="title_num">${resultJisikin.size() }건</span>
                         </div>
-                        <div class="jisikin-section-content">
-                            <ul class="jisikin-list">
-                            <c:forEach var="jisikinList" items="${resultJisikin }" begin="0" end="1">
-                            <a href="/link/jisikin/questionDetail.do?jisikinNo=${jisikinList.NO }">
-                                <li>
+                        <div class="jisikin-section-content"> 
+                            <ul class="jisikin-list"> 
+                            <c:forEach var="jisikinList" items="${resultJisikin }" >
+                            <a href="/link/jisikin/questionDetail.do?jisikinNo=${jisikinList.NO }">  
+                                <li class="jli">
                                     <dl>  
                                         <dt class="title">
                                             <img src="/link/resources/images/jisikin-Q2.png" width="15" alt="">
@@ -178,7 +178,7 @@
                             </c:forEach>
                             </ul>
                         </div>
-                        <div class="section-more">
+                        <div class="section-more">  
                             <a href="#">지식iN 더보기></a>
                         </div>
                     </div>	
@@ -205,7 +205,7 @@
                         <div class="jisikin-section-content">
                             <ul class="jisikin-list blog-list">
                             <c:forEach var="blogList" items="${resultBlog }" begin="0" end="1">
-                                <li>
+                                <li class="bli">
                                     <div class="search-blog-img">   
                                         <img src="/link/resources/images/userblogimgs/${blogList.BOARDMAINIMG }" width="80px" height="80px" alt="">
                                     </div>
@@ -240,7 +240,7 @@
                         <div class="jisikin-section-content">
                             <ul class="jisikin-list vod-list" style="margin-left:-20px;">
                             <c:forEach var="vod" items="${resultVod }" begin="0" end="1">
-                                <li style="padding-bottom:10px !important;">
+                                <li class="vli" style="padding-bottom:10px !important;">
                                     <div class="search-blog-img">
                                     <a href="/link/series/detail.do?vodno=${vod.no }">
                                         <img src="/link/resources/images/series/vods/${vod.img }" width="150" height="200" alt="">
@@ -284,7 +284,7 @@
                         <div class="jisikin-section-content">
                             <ul class="jisikin-list">        
                             <c:forEach var="band" items="${resultBand }" begin="0" end="1">
-                                <li style="min-width:600px;">
+                                <li class="bandli" style="min-width:600px;">
                                     <dl>   
                                         <dt class="title">  
                                             <p class="band-title">
@@ -317,7 +317,7 @@
                         <div class="jisikin-section-content">
                             <ul class="jisikin-list blog-list">
                             <c:forEach var="tv" items="${resultTv }" begin="0" end="3">
-                                <li>
+                                <li class="tli">
                                     <div class="search-blog-img">
                                        <a href="/link/tv/detail.do?vno=${tv.no }" class="video">
                                             <img src="/link/resources/images/tvdb/${tv.thumbnail }" width="140px;" alt="">
@@ -344,38 +344,9 @@
                         </div>
                     </div>
                  </c:if>
-                 	<!-- 이미지 검색 폐기 -->
-                    <!-- <div class="row result-section result-image">
-                        <div class="section_head">
-                            <h2>이미지</h2>
-                            <span class="title_num">26건</span>
-                        </div>
-                        <div class="search-blog-img">
-                           <a href="#">
-                            <img src="/link/resources/images/search-img-ex1.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="search-blog-img">
-                            <a href="#">
-                            <img src="/link/resources/images/search-img-ex2.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="search-blog-img">
-                            <a href="#">
-                            <img src="/link/resources/images/search-img-ex3.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="search-blog-img">
-                            <a href="#">
-                            <img src="/link/resources/images/search-img-ex4.jpg" alt="">
-                            </a>
-                        </div>
-     
-                        <div class="section-more">
-                            <a href="#">이미지 더보기></a>
-                        </div>
-                    </div> -->
-                    <div class="row paging-row" style="display: none;">
+                 
+                 <!-- 페이징 -->
+                   <!--  <div class="row paging-row" style="display: none;">
                         <div class="paging" style="padding-left:0px;">             <a href="#" class="paging-strong">1</a>
                             <a href="#">2</a>
                             <a href="#">3</a>
@@ -388,7 +359,7 @@
                             <a href="#">10</a>
                             <a class="next" href="#">다음페이지</a> 
                         </div>
-                    </div>
+                    </div> -->
                 <!-- 내역 끝 -->
                 </div>
                 <div class="col-sm-3 search-ranking">   
@@ -424,6 +395,13 @@
 <script>	
 
 $(document).ready(function(){ 
+	// 2개씩만
+	$(".jli:gt(1)").hide();
+	$(".bli:gt(1)").hide();
+	$(".vli:gt(1)").hide();
+	$(".tli:gt(1)").hide();
+	$(".bali:gt(1)").hide();
+	
 	// 키워드 강조
 	var search = $('#search-input').val();
 	
@@ -500,6 +478,11 @@ $(document).ready(function(){
     $("#totalsearch").click(function(){
         $(".result-section").css("display", "block");
         $(".paging-row").css("display","none");
+        $(".jli:gt(1)").hide();
+    	$(".bli:gt(1)").hide();
+    	$(".vli:gt(1)").hide();
+    	$(".tli:gt(1)").hide();
+    	$(".bali:gt(1)").hide();
         return false;
     })
     
@@ -508,6 +491,8 @@ $(document).ready(function(){
         $(".result-jisikin").siblings().css("display", "none");
         $(".result-jisikin .section-more").css("display", "none");
         $(".paging-row").css("display","block");
+        $(".jli:gt(1)").show();
+        $("#jisikinsearch").addClass('cat-on');
         return false;
     })
     
@@ -516,6 +501,8 @@ $(document).ready(function(){
         $(".result-blog").siblings().css("display", "none");
         $(".result-blog .section-more").css("display", "none");
         $(".paging-row").css("display","block");
+        $(".bli:gt(1)").show();
+        $("#blogsearch").addClass('cat-on');
         return false;
     })
     
@@ -524,6 +511,8 @@ $(document).ready(function(){
         $(".result-series").siblings().css("display", "none");
         $(".result-series .section-more").css("display", "none");
         $(".paging-row").css("display","block");
+        $(".vli:gt(1)").show();
+        $("#blogsearch").addClass('cat-on');
         return false;
     })
     
@@ -532,6 +521,8 @@ $(document).ready(function(){
         $(".result-band").siblings().css("display", "none");
         $(".result-band .section-more").css("display", "none");
         $(".paging-row").css("display","block");
+        $(".bali:gt(1)").show();
+        $("#bandsearch").addClass('cat-on');
         return false;
     })
     
@@ -540,6 +531,8 @@ $(document).ready(function(){
         $(".result-tv").siblings().css("display", "none");
         $(".result-tv .section-more").css("display", "none");
         $(".paging-row").css("display","block");
+        $(".tli:gt(1)").show();
+        $("#tvsearch").addClass('cat-on');
         return false;
     })
     
@@ -548,6 +541,7 @@ $(document).ready(function(){
         $(".result-image").siblings().css("display", "none");
         $(".result-image .section-more").css("display", "none");
         $(".paging-row").css("display","block");
+        $("#imagesearch").addClass('cat-on');
         return false;
     })
     
