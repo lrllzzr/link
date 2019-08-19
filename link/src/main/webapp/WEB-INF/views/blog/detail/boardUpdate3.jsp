@@ -9,13 +9,10 @@
 			<!--  헤더 시작         -->
 			<%@include file="../../common/blog/blogheader.jsp"%>
 			<!--  헤더 끝     -->
-			<!--좌측 nav 시작-->
-			<%@include file="../../common/blog/blogleft.jsp"%>
-			<!--좌측 nav 끝-->
 			<!--                    우측 게시판 시작-->
 			<%@include file="../../common/blog/blogLayout.jsp"%>
 				<!-- 우측 게시판 글쓰기 시작-->
-				<div class="col-sm-12 blog_detail_right_row1" style="margin-top:0px;">
+				<div class="col-sm-12 blog_detail_right_row1">
 					<div class="row">
 						<form id="update-form" action="boardUpdate.do" method="post" enctype="multipart/form-data">
 							<input type="hidden" name="blogNo" value="${blog.no }"></input>
@@ -91,7 +88,7 @@
 		nhn.husky.EZCreator.createInIFrame({
 			oAppRef : oEditors,
 			elPlaceHolder : "textAreaContent",
-			sSkinURI : "/link/resources/js/se2/SmartEditor2Skin.html",
+			sSkinURI : "/link/resources/js/se2/SmartEditor3Skin.html",
 			fCreator : "createSEditor2",
 			htParams : {
 				fOnBeforeUnload : function() {
