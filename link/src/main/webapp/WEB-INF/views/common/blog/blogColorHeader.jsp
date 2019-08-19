@@ -21,7 +21,6 @@
 			$('html').animate({scrollTop : offset.top}, 400);
 		}
 		
-		
 		$('.blog_page_bum2').click(event, function() {
 			event.preventDefault();
 			var page = $(this).text();

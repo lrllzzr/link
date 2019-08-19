@@ -64,7 +64,7 @@
 								</colgroup>
 								<thead>
 									<tr>
-										<th></th>
+										<th>닉네임</th>
 										<th class="text-center">블로그명</th>
 										<th class="text-center">추가일</th>
 										<th class="text-center">관리</th>
@@ -76,7 +76,7 @@
 										<tr>
 											<td>
 												<input type="checkbox" name="neighborBlogNo" value="${neighbor.NO }"/>
-												<a href="detail.do?blogNo=${neighbor.NO }">${neighbor.NICKNAME }(${neighbor.USERID  })</a>
+												<a href="detail.do?blogNo=${neighbor.NO }"><img style="border-radius: 50%; width:30px; height:30px;" src="/link/resources/images/${neighbor.MAINIMG }" alt="" /> ${neighbor.NICKNAME }(${neighbor.USERID  })</a>
 											</td>
 											<td class="text-center">${neighbor.TITLE }</td>
 											<td class="text-center">

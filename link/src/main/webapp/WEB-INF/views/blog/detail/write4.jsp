@@ -3,6 +3,7 @@
 <body>
 	<!-- 네비게이션 시작  -->
 	<%@include file="../../common/nav.jsp"%>
+	<%@include file="../../common/blog/blogtitle.jsp"%>
 	<!-- 네비게이션 끝  -->
 	<div class="container blog_detail_con">
 		<div class="row">
@@ -95,7 +96,7 @@
 		nhn.husky.EZCreator.createInIFrame({
 			oAppRef : oEditors,
 			elPlaceHolder : "textAreaContent",
-			sSkinURI : "/link/resources/js/se2/SmartEditor2Skin.html",
+			sSkinURI : "/link/resources/js/se2/SmartEditor3Skin.html",
 			fCreator : "createSEditor2",
 			htParams : {
 				fOnBeforeUnload : function() {

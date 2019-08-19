@@ -400,6 +400,7 @@ public class BlogBeautyController {
 		User user = (User) session.getAttribute("LOGIN_USER");
 		// 내 블로그 얻어오기
 		Blog blog = blogservice.getBlogByUserId(user.getId());
+		
 		List<Map<String, Object>> blogNeighbors = blogNeighborService.getNeighborAddMe(blog.getNo());
 		model.addAttribute("blogNeighbors",blogNeighbors);
 		// 추가한 이웃 파랗게

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html lang="ko">
 <head>
 <title>Bootstrap</title>
@@ -116,24 +117,31 @@
          </div>
          <div class="col-sm-3 main-rank" style="margin-top:-15px">  
             <p class="text-center" style="margin-left:-26px;">실시간 인기 검색 순위</p>  
-            <div class="block" style="overflow:hidden;">
-                <ul id="ticker"> 
+            <div class="block" style="overflow:hidden; min-width:185px;">
+                <ul id="ticker" style="min-width:185px;">   
                 <c:forEach var="rank" items="${popWords }" varStatus="status" begin="0" end="9">
-                    <li><a href="/link/search.do?word=${rank }"><span class="rankk">${status.count }</span> ${rank }&nbsp;<span class="pull-right glyphicon glyphicon-chevron-down"></span></a></li>
+                	<c:choose>
+                		<c:when test="${fn:length(rank) gt 8 }">
+		                    <li style="min-width:185px;"><a style="min-width:170px;" href="/link/search.do?word=${rank }"><span class="rankk">${status.count }</span> ${fn:substring(rank, 0, 8) }..&nbsp;<span class="pull-right glyphicon glyphicon-chevron-down"></span></a></li>
+                		</c:when>
+                		<c:otherwise>
+		                    <li style="min-width:185px;"><a style="min-width:170px;" href="/link/search.do?word=${rank }"><span class="rankk">${status.count }</span> ${rank }&nbsp;<span class="pull-right glyphicon glyphicon-chevron-down"></span></a></li>
+                		</c:otherwise>
+                	</c:choose>
                 </c:forEach>
                 </ul>
-            </div>  
-            <div class="rank-list unfold-rank" style="display:none;">
+            </div>    
+            <div class="rank-list unfold-rank" style="display:none; min-width:200px;">
             <p style="margin-top:-25px !important;">실시간 인기 검색 순위</p>
-                    <ol>
+                    <ol style="min-width:190px;">  
                        <c:forEach var="pop" items="${popWords }" begin="0" end="9" varStatus="status">
-                         <li>
-                             <a href="/link/search.do?word=${pop }" class="bx bx_item">
+                         <li style="min-width:190px;">  
+                             <a style="min-width:190px;" href="/link/search.do?word=${pop }" class="bx bx_item">
                                  <span class="keyword">
                                      <em class="num">${status.count }</em>
-                                     <span class="tit">${pop }</span>
+                                     <span style="min-width:190px;" class="tit">${pop }</span>
                                  </span>
-                             </a>
+                             </a>  
                          </li>
                        </c:forEach>
                     </ol>

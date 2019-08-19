@@ -93,7 +93,7 @@
 						</div>
 						<div class="row">
 							<div class="col-sm-12 form-group">
-								<label for="">서로이웃 메세지 보내기</label>
+								<label id="blog_neighbor_label" for="">서로이웃 메세지 보내기</label>
 								<textarea id="blog_neighbor_textarea" class="form-control" name="neighborMessage" id="" cols="30" rows="5">우리 서로이웃 해요~</textarea>
 							</div>
 						</div>
@@ -123,6 +123,7 @@
 	<script>
 		$(function() {
 			$('#blog_neighbor_textarea').hide();
+			$('#blog_neighbor_label').hide();
 			$('.blog_request_div1').addClass('blog_neighbor_selected1');
 			$('.blog_request_div1, .blog_request_div2').click(function() {
 				$(this).addClass('blog_neighbor_selected1').siblings().removeClass('blog_neighbor_selected1');
@@ -130,10 +131,12 @@
 
 			$('.blog_request_div1').click(function() {
 				$('#blog_neighbor_textarea').val('우리 서로이웃 해요~').hide();
+				$('#blog_neighbor_label').hide();
 				$('#blog_neighborType').val('oneway');
 			});
 			$('.blog_request_div2').click(function() {
 				$('#blog_neighbor_textarea').show();
+				$('#blog_neighbor_label').show();
 				$('#blog_neighborType').val('each');
 			});
 

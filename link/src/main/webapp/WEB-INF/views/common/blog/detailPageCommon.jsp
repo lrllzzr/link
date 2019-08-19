@@ -17,8 +17,9 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12 blog_detail_full">
-					<a href=""> <span class="blog_detail_board_date"><fmt:formatDate value="${blog.createDate }" /> </span>
-					</a> <a href=""> <span class="glyphicon glyphicon-tag blog_detail_tag"></span> <span class="blog_detail_comments">댓글 4</span>
+					<a href="board.do?boardNo=${board.no }&blogNo=${blog.no}&categoryNo=${category.no}&isComment=Y"> 
+					<span class="blog_detail_board_date">${board.createDate }</span>
+					<span class="glyphicon glyphicon-tag blog_detail_tag"></span> <span class="blog_detail_comments">댓글 ${board.commentsCount }</span>
 					</a>
 				</div>
 			</div>

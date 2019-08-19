@@ -147,7 +147,7 @@ from
 <select id="getPaginationByMap" parameterType="map" resultType="map">
 select row_no, id, nickName, title, categoryNo, boardNo, contents, no, boardMainImg, blogMainImg, createDate
 from
-    (   select ROW_number() over(order by d.board_create_date) row_no,
+    (   select ROW_number() over(order by d.board_create_date desc) row_no,
             c.user_id id,
             c.user_nickname nickName,
             d.board_title title,
@@ -229,7 +229,8 @@ from
 	select 
 		c.user_id NEIGHBORID, 
 		c.user_nickName NICKNAME, 
-		d.blog_no NEIGHBORBLOGNO
+		d.blog_no NEIGHBORBLOGNO,
+		d.blog_main_img BLOGMAINIMG
 	from 
 		blog a, blog_neighbor b, users c, blog d
 	where
@@ -264,13 +265,15 @@ from
 <select id="getNeighborAddMe" parameterType="int" resultType="map">
 	select
 		NEIGHBORHOOD_NO no,
-		a.BLOG_NO blogNo,
+		b.BLOG_NO blogNo,
+		b.blog_title title,
 		NEIGHBORHOOD_TYPE type,
 		NEIGHBOR_STATUS status,
         c.user_id userId,
         c.user_nickname nickName,
         a.NEIGHBOR_MESSAGE message,
-        a.neighbor_create_date createDate
+        a.neighbor_create_date createDate,
+        c.user_img MAINIMG
 	from
 		blog_neighbor a, blog b, users c
 	where
@@ -279,14 +282,6 @@ from
            a.blog_no = b.blog_no
        and
            a.NEIGHBORHOOD_NO = #{myBlogNo}
-	<if test="type !=null">
-		and
-			a.NEIGHBORHOOD_TYPE = #{type}
-	</if>
-	<if test="status !=null">
-		and
-			a.NEIGHBOR_STATUS = #{status}
-	</if>
 </select>
 <select id="getNeighborsByMyBlogNo" parameterType="int" resultType="blogNeighbor">
 	select

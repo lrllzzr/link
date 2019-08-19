@@ -78,8 +78,8 @@ pageEncoding="UTF-8"%>
 						<li><a href="/link/accountbook/expense.do" class="active"><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
 							style="color: dimgray"><h4>지출 보고서</h4></a></li>
-						<li><a href="/link/accountbook/budget.do"
-							style="color: dimgray"><h4>예산쓰기</h4></a></li>
+						<!-- <li><a href="/link/accountbook/budget.do"
+							style="color: dimgray"><h4>예산쓰기</h4></a></li> -->
 						<li><a href="/link/accountbook/mylist.do"
 							style="color: dimgray"><h4>월결산</h4></a></li>
 						

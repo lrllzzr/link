@@ -117,6 +117,8 @@ public class UserController {
 			String filename = mainImg.getOriginalFilename();
 			FileCopyUtils.copy(mainImg.getBytes(), new File(profileImageSaveDirectory, filename));
 			user.setImg(filename);
+		} else {
+			user.setImg("profile.jpg");
 		}
 		
 		userService.addUser(user);

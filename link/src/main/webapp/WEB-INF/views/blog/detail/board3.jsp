@@ -3,6 +3,7 @@
 
 <body>
 	<%@include file="../../common/nav.jsp"%>
+	<%@include file="../../common/blog/blogtitle.jsp"%>
 	<div class="container blog_detail_con">
 		<div class="row">
 			<!--  헤더 시작         -->
@@ -44,6 +45,9 @@
 	</div>
 
 	</div>
-
+<script>
+	var offset = $('.blog_detail_right_row1').offset(); //선택한 태그의 위치를 반환
+	$('html').animate({scrollTop : offset.top}, 400);
+</script>
 </body>
 </html>

@@ -71,7 +71,7 @@
 									<c:forEach var="neighbor" items="${blogNeighbors }">
 										<tr>
 											<td class="">
-												<img style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;" src="/link/resources/images/${neighbor.MAINIMG }" alt="" /> <a href="detail.do?blogNo=${neighbor.NO }">${neighbor.NICKNAME }(${neighbor.USERID  })</a>
+												<img style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;" src="/link/resources/images/${neighbor.MAINIMG }" alt="" /> <a href="detail.do?blogNo=${neighbor.BLOGNO }">${neighbor.NICKNAME }(${neighbor.USERID  })</a>
 											</td>
 											<td class="text-center">${neighbor.TITLE }</td>
 											<td class="text-center">
@@ -101,6 +101,7 @@
 					alert('신고되었습니다.');
 				}
 			});
+		})
 			
 	</script>
 </body>

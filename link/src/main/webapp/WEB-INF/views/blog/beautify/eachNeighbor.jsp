@@ -56,7 +56,7 @@
 								<thead>
 									<tr>
 										<th><input type="checkbox" id="blog_whoApply" name=""></input>신청한 사람</th>
-										<th class="text-center">메시지</th>
+										<th class="text-center">신청 메시지</th>
 										<th class="text-center">신청일</th>
 										<th class="text-center">관리</th>
 									</tr>
@@ -69,7 +69,7 @@
 											<td>
 												<input type="checkbox" name="neighborBlogNo" value="${neighbor.BLOGNO }"/><a href="detail.do?blogNo=${neighbor.BLOGNO }">${neighbor.NICKNAME }(${neighbor.USERID  })</a>
 											</td>
-											<td>${neighbor.MESSAGE}</td>
+											<td class="text-center">${neighbor.MESSAGE}</td>
 											<td class="text-center">
 												<fmt:formatDate value="${neighbor.CREATEDATE}" pattern="yyyy-mm-dd HH:mm" />
 											</td>

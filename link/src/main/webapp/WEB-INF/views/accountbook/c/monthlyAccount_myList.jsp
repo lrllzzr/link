@@ -46,8 +46,8 @@
 						<li><a href="/link/accountbook/expense.do" ><h4>가계부</h4></a></li>
 						<li><a href="/link/accountbook/monthly.do"
 							style="color: dimgray"><h4>지출 보고서</h4></a></li>
-						<li><a href="/link/accountbook/budget.do"
-							style="color: dimgray"><h4>예산쓰기</h4></a></li>
+						<!-- <li><a href="/link/accountbook/budget.do"
+							style="color: dimgray"><h4>예산쓰기</h4></a></li> -->
 						<li><a href="/link/accountbook/mylist.do" 
 							class="point" style="color: dimgray"><h4>월결산</h4></a></li>
 						
@@ -99,7 +99,7 @@
                               <div class="col-sm-12" style="padding-left: 25px;">
                                    <h3>나의 월결산</h3>
                                     <a href="/link/accountbook/writingForm.do" type="button" class="btn btn-primary btn-lg" style="float: right; padding-right: 20px;">월결산 쓰기</a>   
-                              </div>;
+                              </div>
                           </div>
                         <table class="table table-striped" >
                            <tbody>

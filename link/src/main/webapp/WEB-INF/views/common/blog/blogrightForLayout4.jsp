@@ -23,7 +23,8 @@
 				</div>
 			</div>
 			<!--   글 제목 시작-->
-			<c:forEach var="board" items="${blogBoards }">
+			<div id="blog_board_title1" data-categoryNo="${category.no }" data-blogNo="${blog.no }">
+			<c:forEach var="board" items="${blogboardsByRange }">
 				<div class="row">
 					<div class="col-sm-12 blog_detail_right_row_1">
 						<div class="col-sm-9">
@@ -41,7 +42,7 @@
 				</div>
 			</c:forEach>
 			<!--                   글 제목 끝-->
-
+			</div>
 			<!--                    페이지네이션 시작-->
 			<div class="row">
 				<div class="col-sm-12 text-center">
@@ -72,6 +73,40 @@
 			} else {
 				$(this).html('목록 열기');
 			}
-		})
+		});
+		$('.blog_page_bum').click(event,function(){
+			event.preventDefault();
+			var page = $(this).text();
+			var blogNo = $('#blog_board_title1').attr('data-blogNo');
+			var categoryNo = $('#blog_board_title1').attr('data-categoryNo');
+			$.ajax({
+				type:"GET",
+				url:"paginationAjax.do",
+				dataType: 'json',
+				data :{pno: page, categoryNo: categoryNo},
+				success: function(result){
+					console.log(result);
+					$('#'+result.pno).addClass('blog_detail_page_1_selected').parent().siblings().find('a').removeClass('blog_detail_page_1_selected');
+					$('#blog_board_title1').empty();
+					$.each(result.blogboardsByRange, function(index,board){
+						var row = '';
+						row += '<div class="row" data-blogNo = "'+blogNo+'"  data-categoryNo = "'+categoryNo+'">';
+						row += '	<div class="col-sm-12 blog_detail_right_row_1">';
+						row += '		<div class="col-sm-9">';
+						row += '			<span><a href="/link/blog/board.do?boardNo='+board.no+'&blogNo='+blogNo+'&categoryNo='+categoryNo+'&pno='+result.pno+'">'+board.title+'</a></span>';
+						row += '		</div>';
+						row += '		<div class="col-sm-3 text-right">';
+						row += '			<span class="blog_detail_board_create">'+board.createDate+'</span>';
+						row += '		</div>';
+						row += '		<div class="col-sm-12 blog_detail-hr-div">';
+						row += '			<hr class="blog_detail_hr_2" />';
+						row += '		</div>';
+						row += '	</div>';
+						$('#blog_board_title1').append(row);
+					})
+				}
+			})
+			return false;
+		});
 	})
 </script>
