@@ -100,7 +100,7 @@
 		            e.category_no = d.category_no
 		        )
 		where
-		    (title like '%' || #{value} || '%' or contents like '%' || #{value} || '%')
+		    (blogTitle like '%' || #{value} || '%' or title like '%' || #{value} || '%' or contents like '%' || #{value} || '%')
 	</select>
 	
 	<!-- VOD -->

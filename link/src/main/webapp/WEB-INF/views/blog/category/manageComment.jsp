@@ -1,21 +1,3 @@
-Skip to content
- 
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@lrllzzr 
-0
-0 0 lrllzzr/link
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Security  Insights  Settings
-link/link/src/main/webapp/WEB-INF/views/blog/category/manageComment.jsp
-@lrllzzr lrllzzr 08-14 BM
-ece959f 1 hour ago
-182 lines (169 sloc)  5.94 KB
-    
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">

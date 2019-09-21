@@ -291,9 +291,9 @@
 
 					row += '<div class="col-sm-12 blog_category_cat1">';
 					row += '<div class="blogCat" data-categoryPublic="Y">';
-					row += '&nbsp;┗ <span class="blog-detail-showall"><span id="blogNewCat">카테고리</span></span>';
+					row += '&nbsp;┗ <span class="blog-detail-showall"><span id="blogNewCat">하위카테고리</span></span>';
 					row += '<input type="hidden" name="catSubCatNo" id="sub-cat" value="'+subCatNo+'" />';
-					row += '<input type="hidden" name="catTitle" id="cat-title" value="카테고리" />';
+					row += '<input type="hidden" name="catTitle" id="cat-title" value="하위카테고리" />';
 					row += '<input type="hidden" name="catNo" value="'+autoCatNo+'" />';
 					row += '<input type="hidden" id="blog_cat_show" name="show" value="Y" />';
 					row += '</div>';
@@ -305,8 +305,8 @@
 					var row = '<div class="row blog_category_catdiv">';
 					row += '<div class="col-sm-12 blog_category_cat2">';
 					row += '<div class="blogSubCat" data-categoryPublic="Y" data-subCategoryNo="'+autoSubCatNo+'">';
-					row += '<span class="glyphicon glyphicon-list-alt"></span> <span id="blogNewSubCat" class="blog-detail-showall">서브카테고리</span>';
-					row += '<input type="hidden" name="subCatTitle" id="sub-title" value="서브카테고리" />';
+					row += '<span class="glyphicon glyphicon-list-alt"></span> <span id="blogNewSubCat" class="blog-detail-showall">상위카테고리</span>';
+					row += '<input type="hidden" name="subCatTitle" id="sub-title" value="상위카테고리" />';
 					row += '<input type="hidden" name="subCatNo" id="sub-cat" value="'+autoSubCatNo+'" />';
 					row += '<input type="hidden" id="blog_subCat_show" name="show" value="Y" />';
 					row += '</div>';
@@ -324,7 +324,7 @@
 			});
 			$('#blog_name').focusout(function() {
 				if ($(this).val() == "") {
-					$(this).val('카테고리');
+					$(this).val('하위카테고리');
 				}
 				$('.blogCategoryselected').find('.blog-detail-showall').text($(this).val());
 				$('.blogCategoryselected').find('#sub-title').val($(this).val());

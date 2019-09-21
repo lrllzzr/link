@@ -113,7 +113,7 @@
 					</div>
 					<div class="row ">
 						<div class="col-sm-12 text-center blog_beauty_bottombtndiv">
-							<button type="button" class="btn blog_beuaty_submit_button">다음</button>
+							<button type="button" class="btn blog_beuaty_submit_button">생성하기</button>
 						</div>
 					</div>
 				</form>

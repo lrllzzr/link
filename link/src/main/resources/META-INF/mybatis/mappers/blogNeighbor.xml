@@ -47,6 +47,7 @@
             c.user_id userId,
             c.user_nickname nickName,
             a.NEIGHBOR_MESSAGE message,
+            b.blog_main_img mainImg,
             a.neighbor_create_date createDate
 		from
 			blog_neighbor a, blog b, users c

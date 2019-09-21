@@ -3,7 +3,7 @@ package kr.co.link.vo;
 public class Pagination {
 	private int page;
 	
-	// 한 페이지에 표시할 갯수
+	// 한 페이지에 표시할 글 갯수
 	private int size;	
 	// 밑에 번호 숫자 몇번까지?
 	private int pages;	

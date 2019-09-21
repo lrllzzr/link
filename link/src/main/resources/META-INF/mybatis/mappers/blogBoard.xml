@@ -238,7 +238,7 @@ values(
 		comment_no = #{value}
 </delete>
 <select id="getBoardCommentsInMyBlog" parameterType="map" resultType="map">
-	select a.comment_no commentNo, g.blog_main_Img mainImg, g.blog_no no,
+select a.comment_no commentNo, g.blog_main_Img mainImg, g.blog_no no, d.blog_no BOARDBLOGNO, c.category_no CATEGORYNO,
         a.comment_contents contents, a.board_no boardNo, f.user_id userId, b.board_title title, f.user_nickname nickName, a.comment_create_date createDate
 from blog_boards_comments a, blog_boards b, blog_category c, blog_subcategory d, blog e, users f, blog g
 where

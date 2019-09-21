@@ -67,7 +67,7 @@
 									<c:forEach var="neighbor" items="${neighbors }">
 										<tr>
 											<td>
-												<input type="checkbox" name="neighborBlogNo" value="${neighbor.BLOGNO }"/><a href="detail.do?blogNo=${neighbor.BLOGNO }">${neighbor.NICKNAME }(${neighbor.USERID  })</a>
+												<input type="checkbox" name="neighborBlogNo" value="${neighbor.BLOGNO }"/><a href="detail.do?blogNo=${neighbor.BLOGNO }"><img style="border-radius: 50%; width:30px; height:30px;" src="/link/resources/images/${neighbor.MAINIMG }" alt="" />${neighbor.NICKNAME }(${neighbor.USERID  })</a>
 											</td>
 											<td class="text-center">${neighbor.MESSAGE}</td>
 											<td class="text-center">
