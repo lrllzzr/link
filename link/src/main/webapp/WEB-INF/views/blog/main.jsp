@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>Bootstrap</title>
+<title>Link > 블로그</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -94,7 +94,7 @@
 															<div class="col-sm-2 blog-neighbor-col2">
 																<div class="row">
 																	<div class="col-sm-12">
-																		<a href="">${blog.NICKNAME }</a>
+																		<a href="/link/blog/board.do?blogNo=${blog.NO }&categoryNo=${blog.CATEGORYNO }&boardNo=${blog.BOARDNO}">${blog.NICKNAME }</a>
 																	</div>
 																	<div class="col-sm-12">${blog.howLongDate}</div>
 																</div>

@@ -38,7 +38,7 @@
 	<!-- 이웃이면  -->
 	<c:if test="${isNeighbor eq 'Y' }">
 		<div class="col-sm-8 col-sm-offset-2 blog_detail_neighborplus text-center">
-			<a href=""><span class="blog_detail_plus2">이웃</span></a>
+			<a href="manageNeighbor.do"><span class="blog_detail_plus2">이웃</span></a>
 		</div>
 	</c:if>
 	

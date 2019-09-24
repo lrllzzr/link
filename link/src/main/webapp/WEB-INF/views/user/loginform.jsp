@@ -32,6 +32,15 @@ a:hover, a:focus {
 		</div>
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-4">
+				<c:if test="${param.status eq 'fail'}">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="alert alert-danger" >
+								<span>아이디나 비밀번호가 일치하지 않습니다.</span>
+							</div>
+						</div>
+					</div>
+				</c:if>
 				<div>
 					<form class="well" method="POST" action="loginform.do">
 						<div class="form-group">

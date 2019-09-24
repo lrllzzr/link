@@ -48,7 +48,12 @@ public class UserController {
 	
 	@RequestMapping(value="/loginform.do", method = RequestMethod.POST)
 	public String login(String userId, String password, HttpSession session) throws Exception {
-		User user = userService.login(userId, password);
+		User user = userService.getUserById(userId);
+		
+		if(user==null || !password.equals( user.getPassword() )) {
+			return "redirect:loginform.do?status=fail";
+		}
+		
 		session.setAttribute("LOGIN_USER", user);
 		session.setAttribute("isLogined", true);
 		

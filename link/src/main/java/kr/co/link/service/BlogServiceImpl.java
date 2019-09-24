@@ -78,6 +78,7 @@ public class BlogServiceImpl implements BlogService{
 	@Override
 	public String profileImageSaveDirectory() {
 		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images";
+		profileImageSaveDirectory = "C:/Users/Administrator/git/link3/link/src/main/webapp/resources/images";
 //		profileImageSaveDirectory = "C:/Users/BMAHN/git/link4/link/src/main/webapp/resources/images";
 		
 		return profileImageSaveDirectory;
