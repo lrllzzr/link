@@ -219,6 +219,7 @@
 						<div class="col-sm-12 blog_topics">
 							<span data-topic="all" id="all" class="blog_topic_selected">전체</span>
 							<span data-topic="movie" class="">영화</span>
+							<span data-topic="music" class="">음악</span>
 							<span data-topic="literature" class="">문학</span>
 							<span data-topic="travel" class="">여행</span>
 							<span data-topic="game" class="">게임</span>
@@ -365,7 +366,7 @@
 										<c:forEach var="request" items="${requestList}">
 											<div class="row blog-alarm">
 												<div class="col-sm-12">
-													<img class="blog-row-3-profile-img" src="/link/resources/images/${request.BLOGMAINIMG }" alt=""> <a href="eachNeighbor.do">${request.NICKNAME }님이 서로이웃을 신청했습니다.</a> <a href=""><span class="glyphicon glyphicon-remove"></span></a>
+													<img class="blog-row-3-profile-img" src="/link/resources/images/${request.BLOGMAINIMG }" alt=""> <a href="eachNeighbor.do">${request.NICKNAME }님이 서로이웃을 신청했습니다.</a> <a href=""></span></a>
 												</div>
 											</div>
 										</c:forEach>
@@ -426,7 +427,6 @@
 					function(event) {
 						event.preventDefault();
 						$(this).addClass('blog_detail_page_1_selected').parent().siblings().find('a').removeClass('blog_detail_page_1_selected');
-
 						var pageNo = $(this).attr("data-pno");
 
 						$.ajax({
@@ -452,7 +452,7 @@
 									row += '				<div class="col-sm-2 blog-neighbor-col2">';
 									row += '					<div class="row">';
 									row += '						<div class="col-sm-12">';
-									row += '							<a href="">' + blog.NICKNAME + '</a>';
+									row += '							<a href="/link/blog/board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">' + blog.NICKNAME + '</a>';
 									row += '						</div>';
 									row += '						<div class="col-sm-12">' + blog.howLongDate + '</div>';
 									row += '					</div>';
@@ -541,7 +541,7 @@
 									row += '			<div class="col-sm-2 blog-neighbor-col2">';
 									row += '				<div class="row">';
 									row += '					<div class="col-sm-12">';
-									row += '						<a href="">' + blog.NICKNAME + '</a>';
+									row += '						<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">' + blog.NICKNAME + '</a>';
 									row += '					</div>';
 									row += '					<div class="col-sm-12">' + blog.howLongDate + '</div>';
 									row += '				</div>';
@@ -580,7 +580,6 @@
 									$('.blog3topic').append(row);
 									$('.blog-neighbor-contents3 img').hide();
 									$('.blog-neighbor-contents img').hide();
-
 								});
 							}
 						})
@@ -653,7 +652,7 @@
 										row += '			<div class="col-sm-2 blog-neighbor-col2">';
 										row += '				<div class="row">';
 										row += '					<div class="col-sm-12">';
-										row += '						<a href="">' + blog.NICKNAME + '</a>';
+										row += '						<a href="board.do?blogNo=' + blog.NO + '&categoryNo=' + blog.CATEGORYNO + '&boardNo=' + blog.BOARDNO + '">' + blog.NICKNAME + '</a>';
 										row += '					</div>';
 										row += '					<div class="col-sm-12">' + blog.howLongDate + '</div>';
 										row += '				</div>';

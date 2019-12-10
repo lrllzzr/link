@@ -18,7 +18,7 @@
 <!-- 내 블로그면  시작-->
 <c:if test="${isMyBlog eq 'others' }">
 	<div class="col-sm-12 blog_detail_leftcol_contents2">
-		<a href="profile.do?blogNo=${blog.no }">프로필<span class="glyphicon glyphicon-play blog-detail-profile"></span></a> <a href="">쪽지<span class="glyphicon glyphicon-play blog-detail-profile"></span></a>
+		<a href="profile.do?blogNo=${blog.no }">프로필<span class="glyphicon glyphicon-play blog-detail-profile"></span></a>
 	</div>
 </c:if>
 <c:if test="${isMyBlog eq 'mine' }">
@@ -37,9 +37,11 @@
 	</c:if>
 	<!-- 이웃이면  -->
 	<c:if test="${isNeighbor eq 'Y' }">
+	<a href="manageNeighbor.do">
 		<div class="col-sm-8 col-sm-offset-2 blog_detail_neighborplus text-center">
-			<a href="manageNeighbor.do"><span class="blog_detail_plus2">이웃</span></a>
+			<span class="blog_detail_plus2">이웃</span>
 		</div>
+	</a>
 	</c:if>
 	
 </c:if>

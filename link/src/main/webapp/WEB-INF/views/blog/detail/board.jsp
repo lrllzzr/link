@@ -50,7 +50,10 @@
 	</div>
 <script>
 	var offset = $('.blog_detail_right_row1').offset(); //선택한 태그의 위치를 반환
-	$('html').animate({scrollTop : offset.top}, 400);
+	var isComment = $('#isComment').attr('data-isComment');
+	if(isComment != 'Y'){
+		$('html').animate({scrollTop : offset.top}, 400);
+	}
 </script>
 </body>
 </html>

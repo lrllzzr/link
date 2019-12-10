@@ -21,4 +21,8 @@ public interface BlogService {
 	Integer getBlogsCountByType(Map<String, Object> map);
 	String profileImageSaveDirectory();
 	List<Map<String, Object>> dateChange(List<Map<String, Object>> blogLists);
+	void insertIp(Map<String, Object> map);
+	List<Map<String,Object>> getIp(Map<String,Object> map);
+	void deleteCustIp(String ip);
+	Integer ipCount();
 }

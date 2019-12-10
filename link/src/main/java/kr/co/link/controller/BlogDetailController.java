@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.link.form.BlogBoardForm;
@@ -315,7 +317,17 @@ public class BlogDetailController {
 		}
 		
 		model.addAttribute("allBlogs", allBlogs);
-		
+		HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+        String ip = req.getHeader("X-FORWARDED-FOR");
+        if (ip == null) {
+        	ip = req.getRemoteAddr();
+        }
+        Map<String, Object> infoMap = new HashMap<String, Object>();
+        infoMap.put("ip", ip);
+        if(user != null) {
+        	infoMap.put("userId", user.getId());
+        }
+		blogService.insertIp(infoMap);
 		
 		return "blog/main";
 	}

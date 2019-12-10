@@ -246,7 +246,6 @@ a {
     background-color: white;
     margin:0px;
     font-size: 13px;
-    letter-spacing: -1px;
     border-bottom: 1px solid lightgray;
     padding:10px !important;
     height: 300px;
@@ -343,7 +342,7 @@ a {
 }
 .blog-alarm{
     margin-bottom: 15px;
-    padding : 0px 10px !important;
+    padding : 0px 5px !important;
 }
 .blog-neighbor-contents{
 	height:60px;

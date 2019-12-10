@@ -44,7 +44,6 @@
 						</div>
 						<div class="col-sm-12 blog_category_buttoncol">
 							<button type="button" id="blogAddCategoryBtn" class="btn btn-sm btn-default">+ 카테고리 추가</button>
-							<button type="button" id="" class="btn btn-sm btn-default">+ 구분선 추가</button>
 							<button type="button" id="blogDeleteCategoryBtn" class="btn btn-sm btn-default">- 삭제</button>
 						</div>
 						<div class="col-sm-4">
@@ -96,14 +95,14 @@
 										<input type="text" class="form-control" id="blog_name" name="blogName" disabled="disabled">
 									</div>
 								</div>
-								<div class="form-inline form-group">
+								<!-- <div class="form-inline form-group">
 									<label for="phone_num" class="col-sm-3 control-label">공개설정</label>
 									<div class="col-sm-9" style="padding-top: 7px;">
 										<span style="margin-right: 5px;"> <input id="blogPublic" type="radio" name="show2" disabled="disabled" />공개
 										</span> <span> <input id="blogPrivate" type="radio" name="show2" disabled="disabled" />비공개
 										</span>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="col-sm-12">

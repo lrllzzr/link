@@ -1,10 +1,14 @@
 package kr.co.link.controller;
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 import kr.co.link.service.BlogBoardService;
 import kr.co.link.service.BlogCategoryService;
 import kr.co.link.service.BlogNeighborService;
@@ -23,6 +31,7 @@ import kr.co.link.vo.Blog;
 import kr.co.link.vo.BlogBoard;
 import kr.co.link.vo.BlogCategory;
 import kr.co.link.vo.BlogSubCategory;
+import kr.co.link.vo.Pagination;
 import kr.co.link.vo.User;
 
 @Controller
@@ -156,7 +165,68 @@ public class BlogMyController {
 		}
 		return blogSubCategories;
 	}
-
+	@RequestMapping("/getip.do")
+	public String getCustomers(Model model, @RequestParam (value="pno", defaultValue = "1") Integer pno ) {
+		Map<String, Object> paginationMap = new HashMap<String, Object>();
+		int howManyRows = 10;
+		paginationMap.put("beginIndex", (pno-1)*howManyRows +1);
+		paginationMap.put("endIndex", pno*howManyRows);
+		// records = 총 글 갯수
+		int records = blogService.ipCount();
+		Pagination pagination = new Pagination(pno, howManyRows, records);
+		model.addAttribute("pagination",pagination);
+		
+        List<Map<String, Object>> ip = blogService.getIp(paginationMap);
+        List<Map<String, Object>> newIp = new ArrayList<Map<String,Object>>(); 
+        for(Map<String,Object> ips : ip) {
+        	Date nums = (Date) ips.get("TIMES");
+        	nums.setHours(9 + nums.getHours());
+        	String custIp = (String) ips.get("IP");
+        	if(custIp.equals("223.38.46.206")) {
+        		custIp = "나(핸드폰)";
+        	} else if(custIp.equals("59.5.66.208")) {
+        		custIp = "수정";
+        	} else if(custIp.equals("220.116.229.133")) {
+        		custIp = "나(노트북)";
+        	}
+        	ips.put("IP", custIp);
+        	ips.put("TIMES", nums);
+        	ips.put("IPNO", ips.get("IP_NO"));
+        	newIp.add(ips);
+        }
+        model.addAttribute("clientIP", newIp);
+		return "blog/detail/getCustomer";
+	}
+	
+	@RequestMapping("/ipAjax.do")
+	public @ResponseBody Map<String,Object> ipAjax(Model model, int pno) {
+		List<Map<String, Object>> ipList = new ArrayList<Map<String,Object>>();
+		Map<String, Object> paginationMap = new HashMap<String, Object>();
+		int howManyRows = 10;
+		paginationMap.put("beginIndex", (pno-1)*howManyRows +1);
+		paginationMap.put("endIndex", pno*howManyRows);
+		ipList = blogService.getIp(paginationMap);
+		for(Map<String, Object> ip : ipList) {
+			Date nums = (Date) ip.get("TIMES");
+        	nums.setHours(9 + nums.getHours());
+        	SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss");
+        	String to = transFormat.format(nums);
+        	ip.put("TIMES", to);
+		}
+		int records = blogService.ipCount();
+		Pagination pagination = new Pagination(pno, howManyRows, records);
+		Map<String, Object> lists = new HashMap<String, Object>();
+		lists.put("ipList", ipList);
+		lists.put("pagination", pagination);
+		
+		return lists;
+	}
+	@RequestMapping("/deleteIp.do")
+	public String deleteIp(Model model, String ip) {
+		blogService.deleteCustIp(ip);
+		return "redirect:getip.do";
+	}
+	
 	@RequestMapping("/mydetail.do")
 	public String detail(Model model, HttpSession session, @RequestParam(value = "pno", required = false, defaultValue = "1") Integer pno,
 			@RequestParam(value = "pno10", required = false, defaultValue = "1") Integer pno10) {

@@ -85,6 +85,7 @@
                      <li><a href="/link/accountbook/expense.do">가계부 </a></li>
                      <li><a href="/link/series/home.do">시리즈</a></li>
                      <li><a href="/link/tv/home.do">TV</a></li>
+                     <li><a href="/link/blog/getip.do">사용자 관리</a></li>
                      <li class="divider"></li>
                      <li><a class="blognav_logout_btn" href="/link/logout.do">로그아웃</a></li>
                   </ul></li>

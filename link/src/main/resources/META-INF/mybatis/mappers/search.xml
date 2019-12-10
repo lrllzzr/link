@@ -51,7 +51,6 @@
 			word_count desc
 	</select>
 	
-	
 	<!-- 각 분야 검색 쿼리 -->
 	<!-- 지식인 -->
 	<select id="searchJisikin" parameterType="string" resultType="map">

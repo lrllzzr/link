@@ -17,4 +17,8 @@ public interface BlogDao {
 	List<Blog> getAllblogs();
 	List<Map<String, Object>> getAllBlogsByType(Map<String, Object> map);
 	Integer getBlogsCountByType(Map<String, Object> map);
+	void insertIp(Map<String, Object> map);
+	List<Map<String,Object>> getIp(Map<String,Object> map);
+	void deleteCustIp(String ip);
+	Integer ipCount();
 }

@@ -4,6 +4,48 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="kr.co.link.dao.BlogDao">		<!-- Dao경로설정 -->
+<insert id="insertIp" parameterType="map">
+	insert into blog_ip
+	values(#{ip} , sysdate, blog_seq.nextval
+		<if test="userId != null">
+			, #{userId}
+		</if>
+		<if test="userId == null">
+			, 'void'
+		</if>
+	)
+</insert>
+<select id="getIp" parameterType="map" resultType="map">
+	select
+		IP,
+		ip_no,
+		times,
+		userId
+	from
+        (select row_number() over (order by times desc) row_no,
+            ip_no,
+            ip,
+            times,
+            userId
+        from
+            blog_ip
+        )
+    where
+        row_no &gt;= #{beginIndex}
+    and
+        row_no &lt;= #{endIndex}
+</select>
+<select id="ipCount" resultType="int">
+	select
+        count(*)
+    from
+        blog_ip
+</select>
+<delete id="deleteCustIp" parameterType="string">
+	delete blog_ip
+    where
+        ip_no = #{value}
+</delete>
 <select id="getBlogByUserId" parameterType="string" resultType="blog">
 	select
 		BLOG_NO no,

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<div id="isComment" data-isComment = "${param.isComment }"></div>
 <div class="row">
 	<div class="col-sm-9 blog_board_comment_box11">
 		<span class="blog_board_comment1">

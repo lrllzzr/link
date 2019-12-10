@@ -91,7 +91,7 @@
 									<div class="col-sm-12">
 										<div class="col-sm-12 beautify_form" style=" margin-bottom:20px;">
 											<div class="text-center">
-												<span class="beauty_yellow" style="font-variant: small-caps; font-weight: bold;">마우스로 드래그해서 원하는 위치에 놓으세요.</span>
+												<span class="beauty_yellow" style="font-variant: small-caps; font-weight: bold;">프로필영역 / 블로그정보 / 카테고리 부분을 마우스로 드래그해서 원하는 위치에 놓으세요.</span>
 											</div>
 										</div>
 

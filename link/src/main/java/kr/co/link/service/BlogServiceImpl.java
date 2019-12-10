@@ -78,7 +78,7 @@ public class BlogServiceImpl implements BlogService{
 	@Override
 	public String profileImageSaveDirectory() {
 		String profileImageSaveDirectory = "C:/Users/BM/git/link/link/src/main/webapp/resources/images";
-		profileImageSaveDirectory = "C:/Users/Administrator/git/link3/link/src/main/webapp/resources/images";
+		profileImageSaveDirectory = "C:/Users/Administrator/git/link/link/src/main/webapp/resources/images";
 //		profileImageSaveDirectory = "C:/Users/BMAHN/git/link4/link/src/main/webapp/resources/images";
 		
 		return profileImageSaveDirectory;
@@ -109,5 +109,23 @@ public class BlogServiceImpl implements BlogService{
 			}
 		}
 		return blogLists;
+	}
+
+	@Override
+	public void insertIp(Map<String, Object> map) {
+		blogDao.insertIp(map);
+	}
+	@Override
+	public List<Map<String, Object>> getIp(Map<String, Object> map) {
+		return blogDao.getIp(map);
+	}
+
+	@Override
+	public void deleteCustIp(String ip) {
+		blogDao.deleteCustIp(ip);
+	}
+	@Override
+	public Integer ipCount() {
+		return blogDao.ipCount();
 	}
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>Bootstrap</title>
+<title>Link > 블로그 > 생성하기</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -83,6 +83,7 @@
 						<div class="col-sm-5">
 							<select class="form-control blog_beauty_subject" name="topic" id="">
 								<option value="movie">영화</option>
+								<option value="music">음악</option>
 								<option value="literature">문학</option>
 								<option value="game">게임</option>
 								<option value="travle">여행</option>

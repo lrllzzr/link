@@ -86,6 +86,7 @@
 						<div class="col-sm-5">
 							<select class="form-control blog_beauty_subject" name="topic" id="">
 								<option ${blog.topic eq 'movie' ? 'selected' : ''} value="movie">영화</option>
+								<option ${blog.topic eq 'music' ? 'selected' : ''} value="music">음악</option>
 								<option ${blog.topic eq 'literature' ? 'selected' : ''} value="literature">문학</option>
 								<option ${blog.topic eq 'game' ? 'selected' : ''} value="game">게임</option>
 								<option ${blog.topic eq 'travel' ? 'selected' : ''} value="travel">여행</option>

@@ -8,7 +8,8 @@
 <%
 
 String path = "C:/Users/BM/git/link/link/src/main/webapp/resources/images/userblogimgs"; // 이미지가 저장될 주소
-path = "C:/Users/Administrator/git/link3/link/src/main/webapp/resources/images/userblogimgs";
+path = "C:/Users/Administrator/git/link/link/src/main/webapp/resources/images/userblogimgs";
+
 /* path = "C:/Users/BMAHN/git/link2/link/src/main/webapp/resources/images/userblogimgs"; // 이미지가 저장될 주소 */ 
 String filename = "";
 
