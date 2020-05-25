@@ -1,16 +1,19 @@
 package kr.co.link.vo;
 
 public class Pagination {
+	// 현재 페이지 번호
 	private int page;
-	
-	// 한 페이지에 표시할 갯수
-	private int size;	
-	// 밑에 번호 숫자 몇번까지?
-	private int pages;	
-	private int records;	
-
-	private int totalPages;			
-	private int totalBlocks;			
+	// 한 화면에 몇개나 표시?
+	private int size;
+	// 숫자 블럭 몇개씩?
+	private int pages;
+	// 가져올 데이터 총 갯수
+	private int records;
+	// 페이지 갯수(총 페이지 수 / size) 후 올림
+	private int totalPages;
+	// 총 블럭 갯수((1: 1~5 / 2: 6~10 / 3: 11~15..) 이고 1~5라면 3블럭중 1블럭)
+	private int totalBlocks;
+	// 현재 블럭(1: 1~5 / 2: 6~10 / 3: 11~15..)
 	private int currentBlock;		
 
 	public Pagination(int page, int records) {   
