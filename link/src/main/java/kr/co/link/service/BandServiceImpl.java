@@ -34,6 +34,7 @@ public class BandServiceImpl implements BandService{
 		return bandDao.getAllLogoImg(num);
 	}
 	
+	// 주석을 추가해 보자!!
 	@Override // 밴드 추가
 	public void addBand(Band band) {
 		
